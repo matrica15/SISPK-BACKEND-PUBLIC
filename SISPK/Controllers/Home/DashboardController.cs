@@ -21,7 +21,7 @@ namespace SISPK.Controllers.Home
             var year_now = (DateTime.Now.Year);
             var IS_KOMTEK = Convert.ToInt32(Session["IS_KOMTEK"]);
             var USER_KOMTEK_ID = Convert.ToInt32(Session["KOMTEK_ID"]);
-            var AktifData = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM ( SELECT AA.*, ROWNUM NOMOR FROM ( SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID + " AND PROPOSAL_STATUS > 1 ORDER BY PROPOSAL_ID DESC) AA WHERE ROWNUM <= 1 ) WHERE NOMOR > 0").FirstOrDefault();
+            var AktifData = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM ( SELECT AA.*, ROWNUM NOMOR FROM ( SELECT * FROM VIEW_PROPOSAL_DASHBOARD WHERE PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID + " AND PROPOSAL_STATUS > 1 ORDER BY PROPOSAL_ID DESC) AA WHERE ROWNUM <= 1 ) WHERE NOMOR > 0").FirstOrDefault();
             var JML_MTPS = db.Database.SqlQuery<int>("SELECT CAST(COUNT(*) AS INT) FROM TRX_PROPOSAL WHERE PROPOSAL_STATUS = 2 " + ((IS_KOMTEK == 1) ? " AND PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID : "")).FirstOrDefault();
             var JML_PNPS = db.Database.SqlQuery<int>("SELECT CAST(COUNT(*) AS INT) FROM TRX_PROPOSAL WHERE PROPOSAL_STATUS = 3 " + ((IS_KOMTEK == 1) ? " AND PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID : "")).FirstOrDefault();
             var JML_RASNI = db.Database.SqlQuery<int>("SELECT CAST(COUNT(*) AS INT) FROM TRX_PROPOSAL WHERE PROPOSAL_STATUS = 10 " + ((IS_KOMTEK == 1) ? " AND PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID : "")).FirstOrDefault();
@@ -69,7 +69,7 @@ namespace SISPK.Controllers.Home
             var start = (param.iDisplayStart == 0) ? 0 : param.iDisplayStart;
 
 
-            string where_clause = "PROPOSAL_STATUS < 11 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) AND KOMTEK_BIDANG_ID = " + BIDANG_ID;
+            string where_clause = "PROPOSAL_STATUS < 11 AND PROPOSAL_STATUS != 9 AND PROPOSAL_STATUS != 10 AND PROPOSAL_STATUS != 11 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) AND KOMTEK_BIDANG_ID = " + BIDANG_ID;
 
             string search_clause = "";
             if (search != "")
@@ -100,9 +100,9 @@ namespace SISPK.Controllers.Home
             if (where_clause != "" || search_clause != "")
             {
                 inject_clause_count = "WHERE " + where_clause + " " + search_clause;
-                inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER FROM (SELECT * FROM VIEW_PROPOSAL WHERE " + where_clause + " " + search_clause + " ORDER BY " + order + " " + sort + ") T1 WHERE ROWNUM <= " + Convert.ToString(limit + start) + ") WHERE ROWNUMBER > " + Convert.ToString(start);
+                inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER FROM (SELECT * FROM VIEW_PROPOSAL_DASHBOARD WHERE " + where_clause + " " + search_clause + " ORDER BY " + order + " " + sort + ") T1 WHERE ROWNUM <= " + Convert.ToString(limit + start) + ") WHERE ROWNUMBER > " + Convert.ToString(start);
             }
-            var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_PROPOSAL " + inject_clause_count);
+            var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_PROPOSAL_DASHBOARD " + inject_clause_count);
             var SelectedData = db.Database.SqlQuery<VIEW_PROPOSAL>(inject_clause_select);
 
             var result = from list in SelectedData
