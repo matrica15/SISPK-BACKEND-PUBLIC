@@ -1,0 +1,52 @@
+﻿<div class="row">
+    <div class="col-md-12 ">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Edit Profil
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-custom ">
+                    <ul class="nav nav-tabs ">
+                        <li class="active">
+                            <a href="#aktif" data-toggle="tab">Tentang Kami</a>
+                        </li>
+                        <li>
+                            <a href="#non-aktif" data-toggle="tab">Kontak Kami</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="aktif">
+                            <form class="form-horizontal form-bordered" id="sispk_form" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <textarea id="PROFILE_TENTANG_KAMI" class="ckeditor form-control" name="PROFILE_TENTANG_KAMI" rows="5" data-error-container="#editor2_error">@ViewBag.profil.PROFILE_TENTANG_KAMI</textarea>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="tab-pane" id="non-aktif">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <textarea id="PROFILE_KONTAK_KAMI" class="ckeditor form-control" name="PROFILE_KONTAK_KAMI" rows="5" data-error-container="#editor2_error">@ViewBag.profil.PROFILE_KONTAK_KAMI</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-2 col-md-9">
+                                    <button class="btn green" type="submit">Simpan Profil</button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+

@@ -1,0 +1,95 @@
+﻿@{
+    var Detail = ViewBag.detail;
+    }
+<style>
+    .select2-selection--single {
+        height: 100% !important;
+    }
+
+    .select2-selection__rendered {
+        word-wrap: break-word !important;
+        text-overflow: inherit !important;
+        white-space: normal !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Lihat Data Pemeliharaan
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" enctype="multipart/form-data" target="_blank">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nomor Dokumen</label>
+                            <div class="col-md-9 control-label detailtext">
+                               @Detail.MAINTENANCE_DOC_NUMBER
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Terbit</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.MAINTENANCE_DATE_TEXT
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nomor SNI</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.SNI_NOMOR
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Kaji Ulang</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.MAINTENANCE_REV_DATE_TEXT
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hasil Kaji Ulang</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.DETAIL_RESULT_TEXT
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Laporan</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.MAINTENANCE_REPORT_DATE_TEXT
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Usulan</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.MAINTENANCE_USUL_DATE_TEXT
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <a href="@Url.Action("Index")" class="btn default" type="button">Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+

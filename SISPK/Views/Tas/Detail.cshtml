@@ -1,0 +1,286 @@
+﻿@*@model SISPK.Models.VIEW_BIDANG*@
+@{
+    ViewBag.Title = "Bidang Detail";
+    var Model = ViewBag.tas;
+}
+
+<style>
+    table > thead > tr > th {
+        text-align:center;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i> Detail TAS (Tenaga Ahli Standardisasi)
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="form-username" action="#">
+                    <div class="form-body">
+                       
+                        <div class="form-group">
+                            <label class="control-label col-md-3"><b>Nama</b></label>
+                            <div class="col-md-9 control-label detailtext">                               
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.TAS_NAME</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3"><b>Instansi</b></label>
+                            <div class="col-md-9 control-label detailtext">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.INSTANSI_NAME</label>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3"><b>Alamat</b></label>
+                            <div class="col-md-9 control-label detailtext">
+                              <div class="input-icon right">
+                                    <label class="isi">@Model.TAS_ADDRESS</label>                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3"><b>No. Telepon</b></label>
+                            <div class="col-md-9 control-label detailtext">
+                              <div class="input-icon right">
+                                    <label class="isi">@Model.TAS_PHONE</label>                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3"><b>Fax</b></label>
+                            <div class="col-md-9 control-label detailtext">
+                              <div class="input-icon right">
+                                    <label class="isi">@Model.TAS_FAX</label>                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3"><b>No. HP</b></label>
+                            <div class="col-md-9 control-label detailtext">
+                              <div class="input-icon right">
+                                    <label class="isi">@Model.TAS_HANDPHONE</label>                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3"><b>Email</b></label>
+                            <div class="col-md-9 control-label detailtext">
+                              <div class="input-icon right">
+                                    <label class="isi">@Model.TAS_EMAIL</label>                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3"><b>No. Telepon Kantor</b></label>
+                            <div class="col-md-9 control-label detailtext">
+                              <div class="input-icon right">
+                                    <label class="isi">@Model.TAS_OFFICE_PHONE</label>                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3"><b>Alamat Kantor</b></label>
+                            <div class="col-md-9 control-label detailtext">
+                              <div class="input-icon right">
+                                    <label class="isi">@Model.TAS_OFFICE_ADDRESS</label>                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-offset-1 col-md-12" style="text-align:left;"><b>ICS</b></label>                            
+                        </div>
+
+                      <div class="form-group">
+                             <div class="col-md-12">
+                                 <table class="table table-bordered">
+                                     <thead>
+                                         <tr>
+                                             <th>No</th>
+                                             <th>Nama ICS IND</th>
+                                             <th>Nama ICS ENG</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody>
+                                         @if(ViewBag.ics.Count > 0){
+                                             int a = 1;
+                                             foreach (var list in ViewBag.ics)
+                                             {
+                                             <tr>
+                                                 <td>@a</td>
+                                                 <td>@list.ICS_NAME</td>
+                                                 <td>@list.ICS_NAME_IND</td>
+                                             </tr>
+                                                 a++;
+                                             }
+                                         }
+                                         else
+                                         {
+                                             <tr>
+                                                 <td colspan="3" style="text-align:center">Data tidak tersedia</td>
+                                             </tr>
+                                         }
+                                     </tbody>
+                                 </table>
+                             </div>                            
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-offset-1 col-md-12" style="text-align:left"><b>Riwayat Pendidikan</b></label>                            
+                        </div>
+
+                      <div class="form-group">
+                             <div class="col-md-12">
+                                 <table class="table table-bordered">
+                                     <thead>
+                                         <tr>
+                                             <th>Institusi</th>
+                                             <th>Tahun Lulus</th>
+                                             <th>Bidang Studi</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody>
+                                         @if(ViewBag.education.Count > 0){
+                                              foreach (var list in ViewBag.education)
+                                             {
+                                             <tr>
+                                                 <td>@list.TAS_EDUCATION_INSTITUSI</td>
+                                                 <td>@list.TAS_EDUCATION_YEAR</td>
+                                                 <td>@list.TAS_EDUCATION_PRODI</td>
+                                             </tr>
+                                             }
+                                         }
+                                         else{
+                                         <tr>
+                                             <td colspan="3" style="text-align:center">Data tidak tersedia</td>
+                                         </tr>
+                                         }
+                                     </tbody>
+                                 </table>
+                             </div>                            
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-offset-1 col-md-12" style="text-align:left"><b>Riwayat Pengalaman Kerja</b></label>                            
+                        </div>
+
+                      <div class="form-group">
+                             <div class="col-md-12">
+                                 <table class="table table-bordered">
+                                     <thead>
+                                         <tr>
+                                             <th>Nama institusi/perusahaan</th>
+                                             <th>Tahun</th>
+                                             <th>Bidang/Jabatan</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody>
+                                          @if (ViewBag.pengker.Count > 0)
+                                          {
+                                              foreach (var list in ViewBag.pengker)
+                                             {
+                                             <tr>
+                                                 <td>@list.TAS_RIWAYAT_INSTITUSI_NAME</td>
+                                                 <td>@list.TAS_RIWAYAT_TAHUN</td>
+                                                 <td>@list.TAS_RIWAYAT_BIDANG_JABATAN</td>
+                                             </tr>
+                                             }
+                                         }
+                                         else{
+                                         <tr>
+                                             <td colspan="3" style="text-align:center">Data tidak tersedia</td>
+                                         </tr>
+                                         }
+                                     </tbody>
+                                 </table>
+                             </div>                            
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-offset-1 col-md-12" style="text-align:left"><b>Pelatihan di bidang Standardisasi</b></label>                            
+                        </div>
+
+                      <div class="form-group">
+                             <div class="col-md-12">
+                                 <table class="table table-bordered">
+                                     <thead>
+                                         <tr>
+                                             <th>Jenis Pelatihan</th>
+                                             <th>Tahun</th>
+                                             <th>Penyelenggara</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody>
+                                         @if (ViewBag.pelatihan.Count > 0)
+                                          {
+                                              foreach (var list in ViewBag.pelatihan)
+                                             {
+                                             <tr>
+                                                 <td>@list.TAS_RIWAYAT_JENIS_PELATIHAN</td>
+                                                 <td>@list.TAS_RIWAYAT_TAHUN</td>
+                                                 <td>@list.TAS_RIWAYAT_PENYELENGGARA</td>
+                                             </tr>
+                                             }
+                                         }
+                                         else{
+                                         <tr>
+                                             <td colspan="3" style="text-align:center">Data tidak tersedia</td>
+                                         </tr>
+                                         }
+                                     </tbody>
+                                 </table>
+                             </div>                            
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3"><b>Pengalaman di bidang Standardisasi</b></label>
+                            <div class="col-md-9 control-label detailtext">
+                              <div class="input-icon right">
+                                  @if (ViewBag.pengalaman.Count > 0)
+                                  {
+                                      int no = 1;
+                                      foreach(var list in ViewBag.pengalaman){
+                                    <label class="isi">@no. @list.TAS_RIWAYAT_PENGALAMAN</label><br />
+                                          no++;
+                                  }
+                                  }                                 
+                                  else{
+                                    <label class="isi">-</label>
+                                  }                                    
+                                </div>
+                            </div>                            
+                        </div>                     
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <a href="@Url.Action("Index")" class="btn default" type="button">Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                   
+
+                </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>

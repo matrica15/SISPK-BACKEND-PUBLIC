@@ -1,0 +1,81 @@
+﻿@*@model SISPK.Models.VIEW_ICS*@
+@{
+    ViewBag.Title = "Lihat ICS";
+    var Model = ViewBag.ics_item;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Lihat Detil ICS
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="" method="post">
+                    <div class="form-body"> 
+                        <div class="form-group" id="add">
+                            <label class="control-label col-md-3">Induk/Parent ICS</label>
+                            <div class="col-md-9">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <input type="text" id="parent_now" class="form-control" value="@Model.ICS_PARENT_CODE @Model.ICS_PARENT_NAME" readonly="read-only">
+                                    <input type="hidden" id="ICS_PARENT_CODE" name="ICS_PARENT_CODE" class="form-control" value="@Model.ICS_PARENT_CODE" >
+                                    <input type="hidden" id="ICS_ID" name="ICS_ID" class="form-control" value="@Model.ICS_ID" >
+                                    <input type="hidden" id="ICS_LOG_CODE" name="ICS_LOG_CODE" class="form-control" value="@Model.ICS_LOG_CODE" >
+                                </div>
+                            </div>
+                        </div>          
+                      <div class="form-group" id="ics">
+                            <label class="control-label col-md-3">Kode ICS</label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <input type="text" id="ICS_CODE" name="ICS_CODE" class="form-control wajib" value="@Model.ICS_CODE">
+                                </div>
+                            </div>
+                        </div>        
+                        <div class="form-group" id="cin">
+                            <label class="control-label col-md-3">Nama ICS (Bahasa Inggris)</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    <input type="text" id="ICS_NAME" name="ICS_NAME" class="form-control wajib" value="@Model.ICS_NAME">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="cin">
+                            <label class="control-label col-md-3">Nama ICS (Bahasa Indonesia)</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    <input type="text" id="ICS_NAME_IND" name="ICS_NAME_IND" class="form-control wajib" value="@Model.ICS_NAME_IND">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="thn">
+                            <label class="control-label col-md-3">Tahun</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    <input type="text" id="ICS_YEAR" name="ICS_YEAR" class="form-control wajib" value="@Model.ICS_YEAR">
+                                </div>
+                            </div>
+                        </div>
+                                                                       
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn purple" type="submit"><i class="fa fa-check"></i>Simpan</button>
+                                    <a href="@Url.Action("Index")" class="btn default" >Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>

@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Usulan/Perumusan yang dibatalakan";
+}
+
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Daftar Pemeliharaan SNI
+                </div> 
+                <div class="actions">
+                    <a class="btn btn-warning " href="@Url.Action("create")">
+                        <i class="fa fa-plus"></i>Buat Pemeliharaan</a>
+                </div>              
+            </div>
+            
+            <div class="portlet-body">
+                @*<div class="tabbable-custom ">*@
+                   @* <ul class="nav nav-tabs ">
+                        <li class="active">
+                            <a href="#aktif" data-toggle="tab" >SNI Belum Publikasi</a>
+                        </li>
+                        <li>
+                            <a href="#non-aktif" data-toggle="tab" >SNI Sudah Publikasi</a>
+                        </li>
+                    </ul>       *@            
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="aktif">
+                            <table class="table table-striped table-bordered table-hover" id="pembatalan">
+                                <thead>
+                                    <tr>                                        
+                                        <th width="15%" class="text-center">Nomor Dokumen</th>
+                                        <th width="15%" class="text-center">Tanggal </th>
+                                        <th width="20%" class="text-center">NOMOR SNI </th> 
+                                        <th width="15%" class="text-center">Tanggal Laporan</th>
+                                        <th width="20%" class="text-center">Pemeliharaan</th>
+                                        <th width="10%" class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                         </div>
+                        
+                        @*<div class="tab-pane" id="non-aktif">
+                            <table class="table table-striped table-bordered table-hover" id="sni2">
+                                <thead>
+                                    <tr>                                        
+                                        <th width="30%" class="text-center">NOMOR SK </th>
+                                        <th width="30%" class="text-center">Tanggal SK</th>                                        
+                                        <th width="15%" class="text-center">Jumlah SNI</th>                                                                                
+                                        <th width="15%" class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                            </table>*@
+                         </div>                
+                    </div>
+                @*</div>*@
+            </div>
+           
+        </div>
+
+
+    </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var table1 = $('#pembatalan');
+        var oTable = table1.dataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Sni/Pemeliharaan/listPemeliharaan",
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+                $('.kolom').css('width', '10%');
+                $('.kolom2').css('width', '5%');
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [2]
+            }],
+            "order": [
+                [1, 'desc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+
+        var tableWrapper = $('.dataTables_wrapper');
+        tableWrapper.find('.dataTables_length select').select2();
+    });
+
+
+</script>

@@ -1,0 +1,208 @@
+﻿@{
+    var Model = ViewBag.regulasi;
+    }
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Edit Regulasi Teknis
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">No SK<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" name="RETEK_NO_SK" id="RETEK_NO_SK" class="form-control wajib" value="@Model.RETEK_NO_SK">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tentang<span class="required">*</span></label>
+                            <div class="col-md-9">
+                                <textarea id="RETEK_TENTANG" class="form-control wajib" name="RETEK_TENTANG">@Model.RETEK_TENTANG</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Pilih Regulasi <span class="required">*</span></label>
+                            <div class="col-md-8">
+                                <select class="form-control select2me wajib" id="RETEK_REGULATOR" name="RETEK_REGULATOR" placeholder="Pilih Regulator">
+                                    <option value="">-- Pilih Regulator --</option>
+                                    @foreach (var reg in ViewBag.listregulasi)
+                                    {                                          
+                                        <option value="@reg.INSTANSI_ID" selected="(@Model.RETEK_REGULATOR == @reg.INSTANSI_ID)?'selected':''">@reg.INSTANSI_NAME</option>                         
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Lampiran Regulasi Teknis<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label id="show_filename" class="control-label newlabel"><a href='../../../@(Model.RETEK_FILE != null ? @Model.DOC_FILE_PATH+""+@Model.DOC_FILE_NAME+"."+@Model.DOC_FILETYPE : "javascript()")' download>@Model.DOC_FILE_NAME.@Model.DOC_FILETYPE</a></label>
+                                    <input type="file" name="file_regtek" id="file_regtek" class="" accept="application/pdf">
+                                    <a class="btn yellow" id="ganti">Ganti file</a>
+                                    <input type="hidden" name="name_file_previous" value="@Model.DOC_ID">
+                                </div>
+                                <span id="noti" style="font-size:10px;color:red">file yang dapat di upload hanya PDF</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Keterangan</label>
+                            <div class="col-md-9">
+                                <textarea id="RETEK_KETERANGAN" class="form-control" name="RETEK_KETERANGAN">@Model.RETEK_KETERANGAN</textarea>
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Pilih SNI <span class="required">*</span></label>
+                            <div class="col-md-8">
+                                <select multiple class="form-control select2me" id="RETEK_DETAIL_SNI_ID" name="RETEK_DETAIL_SNI_ID" placeholder="Pilih SNI">
+                                    @foreach (var sni in ViewBag.listSNI)
+                                    {                                           
+                                        <option value="@sni.SNI_ID">@sni.SNI_NOMOR @sni.SNI_JUDUL</option>                                           
+                                    }
+                                </select>
+                            </div>
+                        </div>*@
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Pilih SNI <span style="color: red;">*</span></label>
+                            <div class="col-md-6">
+                                <div class="input-icon right">
+                                    <input class="form-control" type="text" id="sni_terkait_display">
+                                    <input type="hidden" value="@Model.RETEK_ID" name="RETEK_ID"/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="sni_show">
+                            <label class="control-label col-md-3"></label>
+                            <div class="col-md-9">
+                                <div class="input-icon right" id="sni_name">
+                                    @foreach (var sni in ViewBag.listSNI)
+                                    {
+                                    <label class="col-md-12" id="sni_@sni.RETEK_DETAIL_SNI_ID" >@sni.SNI_NOMOR. @sni.SNI_JUDUL 
+							            <input type="hidden" class="list_sni" name="RETEK_DETAIL_SNI_ID" value="@sni.RETEK_DETAIL_SNI_ID"><a onclick="remove_sni(@sni.RETEK_DETAIL_SNI_ID)" style="color:red;font-size:8px" href="javascript:void(0)"><i class="glyphicon glyphicon-remove"></i></a>
+						            </label>
+                                    }
+                                </div>
+                            </div>
+                        </div>         
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="submit">Simpan</button>
+                                    <a class="btn red" type="button" href="@Url.Action("index")">Batal</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $('document').ready(function () {
+
+        $('#file_regtek').hide();
+        $('#noti').hide();
+        $('#ganti').click(function () {
+            $('#file_regtek').show();
+            $('#ganti').hide();
+            $('#show_filename').hide();
+            $('#noti').show();
+        })
+    });
+
+    jQuery('.numbersOnly').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+
+    $(function () {
+
+        $('#sni_list').hide();
+
+        var custom = new Bloodhound({
+            datumTokenizer: function (d) { return d.tokens; },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: '../getsni?q=%QUERY'
+        });
+
+        custom.initialize();
+
+        if (Metronic.isRTL()) {
+            $('#sni_terkait_display').attr("dir", "rtl");
+        }
+        $('#sni_terkait_display').typeahead(null, {
+            name: 'sni_terkait_display',
+            displayKey: 'name_sni',
+            source: custom.ttAdapter(),
+            templates: {
+                suggestion: Handlebars.compile([
+                  '<div class="col-md-12 form-control media">',
+                        '<div class="media-body">',
+                            '<p>{{name_sni}}</p>',
+                        '</div>',
+                  '</div>',
+                ].join(''))
+            }
+        }).on('typeahead:selected', function (ev, selected) {
+            $('#sni_terkait_display').val('');
+            $('#sni_terkait_value').val(selected.id_sni);
+            //$('#sni_name').html("<label class='control-label col-md-3'>"+selected.code_ics+" <span style='color:red;vertical-align:top;font-weight:bold;font-size:10px'>x</span></label>");
+            $('#sni_list').show();
+            var n = 0;
+            $('.list_sni').each(function () {
+                if (selected.id_sni == $(this).val()) { n++; }
+            });
+            if (n > 0) {
+                alert("SNI sudah ada di list");
+            } else {
+                var hasil = '<label class="col-md-12" id="sni_' + selected.id_sni + '" >' + (n + 1) + '.' + selected.code_sni + '<br/>' + selected.name_sni +
+							'<input type="hidden" class="list_sni" name="RETEK_DETAIL_SNI_ID" value="' + selected.id_sni + '"><a onclick="remove_sni(' + selected.id_sni + ')" style="color:red;font-size:8px" href="javascript:void(0)"><i class="glyphicon glyphicon-remove"></i></a>' +
+						'</label>';
+                $('#sni_name').append(hasil);
+            }
+
+            return false;
+        });
+
+        $('#sni_terkait_display').focus(function () {
+            //$(this).select();
+            $(this).val('');
+        });
+
+        $('#sni_terkait_display').blur(function () {
+            if ($('#sni_terkait_value').val() == '') {
+                $(this).val('');
+            }
+
+        });
+
+        $('#sni_terkait_display').keydown(function () {
+            $('#sni_terkait_value').val("");
+        });
+    });
+
+    function remove_sni(id) {
+        $('#sni_' + id).remove();
+        $('#sni_terkait_display').val('');
+    }
+</script>
+

@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Detail Acuan Non SNI";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Detail Acuan Non SNI
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="" action="Create" method="">
+                    <div class="form-body"> 
+
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Type</label>
+                            <div class="col-md-7">
+                                <div class="input-icon right">
+                                    <label class="isi">@ViewBag.ans.ACUAN_NON_SNI_TYPE</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Nomor Standar</label>
+                            <div class="col-md-7">
+                                <div class="input-icon right">
+                                    <label class="isi">@ViewBag.ans.ACUAN_NON_SNI_NO_STANDAR</label>
+                                </div>
+                            </div>
+                        </div> 
+                        
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Judul</label>
+                            <div class="col-md-7">
+                                <div class="input-icon right">
+                                    <label class="isi">@ViewBag.ans.ACUAN_NON_SNI_JUDUL</label>
+                                </div>
+                            </div>
+                        </div>                        
+                        
+                                                                       
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                     <a href="@Url.Action("Index")" class="btn default" >Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<script>
+    
+</script>

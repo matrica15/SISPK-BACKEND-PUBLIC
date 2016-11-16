@@ -1,0 +1,154 @@
+﻿@using SISPK.Helpers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var Detail = ViewBag.DataProposal;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Penyusunan RSNI 1
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" action="" method="post" enctype="multipart/form-data">
+                    <div class="form-group adopsi" style="display: none;">
+                        <label class="control-label col-md-3">No SNI</label>
+                        <div class="col-md-9">
+                            <div class="help-block" style="font-size: 14px !important; color: #333333;">
+                                @Detail.PROPOSAL_NOMOR_STANDAR
+                            </div>
+                            <div class="help-block">
+                                Sebutkan standar ISO/EIC/SDO lain (Misalnya ASTM) yang akan diadopsi. (beri nomor standar, tahun terbitan dan judul standar yang akan diadopsi secara identik.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Judul PNPS <span class="required">*</span></label>
+                        <div class="col-md-9 control-label detailtext">
+                            @Detail.PROPOSAL_JUDUL_PNPS
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Ruang Lingkup <span class="required">*</span></label>
+                        <div class="col-md-9 control-label detailtext">
+                            @Detail.PROPOSAL_RUANG_LINGKUP
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Tanggal Usulan</label>
+                        <div class="col-md-9 control-label detailtext">
+                            @Detail.PROPOSAL_CREATE_DATE_NAME
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Lihat Detail Usulan</label>
+                        <div class="col-md-9">
+                            <div class="help-block" style="font-size: 14px !important; color: #333333;">
+                                <div class="help-block">
+                                    <a href="~/Pengajuan/Usulan/Detail/12" target="_blank" style="color: green;">Klik Disini Untuk Lihat Usulan Detail</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Referensi</label>
+                        <div class="col-md-9">
+                            <div class="help-block" style="font-size: 14px !important; color: #333333;">
+                                <div class="help-block">
+                                    <a href="javascript:;" style="color: green;" onclick="lihatreferensi()">Lihat Referensi
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group last susunrsnilayout">
+
+                        <div class="col-md-12 deflayout">
+                            <textarea class="ckeditor form-control allow_html" name="editor2" id="editor2" rows="10" data-error-container="#editor2_error">
+                                <p style="text-align:center"><span style="font-size:20px"><strong>RSNI 1</strong></span></p>
+                                <p style="text-align: center;"><span style="font-size:20px"><strong>@Detail.PROPOSAL_JUDUL_PNPS</strong></span></p><p>&nbsp;</p></textarea>
+                            <div id="editor2_error">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <button class="btn green konfirmasi" type="button" value="1">Save As Draft</button>
+                                <button class="btn purple konfirmasi" type="button" value="2">Selesai</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    CKEDITOR.disableAutoInline = true;
+    jQuery(document).ready(function () {
+
+
+        $('.sidebar-toggler-wrapper').click();
+    });
+    function set_jalur(ini) {
+        var value = $(ini).val();
+        if ($(ini).is(":checked")) {
+            if (value == 2) {
+                $('#PROPOSAL_JALUR_2').val(1);
+                $('.adopsi').slideDown();
+            }
+        } else {
+            if (value == 2) {
+                $('#PROPOSAL_JALUR_2').val(0);
+                $('.adopsi').slideUp();
+            }
+        }
+
+    }
+    function sethakpaten() {
+        var value = $('input[name="PROPOSAL_IS_HAK_PATEN"]:checked').val();
+        if (value == 1) {
+            $('.PROPOSAL_IS_HAK_PATEN_DESC').slideDown();
+        } else {
+            $('.PROPOSAL_IS_HAK_PATEN_DESC').slideUp();
+            $('#PROPOSAL_IS_HAK_PATEN_DESC').val('');
+        }
+
+    }
+    function lihatreferensi() {
+        $('.dropdown-toggle').click();
+        $('.susunrsnilayout').find('.deflayout').removeClass('col-md-6').addClass('col-md-12');
+        $('.newlayout').remove();
+    }
+    function openreferensi() {
+        $('.susunrsnilayout').find('.deflayout').removeClass('col-md-12').addClass('col-md-6');
+        $('.susunrsnilayout').append('<div class="col-md-6 newlayout" style="border-left:none;"><div id="editor1" contenteditable="false"><h1 style="text-align: center;">10 Manfaat Susu Untuk Kesehatan Tubuh</h1><p>&nbsp;</p><p>Susu adalah salah satu produk olahan protein hewani yang berasal dari sapi. Susu merupakan produk komersil yang saat ini sangat mudah untuk ditemukan. usu identik dengan hasil perahan sapi, namun sekarang olahan susu sudah banyak didapatkan dari sumber protein lain, seperti&nbsp;manfaat susu kedelai&nbsp;yang mengandung protein nabati.&nbsp;Ada beberapa informasi yang tidak akurat yang berkembang pada&nbsp;masyarakat umum tentang dampak negatif susu, padahal manfaat susu sangat baik untuk kesehatan dan sejumlah manfaat lainnya.</p><p><strong>Manfaat Susu Untuk Kesehatan</strong></p><p><strong>1. Sumber Kalsium dan Protein</strong></p><p>Beberapa produk susu mengandung kalsium dan protein dengan&nbsp;tingkat tinggi, lebih dari kebutuhan harian yang terhadap zat ini. Bahkan produk olahan usu yang rendah lemak, seperti<a href="http://manfaat.co.id/manfaat-yoghurt" title="Manfaat Yoghurt"> manfaat yogurt</a>&nbsp;atau&nbsp;keju rendah lemak. Hanya secangkir &nbsp;yogurt plain tanpa lemak misalnya, memberikan sepertiga dari asupan kalsium harian yang disarankan dari 17% estimasi asupan protein harian.</p><p><strong>2. Menjaga Kesehatan Gigi dan Tulang</strong></p><p>Kalsium di dalam susu merupakan zat yang paling penting untuk kesehatan tulang. Kalsium tidak hanya baik untuk pertumbuhan tulang pada anak-anak, namun emikian juga pada orang&nbsp;dewasa sangat dibutuhkan untuk menjaga kekuatan&nbsp;tulang dan mencegah terjadinya resiko osteoporosis.</p><p>Harap diperhatikan saat membeli susu, pilihlah susu dengan tambahan vitamin D di dalamnya untuk membantu penyerapan kalsium di dalam tubuh. &nbsp;Kalsium ni juga membantu menjaga gigi tumbuh dengan sehat dan mencegahnya berlubang.</p><p><strong>3. Memperbaiki Tekanan Darah</strong></p><p>Penelitian yang dilakukan&nbsp;di Spanyol pada lebih dari 5.000 orang dewasa, pada mereka yang dilaporkan mengkonsumsi susu rendah lemak, 54% lebih kecil emungkinannya untuk mengembangkan tekanan darah tinggi selama periode dua tahun.</p><p><strong>4. Menjaga Berat Badan</strong></p><p>Banyak orang yang meninggalkan susu pada program dietnya. Padahal penelitian menunjukkan bahwa perempuan yang mengkonsumsi susu rendah lemak atau susu kim, dapat menurunkan berat badan lebih dari mereka yang tidak mengkonsumsi susu. Susu &nbsp;dapat menjadi camilan sehat dengan menambahkan potongan manfaat buah-buahan ke dalam segelas susu untuk makan malam.</p><p><strong>5. Mengurangi Stress</strong></p><p>Minum susu di akhir hari adalah salah satu cara yang baik, setelah penat seharian beraktivitas. Segelas susu hangat akan membantu mengendurkan otot yang egang dan menenangkan saraf. &nbsp;Jika mungkin anda tidak bisa mendapatkan manfaat kopi karena tidak menyukainya, susu hangat dapat menggantikannya.</p><p><strong>6. Meningkatkan Energi Saat PMS</strong></p><p>Susu baik&nbsp;dikonsumsi saat masa-masa PMS para wanita untuk meningkatkan energi. Wanita yang lebih banyak mendapatkan kalsium dan vitamin D sepanjang ulan dengan minum susu&nbsp;skim atau susu rendah lemak memiliki risiko lebih rendah untuk mengembangkan PMS, menurut sebuah studi dari University of Massachusetts di Amherst.</p><p><strong>7. Mempengaruhi Kesuburan Untuk Mendapatkan Anak</strong></p><div class="g-unit" id="gt-src-c"><div id="gt-src-p"><div class="gt-spell-correct-message" id="spelling-correction">Sedang melakukan program untuk memiliki bayi??&nbsp;Tambahkan susu ke dalam&nbsp;menu makanan ehari-hari.&nbsp;Pada sebuah penelitian di universitas Harvard menemukan, wanita yang mengkonsumsi&nbsp;lebih dari satu porsi susu tinggi lemak sekitar 25%, lebih kecil kemungkinannya untuk menderita masalah ovulasi dibandingkan dengan mereka yang lebih sedikit meminum susu dalam seminggu.</div></div></div><p><strong>Manfaat Susu Yang Lainnya</strong></p><p>Susu tidak hanya berguna untuk pemenuhan kebutuhan gizi untuk tubuh, namun kandungan zat didalam susu ini dapat memberi manfaat&nbsp;lain di luar masalah esehatan, seperti berikut :</p><p><strong>8. Menghilangkan noda Pakaian</strong></p><p>Susu ternyata ampuh untuk menghilangkan noda tinta pada pakaian, karena sejumlah kandungan enzim di dalamnya. Pisahkan baju yang terkena noda, kemudian agian baju yang terkena noda tinta, dicelupkan dulu pada susu sebelum di cuci.</p><p><strong>9. Menjadi kondisioner rambut</strong></p><p>Susu berguna untuk perawatan rambut alami, yang berasal dari banyaknya&nbsp;kandungan enzim pada susu &nbsp;dan juga protein nabati yang menjadikan susu ebagai kondisioner. Tuangkan 1/8 cangkir susu pada rambut setelah keramas, lalu bilas air dengan rambut sampai bersih.</p><p><strong>10. Menutup retakan porselen</strong></p><p>Peralatan porselen kesayangan dirumah bisa saja mengalami keretakan, dan kemudian tidak terpakai bahkan sampai dibuang. Jangan langsung membuang dulu orselen yang retak ini, karena susu dapat membantu merekatkan polselen retak kembali. Caranya : rendam porselen di dalam susu, kemudian panaskan hingga hangat. Setelah itu, matikan api dan tunggu selama semalam. Protein casein di dalam kamdungan susu, mampu menutupi retakan porselen.</p><p style="text-align:center"><strong>Kandugan Nutrisi Susu</strong></p><p>Susu merupakan sumber vitamin dan mineral yang baik, terutama kandungan kalsium. Susu&nbsp;telah lama dikenal dan berperan penting dalam kesehatan tulang.Mengubah asupan susu atas dasar mitos ini, itu&nbsp;berarti tidak perlu harus membatasi minuman yang sangat bergizi ini.</p><p><img alt="manfaat-susu" class="alignleft wp-image-1019" src="http://manfaat.co.id/wp-content/uploads/2014/08/manfaat-susu.jpg" style="float:left; eight:199px; margin-bottom:2px; margin-right:20px; margin-top:2px; width:217px" />Susu atau produk olah susu lainnya, mengandung nutrisi keseimbangan dari protein, lemak dan karbohidrat dan merupakan sumber nutrisi penting, termasuk :</p><ul><li>kalsium</li><li>riboflavin</li><li>fosfor</li><li>vitamin A, dan B12</li><li>kalium</li><li>magnesium</li><li>seng</li></ul><p>Susu telah sejak dulu dijadikan sumber asupan yang menyempurnakan gizi untuk kebutuhan tubuh yaitu 4 sehat, 5 sempurna oleh susu. Atas kepentingan tulah, susu harus dikonsumsi karena manfaatnya yang penting untuk tubuh, sehingga sangat dianjurkan untuk dikonsumsi.</p></div></div>');
+        $('.dropdown-toggle').click();
+        CKEDITOR.inline('editor1');
+        
+    }
+    function cekjenis(ini) {
+        var inivalue = parseInt($(ini).val());
+        if (inivalue == 2 || inivalue == 3) {
+            $('.revisilist').slideDown();
+        } else {
+            $('.revisilist').slideUp();
+        }
+    }
+   
+</script>

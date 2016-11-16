@@ -1,0 +1,132 @@
+﻿@*@model SISPK.Models.VIEW_ANGGOTA*@
+@{
+    ViewBag.Title = "Anggota Detail";
+    var Model = ViewBag.anggota_item;
+}
+<style>
+    .isi {
+        vertical-align:middle;
+        padding-top:5px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Anggota Detail
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="" action="CreateAnggota" method="post">
+                    <div class="form-body"> 
+                      
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nama Anggota</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="hidden" id="KOMTEK_ANGGOTA_KOMTEK_ID" name="KOMTEK_ANGGOTA_KOMTEK_ID" class="form-control wajib" value="@ViewBag.komtek_id">
+                                    <label class="isi">@Model.KOMTEK_ANGGOTA_NAMA</label>
+                                </div>
+                            </div>
+                        </div>
+                                               
+                        <div class="form-group" id="ics">
+                            <label class="control-label col-md-3">Jabatan</label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <label class="isi">@Model.JABATAN</label>                                   
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Instansi</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.KOMTEK_ANGGOTA_INSTANSI</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Alamat</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.KOMTEK_ANGGOTA_ADDRESS</label>                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Telepon</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.KOMTEK_ANGGOTA_TELP</label>                                   
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="form-group" id="cin">
+                            <label class="control-label col-md-3">Fax</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.KOMTEK_ANGGOTA_FAX</label>                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Email</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.KOMTEK_ANGGOTA_EMAIL</label>                                    
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <label class="control-label col-md-3">Stakeholder</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.STAKEHOLDER</label>                                   
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="ics">
+                            <label class="control-label col-md-3">Pendidikan</label>
+                            <div class="col-md-4">
+                                <label class="isi">@Model.PENDIDIKAN</label>
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Keahlian</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.KOMTEK_ANGGOTA_EXPERTISE</label>                                   
+                                </div>
+                            </div>
+                        </div>                        
+                                                                       
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <a href="@Url.Action("DetailKomtek/"+@Model.KOMTEK_ANGGOTA_KOMTEK_ID)" class="btn default" >Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>

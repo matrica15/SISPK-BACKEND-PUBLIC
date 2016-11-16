@@ -1,0 +1,397 @@
+﻿@{
+    ViewBag.Title = "Ubah Akses Role";
+    ViewBag.StyleClass = "";
+    
+}
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Edit Akses Role
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" action="#" method="post">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" style="padding-bottom: 10px;" class="text-center">Nama Akses Role <span style="color: red;">*</span></th>
+                                        <th colspan="6">
+                                            <span class="col-sm-4">
+                                                <input type="text" name="access_name" id="access_name" class="form-control wajib" value="">
+                                            </span>
+                                             <button class="btn green" type="submit">Simpan</button>
+                                            <a class="bg btn btn-red btn-icon icon-left" href="@Url.Action("Index")"><i class="entypo-back"></i>Kembali</a>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th class="text-center">Modul / Menu</th>
+                                        <th class="text-center">
+                                            <label class="checkbox-inline" id="uniform-add_select_all_app_read">
+                                                <input type="checkbox" ref="lihat" id="ck_lihat_all" name="ck_lihat_all" class="cek_all">Lihat</label>
+                                        </th>
+                                        <th class="text-center">
+                                            <label class="checkbox-inline" id="uniform-add_select_all_app_create">
+                                                <input type="checkbox" ref="tambah" id="ck_tambah_all" name="ck_tambah_all" class="cek_all">Tambah</label>
+                                        </th>
+                                        <th class="text-center">
+                                            <label class="checkbox-inline" id="uniform-add_select_all_app_update">
+                                                <input type="checkbox" ref="ubah" id="ck_ubah_all" name="ck_ubah_all" class="cek_all">Ubah</label>
+                                        </th>
+                                        <th class="text-center">
+                                            <label class="checkbox-inline" id="uniform-add_select_all_app_delete">
+                                                <input type="checkbox" ref="hapus" id="ck_hapus_all" name="ck_hapus_all" class="cek_all">Hapus</label>
+                                        </th>
+                                        <th class="text-center">
+                                            <label class="checkbox-inline" id="uniform-add_select_all_app_approve">
+                                                <input type="checkbox" ref="setujui" id="ck_setujui_all" name="ck_setujui_all" class="cek_all">Setujui</label>
+                                        </th>
+                                        <th class="text-center">
+                                            <label class="checkbox-inline" id="uniform-add_select_all_app_print">
+                                                <input type="checkbox" ref="cetak" id="ck_cetak_all" name="ck_cetak_all" class="cek_all">Cetak</label>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.datamenu)
+                                    {
+                                        string menuName = item.MENU_NAME.Replace("_", " ");
+                                        string padding = "10px";
+                                        string bgcolor = "";
+                                        if (item.MENU_LEVEL != 1)
+                                        {
+                                            int padding_int = (@Convert.ToInt16(item.MENU_LEVEL) * 30);
+                                            padding = padding_int + "px";
+                                                
+                                        }else{
+                                            int padding_int = (@Convert.ToInt16(item.MENU_LEVEL) * 20);
+                                            padding = padding_int + "px";
+                                            bgcolor = "background-color: #e2efd9";
+                                        }
+                                        <tr style="@bgcolor">
+
+                                            <td style="padding-left:@padding">
+                                                @menuName
+                                            </td>
+                                            @for (int i = 1; i <= 6; i++)
+                                            {
+                                                var class_checkbox = "";
+                                                var index = i;
+                                                var checkbox_read = "checkbox-" + item.MENU_ID + " checkbox-rud";
+                                                if (i == 1)
+                                                {
+                                                    class_checkbox = "checkbox-lihat";
+                                                    checkbox_read = "";
+                                                }
+                                                else if (i == 2)
+                                                {
+                                                    class_checkbox = "checkbox-tambah";
+                                                }
+                                                else if (i == 3)
+                                                {
+                                                    class_checkbox = "checkbox-ubah";
+                                                }
+                                                else if (i == 4)
+                                                {
+                                                    class_checkbox = "checkbox-hapus";
+                                                }
+                                                else if (i == 5)
+                                                {
+                                                    class_checkbox = "checkbox-setujui";
+                                                }
+                                                else if (i == 6)
+                                                {
+                                                    class_checkbox = "checkbox-cetak";
+                                                }
+                                                int z = 0;
+                                                foreach (var itemdua in ViewBag.datamenuemployee)
+                                                {
+                                                    if (itemdua.ACCESS_DETAIL_MENU_ID == item.MENU_ID && itemdua.ACCESS_DETAIL_TYPE == index)
+                                                    {
+                                                        string cek = (itemdua.ACCESS_DETAIL_STATUS == 1) ? "checked" : "";
+                                                <td class="center">
+                                                    <div align="center">
+                                                        <input type="checkbox" rel="@item.MENU_PARENT_ID" ref="@item.MENU_ID" id="@class_checkbox-@item.MENU_ID" name="menu_selector" value="@item.MENU_ID|@index" @cek class="@class_checkbox @class_checkbox-@item.MENU_PARENT_ID ck_box @checkbox_read">
+                                                    </div>
+                                                </td>
+                                                        z = 1;
+                                                    }
+                                                }
+                                                if (z == 0)
+                                                {
+                                                <td class="center">
+                                                    <div align="center">
+                                                        <input type="checkbox" rel="@item.MENU_PARENT_ID" ref="@item.MENU_ID" id="@class_checkbox-@item.MENU_ID" name="menu_selector" value="@item.MENU_ID|@index" class="@class_checkbox @class_checkbox-@item.MENU_PARENT_ID ck_box @checkbox_read">
+                                                    </div>
+                                                </td>
+                                                }
+                                            }
+                                        </tr>
+                                    }
+
+                                    <tr>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            
+                            <input type="hidden" id="isupdate" value="1">
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $('.ck_box').uniform("remove");
+        cek_all_checkbox();
+
+        $('.indexpage').click(function () {
+            var checkedStatus = $(this).is(':checked');
+            var menuid = $(this).attr('ref');
+            var menuparent = $(this).attr('rel');
+            $('#checkbox-lihat-' + menuid).prop('checked', 'checked');
+            var jenis = 'lihat';
+            cek_cekbox_parent(menuparent, jenis);
+            resetform();
+        });
+
+        $('.cek_all').click(function () {
+            
+            var checkedStatus = $(this).is(':checked');
+            
+            var name = $(this).attr('ref');
+            
+            $('.checkbox-' + name).each(function () {
+               
+                if (checkedStatus) {
+                    $(this).prop('checked', 'checked');
+                }
+                else {
+                    $(this).removeAttr('checked');
+                }
+            });
+            
+            if (name != "lihat") {
+                if (checkedStatus) {
+                    $('#ck_lihat_all').prop('checked', 'checked');
+                }
+            }
+            else {
+                if (!checkedStatus) {
+                    $('.cek_all').each(function () {
+                        $(this).removeAttr('checked');
+                    });
+                }
+            }
+            cek_cekbox_lihat(name);
+            resetform();
+        });
+
+        $('.ck_box').click(function () {
+            var klass = $(this).attr('class');
+            var klass_array = klass.split(' ');
+            var jenis_array = klass_array[0].split('-');
+            var jenis = jenis_array[1];
+            var menuid = $(this).attr('ref');
+            var menuparent = $(this).attr('rel');
+            var checkedStatus = $(this).is(':checked');
+            cek_cekbox_child(menuid, jenis, checkedStatus);
+            cek_cekbox_parent(menuparent, jenis);
+
+            cek_cekbox_lihat(jenis);
+            cek_cekbox_all(jenis);
+            resetform();
+        });
+
+        function cek_cekbox_all(jenis) {
+            
+            if (jenis != "lihat") {
+                
+                var z = 1;
+                $('.checkbox-' + jenis).each(function () {
+                    var checkedStatus = $(this).is(':checked');
+                    if (!checkedStatus) {
+                        z = 0;
+                    }
+                });
+                if (z == 1) {
+                    $("#ck_" + jenis + "_all").prop('checked', 'checked');
+                }
+                else {
+                    $("#ck_" + jenis + "_all").removeAttr('checked');
+                }
+            }
+            else {
+                generate_all_checkbox();
+            }
+            resetform();
+        }
+
+        function generate_all_checkbox() {
+            $('.checkbox-rud').each(function () {
+                var menuid = $(this).attr('ref');
+                var klass = $(this).attr('class');
+                var klass_array = klass.split(' ');
+                var jenis_array = klass_array[0].split('-');
+                var jenis = jenis_array[1];
+                var z = 1;
+                $('.checkbox-' + jenis).each(function () {
+                    var menuid_dua = $(this).attr('ref');
+                    var klass_dua = $(this).attr('class');
+                    var klass_dua_array = klass_dua.split(' ');
+                    var jenis_dua_array = klass_dua_array[0].split('-');
+                    var jenis_dua = jenis_dua_array[1];
+                    if (jenis == jenis_dua) {
+                        var checkedStatus = $(this).is(':checked');
+                        if (!checkedStatus) {
+                            z = 0;
+                        }
+                    }
+                });
+
+                if (z == 1) {
+                    $("#ck_" + jenis + "_all").prop('checked', 'checked');
+                }
+                else {
+                    $("#ck_" + jenis + "_all").removeAttr('checked');
+                }
+            });
+            resetform();
+        }
+
+        function cek_all_checkbox() {
+            
+            $('.ck_box').each(function () {
+                var menuid = $(this).attr('ref');
+                var klass = $(this).attr('class');
+                var klass_array = klass.split(' ');
+                var jenis_array = klass_array[0].split('-');
+                var jenis = jenis_array[1];
+                var z = 1;
+                $('.checkbox-' + jenis).each(function () {
+                    var menuid_dua = $(this).attr('ref');
+                    var klass_dua = $(this).attr('class');
+                    var klass_dua_array = klass_dua.split(' ');
+                    var jenis_dua_array = klass_dua_array[0].split('-');
+                    var jenis_dua = jenis_dua_array[1];
+                    if (jenis == jenis_dua) {
+                        var checkedStatus = $(this).is(':checked');
+                        if (!checkedStatus) {
+                            z = 0;
+                        }
+                    }
+                });
+
+                if (z == 1) {
+                    $("#ck_" + jenis + "_all").prop('checked', 'checked');
+                }
+                else {
+                    $("#ck_" + jenis + "_all").removeAttr('checked');
+                }
+            });
+            resetform();
+        }
+
+        function cek_cekbox_child(menuid, jenis, checkedStatus) {
+
+            if ($('.checkbox-' + jenis + '-' + menuid).length > 0) {
+                $('.checkbox-' + jenis + '-' + menuid).each(function () {
+                    var menuid_lagi = $(this).attr('ref');
+                    var checkedStatus_lagi = $(this).is(':checked');
+                    if (checkedStatus) {
+                        $(this).prop('checked', 'checked');
+                    }
+                    else {
+                        $(this).removeAttr('checked');
+                    }
+                    cek_cekbox_child(menuid_lagi, jenis, checkedStatus);
+                });
+
+            }
+            resetform();
+        }
+
+        function cek_cekbox_parent(menuid, jenis) {
+
+            if ($('.checkbox-' + jenis + '-' + menuid).length > 0) {
+                var z = 0;
+                $('.checkbox-' + jenis + '-' + menuid).each(function () {
+                    var checkedStatus_lagi = $(this).is(':checked');
+                    if (checkedStatus_lagi) {
+                        z = 1;
+                    }
+                });
+
+                if (z == 1) {
+                    $("#checkbox-" + jenis + "-" + menuid).prop('checked', 'checked');
+                }
+                else {
+                    $("#checkbox-" + jenis + "-" + menuid).removeAttr('checked');
+                }
+                var menuparent_lagi = $("#checkbox-" + jenis + "-" + menuid).attr('rel');
+                cek_cekbox_parent(menuparent_lagi, jenis);
+
+            }
+            resetform();
+        }
+
+        function cek_cekbox_lihat(jenis) {
+            if (jenis == "lihat") {
+                $('.checkbox-lihat').each(function () {
+                    var menuid = $(this).attr('ref');
+                    var checkedStatus = $(this).is(':checked');
+                    $('.checkbox-' + menuid).each(function () {
+                        if (!checkedStatus) {
+                            $(this).removeAttr('checked');
+                            $('#indexpage-' + menuid).removeAttr('checked');
+                        }
+                    });
+                });
+            }
+            else {
+                $('.checkbox-rud').each(function () {
+                    var menuid = $(this).attr('ref');
+                    var z = 0;
+                    $('.checkbox-' + menuid).each(function () {
+                        var menuid_dua = $(this).attr('ref');
+                        if (menuid == menuid_dua) {
+                            var checkedStatus = $(this).is(':checked');
+                            if (checkedStatus) {
+                                z = 1;
+                            }
+                        }
+                    });
+                    if (z == 1) {
+                        $("#checkbox-lihat-" + menuid).prop('checked', 'checked');
+                    }
+                });
+
+            }
+            resetform();
+        }
+
+        if ($("#isupdate").val() == false) {
+            $(".btn-blue").hide();
+            $(".form-control").prop("disabled", true);
+            $("input[type='checkbox']").prop("disabled", true);
+        }
+
+        
+    });
+    function resetform() {
+        $.uniform.update();
+    }
+</script>

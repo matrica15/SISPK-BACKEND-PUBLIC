@@ -1,0 +1,175 @@
+﻿@*@model SISPK.Models.VIEW_KOMTEK*@
+@{
+    ViewBag.Title = "Usulan Publik Detail";
+    var Model = ViewBag.uspub;
+    int no = 1;
+    String parcode = Model.T_KOMTEK_PARENT_CODE.Replace("-", "");
+    int parcod = Convert.ToInt32(parcode);
+}
+
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Usulan Publik Detail
+                </div>
+                <div class="actions">
+                    <a class="btn btn-warning " href="../../../Upload/UsulanKomtek/@Model.T_KOMTEK_ATTACHMENT" download>
+                        <i class="fa fa-download"></i>Download Daftar Anggota</a>
+                </div>
+            </div>
+            <div class="portlet-body form">                       
+                            <form class="form-horizontal form-bordered" method="post">
+                                <div class="form-body">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Kode</label>
+                                        <div class="col-md-4">
+                                            <div class="input-icon right">                                               
+                                                <input type="text" id="T_KOMTEK_CODE" name="T_KOMTEK_CODE" class="form-control" value="@Model.T_KOMTEK_CODE">
+                                                <input type="hidden" id="T_KOMTEK_ID" name="T_KOMTEK_ID" class="form-control" value="@Model.T_KOMTEK_ID">
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                     <div class="form-group" id="bidang">
+                                        <label class="control-label col-md-3">Bidang</label>
+                                        <div class="col-md-4">
+                                            <div class="input-icon right">
+                                                @Model.BIDANG_CODE
+                                                @*<input type="text" id="KOMTEK_BIDANG_ID" name="KOMTEK_BIDANG_ID" class="form-control" value="@Model.BIDANG_CODE" readonly="read-only">*@
+                                            </div>
+                                        </div>
+                                    </div>                        
+
+                                    <div class="form-group" id="instansi">
+                                        <label class="control-label col-md-3">Instansi</label>
+                                        <div class="col-md-4">
+                                            <div class="input-icon right">
+                                                @Model.INSTANSI_NAME
+                                                @*<input type="text" id="KOMTEK_INSTANSI_ID" name="KOMTEK_INSTANSI_ID" class="form-control" value="@Model.INSTANSI_NAME" readonly="read-only">*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group" id="ics">
+                                        <label class="control-label col-md-3">ICS</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                @foreach (var ics in ViewBag.komtek_ics)
+                                                {
+                                                   <label class="col-md-12"><b>@no.</b> @ics.ICS_NAME </label>
+                                                    no++;
+                                                }
+                                                @*@Model.ICS_NAME*@
+                                                @*<input type="text" id="KOMTEK_ICS_ID" name="KOMTEK_ICS_ID" class="form-control" value="@Model.ICS_NAME" readonly="read-only">*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @if (parcod != 0)
+                                    {
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Nama Komtek</label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                @Model.PARENT_NAME                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                        }                                    
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Nama @((parcod != 0)?"Sub Komtek":"Komtek")</label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                @Model.T_KOMTEK_NAME
+                                                @*<input type="text" id="KOMTEK_NAME" name="KOMTEK_NAME" class="form-control wajib" value="@Model.KOMTEK_NAME" readonly="read-only">*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                               
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Sekretariat</label>
+                                        <div class="col-md-4">
+                                            <div class="input-icon right">
+                                                @Model.T_KOMTEK_SEKRETARIAT
+                                                @*<input type="text" id="KOMTEK_SEKRETARIAT" name="KOMTEK_SEKRETARIAT" class="form-control" value="@Model.KOMTEK_SEKRETARIAT" readonly="read-only">*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Alamat</label>
+                                        <div class="col-md-9">
+                                            <div class="input-icon right">
+                                                @Model.T_KOMTEK_ADDRESS @*<input type="text" id="KOMTEK_ADDRESS" name="KOMTEK_ADDRESS" class="form-control" value="@Model.KOMTEK_ADDRESS" readonly="read-only">*@
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Telepon</label>
+                                        <div class="col-md-4">
+                                            <div class="input-icon right">
+                                                @Model.T_KOMTEK_PHONE
+                                                @*<input type="text" id="KOMTEK_PHONE" name="KOMTEK_PHONE" class="form-control" value="@Model.KOMTEK_PHONE" readonly="read-only">*@
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Fax</label>
+                                        <div class="col-md-4">
+                                            <div class="input-icon right">
+                                                @Model.T_KOMTEK_FAX
+                                                @*<input type="text" id="KOMTEK_FAX" name="KOMTEK_FAX" class="form-control" value="@Model.KOMTEK_FAX" readonly="read-only">*@
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Email</label>
+                                        <div class="col-md-5">
+                                            <div class="input-icon right">
+                                                @Model.T_KOMTEK_EMAIL
+                                                @*<input type="text" id="KOMTEK_EMAIL" name="KOMTEK_EMAIL" class="form-control" value="@Model.KOMTEK_EMAIL" readonly="read-only">*@
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label class="control-label col-md-3">SK PENETAPAN</label>
+                                        <div class="col-md-6">
+                                            <div class="input-icon right">
+                                                @Model.T_KOMTEK_SK_PENETAPAN
+                                                @*<input type="text" id="KOMTEK_SK_PENETAPAN" name="KOMTEK_SK_PENETAPAN" class="form-control" value="@Model.KOMTEK_SK_PENETAPAN" readonly="read-only">*@
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">TANGGAL</label>
+                                        <div class="col-md-4">
+                                            <div class="input-icon right">
+                                                @Model.T_KOMTEK_TANGGAL_PEMBENTUKAN
+                                                @*<input type="text" id="KOMTEK_TANGGAL_PEMBENTUKAN" name="KOMTEK_TANGGAL_PEMBENTUKAN" class="form-control" value="@Model.KOMTEK_TANGGAL_PEMBENTUKAN" readonly="read-only">*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                       
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-offset-3 col-md-9">
+                                                <button class="btn green" type="submit"><i class="fa fa-check"></i>Setujui</button>
+                                                <a href="@Url.Action("Usulanpublic")" class="btn default" >Kembali</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

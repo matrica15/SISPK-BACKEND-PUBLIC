@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "SNI Style";
+}
+
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Daftar Master SNI Style
+                </div>
+                 <div class="actions">
+                    <a class="btn btn-warning " href="@Url.Action("Create")">
+                        <i class="fa fa-plus"></i>Sni Style Baru </a>
+                </div>
+                               
+            </div>
+
+            <div class="portlet-body">
+                <div class="tabbable-custom ">
+                    @*<ul class="nav nav-tabs ">
+                        <li class="active">
+                            <a href="#aktif" data-toggle="tab" >SK SNI Belum Publikasi</a>
+                        </li>
+                        <li>
+                            <a href="#non-aktif" data-toggle="tab" >SK SNI Sudah Publikasi</a>
+                        </li>
+                    </ul> *@                  
+                    <div class="tab-content">
+                            <table class="table table-striped table-bordered table-hover" id="sni1">
+                                <thead>
+                                    <tr>                                        
+                                        <th width="30%" class="text-center">Nama Style </th>
+                                        <th width="30%" class="text-center">Isi Style</th>                                        
+                                        <th width="15%" class="text-center">Urutan</th>                                                                                
+                                        <th width="15%" class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                            </table>                        
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var table1 = $('#sni1');
+        var oTable = table1.dataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Master/SniStyle/listSNI",
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+                $('.kolom').css('width', '10%');
+                $('.kolom2').css('width', '5%');
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [3]
+            }],
+            "order": [
+                [1, 'desc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+
+                        
+        var tableWrapper = $('.dataTables_wrapper');
+        tableWrapper.find('.dataTables_length select').select2();
+    });
+ 
+
+</script>

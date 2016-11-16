@@ -1,0 +1,84 @@
+﻿@*@model SISPK.Models.VIEW_BIDANG*@
+@{
+    ViewBag.Title = "Edit Bidang";
+
+    var Model = ViewBag.bidang_item;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Edit Bidang
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="Edit" method="post">
+                    <div class="form-body">
+                        @* <div class="form-group">
+                            <label class="control-label col-md-3">Bidang Kode</label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2" placeholder="Pilih Komite Teknis / Subkomite Teknis" id="PROPOSAL_KOMTEK_ID" name="PROPOSAL_KOMTEK_ID">
+                                        <option></option>
+                                       @foreach (var komtek in ViewBag.Komtek)
+                                        {
+                                            if (komtek.KOMTEK_PARENT_CODE == "0")
+                                            {
+                                            <option value="@komtek.KOMTEK_ID">@komtek.KOMTEK_CODE @komtek.KOMTEK_NAME</option>
+                                            }
+                                            else
+                                            {
+                                            <option value="@komtek.KOMTEK_ID">@komtek.KOMTEK_CODE @komtek.KOMTEK_NAME</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        *@
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Bidang Kode <span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="hidden" id="BIDANG_ID" name="BIDANG_ID" class="form-control" value="@Model.BIDANG_ID">
+                                    <input type="text" id="BIDANG_CODE" name="BIDANG_CODE" class="form-control wajib" value="@Model.BIDANG_CODE">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nama Bidang <span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    <input type="text" id="BIDANG_NAME" name="BIDANG_NAME" class="form-control wajib" value="@Model.BIDANG_NAME">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nama Pendek Bidang <span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="BIDANG_SHORT_NAME" name="BIDANG_SHORT_NAME" class="form-control wajib" value="@Model.BIDANG_SHORT_NAME">
+                                </div>
+                            </div>
+                        </div>                       
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button class="btn green" type="submit"><i class="fa fa-check"></i>Simpan</button>
+                                <a href="@Url.Action("Index")" class="btn default" type="button">Kembali</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>

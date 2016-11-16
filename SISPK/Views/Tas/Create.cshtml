@@ -1,0 +1,379 @@
+﻿@{
+    ViewBag.Title = "Tambah TAS (Tenaga Ahli Standardisasi)";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Tambah TAS (Tenaga Ahli Standardisasi)
+                </div>              
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" method="post">
+                    <div class="form-body">                                            
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nama</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">                                    
+                                    <input type="text" id="TAS_NAME" name="TAS_NAME" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+                                               
+                        
+                        <div class="form-group" id="instansi">
+                            <label class="control-label col-md-3">Instansi <span style="color: red;">*</span></label>
+                            <div class="col-md-5">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="TAS_INSTANSI_ID" name="TAS_INSTANSI_ID">
+                                        <option value="">-- Pilih Instansi --</option>
+                                        @foreach (var ist in ViewBag.listinstansi)
+                                        {                                           
+                                            <option value="@ist.INSTANSI_ID">@ist.INSTANSI_CODE @ist.INSTANSI_NAME</option>                                           
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                            <label class="control-label col-md-3">Instansi</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_INSTANSI" name="KOMTEK_ANGGOTA_INSTANSI" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>*@
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Alamat</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <textarea id="TAS_ADDRESS" name="TAS_ADDRESS" class="form-control wajib"> </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Telepon</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="TAS_PHONE" name="TAS_PHONE" class="form-control wajib numbersOnly">
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="form-group" id="cin">
+                            <label class="control-label col-md-3">Fax</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="TAS_FAX" name="TAS_FAX" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Email</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="email" id="TAS_EMAIL" name="TAS_EMAIL" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Alamat Kantor</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <textarea id="TAS_OFFICE_ADDRESS" name="TAS_OFFICE_ADDRESS" class="form-control wajib"> </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Telepon Kantor</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="TAS_OFFICE_PHONE" name="TAS_OFFICE_PHONE" class="form-control wajib numbersOnly">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3">No. Handphone</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="TAS_HANDPHONE" name="TAS_HANDPHONE" class="form-control wajib numbersOnly">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Pilih ICS <span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <select multiple="multiple" class="form-control wajib ICS_ID" id="ICS_ID" name="ICS_ID">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Riwayat Pendidikan<span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:48%;text-align:center">Nama institusi</th>
+                                            <th style="width:12%;text-align:center">Tahun Selesai</th>
+                                            <th style="width:40%;text-align:center">Bidang Studi</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dta_pend">
+                                        <tr id="pend">
+                                            <td><input type="text" class="form-control" id="TAS_EDUCATION_INSTITUSI" name="TAS_EDUCATION_INSTITUSI"/></td>
+                                            <td><input type="text" class="form-control" id="TAS_EDUCATION_YEAR" name="TAS_EDUCATION_YEAR"/></td>
+                                            <td><input type="text" class="form-control" id="TAS_EDUCATION_PRODI" name="TAS_EDUCATION_PRODI"/></td>
+                                            <td><a href="javascript:void(0)" class="removed" data-ref="' + n + '" style="color: #808080 !important;"><i class="glyphicon glyphicon-remove"></i></a></td>
+                                        </tr>
+                                    </tbody>   
+                                </table>
+                                <span class="btn btn-primary" id="btn_pend" data-ref="1">Tambah Data Pendidikan</span><br />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Pengalaman Kerja<span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:48%;text-align:center">Nama institusi/perusahaan</th>
+                                            <th style="width:12%;text-align:center">Tahun</th>
+                                            <th style="width:40%;text-align:center">Bidang/Jabatan</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dta_pengker">
+                                        <tr id="pengker1">
+                                            <td><input type="text" class="form-control" id="TAS_RIWAYAT_INSTITUSI_NAME" name="TAS_RIWAYAT_INSTITUSI_NAME"/></td>
+                                            <td><input type="text" class="form-control" id="TAS_RIWAYAT_TAHUN" name="TAS_RIWAYAT_TAHUN"/></td>
+                                            <td><input type="text" class="form-control" id="TAS_RIWAYAT_BIDANG_JABATAN" name="TAS_RIWAYAT_BIDANG_JABATAN"/></td>
+                                            <td><a href="javascript:void(0)" class="remove" data-ref="' + n + '" style="color: #808080 !important;"><i class="glyphicon glyphicon-remove"></i></a></td>
+                                        </tr>
+                                    </tbody>   
+                                </table>
+                                <span class="btn btn-primary" id="btn_pengker" data-ref="1">Tambah Data Pengalaman Kerja</span><br />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Pelatihan di Bidang Standardisasi<span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:48%;text-align:center">Jenis Pelatihan</th>
+                                            <th style="width:12%;text-align:center">Tahun</th>
+                                            <th style="width:40%;text-align:center">Penyelenggara</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dta-pel">
+                                        <tr id="pel1">
+                                            <td><input type="text" class="form-control" id="TAS_RIWAYAT_JENIS_PELATIHAN" name="TAS_RIWAYAT_JENIS_PELATIHAN"/></td>
+                                            <td><input type="text" class="form-control" id="TAS_RIWAYAT_TAHUN_PEL" name="TAS_RIWAYAT_TAHUN_PEL"/></td>
+                                            <td><input type="text" class="form-control" id="TAS_RIWAYAT_PENYELENGGARA" name="TAS_RIWAYAT_PENYELENGGARA"/></td>
+                                            <td><a href="javascript:void(0)" class="removev" data-ref="' + n + '" style="color: #808080 !important;"><i class="glyphicon glyphicon-remove"></i></a></td>
+                                        </tr>
+                                    </tbody>   
+                                </table>
+                                <span class="btn btn-primary" id="btn_pel" data-ref="1">Tambah Data Pelatihan</span><br />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Pengalaman di Bidang Standardisasi<span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:95%;text-align:center">Pegalaman Bidang Standardisasi</th>
+                                            <th style="width:5%;text-align:center"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dta-peng">
+                                        <tr id="peng1">
+                                            <td><input type="text" class="form-control" id="TAS_RIWAYAT_PENGALAMAN" name="TAS_RIWAYAT_PENGALAMAN"/></td>                                            
+                                            <td><a href="javascript:void(0)" class="removes" data-ref="' + n + '" style="color: #808080 !important;"><i class="glyphicon glyphicon-remove"></i></a></td>
+                                        </tr>
+                                    </tbody>   
+                                </table>
+                                <span class="btn btn-primary" id="btn_peng" data-ref="1">Tambah Data Pengalaman</span><br />
+                            </div>
+                        </div>                       
+                                                                       
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="submit"><i class="fa fa-check"></i>Simpan</button>
+                                    <a href="@Url.Action("Index")" class="btn default" >Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+<script>
+    jQuery('.numbersOnly').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+
+    $("#ICS_ID").select2({
+        //dropdownAutoWidth : true,
+        allowClear: true,
+        //width: '100%',
+        ajax: {
+            url: '/Master/Tas/find_ics',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term, // search term                             
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                return {
+                    results: data.ics_select,
+                    pagination: {
+                        more: (params.page * 10) < data.total_count
+                    }
+                };
+            },
+            cache: true
+        },
+        //minimumInputLength: 2,
+    });
+
+    $("#btn_pend").click(function () {
+        var n = ($(this).attr("data-ref") * 1) + 1;
+        var tr = '<tr id="pend' + n + '">' +
+                    '<td><input type="text" class="form-control" id="TAS_EDUCATION_INSTITUSI' + n + '" name="TAS_EDUCATION_INSTITUSI"/></td>' +
+                    '<td><input type="text" class="form-control" id="TAS_EDUCATION_YEAR' + n + '" name="TAS_EDUCATION_YEAR"/></td>' +
+                    '<td><input type="text" class="form-control" id="TAS_EDUCATION_PRODI' + n + '" name="TAS_EDUCATION_PRODI"/></td>' +
+                    '<td><a href="javascript:void(0)" class="removed" data-ref="' + n + '" style="color: #808080 !important;"><i class="glyphicon glyphicon-remove" ></i></a></td>' +
+                '</tr>'
+        $("#dta_pend").append(tr);
+        $("#btn_pend").attr("data-ref", n);
+        $(".removed").removeAttr("style");
+    })
+
+
+    $('body').on('click', '.removed', function () {
+        var jml = $(".removed").length;
+        var ref = $(this).attr("data-ref");
+        if (jml > 1) {
+            $("#pend" + ref).remove();
+            var n = $(".removed").length;
+            if (n <= 1) {
+                $(".removed").css("color", "#808080 !important;");
+            }
+        } else {
+            return false;
+        }
+    });
+
+    $("#btn_pengker").click(function () {
+        var n = ($(this).attr("data-ref") * 1) + 1;
+        var tr = '<tr id="pengker' + n + '">' +
+                    '<td><input type="text" class="form-control" id="TAS_RIWAYAT_INSTITUSI_NAME' + n + '" name="TAS_RIWAYAT_INSTITUSI_NAME"/></td>' +
+                    '<td><input type="text" class="form-control" id="TAS_RIWAYAT_TAHUN' + n + '" name="TAS_RIWAYAT_TAHUN"/></td>' +
+                    '<td><input type="text" class="form-control" id="TAS_RIWAYAT_BIDANG_JABATAN' + n + '" name="TAS_RIWAYAT_BIDANG_JABATAN"/></td>' +
+                    '<td><a href="javascript:void(0)" class="remove" data-ref="' + n + '" style="color: #808080 !important;"><i class="glyphicon glyphicon-remove" ></i></a></td>' +
+                '</tr>'
+        $("#dta_pengker").append(tr);
+        $("#btn_pengker").attr("data-ref", n);
+        $(".remove").removeAttr("style");
+    })
+
+
+    $('body').on('click', '.remove', function () {
+        var jml = $(".remove").length;
+        var ref = $(this).attr("data-ref");
+        if (jml > 1) {
+            $("#pengker" + ref).remove();
+            var n = $(".remove").length;
+            if (n <= 1) {
+                $(".remove").css("color", "#808080 !important;");
+            }
+        } else {
+            return false;
+        }
+    });
+
+    $("#btn_pel").click(function () {
+        var n = ($(this).attr("data-ref") * 1) + 1;
+        var tr = '<tr id="pel' + n + '">' +
+                    '<td><input type="text" class="form-control" id="TAS_RIWAYAT_JENIS_PELATIHAN' + n + '" name="TAS_RIWAYAT_JENIS_PELATIHAN"/></td>' +
+                    '<td><input type="text" class="form-control" id="TAS_RIWAYAT_TAHUN_PEL' + n + '" name="TAS_RIWAYAT_TAHUN_PEL"/></td>' +
+                    '<td><input type="text" class="form-control" id="TAS_RIWAYAT_PENYELENGGARA' + n + '" name="TAS_RIWAYAT_PENYELENGGARA"/></td>' +
+                    '<td><a href="javascript:void(0)" class="removev" data-ref="' + n + '" style="color: #808080 !important;"><i class="glyphicon glyphicon-remove" ></i></a></td>' +
+                '</tr>'
+        $("#dta-pel").append(tr);
+        $("#btn_pel").attr("data-ref", n);
+        $(".removev").removeAttr("style");
+    })
+
+
+    $('body').on('click', '.removev', function () {
+        var jml = $(".removev").length;
+        var ref = $(this).attr("data-ref");
+        if (jml > 1) {
+            $("#pel" + ref).remove();
+            var n = $(".removev").length;
+            if (n <= 1) {
+                $(".removev").css("color", "#808080 !important;");
+            }
+        } else {
+            return false;
+        }
+    });
+
+    $("#btn_peng").click(function () {
+            var n = ($(this).attr("data-ref") * 1) + 1;
+            var tr = '<tr id="peng' + n + '">' +
+                        '<td><input type="text" class="form-control" id="TAS_RIWAYAT_PENGALAMAN' + n + '" name="TAS_RIWAYAT_PENGALAMAN"/></td>' +
+                        '<td><a href="javascript:void(0)" class="removes" data-ref="' + n + '" style="color: #808080 !important;"><i class="glyphicon glyphicon-remove" ></i></a></td>' +
+                     '</tr>'
+            $("#dta-peng").append(tr);
+            $("#btn_peng").attr("data-ref", n);
+            $(".removes").removeAttr("style");
+        })
+
+
+    $('body').on('click', '.removes', function () {
+        var jml = $(".removes").length;
+            var ref = $(this).attr("data-ref");
+            if (jml > 1) {
+                $("#peng" + ref).remove();
+                var n = $(".removes").length;
+                if (n <= 1) {
+                    $(".removes").css("color", "#808080 !important;");
+                }
+            } else {
+                return false;
+            }
+        });
+</script>

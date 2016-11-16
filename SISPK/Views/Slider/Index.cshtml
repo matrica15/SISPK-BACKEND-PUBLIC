@@ -1,0 +1,233 @@
+﻿<style>
+    .img_besar {
+        position: absolute;
+        z-index: 2;
+    }
+
+    .img_kecil {
+        left: 55%;
+        width: 100%;
+        position: absolute;
+        z-index: 2;
+    }
+
+    .slider_box {
+        position: relative;
+        width: 100%;
+        height: 240px;
+        border: 1px solid #e1e1e1 !important;
+        padding: 10px 10px 10px 10px;
+        background-color: #fff;
+        border-radius: 0px 0px 2px 2px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.22);
+        z-index: 1;
+    }
+
+    .slider_judul {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border: 1px solid #e1e1e1 !important;
+        padding: 10px 10px 10px 10px;
+        background-color: #fff;
+        border-radius: 0px 0px 2px 2px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.22);
+    }
+
+    .action {
+        float: right;
+        padding: 0 0 0 0;
+    }
+</style>
+<div class="row">
+    <div class="container" style="padding-bottom: 10px">
+        <a href="@Url.Action("Upload")">
+            <button type="button" class="btn green"><i class="fa fa-cogs"></i>Upload Image Baru</button></a>
+    </div>
+    @foreach (var i in ViewBag.slider)
+    { 
+        <div class="col-md-6">
+            <div class="portlet light bordered" style="margin-bottom: 0 !important; padding: 0px 20px 0px 10px !important;">
+                <div class="portlet-title">
+                    <div class="caption font-red-sunglo">
+                        <span class="caption-subject bold uppercase" style="font-size: 11px!important">@i.SLIDER_JUDUL</span>
+                    </div>
+                    <div class="actions">
+                        <div class="md-checkbox-inline">
+                            @*<div class="md-checkbox">
+                            <input type="checkbox" id="checkbox6" class="md-check">
+                            <label for="checkbox6">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span>
+                            </label>
+                        </div>*@
+                            <form method="post">
+                                <input type="hidden" class="slider_id" value="@i.SLIDER_ID" />
+                            </form>
+                            @if (i.SLIDER_IMAGE_IS_USE == 1)
+                            { 
+                                <a class="btn btn-circle btn-icon-only red" href="javascript:;" onclick="update_not_use(@i.SLIDER_ID)">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-circle btn-icon-only blue" href="javascript:;" onclick="update_use(@i.SLIDER_ID)">
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                </a> 
+                            }
+                            <a class="btn btn-circle btn-icon-only red" href="javascript:;" onclick="hapus(@i.SLIDER_ID)">
+                                <i class="icon-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider_box">
+                <div class="img_besar" style="z-index: 4">
+                    <img src="../@i.SLIDER_IMAGE_BIG_PATH" alt="Alternate Text" width="98%" height="210px">
+                </div>
+                <div class="img_kecil" style="z-index: 5">
+                    <img src="../@i.SLIDER_IMAGE_SMALL_PATH" alt="Alternate Text" width="38%" height="200px">
+                </div>
+            </div>
+        </div>
+    }
+    @* <div class="col-md-6">
+        <div class="portlet light bordered" style="margin-bottom:0 !important;padding: 0px 20px 0px 10px !important;">
+            <div class="portlet-title">
+                <div class="caption font-red-sunglo">                   
+                    <span class="caption-subject bold uppercase" style="font-size: 11px!important">Indonesia terus tingkatkan pemahaman standar pangan</span>
+                </div>
+                <div class="actions">
+                    <div class="md-checkbox-inline">
+                        <div class="md-checkbox">
+                            <input type="checkbox" id="checkbox6" class="md-check">
+                            <label for="checkbox6">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span>
+                            </label>
+                        </div>
+                        <a class="btn btn-circle btn-icon-only red" href="javascript:;">
+                            <i class="icon-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider_box">
+            <div class="img_besar" style="z-index: 4">
+                <img src="../Upload/IMAGE_SLIDER/GAMBAR_BESAR/opening_3.jpg" alt="Alternate Text" width="98%" height="210px">
+            </div>
+            <div class="img_kecil" style="z-index: 5">
+                <img src="../Upload/IMAGE_SLIDER/GAMBAR_KECIL/2.png" alt="Alternate Text" width="38%" height="200px">
+            </div>
+        </div>
+    </div>   *@
+
+</div>
+
+<script>
+  
+    var text = "";
+    function update_use(id) {
+      
+        $.ajax({
+            type: 'POST',
+            url: "Slider/Use_Slider?id=" + id,
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(status),
+            success: function (data) {
+                //alert(data.status);
+                if (data.status == 1) {
+                    showNotifOke("Slider berhasil dipasang");
+                    setTimeout('window.open("/Portal/Slider","_self")', 1500);
+                }
+                else {
+                    showNotifGagal("Slider gagal dipasang");
+                }
+            }
+        });
+    }
+
+    function update_not_use(id) {
+        //var id = $(".slider_id").val();
+        $.ajax({
+            type: 'POST',
+            url: "Slider/Update_not_use?id=" + id,
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(status),
+            success: function (data) {
+                //alert(data.status);
+                if (data.status == 1) {
+                    showNotifOke("Slider Sudah tidak digunakan");
+                    setTimeout('window.open("/Portal/Slider","_self")', 1500);
+                }
+                else {
+                    showNotifGagal("Slider masih digunakan");
+                }
+            }
+        });
+    }
+
+    function hapus(id) {
+        //var id = $(".slider_id").val();
+        $.ajax({
+            type: 'POST',
+            url: "Slider/hapus?id=" + id,
+            dataType: 'json',
+            contentType: "application/json",
+            //data: JSON.stringify(status),
+            success: function (data) {
+                //alert(data.status);
+                if (data.status == 1) {
+                    showNotifOke("Slider berhasil dihapus");
+                    setTimeout('window.open("/Portal/Slider","_self")', 1500);
+                }
+                else {
+                    showNotifGagal("Slider gagal dihapus");
+                }
+            }
+        });
+    }
+
+    function showNotifOke(text) {
+        var opts = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-right",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        toastr.success(text, "Informasi Simpan Data :", opts);
+    }
+    function showNotifGagal(text) {
+        var opts = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-right",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        toastr.error(text, "Informasi Simpan Data :", opts);
+    }
+</script>
+

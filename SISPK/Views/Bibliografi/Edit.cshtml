@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Tambah Bibliografi";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Tambah Bibliografi
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="Create" method="post">
+                    <div class="form-body"> 
+
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Judul Bibliografi <span style="color: red;">*</span></label>
+                            <div class="col-md-7">
+                                <div class="input-icon right">
+                                    <textarea id="BIBLIOGRAFI_JUDUL" name="BIBLIOGRAFI_JUDUL" class="form-control wajib">@ViewBag.bib.BIBLIOGRAFI_JUDUL</textarea>
+                                    <input type="hidden" name="BIBLIOGRAFI_ID" value="@ViewBag.bib.BIBLIOGRAFI_ID">
+                                </div>
+                            </div>
+                        </div>                       
+                        
+                                                                       
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="submit"><i class="fa fa-check"></i>Simpan</button>
+                                    <a href="@Url.Action("Index")" class="btn default" >Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<script>
+    
+</script>

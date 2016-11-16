@@ -1,0 +1,85 @@
+﻿@{
+    var Model = ViewBag.regtek;
+    int no = 1;
+}
+
+<style>
+    .isi {
+        padding-top: 5px;
+        vertical-align: middle;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Instansi Detail
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="form-username" action="Create" method="post">
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">No SK</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.RETEK_NO_SK</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tentang</label>
+                            <div class="col-md-9">
+                                <label class="isi">@Model.RETEK_TENTANG</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Pilih Regulasi <span class="required">*</span></label>
+                            <div class="col-md-8">
+                                <label class="isi">@Model.REGULATOR</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Keterangan</label>
+                            <div class="col-md-9">
+                                <label class="isi">@Model.RETEK_KETERANGAN</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">SNI Terkait<span class="required">*</span></label>
+                            <div class="col-md-8">
+                                <label class="isi">
+                                    @foreach (var a in ViewBag.regtekdetail)
+                                    { 
+                                        <label class="col-md-12"><b>@no.</b>  @a.SNI_NOMOR @a.SNI_JUDUL </label>
+                                                                    no++;
+                                      
+                                    }
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+
+                                    <a href="@Url.Action("Index")" class="btn default" type="button">Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>

@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "Upload_Slider";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Upload Slider
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Judul <span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" name="NEWS_TITLE" id="NEWS_TITLE" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+										<label class="control-label col-md-3">Gambar Slider Besar</label>
+										<div class="col-md-9">
+											<div class="fileinput fileinput-new" data-provides="fileinput">
+												<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 500px; height: 150px; line-height: 200px;"></div>
+												<div>
+													<span class="btn default btn-file">
+													<span class="fileinput-new">
+													Pilih Gambar </span>
+													<span class="fileinput-exists">
+													Ganti </span>
+													<input type="hidden" value="" name="NEWS_PATH_IMAGE" multiple accept='image/*'><input type="file" name="Image" multiple accept='image/*'>
+													</span>
+													<a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput">
+													Hapus </a>
+												</div>
+											</div>
+											<div class="clearfix margin-top-10">
+												<span class="label label-danger">
+												NOTE! </span>
+												&nbsp;&nbsp;Image preview hanya muncul pada IE10+, FF3.6+, Safari6.0+, Chrome6.0+ and Opera11.1+. untuk browser yang selain itu hanya nama file yang muncul.
+											</div>
+										</div>
+					    </div>
+                        
+                        <div class="form-group ">
+										<label class="control-label col-md-3">Gambar Slider Kecil</label>
+										<div class="col-md-9">
+											<div class="fileinput fileinput-new" data-provides="fileinput">
+												<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 250px; height: 150px; line-height: 150px;"></div>
+												<div>
+													<span class="btn default btn-file">
+													<span class="fileinput-new">
+													Pilih Gambar </span>
+													<span class="fileinput-exists">
+													Ganti </span>
+													<input type="hidden" value="" name="NEWS_PATH_IMAGE" accept='image/*'><input type="file" name="Image" multiple accept='image/*'>
+													</span>
+													<a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput">
+													Hapus </a>
+												</div>
+											</div>
+											<div class="clearfix margin-top-10">
+												<span class="label label-danger">
+												NOTE! </span>
+												&nbsp;&nbsp;Image preview hanya muncul pada IE10+, FF3.6+, Safari6.0+, Chrome6.0+ and Opera11.1+. untuk browser yang selain itu hanya nama file yang muncul.
+											</div>
+										</div>
+					    </div>                        
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button class="btn green" type="submit">Simpan</button>
+                                <a class="btn red" type="button" href="@Url.Action("index")">Batal</a>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+

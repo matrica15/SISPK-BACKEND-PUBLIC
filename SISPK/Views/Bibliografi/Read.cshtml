@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Detail Bibliografi";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Detail Bibliografi
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="" action="Create" method="">
+                    <div class="form-body"> 
+
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Judul Bibliografi</label>
+                            <div class="col-md-7">
+                                <div class="input-icon right">
+                                    <label class="isi">@ViewBag.bib.BIBLIOGRAFI_JUDUL</label>
+                                </div>
+                            </div>
+                        </div>                       
+                        
+                                                                       
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                     <a href="@Url.Action("Index")" class="btn default" >Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<script>
+    
+</script>

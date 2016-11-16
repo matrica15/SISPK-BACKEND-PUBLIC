@@ -1,0 +1,140 @@
+﻿<div class="row">
+    <div class="col-md-12 ">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Daftar Pengguna
+                </div>
+                <div class="actions">
+                    <a class="btn btn-warning " href="@Url.Action("create")">
+                        <i class="fa fa-plus"></i>Pengguna Baru </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-custom ">
+                    <ul class="nav nav-tabs ">
+                        <li class="active">
+                            <a href="#aktif" data-toggle="tab" >Pengguna Aktif </a>
+                        </li>
+                        <li>
+                            <a href="#non-aktif" data-toggle="tab" >Pengguna Tidak Aktif</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="aktif">
+                            <table class="table table-striped table-bordered table-hover" id="list-aktif">
+                                <thead>
+                                    <tr>
+                                        <th width="25%" class="text-center">NAMA</th>
+                                        <th width="25%" class="text-center">USERNAME</th>
+                                        <th width="20%" class="text-center">AKSES ROLE</th>                                       
+                                        <th width="15%" class="text-center">LOGIN TERAKHIR</th>
+                                        <th width="15%" class="text-center">AKSI</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="non-aktif">
+                            <table class="table table-striped table-bordered table-hover" id="list-nonaktif">
+                                <thead>
+                                    <tr>
+                                        <th width="25%" class="text-center">NAMA</th>
+                                        <th width="25%" class="text-center">USERNAME</th>
+                                        <th width="20%" class="text-center">AKSES ROLE</th>                                       
+                                        <th width="15%" class="text-center">LOGIN TERAKHIR</th>
+                                        <th width="15%" class="text-center">AKSI</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var table1 = $('#list-aktif');
+        var oTable = table1.dataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Setting/Pengguna/ListData?status=1",
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [4]
+            }],
+            "order": [
+                [0, 'asc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+
+        var table2 = $('#list-nonaktif');
+        var oTable = table2.dataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Setting/Pengguna/ListData?status=0",
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [4]
+            }],
+            "order": [
+                [0, 'asc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+        var tableWrapper = $('.dataTables_wrapper');
+        tableWrapper.find('.dataTables_length select').select2();
+    });
+ 
+
+</script>

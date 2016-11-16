@@ -1,0 +1,164 @@
+﻿<div class="row">
+    <div class="col-md-12 ">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Daftar Jajak Pendapat
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-custom ">
+                    <ul class="nav nav-tabs ">
+                        <li class="active">
+                            <a href="#menunggu" data-toggle="tab">Daftar Jajak Pendapat </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="menunggu">
+                            <table class="table table-striped table-bordered table-hover" id="menunggutable">
+                                <thead>
+                                     <tr>
+                                        <th class="text-center">Tanggal<br />
+                                            Usulan</th>
+                                        <th class="text-center">Kode<br />
+                                            PNPS</th>
+                                         <th class="text-center">Judul</th>
+                                        <th width="80px" class="text-center">Tanggal<br />
+                                            Publikasi</th>
+                                        <th class="text-center">Publikasi<br />
+                                            Monitoring</th>
+                                         <th width="5%" class="text-center">Jumlah<br />Tanggapan</th>
+                                        <th class="text-center">Tahapan</th>
+                                        <th width="5%" class="text-center">Status</th>
+                                        <th width="80px" class="text-center test">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="9" class="text-right"><a href="javascript:void(0)" class="btn blue btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-file-text-o"></i>Lihat Data </a><a href='javascript:void(0)' class='btn yellow btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Setting Jajak Pendapat'><i class='action fa fa-bar-chart-o'></i> Setting Jajak Pendapat </a><a href="javascript:void(0)" class="btn purple btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Persetujuan Jajak Pendapat"><i class="action fa fa-check"></i>Persetujuan Jajak Pendapat </a><a href="javascript:;" class="btn green btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Cetak"><i class="action fa fa-print"></i>Cetak Data </a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var table1 = $('#menunggutable');
+        var table2 = $('#diterimatable');
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var type = e.target.hash.substr(1);
+            if (type == "menunggu") {
+                table1.DataTable().destroy();
+                table2.DataTable().destroy();
+                var oTable = table1.dataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "bServerSide": true,
+                    "responsive": true,
+                    "sAjaxSource": "/Perumusan/JajakPendapat/DataJajakPendapatPPS",
+                    "language": {
+                        "aria": {
+                            "sortAscending": ": activate to sort column ascending",
+                            "sortDescending": ": activate to sort column descending"
+                        },
+                        "emptyTable": "Data tidak tersedia",
+                        "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                        "infoEmpty": "Menampilkan 0 Data",
+                        "infoFiltered": "",
+                        "lengthMenu": "Menampilkan _MENU_ Data",
+                        "search": "Pencarian:",
+                        "zeroRecords": "Pencarian Tidak Ditemukan",
+                        "sProcessing": "Proses Pengambilan Data",
+                    },
+                    "fnDrawCallback": function () {
+                        jsDefSetting();
+                    },
+                    "columnDefs": [{
+                        "orderable": false,
+                        "targets": [8]
+                    }],
+                    "order": [
+                        [0, 'desc']
+                    ],
+                    "lengthMenu": [
+                        [5, 15, 20, 100],
+                        [5, 15, 20, 100]
+                    ],
+                    "pageLength": 5,
+                });
+                var tableWrapper = $('.dataTables_wrapper');
+                tableWrapper.find('.dataTables_length select').select2();
+            }
+        });
+        var oTable = table1.dataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "responsive": true,
+            "sAjaxSource": "/Perumusan/JajakPendapat/DataJajakPendapatPPS",
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [8]
+            }],
+            "order": [
+                [0, 'desc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+        var tableWrapper = $('.dataTables_wrapper');
+        tableWrapper.find('.dataTables_length select').select2();
+    });
+
+    function cetak_usulan(id) {
+        var usulan = $('.judul_' + id).html();
+        var status = $('a[onclick="cetak_usulan(' + id + ')"]').attr("data-komstatus");
+        var msg = "";
+        if (status == 1) {
+            msg = "<p class='text-center'><b>" + usulan + "</b></p><br/><div class='jenis_report text-center'><a class='btn blue btn-sm' onclick='pilihtipe(1)'>FORMULIR USULAN PNPS</a><a class='btn blue btn-sm' onclick='pilihtipe(2)'>SURAT PENUGASAN KOMTEK</a></div><div class='tipe_report1 text-center tiper' style='display:none;'><br><a class='btn blue btn-sm' target='_blank' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=docx&PROPOSAL_ID=" + id + "'><i class='fa fa-file-word-o'></i> WORD</a><a target='_blank' class='btn btn-danger btn-sm' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=pdf&PROPOSAL_ID=" + id + "'><i class='fa fa-file-pdf-o'></i> PDF</a></div><div class='tipe_report2 text-center tiper' style='display:none;'><br><a target='_blank' class='btn blue btn-sm' href='/Laporan/Export/FORMULIR_PENUGASAN_KOMITE_TEKNIS?Type=docx&PROPOSAL_ID=" + id + "'><i class='fa fa-file-word-o'></i> WORD</a><a target='_blank' class='btn btn-danger btn-sm' href='/Laporan/Export/FORMULIR_PENUGASAN_KOMITE_TEKNIS?Type=pdf&PROPOSAL_ID=" + id + "'><i class='fa fa-file-pdf-o'></i> PDF</a></div>";
+        } else {
+            msg = "<p class='text-center'><b>" + usulan + "</b></p><p class='text-center'><br><a class='btn blue btn-sm' target='_blank' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=docx&PROPOSAL_ID=" + id + "'><i class='fa fa-file-word-o'></i> WORD</a><a target='_blank' class='btn btn-danger btn-sm' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=pdf&PROPOSAL_ID=" + id + "'><i class='fa fa-file-pdf-o'></i> PDF</a></p>";
+        }
+        bootbox.dialog({
+            message: msg,
+            title: "Download Data Usulan",
+            buttons: {
+                danger: {
+                    label: "Batal",
+                    className: "red",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+
+</script>

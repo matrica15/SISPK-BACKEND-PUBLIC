@@ -1,0 +1,181 @@
+﻿@{
+    ViewBag.Title = "Penetapan SNI";
+    var Model = ViewBag.sni;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Edit Penetapan SNI
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Pilih SNI <span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <select multiple="multiple" class="form-control wajib PROPOSAL_ID" id="PROPOSAL_ID" name="PROPOSAL_ID" placeholder="Pilih SNI">
+                                    @foreach (var sni in ViewBag.listsni)
+                                    {
+                                        <option selected="selected" value="@sni.SNI_PROPOSAL_ID">@sni.SNI_NOMOR @sni.SNI_JUDUL</option>                                           
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3">No SK</label>
+                            <div class="col-md-3">
+                                <div class="input-icon right">
+                                    <input type="text" id="SNI_SK_NOMOR" name="SNI_SK_NOMOR" class="form-control wajib" value="@Model.SNI_SK_NOMOR">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Keterangan<span style="color: red;">*</span></label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <textarea id="SNI_SK_KET" name="SNI_SK_KET" class="form-control wajib">@Model.SNI_SK_KET</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Penetapan</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <div class="col-md-4 input-group input-medium date date-picker" data-date-format="yyyy-mm-dd">
+                                        <input type="text" class="form-control wajib" id="SNI_SK_DATE" name="SNI_SK_DATE" value="@((Model.SNI_SK_DATE == null) ? "" : Model.SNI_SK_DATE.ToString("yyyy-MM-dd"))">
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Upload Lampiran SK</label>
+                            <div class="col-md-9 control-label detailtext">
+                               <div id="prev_file">
+                                   @if(Model.DOC_FILE_NAME != null)
+                                   {
+                                   <button class="btn green" id="file_change" type="button"><i class="fa fa-file"></i> Ganti File</button> <span>@Model.DOC_FILE_NAME.@Model.DOC_FILETYPE</span>
+                                   }
+                                   else{
+                                       <button class="btn green" id="file_change" type="button"><i class="fa fa-file"></i> Upload File</button>
+                                    <span>file belum tersedia</span>
+                                   }
+                               </div>                                                               
+                                <input type="file" name="DOC_NAME" id="DOC_NAME" onchange="ValidasiInput(this)" data-ext=".doc,.docx,.jpg,.jpeg,.pdf,.png" class="form-control col-md-3" style="padding: 0px; font-size: 12px; border-radius: 0px;">
+                                <input type="hidden" name="SNI_SK_ID" id="SNI_SK_ID" value="@Model.SNI_SK_ID" />
+                                <input type="hidden" name="SNI_SK_DOC_ID" id="SNI_SK_DOC_ID" value="@Model.SNI_SK_DOC_ID" />
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="submit"><i class="fa fa-check"></i>Simpan</button>
+                                    <a href="@Url.Action("Index")" class="btn default" type="button">Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+    <!-- END PORTLET-->
+</div>
+
+
+
+<script type="text/javascript">
+    //var _validFileExtensions = [".doc", ".docx", ".jpg", ".jpeg", ".png"];
+
+    $("#PROPOSAL_ID").select2({
+        //dropdownAutoWidth : true,
+        allowClear: true,
+        //width: '100%',
+        ajax: {
+            url: '/Penetapan/PenetapanSNI/FindRasni',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                return {
+                    results: data.rasni,
+                    pagination: {
+                        more: (params.page * 10) < data.total_count
+                    }
+                };
+            },
+            cache: true
+        },
+        //minimumInputLength: 2,
+    });
+
+    function ValidasiInput(ini) {
+        var _validFileExtensions = $(ini).attr('data-ext').split(",");
+        var arrInputs = $(ini);
+        for (var i = 0; i < arrInputs.length; i++) {
+            var oInput = arrInputs[i];
+            if (oInput.type == "file") {
+                var sFileName = oInput.value;
+                if (sFileName.length > 0) {
+                    var blnValid = false;
+                    for (var j = 0; j < _validFileExtensions.length; j++) {
+                        var sCurExtension = _validFileExtensions[j];
+                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                            blnValid = true;
+                            break;
+                        }
+                    }
+
+                    if (!blnValid) {
+                        alert("Maaf, " + sFileName + " tidak dapat di Upload, Extensi yang dapat di Upload adalah : " + _validFileExtensions.join(", "));
+                        $(ini).val('');
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+    function send_submit_tipe(res) {
+        $('#SUBMIT_TIPE').val(res);
+    }
+
+    jQuery(document).ready(function () {
+        $("#DOC_NAME").hide();
+
+        $("#file_change").click(function () {
+            $("#prev_file").hide();
+            $("#DOC_NAME").show();
+        })
+
+        bukaloading();
+
+        tutuploading();
+        $('.date-picker').datepicker({
+            orientation: "center",
+            autoclose: true
+        });
+    });
+
+</script>

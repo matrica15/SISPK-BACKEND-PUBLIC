@@ -1,0 +1,159 @@
+﻿<div class="row">
+    <div class="col-md-12 ">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Daftar Standar Nasional Indonesia
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped table-bordered table-hover" id="menunggutable">
+                    <thead>
+                        <tr>
+                            <th class="text-center">No SNI</th>
+                            <th class="text-center">Komtek<br />
+                                Sub Komtek</th>
+                            <th class="text-center">Jenis<br />
+                                Perumusan</th>
+                            <th class="text-center">Judul</th>
+                            <th class="text-center">No SK</th>
+                             <th width="80px" class="text-center test">Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<style>
+    .option_download_content {
+        text-align: center;
+    }
+
+    .link_option_download {
+        font-size: 32px;
+    }
+</style>
+
+
+<div class="modal fade" id="download_doc_option">
+    <div class="modal-dialog" style="width: 250px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Unduh Dokumen</h4>
+            </div>
+            <div class="modal-body">
+                <div style="text-align:center;display:none;" class="opsi_akses_sni">
+                    <select class="form-control wajib col-md-12" data-placeholder="Pilih Tipe Akses Dokumen" id="DOC_ACCESS_ID" name="DOC_ACCESS_ID">
+                        <option value="0">Pilih Tipe Akses Dokumen</option>
+                        @if (ViewBag.ListAkses.Count > 0)
+                        {
+                            foreach (var i in ViewBag.ListAkses)
+                            { 
+                            <option value="@i.DOC_ACCESS_ID">@i.DOC_ACCESS_NAME</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <hr />
+                <div class="option_download_content">
+                    <a class="link_option_download btn btn-info" id="download_docx" href="" target="_blank"><i class="fa fa-file-word-o" style="font-size: 32px;"></i></a>
+                    <a class="link_option_download btn btn-danger" id="download_pdf" href="" target="_blank"><i class="fa fa-file-pdf-o" style="font-size: 32px;"></i></a>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function download(id, tipe, PROPOSAL_ID) {
+        if (tipe == 100) {
+            $('.opsi_akses_sni').show();
+            var DOC_ACCESS_ID = $('#DOC_ACCESS_ID').val();
+            $('#download_docx').attr({ 'href': '/Download/Files/SNIInternal?PROPOSAL_ID=' + PROPOSAL_ID + '&ACCESS_ID=' + DOC_ACCESS_ID + '&TYPE=docx' });
+            $('#download_pdf').attr({ 'href': '/Download/Files/SNIInternal?PROPOSAL_ID=' + PROPOSAL_ID + '&ACCESS_ID=' + DOC_ACCESS_ID + '&TYPE=pdf' });
+        } else {
+            $('.opsi_akses_sni').hide();
+            $('#download_docx').attr({ 'href': '/Document/DocumentList/Download?docId=' + id });
+            $('#download_pdf').attr({ 'href': '/Document/DocumentList/Download?docId=' + id + '&convert=pdf' });
+        }
+        jQuery('#download_doc_option').modal('show');
+    }
+
+    $('.link_option_download').click(function () { $('#download_doc_option').modal('hide'); });
+    jQuery(document).ready(function () {
+        
+
+        var table1 = $('#menunggutable');
+
+        var oTable = table1.dataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "responsive": true,
+            "sAjaxSource": "/Sni/SNIList/GetSni",
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+            },
+            //"columnDefs": [{
+            //    "orderable": false,
+            //    "targets": [8]
+            //}],
+            "order": [
+                [0, 'desc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+        var tableWrapper = $('.dataTables_wrapper');
+        tableWrapper.find('.dataTables_length select').select2();
+    });
+
+    function cetak_usulan(id) {
+        var usulan = $('.judul_' + id).html();
+        var status = $('a[onclick="cetak_usulan(' + id + ')"]').attr("data-komstatus");
+        var msg = "";
+        if (status == 1) {
+            msg = "<p class='text-center'><b>" + usulan + "</b></p><br/><div class='jenis_report text-center'><a class='btn blue btn-sm' onclick='pilihtipe(1)'>FORMULIR USULAN PNPS</a><a class='btn blue btn-sm' onclick='pilihtipe(2)'>SURAT PENUGASAN KOMTEK</a></div><div class='tipe_report1 text-center tiper' style='display:none;'><br><a class='btn blue btn-sm' target='_blank' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=docx&PROPOSAL_ID=" + id + "'><i class='fa fa-file-word-o'></i> WORD</a><a target='_blank' class='btn btn-danger btn-sm' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=pdf&PROPOSAL_ID=" + id + "'><i class='fa fa-file-pdf-o'></i> PDF</a></div><div class='tipe_report2 text-center tiper' style='display:none;'><br><a target='_blank' class='btn blue btn-sm' href='/Laporan/Export/FORMULIR_PENUGASAN_KOMITE_TEKNIS?Type=docx&PROPOSAL_ID=" + id + "'><i class='fa fa-file-word-o'></i> WORD</a><a target='_blank' class='btn btn-danger btn-sm' href='/Laporan/Export/FORMULIR_PENUGASAN_KOMITE_TEKNIS?Type=pdf&PROPOSAL_ID=" + id + "'><i class='fa fa-file-pdf-o'></i> PDF</a></div>";
+        } else {
+            msg = "<p class='text-center'><b>" + usulan + "</b></p><p class='text-center'><br><a class='btn blue btn-sm' target='_blank' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=docx&PROPOSAL_ID=" + id + "'><i class='fa fa-file-word-o'></i> WORD</a><a target='_blank' class='btn btn-danger btn-sm' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=pdf&PROPOSAL_ID=" + id + "'><i class='fa fa-file-pdf-o'></i> PDF</a></p>";
+        }
+        bootbox.dialog({
+            message: msg,
+            title: "Download Data Usulan",
+            buttons: {
+                danger: {
+                    label: "Batal",
+                    className: "red",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+
+</script>

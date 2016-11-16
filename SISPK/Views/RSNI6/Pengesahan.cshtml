@@ -1,0 +1,809 @@
+﻿@{
+    var Detail = ViewBag.DataProposal;
+}
+<style>
+    .select2-selection--single {
+        height: 100% !important;
+    }
+
+    .select2-selection__rendered {
+        word-wrap: break-word !important;
+        text-overflow: inherit !important;
+        white-space: normal !important;
+    }
+
+    .aReference {
+        font-size: 14px;
+        margin: 5px 0 0;
+        font-family: "Open Sans",sans-serif;
+        font-weight: 300;
+        line-height: 1.1;
+        color: inherit;
+    }
+
+    a:hover.aReference {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    a:visited.aReference {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    a:active.aReference {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Pengesahan RSNI 6
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" action="" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kode PNPS</label>
+                            <div class="col-md-9 control-label detailtext">
+                                <input type="hidden" name="PROPOSAL_ID" id="PROPOSAL_ID" value="@Detail.PROPOSAL_ID"/>
+                                <input type="hidden" name="PROPOSAL_KOMTEK_ID" id="PROPOSAL_KOMTEK_ID" value="@Detail.KOMTEK_ID"/>
+                                <input type="hidden" name="PROPOSAL_PNPS_CODE" id="PROPOSAL_PNPS_CODE" value="@Detail.PROPOSAL_PNPS_CODE"/>
+
+                                <a href="javascript:void(0)" style="color: blue; text-decoration: none;" onclick="$('#detail').modal('show')">@Detail.PROPOSAL_PNPS_CODE</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis</label>
+                            <div class="col-md-7 control-label detailtext">
+                                <a href="javascript:void(0)" onclick="detail_komtek(@Detail.KOMTEK_ID)" style="color: blue; text-decoration: none;">@Detail.KOMTEK_CODE @Detail.KOMTEK_NAME</a>
+                            </div>
+                        </div>
+                        @if (ViewBag.ICS.Count > 0)
+                        {
+                            <div class="form-group">
+                                <label class="control-label col-md-3">ICS</label>
+                                <div class="col-md-9" style="padding-top: 20px; padding-bottom: 0px">
+                                    <div class="detailtext">
+                                        <ol style="padding-left: 15px;">
+                                            @foreach (var an in ViewBag.ICS)
+                                            {
+                                                <li>@an.ICS_CODE @((an.ICS_NAME_IND == null) ? an.ICS_NAME : an.ICS_NAME_IND)</li>
+                                            }
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nomor SNI</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.PROPOSAL_NO_SNI_PROPOSAL
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Judul SNI</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.PROPOSAL_JUDUL_SNI_PROPOSAL
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ruang Lingkup</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.PROPOSAL_RUANG_LINGKUP
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Referensi</label>
+                            <div class="col-md-7 control-label detailtext">
+                                <a href="javascript:void(0)" id="bukaref" data-isopen="0" style="color: blue; text-decoration: none;">Buka Referensi</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Jajak Pendapat</label>
+                            <div class="col-md-7 control-label detailtext">
+                                @ViewBag.DataPolling.PROPOSAL_FULL_DATE_NAME.Replace("<br>", " ")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Jumlah Tanggapan</label>
+                            <div class="col-md-7 control-label detailtext">
+                                @ViewBag.DataPolling.POLLING_JML_PARTISIPAN
+                            </div>
+                        </div>
+                        @if (ViewBag.DetailRatek != null)
+                        { 
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Tanggal Rapat Koordinasi</label>
+                                <div class="col-md-3 control-label detailtext">
+                                    @ViewBag.DetailRatek.PROPOSAL_RAPAT_DATE
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Nomor Rapat Koordinasi</label>
+                                <div class="col-md-3 control-label detailtext">
+                                    @ViewBag.DetailRatek.PROPOSAL_RAPAT_NOMOR
+                                </div>
+                            </div>
+                            @if(ViewBag.DefaultDokumen!=null){
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Data Pendukung</label>
+                                <div class="col-md-7 control-label detailtext">
+                                    <ol style="padding-left: 15px;">
+                                        <li><a href="@ViewBag.DefaultDokumen.DOC_FILE_PATH@ViewBag.DefaultDokumen.DOC_FILE_NAME.@ViewBag.DefaultDokumen.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">RSNI 6</a></li>
+                                        <li><a href="@ViewBag.Berita.DOC_FILE_PATH@ViewBag.Berita.DOC_FILE_NAME.@ViewBag.Berita.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Berita Acara</a></li>
+                                        <li><a href="@ViewBag.DaftarHadir.DOC_FILE_PATH@ViewBag.DaftarHadir.DOC_FILE_NAME.@ViewBag.DaftarHadir.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Daftar Hadir</a></li>
+                                        <li><a href="@ViewBag.Notulen.DOC_FILE_PATH@ViewBag.Notulen.DOC_FILE_NAME.@ViewBag.Notulen.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Notulen</a></li>
+                                        @if (ViewBag.DokJp != null)
+                                        { 
+                                            <li><a href="@ViewBag.DokJp.DOC_FILE_PATH@ViewBag.DokJp.DOC_FILE_NAME.@ViewBag.DokJp.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Data Jajak Pendapat</a></li>
+                                        }
+                                    </ol>
+                                </div>
+                            </div>
+                            }
+                        }
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Status Pengesahan Usulan</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    <div class="radio-list">
+                                        <label>
+                                            <input type="radio" class="form-control wajib" name="APPROVAL_TYPE" id="APPROVAL_TYPE_1" value="1">
+                                            <span class="text-success">Lanjut Ke RASNI</span></label>
+                                        <label>
+                                            <input type="radio" class="form-control wajib" name="APPROVAL_TYPE" id="APPROVAL_TYPE_2" value="0">
+                                            <span class="text-danger">Di Batalkan</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="aksi_tidak_disetujui" style="display: none;">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Alasan Di Batalkan</label>
+                                <div class="col-md-9 control-label detailtext">
+                                    <textarea class="form-control" id="APPROVAL_REASON" name="APPROVAL_REASON"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <button class="btn blue btn_approval" name="ButtonSimpan" id="ButtonSimpan1" type="submit" value="0">Simpan</button>
+                                <a class="btn red" href="@Url.Action("Index")">Kembali</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+
+
+
+
+
+<!--Detail DATA-->
+<div class="modal fade bs-modal-lg" id="detail" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Detail Usulan @Detail.PROPOSAL_JUDUL_PNPS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN PORTLET-->
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-gift"></i>Detail Data Pengajuan Usulan
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+                                <!-- BEGIN FORM-->
+                                <div class="portlet-body form">
+                                    <!-- BEGIN FORM-->
+                                    <div class="form-horizontal form-bordered">
+                                        <div class="form-body">
+                                            @if (Detail.PROPOSAL_NO_SNI_PROPOSAL != null)
+                                            {
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Nomor</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_NO_SNI_PROPOSAL == null) ? "-" : Detail.PROPOSAL_NO_SNI_PROPOSAL)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Judul</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_NO_SNI_PROPOSAL == null) ? "-" : Detail.PROPOSAL_JUDUL_SNI_PROPOSAL)
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if (Detail.PROPOSAL_TYPE == 1)
+                                            {
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.KOMTEK_CODE == null) ? "-" : Detail.KOMTEK_CODE + ". " + Detail.KOMTEK_NAME)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Konseptor</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_KONSEPTOR == null) ? "-" : Detail.PROPOSAL_KONSEPTOR)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Institusi Konseptor</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_INSTITUSI == null) ? "-" : Detail.PROPOSAL_INSTITUSI)
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Nama</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_TIM_NAMA == null) ? "-" : Detail.PROPOSAL_TIM_NAMA)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Institusi</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_INSTITUSI == null) ? "-" : Detail.PROPOSAL_INSTITUSI)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Alamat</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_TIM_ALAMAT == null) ? "-" : Detail.PROPOSAL_TIM_ALAMAT)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Telepon</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_TIM_PHONE == null) ? "-" : Detail.PROPOSAL_TIM_PHONE)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Email</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_TIM_EMAIL == null) ? "-" : Detail.PROPOSAL_TIM_EMAIL)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Fax</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_TIM_FAX == null) ? "-" : Detail.PROPOSAL_TIM_FAX)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_KOMTEK_ID == null) ? "Komtek Belum Ditetapkan" : Detail.KOMTEK_CODE + ". " + Detail.KOMTEK_NAME)
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if (ViewBag.ICS.Count > 0)
+                                            {
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">ICS</label>
+                                                    <div class="col-md-9" style="padding-top: 20px">
+                                                        <div class="detailtext">
+                                                            <ol style="padding-left: 15px;">
+                                                                @foreach (var an in ViewBag.ICS)
+                                                                {
+                                                                    <li>@an.ICS_CODE @((an.ICS_NAME_IND == null) ? an.ICS_NAME : an.ICS_NAME_IND)</li>
+                                                                }
+                                                            </ol>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Judul PNPS</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @((Detail.PROPOSAL_JUDUL_PNPS == null) ? "-" : Detail.PROPOSAL_JUDUL_PNPS)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Ruang Lingkup</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @((Detail.PROPOSAL_RUANG_LINGKUP == null) ? "-" : Detail.PROPOSAL_RUANG_LINGKUP)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Jenis Perumusan SNI</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @((Detail.PROPOSAL_JENIS_PERUMUSAN_NAME == null) ? "-" : Detail.PROPOSAL_JENIS_PERUMUSAN_NAME)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Jalur Perumusan SNI</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @((Detail.PROPOSAL_JALUR == null) ? "-" : Detail.PROPOSAL_JALUR_NAME)
+                                                </div>
+                                            </div>
+                                            @if (Detail.PROPOSAL_JALUR == 2)
+                                            {
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Jenis Adopsi</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_JENIS_ADOPSI == null) ? "-" : Detail.PROPOSAL_JENIS_ADOPSI_NAME)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Metode Adopsi</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_METODE_ADOPSI == null) ? "-" : Detail.PROPOSAL_METODE_ADOPSI_NAME)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Standar ISO/IEC/SDO lain yang akan diadopsi secara <b>@((Detail.PROPOSAL_JENIS_ADOPSI_NAME == null) ? "-" : Detail.PROPOSAL_JENIS_ADOPSI_NAME)</b></label>
+                                                    <div class="col-md-9" style="padding-top: 20px">
+                                                        <div class="detailtext">
+                                                            @if (ViewBag.AdopsiList != null)
+                                                            {
+                                                                <ol style="padding-left: 15px;">
+                                                                    @foreach (var ad in ViewBag.AdopsiList)
+                                                                    {
+                                                                        <li>@ad.PROPOSAL_ADOPSI_NOMOR_JUDUL</li>
+                                                                    }
+                                                                </ol>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>-</span>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if (Detail.PROPOSAL_JENIS_PERUMUSAN == 2)
+                                            { 
+                                                <div class="form-group revisi_list">
+                                                    <label class="control-label col-md-3">Nomor Judul SNI yang akan di Revisi</label>
+                                                    <div class="col-md-9" style="padding-top: 20px">
+                                                        <div class="detailtext">
+                                                            @if (ViewBag.RevisiList != null)
+                                                            {
+                                                                <ol style="padding-left: 15px;">
+                                                                    @foreach (var rl in ViewBag.RevisiList)
+                                                                    {
+                                                                        <li>@rl.TEXT</li>
+                                                                    }
+                                                                </ol>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>-</span>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (Detail.PROPOSAL_JENIS_PERUMUSAN == 3)
+                                            {
+                                                <div class="form-group ralat_list">
+                                                    <label class="control-label col-md-3">Nomor Judul SNI yang akan di Ralat</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_RALAT_SNI_ID == null) ? "-" : Detail.PROPOSAL_RALAT_NOMOR + ", " + Detail.PROPOSAL_RALAT_JUDUL)
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (Detail.PROPOSAL_JENIS_PERUMUSAN == 4)
+                                            {
+                                                <div class="form-group amd_list">
+                                                    <label class="control-label col-md-3">Nomor Judul SNI yang akan di Amandemen</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_AMD_SNI_ID == null) ? "-" : Detail.PROPOSAL_AMD_NOMOR + ", " + Detail.PROPOSAL_AMD_JUDUL)
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (Detail.PROPOSAL_JENIS_PERUMUSAN == 5)
+                                            {
+                                                <div class="form-group terjemahan_list">
+                                                    <label class="control-label col-md-3">Nomor Judul SNI yang akan di Terjemahkan</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_TERJEMAHAN_SNI_ID == null) ? "-" : Detail.PROPOSAL_TERJEMAHAN_NOMOR + ", " + Detail.PROPOSAL_TERJEMAHAN_JUDUL)
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if (Detail.PROPOSAL_JALUR > 1)
+                                            { 
+                                                <div class="form-group pasal_list">
+                                                    <label class="control-label col-md-3">Pasal SNI yang di <span class="pasal_list_name"></span></label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_PASAL == null) ? "-" : Detail.PROPOSAL_PASAL)
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Kebutuhan Mendesak</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @((Detail.PROPOSAL_IS_URGENT == null) ? "-" : Detail.PROPOSAL_IS_URGENT_NAME)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Terdapat isi dari standar yang terkait dengan hak paten ?</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @((Detail.PROPOSAL_IS_HAK_PATEN == 1) ? "Ya" : "Tidak")
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Informasi Hak Paten</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @((Detail.PROPOSAL_IS_HAK_PATEN_DESC == null) ? "-" : Detail.PROPOSAL_IS_HAK_PATEN_DESC)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Informasi detail hasil penelitian atau kajian terhadap SNI</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @((Detail.PROPOSAL_INFORMASI == null) ? "-" : Detail.PROPOSAL_INFORMASI)
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Tujuan dan alasan spesifik mengenai perumusan yang akan dilakukan</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @((Detail.PROPOSAL_TUJUAN == null) ? "-" : Html.Raw(Detail.PROPOSAL_TUJUAN))
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Kesesuaian dengan program pemerintah (sebutkan secara terperinci)</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @((Detail.PROPOSAL_PROGRAM_PEMERINTAH == null) ? "-" : Html.Raw(Detail.PROPOSAL_PROGRAM_PEMERINTAH))
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Pihak-pihak utama yang Berkepentingan</label>
+                                                <div class="col-md-9 control-label detailtext" style="padding-top: 20px">
+                                                    @if (Detail.PROPOSAL_PIHAK_BERKEPENTINGAN != null)
+                                                    {
+                                                        string[] PROPOSAL_PIHAK_BERKEPENTINGAN = Detail.PROPOSAL_PIHAK_BERKEPENTINGAN.Split('|');
+                                                        if (PROPOSAL_PIHAK_BERKEPENTINGAN.Count() > 0)
+                                                        {
+                                                        <ol style="padding-left: 15px;">
+                                                            @foreach (string PPB in PROPOSAL_PIHAK_BERKEPENTINGAN)
+                                                            {
+                                                                <li>@PPB</li> 
+                                                            }
+                                                        </ol>
+                                                        }
+                                                        else
+                                                        {
+                                                        <span>-</span>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">SNI Acuan Normatif</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    <div class="detailtext">
+                                                        @if (ViewBag.AcuanNormatif.Count > 0)
+                                                        {
+                                                            <ol style="padding-left: 15px;">
+                                                                @foreach (var an in ViewBag.AcuanNormatif)
+                                                                {
+                                                                    <li>@an.PROPOSAL_REF_JOIN</li>
+                                                                }
+                                                            </ol>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>-</span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Acuan Non SNI</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    <div class="detailtext">
+                                                        @if (ViewBag.AcuanNonNormatif.Count > 0)
+                                                        {
+                                                            <ol style="padding-left: 15px;">
+                                                                @foreach (var an in ViewBag.AcuanNonNormatif)
+                                                                {
+                                                                    <li>@an.PROPOSAL_REF_JOIN</li>
+                                                                }
+                                                            </ol>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>-</span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Bibliografi</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    <div class="detailtext">
+                                                        @if (ViewBag.Bibliografi.Count > 0)
+                                                        {
+                                                            <ol style="padding-left: 15px;">
+                                                                @foreach (var an in ViewBag.Bibliografi)
+                                                                {
+                                                                    <li>@an.PROPOSAL_REF_JOIN</li>
+                                                                }
+                                                            </ol>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>-</span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END FORM-->
+                                </div>
+                                <!-- END FORM-->
+                            </div>
+                        </div>
+                        <!-- END PORTLET-->
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn red btn-sm" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!--Detail DATA-->
+
+<div id="res_data_referensi" style="display: none;" data-jumlah="@ViewBag.Dokumen.Count">
+    @if (ViewBag.Dokumen.Count != 0)
+    {
+        foreach (var i in ViewBag.Dokumen)
+        {
+        <li class="media dok_pen" data-id="@i.DOC_ID">
+            <a class="aReference" target="_blank" href="@i.DOC_FILE_PATH@i.DOC_FILE_NAME.@i.DOC_FILETYPE">
+                <div class="media-body">
+                    <h4 class="media-heading">@i.DOC_NAME</h4>
+                    <div class="media-heading-sub">
+                        @i.DOC_CREATE_NAME
+                    </div>
+                    <div class="isi_dokument_@i.DOC_ID" style="display:none;"></div>
+                </div>
+            </a>
+        </li>
+        }
+    }
+    else
+    {
+        <li class="media" style="background: #4d6178;">
+            <div class="media-body">
+                <div class="media-heading-sub" style="text-align: center;">
+                    Data Tidak Ditemukan
+                </div>
+            </div>
+        </li>
+    }
+</div>
+<div id="res_data_referensi_lain" style="display: none;" data-jumlah="@ViewBag.RefLain.Count">
+    @if (ViewBag.RefLain.Count != 0)
+    {
+        foreach (var i2 in ViewBag.RefLain)
+        {
+        <li class="media dok_pen" data-id="@i2.DOC_ID" >
+            <a class="aReference" target="_blank" href="@i2.DOC_FILE_PATH@i2.DOC_FILE_NAME.@i2.DOC_FILETYPE">
+                <div class="media-body">
+                    <h4 class="media-heading">@i2.DOC_NAME</h4>
+                    <div class="media-heading-sub">
+                        @i2.DOC_CREATE_NAME
+                    </div>
+                    <div class="isi_dokument_@i2.DOC_ID" style="display:none;"></div>
+                </div>
+            </a>
+        </li>
+        }
+    }
+    else
+    {
+        <li class="media" style="background: #4d6178;">
+            <div class="media-body">
+                <div class="media-heading-sub" style="text-align: center;">
+                    Data Tidak Ditemukan
+                </div>
+            </div>
+        </li>
+    }
+</div>
+
+
+<script type="text/javascript">
+    //var _validFileExtensions = [".doc", ".docx", ".jpg", ".jpeg", ".png"];
+
+    function ValidasiInput(ini) {
+        var _validFileExtensions = $(ini).attr('data-ext').split(",");
+        var arrInputs = $(ini);
+        for (var i = 0; i < arrInputs.length; i++) {
+            var oInput = arrInputs[i];
+            if (oInput.type == "file") {
+                var sFileName = oInput.value;
+                if (sFileName.length > 0) {
+                    var blnValid = false;
+                    for (var j = 0; j < _validFileExtensions.length; j++) {
+                        var sCurExtension = _validFileExtensions[j];
+                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                            blnValid = true;
+                            break;
+                        }
+                    }
+
+                    if (!blnValid) {
+                        alert("Maaf, " + sFileName + " tidak dapat di Upload, Extensi yang dapat di Upload adalah : " + _validFileExtensions.join(", "));
+                        $(ini).val('');
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+    function send_submit_tipe(res) {
+        $('#SUBMIT_TIPE').val(res);
+    }
+
+    function cari_dokumen(ini) {
+        var tipe = parseInt($(ini).attr('data-tipe'));
+        var pencarian = $(ini).val();
+        var id = parseInt($('#PROPOSAL_ID').val());
+
+        var formData = { PROPOSAL_ID: id, SEARCH_NAME: pencarian, SEARCH_TIPE: tipe };
+        $.ajax({
+            type: 'POST',
+            url: "/Perumusan/RSNI1/GetContentSearch",
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify(formData)
+        }).done(function (res) {
+            var Dokumen = res.Dokumen;
+            var i = Dokumen.length;
+            var hasil = "";
+            if (i > 0) {
+                for (var d = 0; d < i; d++) {
+                    hasil += '<li class="media dok_pen" data-id="' + Dokumen[d].DOC_ID + '" onclick="openreferensi(' + Dokumen[d].DOC_ID + ');">';
+                    hasil += '<div class="media-body">';
+                    hasil += '<h4 class="media-heading">' + Dokumen[d].DOC_NAME + '</h4>';
+                    hasil += '<div class="media-heading-sub">';
+                    hasil += Dokumen[d].DOC_CREATE_NAME;
+                    hasil += '</div>';
+                    hasil += ' <div class="isi_dokument_' + Dokumen[d].DOC_ID + '" style="display:none;"></div>';
+                    hasil += '</div>';
+                    hasil += '</li>';
+                }
+            } else {
+                hasil += '<li class="media" style="background: #4d6178;">';
+                hasil += '<div class="media-body">';
+                hasil += '<div class="media-heading-sub" style="text-align:center;">';
+                hasil += 'Data Tidak Ditemukan';
+                hasil += '</div>';
+                hasil += '</div>';
+                hasil += '</li>';
+            }
+            if (tipe == 1) {
+                $('ul.data_dok_pendukung').html(hasil);
+            } else {
+                $('ul.data_dok_referensi').html(hasil);
+            }
+        });
+    }
+    function openreferensi(id) {
+        $('.firstactive').click();
+        $('.dropdown-toggle').click();
+        $('.susunrsnilayout').find('.deflayout').removeClass('col-md-12').addClass('col-md-6');
+        var formData = { DOC_ID: id };
+        var IsiContent = "";
+        $.ajax({
+            type: 'POST',
+            url: "/Perumusan/RSNI1/GetContent",
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify(formData)
+        }).done(function (res) {
+            IsiContent = res.data;
+            $('.susunrsnilayout').append('<div class="col-md-6 newlayout" style="border-left:none;"><div id="infodetail" contenteditable="false">' + IsiContent + '</div></div>');
+            CKEDITOR.inline('infodetail');
+        });
+
+
+    }
+
+    jQuery(document).ready(function () {
+
+        bukaloading();
+        //CKEDITOR.disableAutoInline = true;
+        //var ckEditor = CKEDITOR.replace('rsni1content', { height: '300px' });
+
+        var dataref = jQuery('#res_data_referensi').html();
+        var dataref2 = jQuery('#res_data_referensi_lain').html();
+        var datarefjumlah = jQuery('#res_data_referensi').attr("data-jumlah");
+        var dataref2jumlah = jQuery('#res_data_referensi_lain').attr("data-jumlah");
+        $('ul.data_dok_pendukung').html(dataref);
+        $('ul.data_dok_referensi').html(dataref2);
+        $('.dok_pendukung_jml').html(datarefjumlah);
+        $('.dok_referensi_jml').html(dataref2jumlah);
+
+        //ckEditor.on("instanceReady", function (ev) {
+        //    tutupmenu();
+        //    tutuploading();
+        //});
+
+        $('.searchinput').keypress(function (e) {
+            if (e.which == 13) {
+                cari_dokumen(this);
+            }
+        });
+        $('#bukaref').click(function () {
+            var isOpen = parseInt($(this).attr('data-isOpen'));
+            if (isOpen == 1) {
+                $(this).attr('data-isOpen', 0);
+                $(this).html('Buka Referensi');
+            } else {
+                $(this).attr('data-isOpen', 1);
+                $(this).html('Tutup Referensi');
+            }
+            $('body').toggleClass('page-quick-sidebar-open');
+        });
+        //tutupmenu();
+        tutuploading();
+        $('[name="APPROVAL_TYPE"]').click(function () {
+            var res = $(this).val();
+            if (res == 1) {
+                $('.aksi_tidak_disetujui').slideUp("fast", function () {
+                    $('[name="APPROVAL_TYPE"]').removeClass('wajib');
+                    $('#APPROVAL_REASON').removeClass('wajib');
+                    $('.aksi_publikasi').slideDown("fast", function () {
+                        $('#POLLING_START_DATE').addClass('wajib');
+                        $('#POLLING_END_DATE').addClass('wajib');
+                    });
+                });
+
+            } else {
+                $('.aksi_tidak_disetujui').slideDown("fast", function () {
+                    $('[name="APPROVAL_TYPE"]').addClass('wajib');
+                    $('#APPROVAL_REASON').addClass('wajib');
+                    $('.aksi_publikasi').slideUp("fast", function () {
+                        $('#POLLING_START_DATE').removeClass('wajib');
+                        $('#POLLING_END_DATE').removeClass('wajib');
+                    });
+                });
+            }
+        });
+        $('.date-picker').datepicker({
+            orientation: "center",
+            autoclose: true
+        });
+    });
+
+</script>

@@ -1,0 +1,212 @@
+﻿@{
+    var Model = @ViewBag.lemins;
+    int no = 1;   
+}
+<style>
+    .isi {
+        padding-top: 5px;
+        vertical-align: middle;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Detail Laboratorium / Lembaga Inspeksi
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">No LPK</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.LPK_NOMOR</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nama LPK</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label>@Model.LPK_NAMA</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Provinsi</label>
+                            <div class="col-md-4">
+                                <label class="isi">@((Model.LPK_KABUPATENKOTA == null)?"-":ViewBag.Provinsi.WILAYAH_NAMA)</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="kotakab" class="col-md-3 control-label">Kota / kabupaten </label>
+                            <div class="col-md-4">
+                               <label class="isi">@((Model.LPK_PROVINSI == null)?"-":ViewBag.Kabupaten.WILAYAH_NAMA)</label>
+                            </div>
+                        </div>
+
+                       
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Telepon</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label>@Model.LPK_TELEPON</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fax</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label>@Model.LPK_FAX</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kode POS</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label>@Model.LPK_KODE_POS</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kontak Person</label>
+                            <div class="col-md-9">
+                                <label  class="isi">@Model.LPK_CONTACT_PERSON.Replace("|", ", ")</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Email</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.LPK_EMAIL</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">WEB</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.LPK_WEBSITE</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Alamat Lengkap</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <label class="isi">@Model.LPK_ALAMAT</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Batas Akhir</label>
+                            <div class="col-md-4">
+                                <div class="col-md-4 input-group">                                   
+                                    <label class="isi">@Model.LPK_PERIODE_AKHIR.ToString("dd MMMM yyyy")</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Scope</label>
+                            <div class="col-md-6">
+                                <div class="input-icon right">
+                                    @foreach (var list in ViewBag.scope) {
+                                        
+                                        <label class="isi"> @list.SCOPE_CODE. @list.SCOPE_NAME</label><br />
+                                      
+                                    }
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">SNI</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    @foreach (var list in ViewBag.sni) {
+                                        
+                                        <label class="isi">@no. @list.SNI_NOMOR @list.SNI_JUDUL</label><br />
+                                        no++;
+                                    }
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <a href="@Url.Action("index")" class="btn default" type="button">Kembali</a>                                  
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        bukaloading();
+
+        tutuploading();
+        $('.date-picker').datepicker({
+            orientation: "center",
+            autoclose: true
+        });
+
+        $('#provinsi').select2({ allowClear: true });
+        $('#provinsi').change(function () {
+            $("#kotakab").select2().val(null).trigger("change");
+            if ($(this).val() != 0) {
+                $('#kotakab').prop('disabled', false);
+                var idParent = $('#provinsi').val();
+                var opt = "<option>Pilih Kabupaten</option>";
+                $.ajax({
+                    type: 'POST',
+                    url: 'GetKotaKab/' + idParent,
+                    data: { id: idParent },
+                    cache: false,
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#kotakab').empty();
+                        opt += data.value;
+                        $('#kotakab').addClass("input-large");
+                        $('#kotakab').addClass("select2");
+                        $('#kotakab').html("").append(opt);
+                    }
+                });
+            } else {
+                $('#kotakab').val('');
+                $('#kotakab').empty();
+                $('#kotakab').removeClass("input-large");
+                $('#kotakab').removeClass("select2");
+                $("#kotakab").prop("disabled", true);
+            }
+        });
+    });
+</script>
+

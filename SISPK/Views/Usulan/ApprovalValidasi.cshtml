@@ -1,0 +1,166 @@
+﻿@using SISPK.Helpers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var Detail = ViewBag.DataProposal;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Persetujuan Data Pengajuan Usulan
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" action="" method="post" enctype="multipart/form-data">
+                    <div class="form-group adopsi" style="display: none;">
+                        <label class="control-label col-md-3">No SNI</label>
+                        <div class="col-md-9">
+                            <div class="help-block" style="font-size: 14px !important; color: #333333;">
+                                @Detail.PROPOSAL_NOMOR_STANDAR
+                            </div>
+                            <div class="help-block">
+                                Sebutkan standar ISO/EIC/SDO lain (Misalnya ASTM) yang akan diadopsi. (beri nomor standar, tahun terbitan dan judul standar yang akan diadopsi secara identik.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Judul PNPS <span class="required">*</span></label>
+                        <div class="col-md-9 control-label detailtext">
+                            @Detail.PROPOSAL_JUDUL_PNPS
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Ruang Lingkup <span class="required">*</span></label>
+                        <div class="col-md-9 control-label detailtext">
+                            @Detail.PROPOSAL_RUANG_LINGKUP
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Tanggal Usulan</label>
+                        <div class="col-md-9 control-label detailtext">
+                            @Detail.PROPOSAL_CREATE_DATE_NAME
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Lihat Detail Usulan</label>
+                        <div class="col-md-9">
+                            <div class="help-block" style="font-size: 14px !important; color: #333333;">
+                                <div class="help-block">
+                                    <a href="~/Pengajuan/Usulan/Detail/12" style="color: green;">Klik Disini Untuk Lihat Usulan Detail</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis <span class="required">*</span></label>
+                            <div class="col-md-7 control-label detailtext">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th><center>Komite Teknis / Subkomite Teknis</center></th>
+                                            <th><center>Informasi</center></th>
+                                            <th width="5%"><center>Aksi</center></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>19-01 Uji Tak Rusak</td>
+                                            <td><center><a href="" class="btn blue btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-file-text-o"></i></a> <a href="" class="btn default btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-users"></i></a></center></td>
+                                            <td><center><input type="checkbox" checked></center></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding-left:50px;">19-01-01 Sub Uji Tak Rusak</td>
+                                            <td><center><a href="" class="btn blue btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-file-text-o"></i></a> <a href="" class="btn default btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-users"></i></a></center></td>
+                                            <td><center><input type="checkbox" checked></center></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding-left:50px;">19-01-02 Sub Uji Tak Rusak 2</td>
+                                            <td><center><a href="" class="btn blue btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-file-text-o"></i></a> <a href="" class="btn default btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-users"></i></a></center></td>
+                                            <td><center><input type="checkbox" checked></center></td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button class="btn green konfirmasi" type="button" value="1">Setujui</button>
+                                <button class="btn red konfirmasi" type="button" value="0">Tidak Setujui</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $('#PROPOSAL_JENIS').change();
+        sethakpaten();
+        $('input[name="PROPOSAL_JALUR_1"]').each(function () {
+            var value = $(this).val();
+            if ($(this).is(":checked")) {
+                if (value == 2) {
+                    $('#PROPOSAL_JALUR_2').val(1);
+                    $('.adopsi').slideDown();
+                }
+            } else {
+                if (value == 2) {
+                    $('#PROPOSAL_JALUR_2').val(0);
+                    $('.adopsi').slideUp();
+                }
+            }
+        });
+    });
+    function set_jalur(ini) {
+        var value = $(ini).val();
+        if ($(ini).is(":checked")) {
+            if (value == 2) {
+                $('#PROPOSAL_JALUR_2').val(1);
+                $('.adopsi').slideDown();
+            }
+        } else {
+            if (value == 2) {
+                $('#PROPOSAL_JALUR_2').val(0);
+                $('.adopsi').slideUp();
+            }
+        }
+
+    }
+    function sethakpaten() {
+        var value = $('input[name="PROPOSAL_IS_HAK_PATEN"]:checked').val();
+        if (value == 1) {
+            $('.PROPOSAL_IS_HAK_PATEN_DESC').slideDown();
+        } else {
+            $('.PROPOSAL_IS_HAK_PATEN_DESC').slideUp();
+            $('#PROPOSAL_IS_HAK_PATEN_DESC').val('');
+        }
+
+    }
+
+    function cekjenis(ini) {
+        var inivalue = parseInt($(ini).val());
+        if (inivalue == 2 || inivalue == 3) {
+            $('.revisilist').slideDown();
+        } else {
+            $('.revisilist').slideUp();
+        }
+    }
+</script>

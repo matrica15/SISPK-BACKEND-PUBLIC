@@ -1,0 +1,192 @@
+﻿@{
+    ViewBag.Title = "Penetapan SNI";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Penetapan SNI
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="Create" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Pilih Jenis Usulan/Perumusan <span style="color: red;">*</span></label>
+                            <div class="col-md-3">
+                                <select class="form-control wajib PROPOSAL_JENIS_PERUMUSAN" id="PROPOSAL_JENIS_PERUMUSAN" name="PROPOSAL_JENIS_PERUMUSAN">
+                                    <option value="">-- Pilih Jenis Perumusan --</option>
+                                    <option value="0">Semua Jenis</option>
+                                    <option value="1">Baru</option>
+                                    <option value="2">Revisi</option>
+                                    <option value="3">Ralat</option>
+                                    <option value="4">Amandemen</option>
+                                    <option value="5">Terjemahan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="proposal_select">
+                            <label for="stakeholder" class="control-label col-md-3">Pilih SNI <span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <select multiple="multiple" class="form-control wajib PROPOSAL_ID" id="PROPOSAL_ID" name="PROPOSAL_ID">
+                                </select>
+                            </div>
+                        </div>
+                         @*<div class="form-group">
+                            <label class="control-label col-md-3">Data Pendukung</label>
+                            <div class="col-md-7 control-label detailtext">
+                                <ol style="padding-left: 15px;">
+                                    <li><a href="@ViewBag.DefaultDokumen.DOC_FILE_PATH@ViewBag.DefaultDokumen.DOC_FILE_NAME.@ViewBag.DefaultDokumen.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Data RASNI</a></li>
+                                    <li><a href="@ViewBag.Berita.DOC_FILE_PATH@ViewBag.Berita.DOC_FILE_NAME.@ViewBag.Berita.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Berita Acara</a></li>
+                                    <li><a href="@ViewBag.DaftarHadir.DOC_FILE_PATH@ViewBag.DaftarHadir.DOC_FILE_NAME.@ViewBag.DaftarHadir.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Daftar Hadir</a></li>
+                                </ol>
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            <label class="control-label col-md-3">No SK<span style="color: red;">*</span></label>
+                            <div class="col-md-3">
+                                <div class="input-icon right">
+                                    <input type="text" id="SNI_SK_NOMOR" name="SNI_SK_NOMOR" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Keterangan<span style="color: red;">*</span></label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <textarea id="SNI_SK_KET" name="SNI_SK_KET" class="form-control wajib"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Penetapan<span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <div class="col-md-4 input-group input-medium date date-picker" data-date-format="yyyy-mm-dd">
+                                        <input type="text" class="form-control wajib" id="SNI_SK_DATE" name="SNI_SK_DATE">
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Upload Lampiran SK</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="file" name="SK_SNI" id="SK_SNI" onchange="ValidasiInput(this)" data-ext=".pdf" accept=".pdf,application/pdf" class="form-control col-md-3 wajib" style="padding: 0px; font-size: 12px; border-radius: 0px;">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="submit"><i class="fa fa-check"></i>Tetapkan</button>
+                                    <a href="@Url.Action("Index")" class="btn default" type="button">Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+    <!-- END PORTLET-->
+</div>
+
+
+
+<script type="text/javascript">
+    //var _validFileExtensions = [".doc", ".docx", ".jpg", ".jpeg", ".png"];
+    $("#proposal_select").hide();
+    $("#PROPOSAL_JENIS_PERUMUSAN").change(function () {
+        var jp = $("#PROPOSAL_JENIS_PERUMUSAN").val();
+        if (jp != "") {
+            //alert(jp);
+            $("#proposal_select").show();
+            $("#PROPOSAL_ID").select2({
+                //dropdownAutoWidth : true,
+                allowClear: true,
+                //width: '100%',
+                ajax: {
+                    url: '/Penetapan/PenetapanSNI/FindRasni',
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            q: params.term, // search term                             
+                            page: params.page,
+                            jp: jp
+                        };
+                    },
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
+                        return {
+                            results: data.rasni,
+                            pagination: {
+                                more: (params.page * 10) < data.total_count
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                //minimumInputLength: 2,
+            });
+        }
+        else {
+            $("#proposal_select").hide();
+        }
+    })
+
+    
+
+    function ValidasiInput(ini) {
+        var _validFileExtensions = $(ini).attr('data-ext').split(",");
+        var arrInputs = $(ini);
+        for (var i = 0; i < arrInputs.length; i++) {
+            var oInput = arrInputs[i];
+            if (oInput.type == "file") {
+                var sFileName = oInput.value;
+                if (sFileName.length > 0) {
+                    var blnValid = false;
+                    for (var j = 0; j < _validFileExtensions.length; j++) {
+                        var sCurExtension = _validFileExtensions[j];
+                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                            blnValid = true;
+                            break;
+                        }
+                    }
+
+                    if (!blnValid) {
+                        alert("Maaf, " + sFileName + " tidak dapat di Upload, Extensi yang dapat di Upload adalah : " + _validFileExtensions.join(", "));
+                        $(ini).val('');
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+    function send_submit_tipe(res) {
+        $('#SUBMIT_TIPE').val(res);
+    }
+
+    jQuery(document).ready(function () {
+
+        bukaloading();
+
+        tutuploading();
+        $('.date-picker').datepicker({
+            orientation: "center",
+            autoclose: true
+        });
+    });
+
+</script>

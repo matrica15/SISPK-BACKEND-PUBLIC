@@ -1,0 +1,341 @@
+﻿@{
+    ViewBag.Title = "Tambah KOMTEK";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Tambah KOMTEK
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="Create" method="post" enctype="multipart/form-data">
+                    <div class="form-body"> 
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kode <span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_CODE" name="KOMTEK_CODE" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <div class="form-group">
+                            <label class="control-label col-md-3">Bidang <span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="KOMTEK_BIDANG_ID" name="KOMTEK_BIDANG_ID">
+                                        <option value="">-- Pilih Bidang --</option>
+                                        @foreach (var bdg in ViewBag.listbidang)
+                                        {                                           
+                                            <option value="@bdg.BIDANG_ID">@bdg.BIDANG_CODE @bdg.BIDANG_NAME</option>                                            
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Instansi <span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="KOMTEK_INSTANSI_ID" name="KOMTEK_INSTANSI_ID">
+                                        <option value="">-- Pilih Instansi --</option>
+                                        @foreach (var ist in ViewBag.listinstansi)
+                                        {                                           
+                                            <option value="@ist.INSTANSI_ID">@ist.INSTANSI_CODE @ist.INSTANSI_NAME</option>                                            
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                            <label class="control-label col-md-3">ICS <span style="color: red;">*</span></label>
+                            <div class="col-md-7">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="KOMTEK_ICS_ID" name="KOMTEK_ICS_ID">
+                                        <option value="">-- Pilih ICS --</option>
+                                        @foreach (var ics in ViewBag.listICS)
+                                        {                                           
+                                            <option value="@ics.ICS_ID">@ics.ICS_CODE @ics.ICS_NAME</option>                                            
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>*@
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Pilih ICS</label>
+                            <div class="col-md-9">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control KOMTEK_ICS_ID" data-placeholder="Masukan kode ICS" id="KOMTEK_ICS_ID" name="KOMTEK_ICS_ID" multiple="multiple">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        @*<div class="form-group">
+                            <label class="control-label col-md-3">ICS <span style="color: red;">*</span></label>
+                            <div class="col-md-6">
+                                <div class="input-icon right">
+                                    <input class="form-control" type="text" id="ics_terkait_display" width="100%">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="ics_show">
+                            <label class="control-label col-md-3"></label>
+                            <div class="col-md-6">
+                                <div class="input-icon right" id="ics_name">
+                                   
+                                </div>
+                            </div>
+                        </div>   *@                                 
+                                               
+                        <div class="form-group">
+                            <label class="control-label col-md-3">NAMA KOMTEK <span style="color: red;">*</span></label>
+                            <div class="col-md-6">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_NAME" name="KOMTEK_NAME" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Sekretariat <span style="color: red;">*</span></label>
+                            <div class="col-md-6">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_SEKRETARIAT" name="KOMTEK_SEKRETARIAT" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Alamat <span style="color: red;">*</span></label>
+                            <div class="col-md-7">
+                                <div class="input-icon right">
+                                    @*<input type="text" id="KOMTEK_ADDRESS" name="KOMTEK_ADDRESS" class="form-control wajib">*@
+                                    <textarea id="KOMTEK_ADDRESS" name="KOMTEK_ADDRESS" class="form-control wajib"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Telepon <span style="color: red;">*</span></label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_PHONE" name="KOMTEK_PHONE" class="form-control wajib numbersOnly">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Fax <span style="color: red;">*</span></label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_FAX" name="KOMTEK_FAX" class="form-control wajib numbersOnly">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Email <span style="color: red;">*</span></label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="email" id="KOMTEK_EMAIL" name="KOMTEK_EMAIL" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="form-group" >
+                            <label class="control-label col-md-3">SK PENETAPAN</label>
+                            <div class="col-md-6">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_SK_PENETAPAN" name="KOMTEK_SK_PENETAPAN" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                          <div class="form-group" >
+                            <label class="control-label col-md-3">FILE SK PENETAPAN </label>
+                            <div class="col-md-6">
+                                <div class="input-icon right">
+                                    <input type="file" name="FILE_KOMTEK_SK_PENETAPAN" id="FILE_KOMTEK_SK_PENETAPAN" accept="application/pdf">
+                                </div>
+                                <span style="font-size:10px;color:red">file yang dapat di upload hanya PDF</span>
+                   
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="display: none;">
+                            <label class="control-label col-md-3"> CV <span style="color: red;">*</span></label>
+                            <div class="col-md-6">
+                                <div class="input-icon right">
+                                    <input type="file" name="KOMTEK_CV" id="KOMTEK_CV" class="wajib" accept="application/pdf">
+                                </div>
+                                <span style="font-size:10px;color:red">file yang dapat di upload hanya PDF</span>                   
+                            </div>
+                        </div>     
+
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">KONTAK PERSON <span style="color: red;">*</span></label>
+                            <div class="col-md-6">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_CONTACT_PERSON" name="KOMTEK_CONTACT_PERSON" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">TANGGAL PEMBENTUKAN<span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                              
+                                <div class="col-md-4 input-group input-medium date date-picker" data-date-format="yyyy-mm-dd">
+												<input type="text" class="form-control wajib" id="KOMTEK_TANGGAL_PEMBENTUKAN" name="KOMTEK_TANGGAL_PEMBENTUKAN">
+												<span class="input-group-btn">
+												    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+												</span>
+						        </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Keterangan</label>
+                            <div class="col-md-6">
+                                <div class="input-icon right">
+                                    <textarea id="KOMTEK_KETERANGAN" name="KOMTEK_KETERANGAN" class="form-control"></textarea>
+                                    @*<input type="text" id="KOMTEK_KETERANGAN" name="KOMTEK_KETERANGAN" class="form-control">*@
+                                </div>
+                            </div>
+                        </div>
+                                                                       
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="submit"><i class="fa fa-check"></i>Simpan</button>
+                                    <a href="@Url.Action("Index")" class="btn default" >Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<script>
+
+    jQuery('.numbersOnly').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+
+    $("#KOMTEK_ICS_ID").select2({
+        //dropdownAutoWidth : true,
+        allowClear: true,
+        //width: '100%',
+        ajax: {
+            url: '/Master/Komtek/FindICS',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                return {
+                    results: data.ics,
+                    pagination: {
+                        more: (params.page * 10) < data.total_count
+                    }
+                };
+            },
+            cache: true
+        },
+        minimumInputLength: 2,
+    });
+
+    $(function () {
+
+        $('#ics_show').hide();
+
+        var custom = new Bloodhound({
+            datumTokenizer: function (d) { return d.tokens; },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: 'getics?q=%QUERY'
+        });
+
+        custom.initialize();
+
+        if (Metronic.isRTL()) {
+            $('#ics_terkait_display').attr("dir", "rtl");
+        }
+        $('#ics_terkait_display').typeahead(null, {
+            name: 'ics_terkait_display',
+            displayKey: 'name_ics',
+            source: custom.ttAdapter(),
+            templates: {
+                suggestion: Handlebars.compile([
+                  '<div class="col-md-12 form-control media">',
+                        '<div class="media-body">',
+                            '<p>{{name_ics}}</p>',
+                        '</div>',
+                  '</div>',
+                ].join(''))
+            }
+        }).on('typeahead:selected', function (ev, selected) {
+            $('#ics_terkait_display').val('');
+            $('#ics_terkait_value').val(selected.id_ics);
+            //$('#ics_name').html("<label class='control-label col-md-3'>"+selected.code_ics+" <span style='color:red;vertical-align:top;font-weight:bold;font-size:10px'>x</span></label>");
+            $('#ics_show').show();
+            var n = 0;
+            $('.list_ics').each(function () {
+                if (selected.id_ics == $(this).val()) { n++; }
+            });
+            if (n > 0) {
+                alert("Ics sudah ada di list");
+            } else {
+                var hasil = '<label class="col-md-12" id="ics_' + selected.id_ics + '" >'+selected.code_ics+'.' + selected.name_ics +
+							'<input type="hidden" class="list_ics" name="KOMTEK_ICS_ID" value="' + selected.id_ics + '"><a onclick="remove_ics(' + selected.id_ics + ')" style="color:red;font-size:8px" href="javascript:void(0)"><i class="glyphicon glyphicon-remove"></i></a>' +
+						'</label>';
+                $('#ics_name').append(hasil);
+            }
+
+            return false;
+        });
+
+        $('#ics_terkait_display').focus(function () {
+            //$(this).select();
+            $(this).val('');
+        });
+
+        $('#ics_terkait_display').blur(function () {
+            if ($('#ics_terkait_value').val() == '') {
+                $(this).val('');
+            }
+
+        });
+
+        $('#ics_terkait_display').keydown(function () {
+            $('#ics_terkait_value').val("");
+        });
+    });
+
+    function remove_ics(id) {
+        $('#ics_' + id).remove();
+        $('#ics_terkait_display').val('');
+    }
+</script>

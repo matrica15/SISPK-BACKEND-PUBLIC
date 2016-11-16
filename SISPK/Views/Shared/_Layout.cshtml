@@ -1,0 +1,864 @@
+﻿@using SISPK.Helpers;
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>@Html.Raw(AuthHelper.buat_title()) | Sistem Informasi Standardisasi dan Penilaian Kesesuaian</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    @*<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />*@
+
+    <link href="@Url.Content("~/assets/global/plugins/font-awesome/css/font-awesome.min.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/assets/global/plugins/simple-detail_komtekline-icons/simple-line-icons.min.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/assets/global/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/assets/global/plugins/uniform/css/uniform.default.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css")" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/select2/css/select2.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/jquery-tags-input/jquery.tagsinput.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/bootstrap-toastr/toastr.min.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/clockface/css/clockface.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css")"/>
+    <link href="@Url.Content("~/assets/global/plugins/mScrollBar/jquery.mCustomScrollbar.css")" rel="stylesheet" type="text/css"/>
+
+    <!-- END PAGE LEVEL STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="@Url.Content("~/assets/global/css/components-md.css")" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/assets/global/css/plugins-md.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/assets/admin/layout/css/layout.css")" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="@Url.Content("~/assets/admin/layout/css/themes/light2.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/assets/admin/layout/css/custom.css")" rel="stylesheet" type="text/css"/>
+
+    <!--[if lt IE 9]>
+    <script src="@Url.Content("~/assets/global/plugins/respond.min.js")"></script>
+    <script src="@Url.Content("~/assets/global/plugins/excanvas.min.js")"></script> 
+    <![endif]-->
+    <script src="@Url.Content("~/assets/global/plugins/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/jquery-ui/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/jquery-tags-input/jquery.tagsinput.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/admin/pages/scripts/components-form-tools.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/bootstrap-toastr/toastr.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/admin/pages/scripts/ui-toastr.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/ckeditor/ckeditor.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/ckeditor/adapters/jquery.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/bootbox/bootbox.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/admin/pages/scripts/ui-blockui.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/assets/global/plugins/jquery-migrate.min.js")" type="text/javascript"></script>
+    <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+
+    <script src="@Url.Content("~/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/jquery.blockui.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/jquery.cokie.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/uniform/jquery.uniform.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js")" type="text/javascript"></script>
+
+
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/jquery-validation/js/jquery.validate.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/select2/js/select2.js")"></script>
+
+
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js")"></script>
+
+
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/clockface/js/clockface.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/bootstrap-daterangepicker/moment.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/jquery.blockui.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/assets/global/plugins/jquery.mousewheel.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/assets/global/plugins/mScrollBar/jquery.mCustomScrollbar.js")"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+
+    <script src="@Url.Content("~/assets/global/scripts/metronic.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/admin/layout/scripts/layout.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/admin/layout/scripts/quick-sidebar.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/admin/layout/scripts/demo.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/admin/pages/scripts/table-advanced.js")"></script>
+    <script src="@Url.Content("~/assets/admin/pages/scripts/form-validation.js")"></script>
+    <script src="@Url.Content("~/assets/admin/pages/scripts/highcharts.js")" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/assets/admin/pages/scripts/index.js")"></script>*@
+    <script src="@Url.Content("~/assets/global/plugins/bootbox/bootbox.min.js")" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/assets/global/plugins/typeahead/typeahead.css")">
+    <script src="@Url.Content("~/assets/global/plugins/typeahead/handlebars.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/plugins/typeahead/typeahead.bundle.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/admin/pages/scripts/components-pickers.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            Metronic.init();
+            Layout.init();
+            QuickSidebar.init();
+            Demo.init();
+            FormValidation.init();
+            ComponentsPickers.init();
+            $('.nomer_only').inputmask('decimal', {
+                rightAlign: false,
+                allowPlus: false,
+                allowMinus: false,
+                radixPoint: ''
+            });
+            /*! Select2 4.0.1-rc.1 | https://github.com/select2/select2/blob/master/LICENSE.md */
+
+
+        });
+
+    </script>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body class="page-md page-header-fixed page-quick-sidebar-over-content page-sidebar-closed-hide-logo ">
+    <!-- BEGIN HEADER -->
+    <div class="page-header md-shadow-z-1-i navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="javascript:void(0)">
+                    <img src="@Url.Content("~/Images/logo-dashboard.png")" alt="logo" class="logo-default"/>
+                </a>
+                <div class="menu-toggler sidebar-toggler hide">
+                </div>
+            </div>
+            <div class="page-actions">
+                <div class="btn-group" style="font-size: 16px !important;">
+                    <a class="" onclick="bukatutup();" href="javascript:void(0)"><i class="fa fa-navicon"></i></a>| <span style="color: #019342;">Sistem Informasi</span> Standardisasi dan Penilaian Kesesuaian
+                </div>
+            </div>
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <!-- BEGIN NOTIFICATION DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <i class="icon-bell"></i>
+                            <span class="badge badge-danger">@Html.Raw(AuthHelper.buat_notif(2))</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="external">
+                                <h3>Terdapat <span class="bold">@Html.Raw(AuthHelper.buat_notif(2)) </span>Notifikasi</h3>
+                            </li>
+                            <li>
+                                <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                    @Html.Raw(AuthHelper.buat_notif(1))
+                                </ul>
+                            </li>
+                            <li class="view-all">
+                                <a href="javascript:void(0)">Lihat Semua Notifikasi <i class="fa fa-arrow-circle-o-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- END TODO DROPDOWN -->
+                    <!-- BEGIN USER LOGIN DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <li class="dropdown dropdown-user">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+
+                            @if (Convert.ToInt32(Session["IS_KOMTEK"]) == 1)
+                            {
+                                <span class="username username-hide-on-mobile">@Session["USER_FULL_NAME"] <strong>(@Session["ACCESS_NAME"] - @Session["KOMTEK_CODE"].@Session["KOMTEK_NAME"])</strong></span>
+                            }
+                            else
+                            {
+                                <span class="username username-hide-on-mobile">@Session["USER_FULL_NAME"] <strong>(@Session["ACCESS_NAME"])</strong></span>
+                            }
+
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+                                <a href="/Home/Account?id=1">
+                                    <i class="icon-user"></i>My Profile </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="/Apps/Auth/Logout">
+                                    <i class="icon-key"></i>Log Out </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END USER LOGIN DROPDOWN -->
+                    <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <li class="dropdown dropdown-quick-sidebar-toggler" style="display: none;">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <i class="icon-logout"></i>
+                        </a>
+                    </li>
+                    <!-- END QUICK SIDEBAR TOGGLER -->
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+    <!-- END HEADER -->
+    <div class="clearfix">
+    </div>
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar-wrapper">
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <div class="page-sidebar navbar-collapse collapse">
+                <!-- BEGIN SIDEBAR MENU -->
+                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <ul class="page-sidebar-menu page-sidebar-menu-light" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                    @Html.Raw(AuthHelper.buat_menu())
+                </ul>
+                <!-- END SIDEBAR MENU -->
+            </div>
+        </div>
+        <!-- END SIDEBAR -->
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+                <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
+                                Widget settings form goes here
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn blue">Save changes</button>
+                                <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+                <!-- /.modal -->
+                <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+                <!-- BEGIN PAGE HEADER-->
+
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        @Html.Raw(AuthHelper.buat_breadcrumb())
+                    </ul>
+                </div>
+                <div class="defsetting" data-IsRead="@ViewBag.IsRead" data-IsCreate="@ViewBag.IsCreate" data-IsUpdate="@ViewBag.IsUpdate" data-IsDelete="@ViewBag.IsDelete" data-IsApprove="@ViewBag.IsApprove" data-IsPrint="@ViewBag.IsPrint"></div>
+                <!-- END PAGE HEADER-->
+                <div class="clearfix">
+                </div>
+                @RenderBody()
+                <!--KOMTEK DATA-->
+
+                <div class="modal fade" id="konfirmasipenyimpanan" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <p>Anda Yakin dengan data ini ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" id="setujukonfirmasibutton" class="btn blue">Yakin</button>
+                                <button type="button" data-dismiss="modal" class="btn btn-danger">Batal</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!--KOMTEK DATA-->
+                <!--KOMTEK DATA-->
+                <div class="modal fade bs-modal-lg" id="detailkomtek" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">Detail Komite Teknis / Sub Komite Teknis</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- BEGIN PORTLET-->
+                                        <div class="portlet box green">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-gift"></i>Detail Komite Teknis / Sub Komite Teknis
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body form">
+                                                <!-- BEGIN FORM-->
+                                                <div class="portlet-body form">
+                                                    <!-- BEGIN FORM-->
+                                                    <div class="form-horizontal form-bordered">
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">Kode</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="KOMTEK_CODE">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">Nama</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="KOMTEK_NAME">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">Bidang</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="BIDANG_NAME">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">Instansi</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="INSTANSI_NAME">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">Sekretariat</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="KOMTEK_SEKRETARIAT">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">Alamat</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="KOMTEK_ADDRESS">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">Telepon</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="KOMTEK_PHONE">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">Fax</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="KOMTEK_FAX">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">Email</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="KOMTEK_EMAIL">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">SK Penetapan</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="KOMTEK_SK_PENETAPAN">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">Tanggal Pembentukan</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="KOMTEK_TANGGAL_PEMBENTUKAN">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">Kontak Person</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="KOMTEK_CONTACT_PERSON">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">Keterangan</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="KOMTEK_KETERANGAN">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-3">ICS</label>
+                                                                <div class="col-md-9 control-label detailtext">
+                                                                    <span class="ICS">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12 control-label detailtext" style="font-size: 12px !important">
+                                                                    <span class="ANGGOTA">-</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <!-- END FORM-->
+                                                </div>
+                                                <!-- END FORM-->
+                                            </div>
+                                        </div>
+                                        <!-- END PORTLET-->
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn red btn-sm" data-dismiss="modal">Tutup</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!--KOMTEK DATA-->
+            </div>
+        </div>
+        <!-- END CONTENT -->
+        <!-- BEGIN QUICK SIDEBAR -->
+        <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+        <div class="page-quick-sidebar-wrapper">
+            <div class="page-quick-sidebar">
+                <div class="nav-justified">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li class="active">
+                            <a href="#dok_pendukung" data-toggle="tab">Dokumen<br />
+                                Pendukung <span class="badge badge-danger dok_pendukung_jml">0</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#dok_referensi" data-toggle="tab">Referensi<br />
+                                Lain-Lain <span class="badge badge-success dok_referensi_jml">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active page-quick-sidebar-chat" id="dok_pendukung">
+                            <div class="page-quick-sidebar-chat-users" data-rail-color="#ddd" data-wrapper-class="page-quick-sidebar-list">
+
+                                <div method="POST" action="" class="search" data-tipe="1">
+                                    <div class="input-group col-md-12" style="padding-left: 10px; padding-right: 10px; padding-bottom: 10px;">
+                                        <input type="text" placeholder="Pencarian Dokumen" data-tipe="1" class="form-control searchinput search1val" style="background-color: #364150; color: #d1d6de;">
+                                    </div>
+                                </div>
+                                <ul class="media-list list-items data_dok_pendukung">
+                                </ul>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane page-quick-sidebar-chat" id="dok_referensi">
+                            <div class="page-quick-sidebar-chat-users" data-rail-color="#ddd" data-wrapper-class="page-quick-sidebar-list">
+
+                                <div method="POST" action="" class="search">
+                                    <div class="input-group col-md-12" style="padding-left: 10px; padding-right: 10px; padding-bottom: 10px;">
+                                        <input type="text" placeholder="Pencarian Dokumen" data-tipe="2" class="form-control searchinput search2val" style="background-color: #364150; color: #d1d6de;">
+                                    </div>
+                                </div>
+                                <ul class="media-list list-items data_dok_referensi">
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- END QUICK SIDEBAR -->
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    <div class="page-footer">
+        <div class="page-footer-inner">
+            <p class="text-center">Copyright &copy; 2015 Badan Standardisasi Nasional. All Rights Reserved.</p>
+        </div>
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+    </div>
+    <!-- END FOOTER -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+
+    <script type="text/javascript">
+
+        jQuery(document).ready(function () {
+            jQuery('li.start, .active, .open').parents('li').addClass('active').addClass('open');
+            jQuery('li.start, .active, .open').parents('ul.sub-menu').css('display', 'block');
+            //$(".select2").select2();
+            $("input.tags").tagsInput({
+                'defaultText': 'Tambah',
+                'width': '100%',
+                'delimiter': '|'
+            });
+            $('.konfirmasi').click(function (result) {
+                bootbox.dialog({
+                    message: "Anda yakin akan",
+                    title: "Konfirmasi Penyimpanan Data",
+                    buttons: {
+                        success: {
+                            label: "Yakin",
+                            className: "green",
+                            callback: function () {
+                                alert("Simpan Berhasil");
+                            }
+                        },
+                        danger: {
+                            label: "Tidak Yakin",
+                            className: "red",
+                            callback: function () {
+                                alert("Simpan Batal");
+                            }
+                        }
+                    }
+                });
+            });
+            $.fn.serializeObject = function () {
+                var o = {};
+                var a = this.serializeArray({ checkboxesAsBools: true });
+                $.each(a, function () {
+                    if (o[this.name]) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+
+                return o;
+            };
+            $.fn.serializeArray = function (options) {
+                var o = $.extend({
+                    checkboxesAsBools: false
+                }, options || {});
+
+                var rselectTextarea = /select|textarea/i;
+                var rinput = /text|hidden|password|search/i;
+
+                return this.map(function () {
+                    return this.elements ? $.makeArray(this.elements) : this;
+                })
+                .filter(function () {
+                    return this.name && !this.disabled &&
+                        (this.checked
+                        || (o.checkboxesAsBools && this.type === 'checkbox')
+                        || rselectTextarea.test(this.nodeName)
+                        || rinput.test(this.type));
+                })
+                    .map(function (i, elem) {
+                        var val = $(this).val();
+                        return val == null ?
+                        null :
+                        $.isArray(val) ?
+                        $.map(val, function (val, i) {
+                            return { name: elem.name, value: val };
+                        }) :
+            {
+                name: elem.name,
+                value: (o.checkboxesAsBools && this.type === 'checkbox') ? //moar ternaries!
+                    (this.checked ? 'true' : 'false') :
+                    val
+            };
+                    }).get();
+            };
+            showNotif();
+            jsDefSetting();
+            function showNotif() {
+                var NotifStatus = '@TempData["Notifikasi"]';
+                var NotifText = '@TempData["NotifikasiText"]';
+                if (NotifStatus == 1) {
+                    var opts = {
+                        "closeButton": true,
+                        "debug": false,
+                        "positionClass": "toast-bottom-right",
+                        "onclick": null,
+                        "showDuration": "500",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+                    toastr.success(NotifText, "Informasi Simpan Data :", opts);
+                }
+                if (NotifStatus == 2) {
+                    var opts = {
+                        "closeButton": true,
+                        "debug": false,
+                        "positionClass": "toast-bottom-right",
+                        "onclick": null,
+                        "showDuration": "500",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+                    toastr.error(NotifText, "Proses Gagal :", opts);
+                }
+            }
+
+
+
+        });
+        function bukaloading(text) {
+            if (text == "") {
+                text = 'Loading...'
+            }
+            Metronic.blockUI({
+                boxed: true,
+                message: text
+            });
+        }
+        function tutuploading() {
+            Metronic.unblockUI();
+        }
+        function bukatutup() {
+            var resBreakpointMd = Metronic.getResponsiveBreakpoint('md');
+            var body = $('body');
+            if ($.cookie && $.cookie('sidebar_closed') === '1' && Metronic.getViewPort().width >= resBreakpointMd) {
+                $('body').addClass('page-sidebar-closed');
+                $('.page-sidebar-menu').addClass('page-sidebar-menu-closed');
+            }
+            var sidebar = $('.page-sidebar');
+            var sidebarMenu = $('.page-sidebar-menu');
+            $(".sidebar-search", sidebar).removeClass("open");
+
+            if (body.hasClass("page-sidebar-closed")) {
+                body.removeClass("page-sidebar-closed");
+                sidebarMenu.removeClass("page-sidebar-menu-closed");
+                if ($.cookie) {
+                    $.cookie('sidebar_closed', '0');
+                }
+            } else {
+                body.addClass("page-sidebar-closed");
+                sidebarMenu.addClass("page-sidebar-menu-closed");
+                if (body.hasClass("page-sidebar-fixed")) {
+                    sidebarMenu.trigger("mouseleave");
+                }
+                if ($.cookie) {
+                    $.cookie('sidebar_closed', '1');
+                }
+            }
+
+            $(window).trigger('resize');
+
+        }
+        function bukamenu() {
+            var resBreakpointMd = Metronic.getResponsiveBreakpoint('md');
+            var body = $('body');
+            if (Metronic.getViewPort().width >= resBreakpointMd) {
+                $('body').addClass('page-sidebar-closed');
+                $('.page-sidebar-menu').addClass('page-sidebar-menu-closed');
+            }
+            var sidebar = $('.page-sidebar');
+            var sidebarMenu = $('.page-sidebar-menu');
+            $(".sidebar-search", sidebar).removeClass("open");
+
+            body.removeClass("page-sidebar-closed");
+            sidebarMenu.removeClass("page-sidebar-menu-closed");
+
+            $(window).trigger('resize');
+
+        }
+        function tutupmenu() {
+            var resBreakpointMd = Metronic.getResponsiveBreakpoint('md');
+            var body = $('body');
+            if (Metronic.getViewPort().width >= resBreakpointMd) {
+                $('body').addClass('page-sidebar-closed');
+                $('.page-sidebar-menu').addClass('page-sidebar-menu-closed');
+            }
+            var sidebar = $('.page-sidebar');
+            var sidebarMenu = $('.page-sidebar-menu');
+            $(".sidebar-search", sidebar).removeClass("open");
+
+            body.addClass("page-sidebar-closed");
+            sidebarMenu.addClass("page-sidebar-menu-closed");
+            if (body.hasClass("page-sidebar-fixed")) {
+                sidebarMenu.trigger("mouseleave");
+            }
+
+            $(window).trigger('resize');
+
+
+        }
+        function pilihtipe(tipe) {
+            $('.tiper').slideUp("fast", function () {
+                $('.tipe_report' + tipe).slideDown("fast");
+            });
+        }
+        function jsDefSetting() {
+            $('.tooltips').tooltip();
+            var IsRead = parseInt($('.defsetting').attr('data-IsRead'));
+            var IsCreate = parseInt($('.defsetting').attr('data-IsCreate'));
+            var IsUpdate = parseInt($('.defsetting').attr('data-IsUpdate'));
+            var IsDelete = parseInt($('.defsetting').attr('data-IsDelete'));
+            var IsApprove = parseInt($('.defsetting').attr('data-IsApprove'));
+            var IsPrint = parseInt($('.defsetting').attr('data-IsPrint'));
+            if (IsCreate == 0) {
+                $('.IsCreate').remove();
+            }
+            else if (IsUpdate == 0) {
+                $('.IsUpdate').remove();
+            }
+            else if (IsDelete == 0) {
+                $('.IsDelete').remove();
+            }
+            else if (IsApprove == 0) {
+                $('.IsApprove').remove();
+            }
+            else if (IsPrint == 0) {
+                $('.IsPrint').remove();
+            }
+        }
+        function detail_komtek(KOMTEK_ID) {
+            var formData = { KOMTEK_ID: KOMTEK_ID };
+            bukaloading();
+            $.ajax({
+                type: 'POST',
+                url: "/Pengajuan/PenetapanKomtek/FindKomtek",
+                contentType: "application/json",
+                dataType: 'json',
+                data: JSON.stringify(formData)
+            }).done(function (data) {
+                var DATAKOMTEK = data.DATAKOMTEK;
+                var DATAICS = data.DATAICS;
+                var DATAANGGOTA = data.DATAANGGOTA;
+                var ICS = '<ul style="padding-left: 15px;">';
+                var ANGGOTA = '<table class="table table-bordered">';
+                ANGGOTA += '<thead>';
+                ANGGOTA += '<tr>';
+                ANGGOTA += '<th class="text-center">Jabatan</th>';
+                ANGGOTA += '<th class="text-center">Nama</th>';
+                ANGGOTA += '<th class="text-center">Instansi</th>';
+                ANGGOTA += '<th class="text-center">Stakeholder</th>';
+                ANGGOTA += '</tr>';
+                ANGGOTA += '</thead>';
+                ANGGOTA += '<tbody>';
+                if (DATAKOMTEK != null) {
+                    $('span.KOMTEK_CODE').html((DATAKOMTEK.KOMTEK_CODE == null) ? '-' : DATAKOMTEK.KOMTEK_CODE);
+                    $('span.KOMTEK_NAME').html((DATAKOMTEK.KOMTEK_NAME == null) ? '-' : DATAKOMTEK.KOMTEK_NAME);
+                    $('span.BIDANG_NAME').html((DATAKOMTEK.BIDANG_NAME == null) ? '-' : DATAKOMTEK.BIDANG_NAME);
+                    $('span.INSTANSI_NAME').html((DATAKOMTEK.INSTANSI_NAME == null) ? '-' : DATAKOMTEK.INSTANSI_NAME);
+                    $('span.KOMTEK_SEKRETARIAT').html((DATAKOMTEK.KOMTEK_SEKRETARIAT == null) ? '-' : DATAKOMTEK.KOMTEK_SEKRETARIAT);
+                    $('span.KOMTEK_ADDRESS').html((DATAKOMTEK.KOMTEK_ADDRESS == null) ? '-' : DATAKOMTEK.KOMTEK_ADDRESS);
+                    $('span.KOMTEK_PHONE').html((DATAKOMTEK.KOMTEK_PHONE == null) ? '-' : DATAKOMTEK.KOMTEK_PHONE);
+                    $('span.KOMTEK_FAX').html((DATAKOMTEK.KOMTEK_FAX == null) ? '-' : DATAKOMTEK.KOMTEK_FAX);
+                    $('span.KOMTEK_EMAIL').html((DATAKOMTEK.KOMTEK_EMAIL == null) ? '-' : DATAKOMTEK.KOMTEK_EMAIL);
+                    $('span.KOMTEK_SK_PENETAPAN').html((DATAKOMTEK.KOMTEK_SK_PENETAPAN == null) ? '-' : DATAKOMTEK.KOMTEK_SK_PENETAPAN);
+                    $('span.KOMTEK_TANGGAL_PEMBENTUKAN').html((DATAKOMTEK.KOMTEK_TANGGAL_PEMBENTUKAN == null) ? '-' : DATAKOMTEK.KOMTEK_TANGGAL_PEMBENTUKAN);
+                    $('span.KOMTEK_CONTACT_PERSON').html((DATAKOMTEK.KOMTEK_CONTACT_PERSON == null) ? '-' : DATAKOMTEK.KOMTEK_CONTACT_PERSON);
+                    $('span.KOMTEK_KETERANGAN').html((DATAKOMTEK.KOMTEK_KETERANGAN == null) ? '-' : DATAKOMTEK.KOMTEK_KETERANGAN);
+                }
+                if (DATAICS.length > 0) {
+                    for (var i = 0 ; i < DATAICS.length; i++) {
+                        ICS += "<li><span style='font-weight:bold;'>" + DATAICS[i].ICS_CODE + "</span> " + ((DATAICS[i].ICS_NAME_IND == null) ? DATAICS[i].ICS_NAME : DATAICS[i].ICS_NAME_IND) + "</li>";
+                    }
+                    ICS += "</ul>";
+                    $('span.ICS').html(ICS);
+                } else {
+                    $('span.ICS').html('-');
+                }
+                if (DATAANGGOTA.length > 0) {
+                    for (var i = 0 ; i < DATAANGGOTA.length; i++) {
+                        ANGGOTA += '<tr>';
+                        ANGGOTA += '<td style="padding:4px 8px;">' + DATAANGGOTA[i].JABATAN + '</td>';
+                        ANGGOTA += '<td style="padding:4px 8px;">' + DATAANGGOTA[i].KOMTEK_ANGGOTA_NAMA + '</td>';
+                        ANGGOTA += '<td style="padding:4px 8px;">' + DATAANGGOTA[i].KOMTEK_ANGGOTA_INSTANSI + '</td>';
+                        ANGGOTA += '<td style="padding:4px 8px;">' + DATAANGGOTA[i].STAKEHOLDER + '</td>';
+                        ANGGOTA += '</tr>';
+                    }
+                    ANGGOTA += '</tbody>';
+                    ANGGOTA += '</table>';
+                    $('span.ANGGOTA').html(ANGGOTA);
+                } else {
+                    $('span.ANGGOTA').html('');
+                }
+                $.when(tutuploading()).then($('#detailkomtek').modal('show'));
+            });
+        }
+    </script>
+    <!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

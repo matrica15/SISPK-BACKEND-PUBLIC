@@ -1,0 +1,374 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Tambah Laboratorium / Lembaga Inspeksi
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" method="post" enctype="multipart/form-data">                  
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Lab/Lembaga<span class="required">*</span></label>
+                            <div class="col-md-9">
+                                <div class="radio-list">
+                                <label class="radio-inline">
+                                    <span class="">
+                                        <input type="radio" name="LPK_JENIS" id="optionsRadios4" value="1" checked=""></span>
+                                    Labolatorium Pengujian
+                                </label>
+                                <label class="radio-inline">                                    
+                                        <input type="radio" name="LPK_JENIS" id="optionsRadios5" value="2"></span>
+                                    Lembaga Inspeksi
+                                </label>
+                                <label class="radio-inline">                                    
+                                        <input type="radio" name="LPK_JENIS" id="optionsRadios6" value="3"></span>
+                                    Labolatorium Kalibrasi
+                                </label>                               
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">No LPK<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" name="LPK_NOMOR" id="LPK_NOMOR" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">File Attachment<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="file" name="LPK_FILE" id="LPK_FILE" class="wajib" accept="application/pdf">
+                                </div>
+                                <span style="font-size: 10px; color: red">file yang dapat di upload hanya PDF</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nama LPK<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" name="LPK_NAMA" id="LPK_NAMA" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Provinsi<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <select class="form-control input-large select2me wajib" id="provinsi" name="LPK_PROVINSI" data-placeholder="Pilih Provinsi">
+                                    <option></option>
+                                    @foreach (var provinsi in ViewBag.Provinsi)
+                                    { 
+                                        <option value="@provinsi.WILAYAH_ID">@provinsi.WILAYAH_NAMA  &nbsp;&nbsp;</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="kotakab" class="col-md-3 control-label">Kota / kabupaten <span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <select class="form-control input-large select2me wajib" id="kotakab" name="LPK_KABUPATENKOTA" data-placeholder="Pilih Kabupaten">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Telepon<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" name="LPK_TELEPON" id="LPK_TELEPON" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fax<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" name="LPK_FAX" id="LPK_FAX" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kode POS<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" name="LPK_KODE_POS" id="LPK_KODE_POS" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kontak Person</label>
+                            <div class="col-md-9">
+                                <input id="tags_1" type="text" class="form-control tags wajib" name="LPK_CONTACT_PERSON" value="">
+                                <span style="font-size: 11px; color: orange">Tekan enter untuk menambahkan kontak person selanjutnya</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Email<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="email" name="LPK_EMAIL" id="LPK_EMAIL" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">WEB<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="url" name="LPK_WEBSITE" id="LPK_WEBSITE" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Alamat Lengkap<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" name="LPK_ALAMAT" id="LPK_ALAMAT" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Batas Akhir<span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+
+                                <div class="col-md-4 input-group input-medium date date-picker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" class="form-control wajib" id="LPK_PERIODE_AKHIR" name="LPK_PERIODE_AKHIR">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Pilih Scope</label>
+                            <div class="col-md-9">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control LPK_SCOPE_SCOPE_ID" data-placeholder="Masukan Nomor SNI" id="LPK_SCOPE_SCOPE_ID" name="LPK_SCOPE_SCOPE_ID" multiple="multiple">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Pilih SNI</label>
+                            <div class="col-md-9">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control LPK_DETAIL_SNI_SNI_ID" data-placeholder="Masukan Nomor SNI" id="LPK_DETAIL_SNI_SNI_ID" name="LPK_DETAIL_SNI_SNI_ID" multiple="multiple">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="submit">Simpan</button>
+                                    <a class="btn red" type="button" href="@Url.Action("index")">Batal</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        $("#LPK_DETAIL_SNI_SNI_ID").select2({
+            //dropdownAutoWidth : true,
+            allowClear: true,
+            //width: '100%',
+            ajax: {
+                url: '/Portal/LembagaSertifikasi/FindSNI',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.sni,
+                        pagination: {
+                            more: (params.page * 10) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+        });
+
+        $("#LPK_SCOPE_SCOPE_ID").select2({
+            //dropdownAutoWidth : true,
+            allowClear: true,
+            //width: '100%',
+            ajax: {
+                url: '/Portal/LembagaSertifikasi/FindSCOPE',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.sni,
+                        pagination: {
+                            more: (params.page * 10) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+        });
+
+        bukaloading();
+
+        tutuploading();
+        $('.date-picker').datepicker({
+            orientation: "center",
+            autoclose: true
+        });
+
+        $('#provinsi').select2({ allowClear: true });
+        $('#provinsi').change(function () {
+            $("#kotakab").select2().val(null).trigger("change");
+            if ($(this).val() != 0) {
+                $('#kotakab').prop('disabled', false);
+                var idParent = $('#provinsi').val();
+                var opt = "<option>Pilih Kabupaten</option>";
+                $.ajax({
+                    type: 'POST',
+                    url: 'GetKotaKab/' + idParent,
+                    data: { id: idParent },
+                    cache: false,
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#kotakab').empty();
+                        opt += data.value;
+                        $('#kotakab').addClass("input-large");
+                        $('#kotakab').addClass("select2");
+                        $('#kotakab').html("").append(opt);
+                    }
+                });
+            } else {
+                $('#kotakab').val('');
+                $('#kotakab').empty();
+                $('#kotakab').removeClass("input-large");
+                $('#kotakab').removeClass("select2");
+                $("#kotakab").prop("disabled", true);
+            }
+        });
+    });
+</script>
+
+<script>
+
+    jQuery('.numbersOnly').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+
+    $(function () {
+
+        $('#ics_show').hide();
+
+        var custom = new Bloodhound({
+            datumTokenizer: function (d) { return d.tokens; },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: 'getics?q=%QUERY'
+        });
+
+        custom.initialize();
+
+        if (Metronic.isRTL()) {
+            $('#ics_terkait_display').attr("dir", "rtl");
+        }
+        $('#ics_terkait_display').typeahead(null, {
+            name: 'ics_terkait_display',
+            displayKey: 'name_ics',
+            source: custom.ttAdapter(),
+            templates: {
+                suggestion: Handlebars.compile([
+                  '<div class="col-md-12 form-control media">',
+                        '<div class="media-body">',
+                            '<p>{{name_ics_ind}}</p>',
+                        '</div>',
+                  '</div>',
+                ].join(''))
+            }
+        }).on('typeahead:selected', function (ev, selected) {
+            $('#ics_terkait_display').val('');
+            $('#ics_terkait_value').val(selected.id_ics);
+            //$('#ics_name').html("<label class='control-label col-md-3'>"+selected.code_ics+" <span style='color:red;vertical-align:top;font-weight:bold;font-size:10px'>x</span></label>");
+            $('#ics_show').show();
+            var n = 0;
+            $('.list_ics').each(function () {
+                if (selected.id_ics == $(this).val()) { n++; }
+            });
+            if (n > 0) {
+                alert("Ics sudah ada di list");
+            } else {
+                var hasil = '<label class="col-md-12" id="ics_' + selected.id_ics + '" >' + selected.code_ics + '.' + selected.name_ics_ind +
+							'<input type="hidden" class="list_ics" name="LPK_LINGKUP_ICS_ID" value="' + selected.id_ics + '">&nbsp<a onclick="remove_ics(' + selected.id_ics + ')" style="color:red;font-size:8px" href="javascript:void(0)"><i class="glyphicon glyphicon-remove"></i></a>' +
+						'</label>';
+                $('#ics_name_ind').append(hasil);
+            }
+
+            return false;
+        });
+
+        $('#ics_terkait_display').focus(function () {
+            //$(this).select();
+            $(this).val('');
+        });
+
+        $('#ics_terkait_display').blur(function () {
+            if ($('#ics_terkait_value').val() == '') {
+                $(this).val('');
+            }
+
+        });
+
+        $('#ics_terkait_display').keydown(function () {
+            $('#ics_terkait_value').val("");
+        });
+    });
+
+    function remove_ics(id) {
+        $('#ics_' + id).remove();
+        $('#ics_terkait_display').val('');
+    }
+</script>
+

@@ -1,0 +1,608 @@
+﻿<style>
+    #ctv-context-menu-items {
+        list-style: none;
+        font-size: 12px;
+        padding: 2px;
+        margin: 0px;
+        min-width: 180px;
+    }
+
+    #ctv-context-menu {
+        display: none;
+        position: fixed;
+        border: 1px solid grey;
+        background: #ffffff;
+        box-shadow: 2px 2px 1px grey;
+    }
+
+    #ctv-context-menu-items > li.enabled {
+        padding: 3px 6px;
+        cursor: pointer;
+    }
+
+    #ctv-context-menu-items > li.disabled {
+        color: #aaaaaa;
+        padding: 3px 6px;
+        cursor: default;
+    }
+
+    .ctv-context-menu-icon {
+        width: 30px !important;
+        text-align: center;
+    }
+
+
+    .ctv-folder {
+        padding: 3px 10px;
+        background: #ffffff;
+        border-top: 1px solid #ffffff;
+        border-bottom: 1px solid #ffffff;
+        font-size: 12px;
+        height: 24px;
+        overflow: hidden;
+    }
+
+    .ctv-arrow-folder {
+        cursor: pointer;
+        color: #444444;
+        padding-right: 5px;
+        font-weight: bold;
+    }
+
+    .ctv-selected {
+        background: #d1eed1;
+        border-top: 1px solid #d1eed1;
+        border-bottom: 1px solid #d1eed1;
+        font-weight: bold;
+    }
+
+    .ctv-folder-icon {
+        color: #e9c607;
+    }
+
+    .treeview-dociment-lists {
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    tr.odd > td, tr.even > td {
+        padding: 2px 2px 4px 2px !important;
+    }
+
+    .fix-top-form {
+        padding-top: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 0px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Daftar Dokumen
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table width="100%">
+                    <tr width="100%">
+                        <td width="300px" valign="top" style="padding-right: 4px;">
+                            <div style="width: 296px; height: 513px; border: 1px solid #dddddd; border-top: 3px solid #66aa66; padding: 5px;">
+                                <div id="treeview-document" style="height: 500px;">
+                                    <div id="treeview-dociment-lists" style="width: 500px;">
+                                        <div ctv-id="0" ctv-ref="" class="ctv-folder ctv-opened" style="padding-left: 10px;"><i class="ctv-arrow-folder fa fa-angle-right" style="width: 18px; text-align: center;"></i><span style="cursor: pointer;"><i class="ctv-folder-icon fa fa-cloud" style="width: 18px; color: #0e8500 !important;"></i>SISPK</span></div>
+                                        @foreach (var Reference in ViewBag.References)
+                                        {
+                                            @Html.Raw(@Reference.FOLDER_NAME)
+                                        }
+                                        <div ctv-id="trash" ctv-ref="" class="ctv-folder" style="padding-left: 10px;"><i class="ctv-arrow-folder fa fa-angle-right" style="width: 18px; text-align: center; visibility: hidden;"></i><span class="ctv-data-name" style="cursor: pointer;"><i class="ctv-folder-icon fa fa-trash" style="width: 18px; color: #0e8500 !important;"></i>Trash</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td width="*" valign="top" style="min-height: 513px;">
+                            <div class="tabbable-custom ">
+
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="aktif">
+                                        <table class="table table-striped table-bordered table-hover" id="list-documents">
+                                            <thead>
+                                                <tr>
+                                                    <th width="*" class="text-center">JUDUL</th>
+                                                    <th width="100px" class="text-center">AKSI</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<div id='ctv-context-menu'>
+    <ul id='ctv-context-menu-items'>
+        <li class="ctv-cm-expand enabled" act="expand"><i class="ctv-context-menu-icon fa" style="color: #092b9b;"></i>Expand</li>
+        <li class="ctv-cm-collapse enabled" act="collapse"><i class="ctv-context-menu-icon fa" style="color: #092b9b;"></i>Collapse</li>
+        <li class="ctv-cm-open enabled" act="open"><i class="ctv-context-menu-icon fa" style="color: #092b9b;"></i><b>Buka</b></li>
+        <li class="ctv-cm-newfolder enabled" act="newfolder"><i class="ctv-context-menu-icon fa fa-folder" style="color: #f9d647;"></i>Folder Baru</li>
+        <li class="ctv-cm-create enabled" act="createupload"><i class="ctv-context-menu-icon fa fa-upload" style="color: #092b9b;"></i>Unggah</li>
+        <li class="ctv-cm-create enabled" act="createtext"><i class="ctv-context-menu-icon fa fa-pencil" style="color: #1eb700;"></i>Tulis Baru...</li>
+        <li class="ctv-cm-rename enabled" act="rename"><i class="ctv-context-menu-icon fa" style="color: #092b9b;"></i>Ganti Nama</li>
+        <li class="ctv-cm-delete enabled" act="delete"><i class="ctv-context-menu-icon fa fa-times" style="color: #ff0000;"></i>Hapus</li>
+    </ul>
+</div>
+
+<div class="modal fade" id="modal_doc_detail">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Detil Dokumen</h4>
+            </div>
+            <div class="modal-body">
+                <div id="html_loading"></div>
+                <div class="form-horizontal" id="html_content">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tipe :</label>
+                            <div class="col-md-9 fix-top-form" id="html_type">
+                                FolderFolder
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Lokasi :</label>
+                            <div class="col-md-9 fix-top-form" id="html_location">
+                                FolderFolder<br />
+                                asa
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nama :</label>
+                            <div class="col-md-9 fix-top-form" id="html_name">
+                                FolderFolder
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Keterangan :</label>
+                            <div class="col-md-9 fix-top-form" id="html_description">
+                                FolderFolder
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .option_download_content {
+        text-align: center;
+    }
+
+    .link_option_download {
+        font-size: 32px;
+    }
+</style>
+
+
+<div class="modal fade" id="download_doc_option">
+    <div class="modal-dialog" style="width: 250px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Unduh Dokumen</h4>
+            </div>
+            <div class="modal-body">
+                <div style="text-align:center;display:none;" class="opsi_akses_sni">
+                    <select class="form-control wajib col-md-12" data-placeholder="Pilih Tipe Akses Dokumen" id="DOC_ACCESS_ID" name="DOC_ACCESS_ID">
+                        <option value="0">Pilih Tipe Akses Dokumen</option>
+                        @if (ViewBag.ListAkses.Count > 0)
+                        {
+                            foreach (var i in ViewBag.ListAkses)
+                            { 
+                            <option value="@i.DOC_ACCESS_ID">@i.DOC_ACCESS_NAME</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <hr />
+                <div class="option_download_content">
+                    <a class="link_option_download btn btn-info" id="download_docx" href="" target="_blank"><i class="fa fa-file-word-o" style="font-size: 32px;"></i></a>
+                    <a class="link_option_download btn btn-danger" id="download_pdf" href="" target="_blank"><i class="fa fa-file-pdf-o" style="font-size: 32px;"></i></a>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function download(id, tipe, PROPOSAL_ID) {
+        if (tipe == 100) {
+            $('.opsi_akses_sni').show();
+            var DOC_ACCESS_ID = $('#DOC_ACCESS_ID').val();
+            $('#download_docx').attr({ 'href': '/Download/Files/SNIInternal?PROPOSAL_ID=' + PROPOSAL_ID + '&ACCESS_ID=' + DOC_ACCESS_ID + '&TYPE=docx' });
+            $('#download_pdf').attr({ 'href': '/Download/Files/SNIInternal?PROPOSAL_ID=' + PROPOSAL_ID + '&ACCESS_ID=' + DOC_ACCESS_ID + '&TYPE=pdf' });
+        } else {
+            $('.opsi_akses_sni').hide();
+            $('#download_docx').attr({ 'href': '/Document/DocumentList/Download?docId=' + id });
+            $('#download_pdf').attr({ 'href': '/Document/DocumentList/Download?docId=' + id + '&convert=pdf' });
+        }
+        jQuery('#download_doc_option').modal('show');
+    }
+
+    $('.link_option_download').click(function () { $('#download_doc_option').modal('hide'); });
+
+    function showdetail(id) {
+        $('#html_loading').html('<img src="/assets/global/img/loading-spinner-blue.gif" /> &nbsp; memeriksa data...').show();
+        $('#html_content').hide();
+        jQuery('#modal_doc_detail').modal('show');
+
+        $.ajax({
+            url: "/Document/DocumentList/ShowDetail/?docId=" + id,
+            dataType: 'json',
+            success: function (response) {
+                $('#html_loading').hide();
+                $('#html_type').html(response.type);
+                $('#html_location').html(response.location);
+                $('#html_name').html(response.name);
+                $('#html_description').html(response.description);
+                $('#html_content').show();
+            }
+        });
+    }
+
+
+    var oTable;
+    var listdata;
+    var fromdbl = false;
+    jQuery(document).ready(function () {
+        jQuery('#treeview-document').bind("contextmenu", function () {
+            return false;
+        });
+
+        jQuery('#treeview-document').keydown(function (event) {
+            listdata = $('.ctv-selected');
+            var folderid = listdata.attr('ctv-id');
+            if (event.which == 113) { //F2
+                ctv_renamefolder(folderid);
+                return false;
+            } else if (event.which == 46) { //Delete
+                ctv_deletefolder(folderid);
+                return false;
+            }
+        });
+        $("#ctv-context-menu-items > li").click(function () {
+            var act = $(this).attr('act');
+            var folderid = listdata.attr('ctv-id');
+            var access = listdata.attr('ctv-context');
+            access = access.split("-");
+
+            if (act == 'expand' || act == 'collapse') {
+                listdata.children('.ctv-arrow-folder').click();
+            } else if (act == 'open') {
+                listdata.children('.ctv-data-name').click();
+            } else if (act == 'newfolder') {
+                ctv_newfolder(folderid);
+            } else if (act == 'rename') {
+                ctv_renamefolder(folderid);
+            } else if (act == 'delete') {
+                ctv_deletefolder(folderid);
+            } else if (act == 'createupload' && access[1] == 1) {
+                location.href = '/Document/DocumentList/CreateUpload?folderId=' + folderid;
+            } else if (act == 'createtext' && access[1] == 1) {
+                location.href = '/Document/DocumentList/CreateText?folderId=' + folderid;
+            }
+
+        });
+
+        jQuery('#treeview-document').delegate(".ctv-data-name", "contextmenu", function (e) {
+            e.preventDefault();
+            listdata = $(this).parent('.ctv-folder');
+            var access = listdata.attr('ctv-context');
+            var eoc = listdata.hasClass('ctv-opened');
+            var isselected = listdata.hasClass('ctv-selected');
+            access = access.split("-");
+            $(".ctv-cm-newfolder, .ctv-cm-rename").removeClass("enable").removeClass("disabled").addClass((access[0] == 1 ? "enabled" : "disabled"));
+            $(".ctv-cm-create").removeClass("enable").removeClass("disabled").addClass((access[1] == 1 ? "enabled" : "disabled"));
+            $(".ctv-cm-delete").removeClass("enable").removeClass("disabled").addClass((access[2] == 0 ? (access[0] == 1 ? "enabled" : "disabled") : "disabled"));
+            $(".ctv-cm-open").show();
+            $(".ctv-cm-expand,.ctv-cm-collapse").hide();
+            if (isselected) {
+                $(".ctv-cm-open").hide();
+            }
+            if (eoc) {
+                $(".ctv-cm-collapse").show();
+            } else {
+                if (access[3] != 0) {
+                    $(".ctv-cm-expand").show();
+                }
+            }
+            if (listdata.attr('ctv-ref') == "0") {
+                $(".ctv-cm-rename").addClass("disabled");
+            }
+            $("#ctv-context-menu").css("left", e.pageX - window.pageXOffset).css("top", e.pageY - window.pageYOffset).fadeIn(100, startFocusOut());
+        });
+        function startFocusOut() {
+            $(document).on("click", function () {
+                $("#ctv-context-menu").hide();
+                $(document).off("click");
+            });
+        }
+
+        $('#ctv-context-menu-items>li').hover(function () {
+            var isdisabled = $(this).hasClass("disabled");
+            if (!isdisabled) {
+                $(this).css({ background: '#e5e5e5' });
+            }
+        }, function () {
+            $(this).css({ background: '#ffffff' });
+        });
+
+
+        jQuery("#treeview-document").mCustomScrollbar({ theme: 'minimal-dark', axis: "yx" });
+        jQuery('#treeview-dociment-lists').disableSelection();
+
+        jQuery(window).resize(function () {
+            $('.row_text_on_datatable').css({ height: '18px' });
+            var height = $('table.dataTable>tbody>tr>td').height();
+            height = Math.floor(height / 18) * 18;
+            $('.row_text_on_datatable').css({ height: height + 'px' });
+        });
+
+        $('#treeview-document').delegate('.ctv-folder', 'hover', function (event) {
+            if (event.type === 'mouseenter') {
+                var isselected = $(this).hasClass("ctv-selected");
+                if (isselected) {
+                    $(this).css({ background: '#d1eed1', 'border-top': '1px solid #b1ccb1', 'border-bottom': '1px solid #b1ccb1' }).children('.ctv-arrow-folder').css({ color: '#66aa66' });
+                } else {
+                    $(this).css({ background: '#e1ffe1', 'border-top': '1px solid #e1ffe1', 'border-bottom': '1px solid #e1ffe1' }).children('.ctv-arrow-folder').css({ color: '#66aa66' });
+                }
+            } else {
+                var isselected = $(this).hasClass("ctv-selected");
+                if (isselected) {
+                    $(this).css({ background: '#d1eed1', 'border-top': '1px solid #d1eed1', 'border-bottom': '1px solid #d1eed1' }).children('.ctv-arrow-folder').css({ color: '#444444' });
+                } else {
+                    $(this).css({ background: '#ffffff', 'border-top': '1px solid #ffffff', 'border-bottom': '1px solid #ffffff' }).children('.ctv-arrow-folder').css({ color: '#444444' });
+                }
+            }
+        });
+
+
+        $('#treeview-document').delegate(".ctv-data-name", "click", function () {
+            $('.ctv-selected').css({ background: '#ffffff', 'border-top': '1px solid #ffffff', 'border-bottom': '1px solid #ffffff' });
+            $('.ctv-selected').children('.ctv-data-name').children('.ctv-folder-icon').removeClass('fa-folder-open').addClass('fa-folder');
+            $('.ctv-selected').removeClass('ctv-selected');
+            $(this).parent('.ctv-folder').css({ background: '#d1eed1', 'border-top': '1px solid #b1ccb1', 'border-bottom': '1px solid #b1ccb1' }).addClass('ctv-selected');
+            $(this).parent('.ctv-folder').children('.ctv-data-name').children('.ctv-folder-icon').removeClass('fa-folder').addClass('fa-folder-open');
+            var folderId = $(this).parent('.ctv-folder').attr('ctv-id');
+            var status = (folderId == "trash") ? '0' : '1';
+
+            if (fromdbl) {
+                fromdbl = false; return false;
+            }
+
+            if (oTable) {
+                oTable.fnDestroy();
+            }
+
+            oTable = $('#list-documents').dataTable({
+                "processing": true,
+                "serverSide": true,
+                "bServerSide": true,
+                "sAjaxSource": "/Document/DocumentList/ListData?status=" + status + "&folderid=" + folderId,
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "Data tidak tersedia",
+                    "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    "infoEmpty": "Menampilkan 0 Data",
+                    "infoFiltered": "",
+                    "lengthMenu": "Menampilkan _MENU_ Data",
+                    "search": "Pencarian:",
+                    "zeroRecords": "Pencarian Tidak Ditemukan",
+                    "sProcessing": "Proses Pengambilan Data",
+                },
+                "fnDrawCallback": function () {
+                    jsDefSetting();
+                },
+                "columnDefs": [{
+                    "orderable": false,
+                    "targets": [1]
+                }],
+                "order": [
+                    [0, 'desc']
+                ],
+                "lengthMenu": [
+                    [10, 25, 50, 100],
+                    [10, 25, 50, 100]
+                ],
+                "pageLength": 10,
+            });
+
+            var tableWrapper = $('.dataTables_wrapper');
+            tableWrapper.find('.dataTables_length select').select2();
+
+        });
+
+        jQuery('.ctv-data-name').first().click();
+
+        $('#treeview-document').delegate(".ctv-arrow-folder", "click", function () {
+            //var code = $(this).parent('.ctv-folder').attr('ctv-code');
+            var code = $(this).parent('.ctv-folder').attr('ctv-id');
+            var ref = $(this).parent('.ctv-folder').attr('ctv-ref');
+            var isopened = $(this).parent('.ctv-folder').hasClass("ctv-opened");
+            if (isopened) {
+                $("[ctv-ref=" + code + "]").each(function () {
+                    if ($(this).hasClass("ctv-opened")) {
+                        $(this).children('.ctv-arrow-folder').click();
+                    }
+                    $(this).slideUp(50);
+                });
+                $(this).parent('.ctv-folder').removeClass("ctv-opened").children('.ctv-arrow-folder').removeClass('fa-angle-down').addClass('fa-angle-right');
+            } else {
+                $("[ctv-ref=" + code + "]").each(function () {
+                    if ($(this).hasClass("ctv-opened")) {
+                        $(this).children('.ctv-arrow-folder').click();
+                    }
+                    $(this).slideDown(50);
+                });
+                $(this).parent('.ctv-folder').addClass("ctv-opened").children('.ctv-arrow-folder').removeClass('fa-angle-right').addClass('fa-angle-down');
+            }
+        });
+        $('#treeview-document').delegate(".ctv-folder", "dblclick", function (event) {
+            fromdbl = true;
+            $(this).children('.ctv-arrow-folder').click();
+        });
+
+    });
+
+    (function ($) {
+        $.fn.disableSelection = function () {
+            return this.attr('unselectable', 'on').css('user-select', 'none').on('selectstart', false);
+        };
+    })(jQuery);
+
+    //1-2-3-4 [Allow Add Folder]-[Allow Add File]-[Have folder or file]-[Have Folder]
+    function ctv_deletefolder(folderid) {
+        var context = listdata.attr('ctv-context').split('-');
+        var FolderId = listdata.attr('ctv-id');
+        if (context[2] == 0 && context[0] == 1) {
+            $.ajax({
+                url: "/Document/DocumentList/DeleteFolder?folderId=" + FolderId,
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == 0) {
+                        alert(response.message);
+                    } else {
+                        var listparentid = listdata.attr('ctv-ref');
+                        var listparent = $("[ctv-id=" + listparentid + "]");
+                        context = listparent.attr('ctv-context').split('-');
+                        listparent.attr({ 'ctv-context': context[0] + '-' + context[1] + '-' + (parseInt(context[2]) - 1) + '-' + (parseInt(context[3]) - 1) });
+                        if ((parseInt(context[2]) - 1) < 1) {
+                            listparent.children('.ctv-arrow-folder').css("visibility", "hidden");
+                        }
+                        listdata.remove();
+                        showNotification('Folder berhasil dihapus');
+                    }
+                }
+            });
+        }
+    }
+
+    function ctv_renamefolder(folderid) {
+        var context = listdata.attr('ctv-context').split('-');
+        var FolderId = listdata.attr('ctv-id');
+        if (context[0] == 1 && listdata.attr('ctv-ref') != "0") {
+            var FolderName = listdata.find('.ctv-folder-name').html();
+            listdata.find('.ctv-folder-name').html('<input class="input-newfolder" value="' + FolderName + '" type="text" style="font-weight:normal;height:18px;">');
+            $('.input-newfolder').focus();
+            $('.input-newfolder').val(FolderName);
+            $('.input-newfolder').keydown(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    $('.input-newfolder').blur();
+                }
+            });
+            $('.input-newfolder').keyup(function (event) {
+                $('.input-newfolder').val($(this).val().replace(/[^a-zA-Z0-9- ]/, ""));
+            });
+            $('.input-newfolder').blur(function () {
+                var FolderName = $('.input-newfolder').val();
+                var thistext = $(this);
+                $.ajax({
+                    url: "/Document/DocumentList/EditFolder?folderId=" + FolderId + "&folderName=" + FolderName,
+                    dataType: 'json',
+                    success: function (response) {
+                        thistext.parent().html(response.message);
+                        if (response.status == 1) {
+                            showNotification('Nama Folder berhasil diubah menjadi "' + response.message + '"');
+                        }
+                    }
+                });
+            });
+        }
+    }
+
+    function ctv_newfolder(folderid) {
+        var context = listdata.attr('ctv-context').split('-');
+        if (context[0] == 1) {
+            if (!listdata.hasClass('ctv-opened')) {
+                listdata.children('.ctv-arrow-folder').click();
+            }
+            var FolderId = listdata.attr('ctv-id');
+            listdata.after('<div ctv-context="1-1-0-0" ctv-id="" ctv-ref="' + FolderId + '" class="ctv-folder" style="padding-left: ' + (parseInt(listdata.css('padding-left')) + 20) + 'px;"><i class="ctv-arrow-folder fa fa-angle-right" style="width: 18px; text-align: center; visibility:hidden;"></i> <span class="ctv-data-name" style="cursor: pointer;"><i class="ctv-folder-icon fa fa-folder" style="width: 18px; "></i><span class="ctv-folder-name"><input class="input-newfolder" value="Folder Baru" type="text" style="height:18px;"></span></span></div>');
+            listdata.children('.ctv-arrow-folder').css("visibility", "visible");
+            $('.input-newfolder').select();
+            $('.input-newfolder').keydown(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    $('.input-newfolder').blur();
+                }
+                $('.input-newfolder').val($(this).val().replace(/[\d\.]+/g, ""));
+            });
+            $('.input-newfolder').blur(function () {
+                var FolderName = $('.input-newfolder').val();
+                var thistext = $(this);
+                $.ajax({
+                    url: "/Document/DocumentList/CreateFolder?folderId=" + FolderId + "&folderName=" + FolderName,
+                    dataType: 'json',
+                    success: function (response) {
+                        var status = response.status;
+                        if (status == 0) {
+                            listdata.next().remove();
+                            alert(response.message);
+                        } else {
+                            thistext.parent().html(FolderName);
+                            listdata.next().attr({ 'ctv-id': response.status });
+                            var context = listdata.attr('ctv-context').split('-');
+                            listdata.attr({ 'ctv-context': context[0] + '-' + context[1] + '-' + (parseInt(context[2]) + 1) + '-' + (parseInt(context[3]) + 1) });
+                            showNotification('Folder "' + FolderName + '" berhasil ditambahkan');
+                        }
+                    }
+                });
+            });
+        }
+    }
+
+    function showNotification(message) {
+        var opts = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-bottom-right",
+            "onclick": null,
+            "showDuration": "500",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        toastr.success(message, "Informasi Simpan Data :", opts);
+    }
+</script>

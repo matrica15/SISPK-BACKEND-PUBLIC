@@ -1,0 +1,63 @@
+﻿@*@model SISPK.Models.VIEW_BIDANG*@
+@{
+    ViewBag.Title = "Berita Detail";
+    var Model = ViewBag.datanews;
+}
+
+<style>
+    .blog-item .blog-info {
+        margin: 20px 0;
+        padding: 8px 0;
+        border-top: solid 1px #ECEBEB;
+        border-bottom: solid 1px #ECEBEB;
+        list-style: none;
+        display:block
+    }
+    ul {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+    .blog-info li {
+    padding: 0;
+    color: #555;
+    font-size: 13px;
+    margin-right: 10px;
+    display: inline-block;
+}
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="col-md-9 col-sm-9 blog-item">
+                  <div class="blog-item-img">
+                    <!-- BEGIN CAROUSEL -->            
+                    <div class="front-carousel">
+                      <div id="myCarousel" class="carousel slide">
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">                          
+                          <div class="item active">
+                            <img src="../../../@Model.NEWS_PATH_IMAGE" alt="" width="95%" style="height:320px !important">
+                          </div>
+                        </div>                        
+                       
+                      </div>                
+                    </div>
+                    <!-- END CAROUSEL -->             
+                  </div>
+                  <br />
+                  <h2>@Model.NEWS_TITLE</h2>
+                    @Html.Raw(Model.NEWS_CONTENTS)
+                  <ul class="blog-info">
+                    <li><i class="fa fa-user"></i> By @Model.ACCESS_NAME</li>
+                    <li><i class="fa fa-calendar"></i> @Model.NEWS_CREATE_DATE</li>
+                    <li><i class="fa fa-tags"></i> @Model.NEWS_TAG.Replace("|",", ")</li>
+                  </ul>         
+                </div>
+        <!-- END PORTLET-->
+    </div>
+</div>

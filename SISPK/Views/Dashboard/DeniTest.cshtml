@@ -1,0 +1,204 @@
+﻿<style>
+    td.details-control {
+    background: url('http://legacy.datatables.net/release-datatables/examples/examples_support/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.detailstable td.details-control {
+    background: url('http://legacy.datatables.net/release-datatables/examples/examples_support/details_close.png') no-repeat center center;
+}
+</style>
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Daftar Pengajuan Usulan
+                </div>
+                <div class="actions">
+                    <a class="btn btn-warning " href="@Url.Action("Create")">
+                        <i class="fa fa-plus"></i>Tambah Usulan Baru </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table id="usulanbaru" class="display table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>KOMTEK_CODE</th>
+                            <th>KOMTEK_NAME</th>
+                            <th>INSTANSI_NAME</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>KOMTEK_CODE</th>
+                            <th>KOMTEK_NAME</th>
+                            <th>INSTANSI_NAME</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function format(d) {
+        return '<table>'+
+                    '<tr>' +
+                    '<td>No SK</td>'+
+            '<td>:</td>'+
+            '<td>Isi</td>'+
+            '</tr>'+
+            '<tr><td>No SK</td><td>:</td><td>Isi</td></tr><tr><td>No SK</td><td>:</td><td>Isi</td></tr></table>Full name: ' + d.KOMTEK_CODE + ' ' + d.KOMTEK_NAME + '<br>' +
+            'Salary: ' + d.INSTANSI_NAME + '<br>' +
+            'The child row can contain any data you wish, including links, images, inner tables etc.';
+    }
+
+    jQuery(document).ready(function () {
+        var dt = $('#usulanbaru').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Home/Dashboard/DataDeniTest",
+            "columns": [
+                {
+                    "class": "details-control",
+                    "orderable": false,
+                    "data": null,
+                    "defaultContent": ""
+                },
+                { "data": "KOMTEK_CODE" },
+                { "data": "KOMTEK_NAME" },
+                { "data": "INSTANSI_NAME" }
+            ],
+            "order": [[1, 'asc']]
+        });
+
+        // Array to track the ids of the details displayed rows
+        var detailRows = [];
+
+        $('#usulanbaru tbody').on('click', 'tr td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = dt.row(tr);
+            var idx = $.inArray(tr.attr('id'), detailRows);
+
+            if (row.child.isShown()) {
+                tr.removeClass('detailstable');
+                row.child.hide();
+
+                // Remove from the 'open' array
+                detailRows.splice(idx, 1);
+            }
+            else {
+                tr.addClass('detailstable');
+                row.child(format(row.data())).show();
+
+                // Add to the 'open' array
+                if (idx === -1) {
+                    detailRows.push(tr.attr('id'));
+                }
+            }
+        });
+
+        // On each draw, loop over the `detailRows` array and show any child rows
+        dt.on('draw', function () {
+            $.each(detailRows, function (i, id) {
+                $('#' + id + ' td.details-control').trigger('click');
+            });
+        });
+    });
+    jQuery(document).ready(function () {
+        var table1 = $('#usulanbarux');
+        var oTable = table1.dataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Home/Dashboard/DataDeniTest",
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+                $('.kolom').css('width', '10%');
+                $('.kolom2').css('width', '5%');
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [6]
+            }],
+            "order": [
+                [1, 'desc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+        var tableWrapper = $('.dataTables_wrapper');
+        tableWrapper.find('.dataTables_length select').select2();
+
+
+    });
+    function hapus_usulan(id) {
+        var usulan = $('.judul_' + id).html();
+        bootbox.dialog({
+            message: "Anda yakin menghapus usulan dibawah ini ?<br> " + usulan,
+            title: "Konfirmasi Pengahapusan Usulan",
+            buttons: {
+                success: {
+                    label: "Yakin",
+                    className: "green",
+                    callback: function () {
+                        window.location = "/Pengajuan/Usulan/Hapus/" + id;
+                    }
+                },
+                danger: {
+                    label: "Batal",
+                    className: "red",
+                    callback: function () {
+                        //alert("uh oh, look out!");
+                    }
+                }
+            }
+        });
+    }
+    function cetak_usulan(id) {
+        var usulan = $('.judul_' + id).html();
+        var status = $('a[onclick="cetak_usulan(' + id + ')"]').attr("data-komstatus");
+        var msg = "";
+        if (status == 1) {
+            msg = "<p class='text-center'><b>" + usulan + "</b></p><br/><div class='jenis_report text-center'><a class='btn blue btn-sm' onclick='pilihtipe(1)'>FORMULIR USULAN PNPS</a><a class='btn blue btn-sm' onclick='pilihtipe(2)'>SURAT PENUGASAN KOMTEK</a></div><div class='tipe_report1 text-center tiper' style='display:none;'><br><a class='btn blue btn-sm' target='_blank' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=docx&PROPOSAL_ID=" + id + "'><i class='fa fa-file-word-o'></i> WORD</a><a target='_blank' class='btn btn-danger btn-sm' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=pdf&PROPOSAL_ID=" + id + "'><i class='fa fa-file-pdf-o'></i> PDF</a></div><div class='tipe_report2 text-center tiper' style='display:none;'><br><a target='_blank' class='btn blue btn-sm' href='/Laporan/Export/FORMULIR_PENUGASAN_KOMITE_TEKNIS?Type=docx&PROPOSAL_ID=" + id + "'><i class='fa fa-file-word-o'></i> WORD</a><a target='_blank' class='btn btn-danger btn-sm' href='/Laporan/Export/FORMULIR_PENUGASAN_KOMITE_TEKNIS?Type=pdf&PROPOSAL_ID=" + id + "'><i class='fa fa-file-pdf-o'></i> PDF</a></div>";
+        } else {
+            msg = "<p class='text-center'><b>" + usulan + "</b></p><p class='text-center'><br><a class='btn blue btn-sm' target='_blank' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=docx&PROPOSAL_ID=" + id + "'><i class='fa fa-file-word-o'></i> WORD</a><a target='_blank' class='btn btn-danger btn-sm' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=pdf&PROPOSAL_ID=" + id + "'><i class='fa fa-file-pdf-o'></i> PDF</a></p>";
+        }
+        bootbox.dialog({
+            message: msg,
+            title: "Download Data Usulan",
+            buttons: {
+                danger: {
+                    label: "Batal",
+                    className: "red",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+
+</script>

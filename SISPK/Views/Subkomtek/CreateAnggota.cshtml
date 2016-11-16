@@ -1,0 +1,202 @@
+﻿@{
+    ViewBag.Title = "Tambah Anggota SUBKOMTEK";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Tambah Anggota SUBKOMTEK
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="CreateAnggota" method="post">
+                    <div class="form-body"> 
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kode</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_CODE" name="KOMTEK_ANGGOTA_CODE" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        @*
+                         <div class="form-group" >
+                            <label class="control-label col-md-3">Komisi Teknis </label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="KOMTEK_PARENT_CODE" name="KOMTEK_PARENT_CODE">
+                                        <option value="">-- Pilih KOMTEK --</option>
+                                        @foreach (var prn in ViewBag.listparent)
+                                        {                                           
+                                            <option value="@prn.KOMTEK_CODE">@prn.KOMTEK_CODE. @prn.KOMTEK_NAME</option>                                            
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="bidang">
+                            <label class="control-label col-md-3">Bidang</label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="KOMTEK_BIDANG_ID" name="KOMTEK_BIDANG_ID">
+                                        <option value="">-- Pilih Bidang --</option>
+                                        @foreach (var bdg in ViewBag.listbidang)
+                                        {                                           
+                                            <option value="@bdg.BIDANG_ID">@bdg.BIDANG_CODE @bdg.BIDANG_NAME</option>                                            
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="instansi">
+                            <label class="control-label col-md-3">Instansi</label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="KOMTEK_INSTANSI_ID" name="KOMTEK_INSTANSI_ID">
+                                        <option value="">-- Pilih Instansi --</option>
+                                        @foreach (var ist in ViewBag.listinstansi)
+                                        {
+                                           
+                                            <option value="@ist.INSTANSI_ID">@ist.INSTANSI_CODE @ist.INSTANSI_NAME</option>
+                                            
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="ics">
+                            <label class="control-label col-md-3">ICS</label>
+                            <div class="col-md-7">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="ICS_PARENT_ID" name="ICS_PARENT_ID">
+                                        <option value="">-- Pilih ICS --</option>
+                                        @foreach (var ics in ViewBag.listICS)
+                                        {                                           
+                                            <option value="@ics.ICS_ID">@ics.ICS_CODE @ics.ICS_NAME</option>                                            
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div> *@
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nama Anggota</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_NAME" name="KOMTEK_ANGGOTA_NAME" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+                                               
+                        <div class="form-group" id="ics">
+                            <label class="control-label col-md-3">Jabatan</label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="KOMTEK_ANGGOTA_JABATAN" name="KOMTEK_ANGGOTA_JABATAN">
+                                        <option value="">-- Pilih Jabatan --</option>
+                                        @foreach (var jbt in ViewBag.listjabatan)
+                                        {                                           
+                                            <option value="@jbt.REF_ID">@jbt.REF_NAME</option>                                            
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Instansi</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_INSTANSI" name="KOMTEK_ANGGOTA_INSTANSI" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Alamat</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <textarea id="KOMTEK_ANGGOTA_ADDRESS" name="KOMTEK_PHONE" class="form-control wajib"> </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Telepon</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_PHONE" name="KOMTEK_ANGGOTA_PHONE" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="form-group" id="cin">
+                            <label class="control-label col-md-3">Fax</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_FAX" name="KOMTEK_ANGGOTA_FAX" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Email</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="email" id="KOMTEK_ANGGOTA_EMAIL" name="KOMTEK_ANGGOTA_EMAIL" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <label class="control-label col-md-3">Stakeholder</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_STAKEHOLDER" name="KOMTEK_ANGGOTA_STAKEHOLDER" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Pendidikan</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_EDUCATION" name="KOMTEK_ANGGOTA_EDUCATION" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Keahlian</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_EXPERTISE" name="KOMTEK_ANGGOTA_EXPERTISE" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>                        
+                                                                       
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn purple" type="submit"><i class="fa fa-check"></i>Submit</button>
+                                    <a href="@Url.Action("Index")" class="btn default" >Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>

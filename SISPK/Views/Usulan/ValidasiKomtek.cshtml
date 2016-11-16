@@ -1,0 +1,173 @@
+﻿<div class="row">
+    <div class="col-md-12 ">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Daftar Pengajuan Usulan
+                </div>
+                <div class="actions">
+                    <a class="btn btn-warning " href="@Url.Action("create")">
+                        <i class="fa fa-plus"></i>Tambah Komtek Baru </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-custom ">
+                    <ul class="nav nav-tabs ">
+                        <li class="active">
+                            <a href="#baru" data-toggle="tab">Menunggu Penunjukan Komite Teknis </a>
+                        </li>
+                        <li>
+                            <a href="#ditolak" data-toggle="tab">Telah Selesai Penunjukan Komite Teknis  </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="baru">
+                            <table class="table table-striped table-bordered table-hover" id="assign">
+                                <thead>
+                                    <tr>
+                                        <th width="10%" class="text-center">JENIS<br />
+                                            PENGUSUL</th>
+                                        <th width="10%" class="text-center">TANGGAL<br />
+                                            USULAN</th>
+                                        <th width="10%" class="text-center">JENIS<br />
+                                            PERUMUSAN</th>
+                                        <th class="text-center">JUDUL</th>
+                                        <th class="text-center" width="10%">RUANG<br />
+                                            LINGKUP</th>
+                                        <th width="10%" class="text-center">NO SNI<br />
+                                            PERUMUSAN</th>
+                                        <th width="5%" class="text-center">MENDESAK</th>
+                                        <th width="120px" class="text-center aksikolom">AKSI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Komite Teknis</td>
+                                        <td>
+                                            <center>17-OCT-2015</center>
+                                        </td>
+                                        <td>Baru</td>
+                                        <td>Pakaian Jadi - Cara uji kekuatan ritsleting</td>
+                                        <td>Tekstil</td>
+                                        <td>SNI 8085:2015</td>
+                                        <td>
+                                            <center>Ya</center>
+                                        </td>
+                                        <td>
+                                            <center><a href="/Pengajuan/Usulan/Detail/12" class="btn blue btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-file-text-o"></i></a><a href="/Pengajuan/Usulan/AssignKomtek/12" class="btn btn-warning btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Assign Komtek"><i class="action fa fa-check"></i></a><a href="javascript:;" class="btn green btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Cetak"><i class="action fa fa-print"></i></a></center>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Masyarakat</td>
+                                        <td>
+                                            <center>17-OCT-2015</center>
+                                        </td>
+                                        <td>Baru</td>
+                                        <td>Uji Kekuatan Helm</td>
+                                        <td>Industri</td>
+                                        <td>SNI 8085:2015</td>
+                                        <td>
+                                            <center>Tidak</center>
+                                        </td>
+                                        <td>
+                                            <center><a href="/Pengajuan/Usulan/Detail/12" class="btn blue btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-file-text-o"></i></a><a href="/Pengajuan/Usulan/AssignKomtek/12" class="btn btn-warning btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Assign Komtek"><i class="action fa fa-check"></i></a><a href="javascript:;" class="btn green btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Cetak"><i class="action fa fa-print"></i></a></center>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8" class="text-right"><a href="javascript:void(0)" class="btn blue btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-file-text-o"></i>Lihat Data </a><a href="javascript:void(0)" class="btn btn-warning btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Ubah"><i class="action fa fa-check"></i>Penunjukan Komtek </a><a href="javascript:;" class="btn green btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Cetak"><i class="action fa fa-print"></i>Cetak Data </a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="ditolak">
+                           
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var table1 = $('#assign');
+        var oTable = table1.dataTable({
+            "processing": true,
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+                $('.aksikolom').css('width', '120px');
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [7]
+            }],
+            "order": [
+                [1, 'desc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+        var table2 = $('#noassign');
+        var oTable = table2.dataTable({
+            "processing": true,
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+                $('.aksikolom').css('width', '120px');
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [7]
+            }],
+            "order": [
+                [1, 'desc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+        var tableWrapper = $('.dataTables_wrapper');
+        tableWrapper.find('.dataTables_length select').select2();
+        $('.aksikolom').css('width', '120px');
+    });
+
+
+</script>

@@ -1,0 +1,149 @@
+﻿@{
+    ViewBag.Title = "Lampiran SNI";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Lampiran SNI
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" action="" type="post">
+                    <div class="form-body"> 
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal</label>
+                            <div class="col-md-3">                               
+                                    <div class="col-md-3 input-group input-medium date date-picker" data-date-format="dd-mm-yyyy">
+												<input type="text" class="form-control" id="StarDate" name="start">
+												<span class="input-group-btn">
+												    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+												</span>
+									</div>                                   
+                            </div>
+                            <label class="control-label col-md-1" style="text-align:center">S/D</label>
+                            <div class="col-md-3" style="border-left: 0px solid #FFFFFF;">
+                                                                
+                                    <div class="col-md-3 input-group input-medium date date-picker" data-date-format="dd-mm-yyyy">
+												<input type="text" class="form-control" id="EndDate">
+												<span class="input-group-btn">
+												<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+												</span>
+									</div>
+                               
+                            </div>
+                        </div>
+
+                         <div class="form-group" >
+                            <label class="control-label col-md-3">ICS</label>
+                            <div class="col-md-6">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="ics_id" name="ics_id">
+                                       <option value="">-- Pilih ICS --</option>
+                                       <option value="0">All</option>
+                                         @foreach (var ics in ViewBag.listICS)
+                                        {                                           
+                                            <option value="@ics.ICS_ID">@ics.ICS_NAME</option>                                            
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">KOMTEK</label>
+                            <div class="col-md-6">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="komtek_id" name="komtek_id">
+                                       <option value="">-- Pilih KOMTEK --</option>
+                                       <option value="0">All</option>
+                                         @foreach (var km in ViewBag.listKomtek)
+                                        {                                           
+                                            <option value="@km.KOMTEK_ID">@km.KOMTEK_NAME</option>                                            
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Jenis</label>
+                            <div class="col-md-6">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="jenis_id" name="jenis_id">
+                                       <option value="">-- Pilih Jenis --</option>
+                                       <option value="0">All</option>
+                                       <option value="1">Baru</option>
+                                       <option value="2">Revisi</option>
+                                       <option value="3">Amandemen</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Status</label>
+                            <div class="col-md-6">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" id="status_id" name="status_id">
+                                        <option value="">-- Pilih Status --</option>
+                                        <option value="1">All</option>
+                                        <option value="2">Diusulkan</option>
+                                        <option value="3">Dirumuskan</option>
+                                        <option value="4">Ditetapkan</option>                                       
+                                    </select>
+                                </div>
+                            </div>
+                        </div>                        
+                                                                       
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="button" id="Excel"><i class="fa fa-check"></i>Export</button>
+                                    <a href="@Url.Action("Review")" class="btn default" >Preview</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {     
+
+        $("#Excel").click(function () {
+            var stardate = $("#StarDate").val();            
+            var enddate = $("#EndDate").val();
+            var ics = $("#ics_id").val();
+            var komtek = $("#komtek_id").val();
+            var jenis = $("#jenis_id").val();
+            var status = $("#status_id").val();
+            
+            if (stardate != "" && enddate != "") {
+               
+                if (ics != "" && komtek != "" && jenis != "" && status != "") {
+                    //alert(enddate);
+                    //return false;
+                    //window.location.href = "/Laporan/Excel/LampiranSNI";
+                    
+                    window.location.href = "/Laporan/Excel/LampiranSNI?stardate ="+stardate+"&enddate ="+enddate+"&ics="+komtek+"&jenis="+jenis+"&status="+status;
+                }
+                else {                   
+                    alert("Silahkan pilih kriteria");
+                }
+            }
+            
+        })
+    })
+</script>
+

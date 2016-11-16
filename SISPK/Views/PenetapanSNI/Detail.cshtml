@@ -1,0 +1,93 @@
+﻿@*@model SISPK.Models.VIEW_ANGGOTA*@
+@{
+    ViewBag.Title = "Detail SK yang sudah ditetapkan";
+    var Model = ViewBag.sni;
+    int no = 1;
+}
+<style>
+    .isi {
+        vertical-align:middle;
+        padding-top:5px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Detail SNI yang sudah ditetapkan
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="Create" method="post" enctype="multipart/form-data">
+                    <div class="form-body"> 
+                      
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nomor SK</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">                                    
+                                    <label class="isi">@Model.SNI_SK_NOMOR</label>
+                                </div>
+                            </div>
+                        </div>
+                                               
+                        <div class="form-group" id="ics">
+                            <label class="control-label col-md-3">Tanggal Penetapan</label>
+                            <div class="col-md-4">
+                                <div style="text-align: left">
+                                    <label class="isi">@Model.SNI_SK_DATE_NAME</label>                                   
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Lampiran SK</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    @if (Model.DOC_FILE_NAME != null)
+                                    {
+                                        <label class="isi"><a href="~/@Model.DOC_FILE_PATH@Model.DOC_FILE_NAME.@Model.DOC_FILETYPE">@Model.DOC_FILE_NAME.@Model.DOC_FILETYPE</a></label> 
+                                    }
+                                    else{
+                                        <label class="isi">-</label>
+                                    }
+                                                                       
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Daftar SNI</label>
+                            <div class="col-md-9" style="padding-top: 20px; padding-bottom: 0px">
+                                    <div class="detailtext">
+                                        <ol style="padding-left: 15px;">
+                                            @foreach (var sni in ViewBag.listsni)
+                                            {
+                                                <li>(@sni.SNI_NOMOR) @sni.SNI_JUDUL</li>                                                
+                                            }
+                                        </ol>
+                                    </div>
+                                </div>
+                        </div>                                           
+                                                                       
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <input type="hidden" value="@Model.SNI_SK_ID" name="SNI_ID" id="SNI_ID"/>                                    
+                                    <a href="@Url.Action("Index")" class="btn default" >Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>

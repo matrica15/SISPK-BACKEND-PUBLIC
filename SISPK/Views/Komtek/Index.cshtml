@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "Komite Teknis";
+}
+
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Daftar Komite Teknis
+                </div>
+                <div class="actions">
+                    <a class="btn btn-warning " href="@Url.Action("create")">
+                        <i class="fa fa-plus"></i>Tambah Komite Teknis</a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-custom ">
+                   <ul class="nav nav-tabs ">
+                        <li class="active">
+                            <a href="#aktif" data-toggle="tab" >KOMTEK Aktif </a>
+                        </li>
+                        <li>
+                            <a href="#non-aktif" data-toggle="tab" >KOMTEK Tidak Aktif</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="aktif">
+                            <table class="table table-striped table-bordered table-hover" id="Komtek1">
+                                <thead>
+                                    <tr>                                       
+                                        <th width="5%" class="text-center">KODE</th>
+                                        <th width="20%" class="text-center">NAMA KOMTEK</th> 
+                                        <th width="10%" class="text-center">SEKRETARIAT</th>
+                                        <th width="20%" class="text-center">ALAMAT</th>
+                                        @*<th width="10%" class="text-center">SEKRETARIAT</th>
+                                        <th width="15%" class="text-center">EMAIL</th>*@
+                                        <th width="15%" class="text-center">SK PENETAPAN</th>
+                                        <th width="10%" class="text-center">AKSI</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                         </div>
+                        
+                        <div class="tab-pane" id="non-aktif">
+                            <table class="table table-striped table-bordered table-hover" id="Komtek2">
+                                <thead>
+                                    <tr>                                       
+                                        <th width="5%" class="text-center">KODE</th>
+                                        <th width="20%" class="text-center">NAMA KOMTEK</th> 
+                                        <th width="10%" class="text-center">SEKRETARIAT</th>
+                                        <th width="20%" class="text-center">ALAMAT</th>
+                                        @*<th width="10%" class="text-center">SEKRETARIAT</th>
+                                        <th width="15%" class="text-center">EMAIL</th>*@
+                                        <th width="15%" class="text-center">SK PENETAPAN</th>
+                                        <th width="10%" class="text-center">AKSI</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                         </div>                  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var table1 = $('#Komtek1');
+        var oTable = table1.dataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Master/Komtek/ListDataKomtek?status=1",
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+                $('.kolom').css('width', '10%');
+                $('.kolom2').css('width', '5%');
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [5]
+            }],
+            "order": [
+                [1, 'desc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+
+        var table2 = $('#Komtek2');
+        var oTable = table2.dataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Master/Komtek/ListDataKomtek?status=0",
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+                $('.kolom').css('width', '10%');
+                $('.kolom2').css('width', '5%');
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [5]
+            }],
+            "order": [
+                [1, 'desc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+        
+        var tableWrapper = $('.dataTables_wrapper');
+        tableWrapper.find('.dataTables_length select').select2();
+    });
+ 
+
+</script>

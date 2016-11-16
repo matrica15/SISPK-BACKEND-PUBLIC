@@ -1,0 +1,127 @@
+﻿@model SISPK.Models.VIEW_ANGGOTA
+@{
+    ViewBag.Title = "Anggota Detail";
+    var Model = ViewBag.anggota_item;    
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Anggota Detail
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="" action="CreateAnggota" method="post">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nama Anggota</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="hidden" id="KOMTEK_ANGGOTA_KOMTEK_ID" name="KOMTEK_ANGGOTA_KOMTEK_ID" class="form-control wajib" value="@ViewBag.komtek_id">
+                                    <input type="text" id="KOMTEK_ANGGOTA_NAMA" name="KOMTEK_ANGGOTA_NAMA" class="form-control wajib" value="@Model.KOMTEK_ANGGOTA_NAMA" readonly="read-only">
+                                    @*<input type="text" id="KOMTEK_ANGGOTA_KODE" name="KOMTEK_ANGGOTA_KODE" class="form-control wajib" value="@ViewBag.komtek_kode.KOMTEK_CODE">*@
+                                </div>
+                            </div>
+                        </div>
+                                               
+                        <div class="form-group" id="ics">
+                            <label class="control-label col-md-3">Jabatan</label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <input type="text" id="JABATAN" name="JABATAN" class="form-control wajib" value="@Model.JABATAN" readonly="read-only">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Instansi</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_INSTANSI" name="KOMTEK_ANGGOTA_INSTANSI" class="form-control wajib" value="" readonly="read-only">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Alamat</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <textarea id="KOMTEK_ANGGOTA_ADDRESS" name="KOMTEK_ANGGOTA_ADDRESS" class="form-control wajib" readonly="read-only">@Model.KOMTEK_ANGGOTA_ADDRESS </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Telepon</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="number" id="KOMTEK_ANGGOTA_TELP" name="KOMTEK_ANGGOTA_TELP" class="form-control wajib" value="@Model.KOMTEK_ANGGOTA_TELP" readonly="read-only">
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="form-group" id="cin">
+                            <label class="control-label col-md-3">Fax</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_FAX" name="KOMTEK_ANGGOTA_FAX" class="form-control wajib" value="@Model.KOMTEK_ANGGOTA_FAX" readonly="read-only">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Email</label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="email" id="KOMTEK_ANGGOTA_EMAIL" name="KOMTEK_ANGGOTA_EMAIL" class="form-control wajib" value="@Model.KOMTEK_ANGGOTA_EMAIL" readonly="read-only">
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <label class="control-label col-md-3">Stakeholder</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_STAKEHOLDER" name="KOMTEK_ANGGOTA_STAKEHOLDER" class="form-control wajib" value="@Model.KOMTEK_ANGGOTA_STAKEHOLDER" readonly="read-only">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="ics">
+                            <label class="control-label col-md-3">Pendidikan</label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                   <input type="text" id="PENDIDIKAN" name="PENDIDIKAN" class="form-control wajib" value="@Model.PENDIDIKAN" readonly="read-only">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Keahlian</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="KOMTEK_ANGGOTA_EXPERTISE" name="KOMTEK_ANGGOTA_EXPERTISE" class="form-control wajib" value="@Model.KOMTEK_ANGGOTA_EXPERTISE" readonly="read-only">
+                                </div>
+                            </div>
+                        </div>                        
+                                                                       
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    @*<button class="btn purple" type="submit"><i class="fa fa-check"></i>Submit</button>*@
+                                    <a href="@Url.Action("Index")" class="btn default" >Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>

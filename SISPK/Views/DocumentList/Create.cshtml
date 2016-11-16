@@ -1,0 +1,79 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Tambah (Tulis) Dokumen
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" action="" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Judul <span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" name="DOC_NAME" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kategori <span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <select class="form-control select2me wajib" placeholder="Pilih Kategori Dokumen" id="DOC_DOCCATE_ID" name="DOC_DOCCATE_ID">
+                                    <option value=""></option>
+                                    @foreach (var Category in ViewBag.Categories)
+                                    {
+                                        <option value="@Category.REF_ID">@Category.REF_NAME</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Jenis <span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <select class="form-control select2me wajib" placeholder="Pilih Jenis Dokumen" id="DOC_DOCTYPE_ID" name="DOC_DOCTYPE_ID">
+                                    <option value=""></option>
+                                    @foreach (var Type in ViewBag.Types)
+                                    {
+                                        <option value="@Type.REF_ID">@Type.REF_NAME</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ruang Lingkup <span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <textarea name="DOC_DESCRIPTION" class="form-control wajib"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="form-actions">
+                        <div class="form-group last">
+                            <div class="col-md-12">
+                                <textarea class="ckeditor form-control" name="editor2" rows="10" data-error-container="#editor2_error">
+                                    <p style="text-align:center"><span style="font-size:20px"><strong>JUDUL</strong></span></p>
+                                    <p style="text-align: center;"><span style="font-size:20px"><strong>Contoh Text Editor</strong></span></p><p>&nbsp;</p></textarea>
+                                <div id="editor2_error">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button class="btn green" type="submit">Simpan</button>
+                                <a class="btn red" type="button" href="@Url.Action("index")">Batal</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>

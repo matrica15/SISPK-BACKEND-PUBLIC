@@ -1,0 +1,49 @@
+﻿@model SISPK.Models.SYS_CONFIG
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Edit Pengaturan Aplikasi
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" method="post" action="">
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">@Model.CONFIG_NAME </label>
+                            <div class="col-md-8">
+                                <div class="input-icon right">
+                                    <input type="text" id="CONFIG_VALUE" name="CONFIG_VALUE" class="form-control wajib" value="@Model.CONFIG_VALUE">
+                                    <input type="hidden" id="CONFIG_NAME" name="CONFIG_NAME" class="form-control wajib" value="@Model.CONFIG_NAME">
+                                    <input type="hidden" id="CONFIG_LOG_CODE" name="CONFIG_LOG_CODE" class="form-control wajib" value="@Model.CONFIG_LOG_CODE">
+                                    <input type="hidden" id="CONFIG_ID" name="CONFIG_ID" class="form-control wajib" value="@Model.CONFIG_ID">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                     <button class="btn green" type="submit">Simpan</button>                                     
+                                     <a class="bg btn btn-red btn-icon icon-left" href="@Url.Action("Index")"><i class="entypo-back"></i>Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    
+</script>

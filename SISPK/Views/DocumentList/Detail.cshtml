@@ -1,0 +1,57 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Ubah Dokumen
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" action="" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Judul</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    @Model.DOC_NAME
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kategori</label>
+                            <div class="col-md-4">
+                                @Model.DOCCATE_NAME
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Jenis</label>
+                            <div class="col-md-4">
+                                @Model.DOCTYPE_NAME
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ruang Lingkup</label>
+                            <div class="col-md-4">
+                                @Model.DOC_DESCRIPTION
+                            </div>
+                        </div>
+                    <div class="form-actions">
+                        <div class="form-group last">
+                            <div class="col-md-12">
+                                <textarea disabled class="ckeditor form-control" name="editor2" rows="10" data-error-container="#editor2_error">
+                                    <p style="text-align:center"><span style="font-size:20px"><strong>JUDUL</strong></span></p>
+                                    <p style="text-align: center;"><span style="font-size:20px"><strong>Contoh Document Viewer</strong></span></p><p>&nbsp;</p></textarea>
+                                <div id="editor2_error">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>

@@ -1,0 +1,1027 @@
+﻿@{
+    var Detail = ViewBag.DataProposal;
+}
+<style>
+    .select2-selection--single {
+        height: 100% !important;
+    }
+
+    .select2-selection__rendered {
+        word-wrap: break-word !important;
+        text-overflow: inherit !important;
+        white-space: normal !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Penyusunan RSNI 2
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" action="" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kode PNPS</label>
+                            <div class="col-md-9 control-label detailtext">
+                                <input type="hidden" name="PROPOSAL_ID" id="PROPOSAL_ID" value="@Detail.PROPOSAL_ID" class="kirim"/>
+                                <input type="hidden" name="PROPOSAL_KOMTEK_ID" id="PROPOSAL_KOMTEK_ID" value="@Detail.PROPOSAL_KOMTEK_ID" class="kirim"/>
+                                <input type="hidden" name="POLLING_ID" id="POLLING_ID" value="@Detail.PROPOSAL_POLLING_ID" class="kirim"/>
+                                <a href="javascript:void(0)" style="color: blue; text-decoration: none;" onclick="$('#detail').modal('show')">@Detail.PROPOSAL_PNPS_CODE</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis</label>
+                            <div class="col-md-7 control-label detailtext">
+                                <a href="javascript:void(0)" onclick="detail_komtek(@Detail.KOMTEK_ID)" style="color: blue; text-decoration: none;">@Detail.KOMTEK_CODE @Detail.KOMTEK_NAME</a>
+                            </div>
+                        </div>
+                        @if (ViewBag.ICS.Count > 0)
+                        {
+                            <div class="form-group">
+                                <label class="control-label col-md-3">ICS</label>
+                                <div class="col-md-9" style="padding-top: 20px; padding-bottom: 0px">
+                                    <div class="detailtext">
+                                        <ol style="padding-left: 15px;">
+                                            @foreach (var an in ViewBag.ICS)
+                                            {
+                                                <li>@an.ICS_CODE @((an.ICS_NAME_IND == null) ? an.ICS_NAME : an.ICS_NAME_IND)</li>
+                                            }
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Judul PNPS</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.PROPOSAL_JUDUL_PNPS
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ruang Lingkup</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.PROPOSAL_RUANG_LINGKUP
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Referensi</label>
+                            <div class="col-md-7 control-label detailtext">
+                                <a href="javascript:void(0)" id="bukaref" data-isopen="0" style="color: blue; text-decoration: none;">Buka Referensi</a>
+                            </div>
+                        </div>
+                        @if (ViewBag.LakukanPolling == true)
+                        {
+                            <div class="susun">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Sepakat dengan Penyusunan RSNI 2 ini ?</label>
+                                    <div class="col-md-9">
+                                        <div class="input-icon right">
+                                            <div class="radio-list">
+                                                <label>
+                                                    <input type="radio" class="POLLING_OPTION kirim" name="POLLING_OPTION" id="POLLING_OPTION_1" value="1" checked>
+                                                    Sepakat.</label>
+                                                <label>
+                                                    <input type="radio" class="POLLING_OPTION kirim" name="POLLING_OPTION" id="POLLING_OPTION_0" value="0">
+                                                    Tidak Sepakat.</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Alasan <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <div class="input-icon right">
+                                            <textarea id="POLLING_REASON" name="POLLING_REASON" class="form-control wajib kirim"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group hasil" style="display: none">
+                                <label class="control-label col-md-3">Hasil Jajak Pendapat</label>
+                                <div class="col-md-6">
+                                    <div>Sepakat <span class="text-danger">@ViewBag.DataPolling.POLLING_SETUJU_PERSEN%</span> (@ViewBag.DataPolling.POLLING_SETUJU Anggota)</div>
+                                    <div class="progress" style="height: 19px;">
+                                        <div class="progress-bar progress-bar-striped active progress-bar-success" role="progressbar"
+                                        aria-valuenow="@ViewBag.DataPolling.POLLING_SETUJU_PERSEN" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.DataPolling.POLLING_SETUJU_PERSEN%">
+                                            @ViewBag.DataPolling.POLLING_SETUJU_PERSEN%
+                                        </div>
+                                    </div>
+                                    <div>Tidak Sepakat <span class="text-danger">@ViewBag.DataPolling.POLLING_TDK_SETUJU_PERSEN%</span> (@ViewBag.DataPolling.POLLING_TDK_SETUJU Anggota)</div>
+                                    <div class="progress" style="height: 19px;">
+                                        <div class="progress-bar progress-bar-striped active progress-bar-danger" role="progressbar"
+                                        aria-valuenow="@ViewBag.DataPolling.POLLING_TDK_SETUJU_PERSEN" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.DataPolling.POLLING_TDK_SETUJU_PERSEN%">
+                                            @ViewBag.DataPolling.POLLING_TDK_SETUJU_PERSEN%
+                                        </div>
+                                    </div>
+                                    <div>Belum Melakukan Jajak Pendapat <span class="text-danger">@ViewBag.DataPolling.POLLING_ABSTAIN_PERSEN%</span> (@ViewBag.DataPolling.POLLING_ABSTAIN Anggota)</div>
+                                    <div class="progress" style="height: 19px;">
+                                        <div class="progress-bar progress-bar-striped active progress-bar-info" role="progressbar"
+                                        aria-valuenow="@ViewBag.DataPolling.POLLING_ABSTAIN_PERSEN" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.DataPolling.POLLING_ABSTAIN_PERSEN%">
+                                            @ViewBag.DataPolling.POLLING_ABSTAIN_PERSEN%
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="POLLING_IS_KUORUM" name="POLLING_IS_KUORUM" value="@ViewBag.DataPolling.POLLING_IS_KUORUM" />
+                                    <input type="hidden" id="POLLING_IS_KUORUM_NAME" name="POLLING_RESULT_NAME" value="@ViewBag.DataPolling.POLLING_IS_KUORUM_NAME" />
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group hasil">
+                                <label class="control-label col-md-3">Hasil Jajak Pendapat</label>
+                                <div class="col-md-6">
+                                    <div>Sepakat <span class="text-danger">@ViewBag.DataPolling.POLLING_SETUJU_PERSEN%</span> (@ViewBag.DataPolling.POLLING_SETUJU Anggota)</div>
+                                    <div class="progress" style="height: 19px;">
+                                        <div class="progress-bar progress-bar-striped active progress-bar-success" role="progressbar"
+                                        aria-valuenow="@ViewBag.DataPolling.POLLING_SETUJU_PERSEN" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.DataPolling.POLLING_SETUJU_PERSEN%">
+                                            @ViewBag.DataPolling.POLLING_SETUJU_PERSEN%
+                                        </div>
+                                    </div>
+                                    <div>Tidak Sepakat <span class="text-danger">@ViewBag.DataPolling.POLLING_TDK_SETUJU_PERSEN%</span> (@ViewBag.DataPolling.POLLING_TDK_SETUJU Anggota)</div>
+                                    <div class="progress" style="height: 19px;">
+                                        <div class="progress-bar progress-bar-striped active progress-bar-danger" role="progressbar"
+                                        aria-valuenow="@ViewBag.DataPolling.POLLING_TDK_SETUJU_PERSEN" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.DataPolling.POLLING_TDK_SETUJU_PERSEN%">
+                                            @ViewBag.DataPolling.POLLING_TDK_SETUJU_PERSEN%
+                                        </div>
+                                    </div>
+                                    <div>Belum Melakukan Jajak Pendapat <span class="text-danger">@ViewBag.DataPolling.POLLING_ABSTAIN_PERSEN%</span> (@ViewBag.DataPolling.POLLING_ABSTAIN Anggota)</div>
+                                    <div class="progress" style="height: 19px;">
+                                        <div class="progress-bar progress-bar-striped active progress-bar-info" role="progressbar"
+                                        aria-valuenow="@ViewBag.DataPolling.POLLING_ABSTAIN_PERSEN" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.DataPolling.POLLING_ABSTAIN_PERSEN%">
+                                            @ViewBag.DataPolling.POLLING_ABSTAIN_PERSEN%
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="POLLING_IS_KUORUM" name="POLLING_IS_KUORUM" value="@ViewBag.DataPolling.POLLING_IS_KUORUM" />
+                                    <input type="hidden" id="POLLING_IS_KUORUM_NAME" name="POLLING_RESULT_NAME" value="@ViewBag.DataPolling.POLLING_IS_KUORUM_NAME" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="form-group last susunrsnilayout">
+                        <div class="col-md-12 deflayout">
+                            @if (ViewBag.DefaultDokumen != null)
+                            { 
+                                <textarea class="rsni_editor form-control" name="rsni1contents" id="rsni1content" data-error-container="#rsni1content_error">@ViewBag.DefaultDokumen</textarea>                            }
+                            else
+                            {
+                                <textarea class="rsni_editor form-control" name="rsni1contents" id="rsni1content" data-error-container="#rsni1content_error"></textarea>
+                            }
+
+                            <div id="rsni1content_error">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-9">
+
+                                @if (ViewBag.LakukanPolling == true)
+                                {
+                                    <button class="btn green simpan_hasil" type="button" onclick="setpollingkonfirmasi(@Detail.PROPOSAL_ID)">Simpan Hasil Kesepakatan</button>
+                                }
+                                @if (ViewBag.IsKetua == 1)
+                                {
+                                    if (ViewBag.LakukanPolling == false)
+                                    {
+                                    <button class="btn green" type="button" onclick="tutuppollingkonfirmasi(@Detail.PROPOSAL_POLLING_ID,@Detail.PROPOSAL_ID)">Tutup Hasil Kesepakatan</button>
+                                    }
+                                }
+                                <a class="btn red " href="@Url.Action("Index")">Kembali</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="lakukanpolling" class="modal fade" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title">Form Lakukan Polling Kesepakatan</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="#" class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Tanggal Polling</label>
+                                            <div class="col-md-8">
+                                                <div class="input-group input-medium date-picker input-daterange" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
+                                                    <input type="text" class="form-control kirim wajib" name="POLLING_START_DATE" id="POLLING_START_DATE">
+                                                    <span class="input-group-addon">-</span>
+                                                    <input type="text" class="form-control kirim wajib" name="POLLING_END_DATE" id="POLLING_END_DATE">
+                                                </div>
+                                                <!-- /input-group -->
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Batal</button>
+                                    <a class="btn green" onclick="simpan_polling()">Simpan</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+
+
+
+
+
+<!--Detail DATA-->
+<div class="modal fade bs-modal-lg" id="detail" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Detail Usulan @Detail.PROPOSAL_JUDUL_PNPS</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN PORTLET-->
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-gift"></i>Detail Data Pengajuan Usulan
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+                                <!-- BEGIN FORM-->
+                                <div class="portlet-body form">
+                                    <!-- BEGIN FORM-->
+                                    <div class="form-horizontal form-bordered">
+                                        <div class="form-body">
+                                            @if (Detail.PROPOSAL_TYPE == 1)
+                                            {
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @Detail.KOMTEK_CODE. @Detail.KOMTEK_NAME
+                                                    </div>
+                                                </div>
+                                                if (ViewBag.ICS.Count > 0)
+                                                {
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">ICS</label>
+                                                    <div class="col-md-9" style="padding-top: 20px">
+                                                        <div class="detailtext">
+                                                            <ol style="padding-left: 15px;">
+                                                                @foreach (var an in ViewBag.ICS)
+                                                                {
+                                                                    <li>@an.ICS_CODE @((an.ICS_NAME_IND == null) ? an.ICS_NAME : an.ICS_NAME_IND)</li>
+                                                                }
+                                                            </ol>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                }
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Konseptor</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @Detail.PROPOSAL_KONSEPTOR
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Institusi Konseptor</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @Detail.PROPOSAL_INSTITUSI
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Nama</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @Detail.PROPOSAL_TIM_NAMA
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Institusi</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @Detail.PROPOSAL_INSTITUSI
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Alamat</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @Detail.PROPOSAL_TIM_ALAMAT
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Telepon</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @Detail.PROPOSAL_TIM_PHONE
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Email</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @Detail.PROPOSAL_TIM_EMAIL
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Fax</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @Detail.PROPOSAL_TIM_FAX
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis</label>
+                                                    <div class="col-md-9 control-label detailtext">
+                                                        @((Detail.PROPOSAL_KOMTEK_ID == null) ? "Komtek Belum Ditetapkan" : Detail.KOMTEK_CODE + ". " + Detail.KOMTEK_NAME)
+                                                    </div>
+                                                </div>
+                                                if (ViewBag.ICS.Count > 0)
+                                                {
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">ICS</label>
+                                                    <div class="col-md-9" style="padding-top: 20px">
+                                                        <div class="detailtext">
+                                                            <ol style="padding-left: 15px;">
+                                                                @foreach (var an in ViewBag.ICS)
+                                                                {
+                                                                    <li>@an.ICS_CODE @((an.ICS_NAME_IND == null) ? an.ICS_NAME : an.ICS_NAME_IND)</li>
+                                                                }
+                                                            </ol>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                }
+                                            }
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Judul PNPS</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @Detail.PROPOSAL_JUDUL_PNPS
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Ruang Lingkup</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @Detail.PROPOSAL_RUANG_LINGKUP
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Jenis Perumusan SNI</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @Detail.PROPOSAL_JENIS_PERUMUSAN_NAME
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Jalur Perumusan SNI Baru / Revisi</label>
+                                                <div class="col-md-9">
+                                                    <div style="text-align: left" class="input-group col-md-12">
+                                                        <div class="checkbox-list">
+                                                            <label>
+                                                                <input type="checkbox" value="1" name="PROPOSAL_JALUR_TEMP" id="PROPOSAL_JALUR_1" class="" @((Detail.PROPOSAL_JALUR == 1 || Detail.PROPOSAL_JALUR == 3) ? "checked" : "") disabled="disabled">
+                                                                Perumusan sendiri berdasarkan penelitian
+                                                            </label>
+                                                            <label>
+                                                                <input type="checkbox" value="2" name="PROPOSAL_JALUR_TEMP" id="PROPOSAL_JALUR_2" class="" @((Detail.PROPOSAL_JALUR == 2 || Detail.PROPOSAL_JALUR == 3) ? "checked" : "") disabled="disabled">
+                                                                Adopsi identik standar atau publikasi internasional
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Metode Adopsi</label>
+                                                @if (Detail.PROPOSAL_METODE_ADOPSI == 1)
+                                                { 
+                                                    <div class="col-md-9 control-label detailtext">Publikasi ulang - cetak ulang</div>
+                                                }
+                                                else if (Detail.PROPOSAL_METODE_ADOPSI == 2)
+                                                {
+                                                    <div class="col-md-9 control-label detailtext">Terjemahan dua bahasa (Indonesia dan Inggris)</div>
+                                                }
+                                                else if (Detail.PROPOSAL_METODE_ADOPSI == 3)
+                                                {
+                                                    <div class="col-md-9 control-label detailtext">Terjemahan satu bahasa (Indonesia)</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-9 control-label detailtext">-</div>
+                                                }
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Standar ISO/IEC/SDO lain yang akan diadopsi secara <b>Identik</b></label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    <div class="detailtext">
+                                                        @Detail.PROPOSAL_NO_STD_ADOPSI_IDENTIK
+                                                    </div>
+                                                    <div class="help-block">
+                                                        Sebutkan standar ISO/EIC/SDO lain (Misalnya ASTM) yang akan diadopsi.(beri nomor standar, tahun terbitan dan judul standar yang akan diadopsi secara identik.)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Nomor Judul SNI yang akan diterjemahkan</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    @if (Detail.PROPOSAL_TERJEMAHAN_SNI_ID != null)
+                                                    {
+                                                        <div class="detailtext">
+                                                            @Detail.PROPOSAL_TERJEMAHAN_NOMOR @Detail.PROPOSAL_TERJEMAHAN_JUDUL
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="detailtext">-</div>
+                                                    }
+                                                    <div class="help-block">
+                                                        Apabila usulan ini merupakan terjemahan dari SNI rep-rep yang sudah dipublikasikan. Maka sebutkan nomor dan judul SNI yang akan diterjemahkan.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Apakah Adopsi Modifikasi standar atau publikasi internasional</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    <div style="text-align: left" class="input-group col-md-12">
+                                                        <div class="checkbox-list">
+                                                            <label>
+                                                                <input type="checkbox" value="1" name="PROPOSAL_IS_ADOPSI_MOD" id="PROPOSAL_IS_ADOPSI_MOD_1" class="" @((Detail.PROPOSAL_IS_ADOPSI_MOD == 1) ? "checked" : "") disabled="disabled">
+                                                                Ya
+                                                            </label>
+                                                            <label>
+                                                                <input type="checkbox" value="2" name="PROPOSAL_IS_ADOPSI_MOD" id="PROPOSAL_IS_ADOPSI_MOD_2" class="" @((Detail.PROPOSAL_IS_ADOPSI_MOD == 2) ? "checked" : "") disabled="disabled">
+                                                                Tidak
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="help-block">
+                                                        Adopsi modifikasi standar atau publikasi internasional (ISO/IEC/SDO lain (misalnya ASTM)) (hanya untuk metode terjemahan dalam bahasa indonesia saja).
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Sebutkan standar ISO/IEC/SDO lain yang akan diadopsi secara <b>Modifikasi</b></label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    @if (Detail.PROPOSAL_NO_STANDAR_MODIFIKASI != null)
+                                                    {
+                                                        <div class="detailtext">
+                                                            @Detail.PROPOSAL_NO_STANDAR_MODIFIKASI
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="detailtext">-</div>
+                                                    }
+                                                    <div class="help-block">
+                                                        Sebutkan standar ISO/EIC/SDO lain (Misalnya ASTM) yang akan diadopsi.(beri nomor standar, tahun terbitan dan judul standar yang akan diadopsi secara Modifikasi).)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Kebutuhan Mendesak ?</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    <div class="detailtext">
+                                                        @Detail.PROPOSAL_IS_URGENT_NAME
+                                                    </div>
+                                                    <div class="help-block">
+                                                        Kebutuhan mendesak untuk regulasi teknis (disertai dengan surat dari pejabat setingkat Eselon 1 di instansi teknis yang relevan dengan kebutuhan SNI).
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Nomor Judul SNI yang akan di Amandemen/Ralat/Revisi</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    @if (Detail.PROPOSAL_REVISI_SNI_ID != null)
+                                                    {
+                                                        <div class="detailtext">
+                                                            @Detail.PROPOSAL_REVISI_NOMOR @Detail.PROPOSAL_REVISI_JUDUL
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="detailtext">-</div>
+                                                    }
+                                                    <div class="help-block">
+                                                        Apabila usulan ini merupakan amandemen/ralat/revisi maka sebutkan nomor dan judul SNI yang akan diusulkan.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Pasal SNI yang di Amandemen/Ralat/Revisi</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    @if (Detail.PROPOSAL_REVISI_PASAL != null)
+                                                    {
+                                                        <div class="detailtext">
+                                                            @Detail.PROPOSAL_REVISI_PASAL
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="detailtext">-</div>
+                                                    }
+                                                    <div class="help-block">
+                                                        Sebutkan bagian atau pasal dari SNI yang akan dilakukan Amandemen/Ralat/Revisi.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Terdapat isi dari standar yang terkait dengan hak paten ?</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    <div style="text-align: left" class="input-group col-md-12">
+                                                        <div class="checkbox-list">
+                                                            <label>
+                                                                <input type="checkbox" value="1" name="PROPOSAL_IS_HAK_PATEN" id="PROPOSAL_IS_HAK_PATEN_1" class="" @((Detail.PROPOSAL_IS_HAK_PATEN == 1) ? "checked" : "") disabled="disabled">
+                                                                Ya
+                                                            </label>
+                                                            <label>
+                                                                <input type="checkbox" value="2" name="PROPOSAL_IS_HAK_PATEN" id="PROPOSAL_IS_HAK_PATEN_2" class="" @((Detail.PROPOSAL_IS_HAK_PATEN == 0) ? "checked" : "") disabled="disabled">
+                                                                Tidak
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="help-block">
+                                                        Apakah terdapat isi dari standar yang terkait dengan hak paten ?
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Informasi Hak Paten</label>
+                                                <div class="col-md-9 control-label detailtext">
+                                                    @Detail.PROPOSAL_IS_HAK_PATEN_DESC
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Informasi detail hasil penelitian atau kajian terhadap SNI</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    @if (Detail.PROPOSAL_INFORMASI != null)
+                                                    {
+                                                        <div class="detailtext">
+                                                            @Detail.PROPOSAL_INFORMASI
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="detailtext">-</div>
+                                                    }
+                                                    <div class="help-block">
+                                                        Berikan informasi detail, termasuk hasil penelitian atau kajian terhadap penerapan SNI tersebut, Jika perlu, tulis pada lembaran terpisah sebagai lampiran
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Informasi detail hasil penelitian atau kajian terhadap SNI</label>
+                                                <div class="col-md-9">
+                                                    <div class="help-block" style="font-size: 14px !important; color: #333333;">
+                                                        @if (Detail.PROPOSAL_LAMPIRAN_FILE_PATH != "" && Detail.PROPOSAL_LAMPIRAN_FILE_PATH != null)
+                                                        { 
+                                                            <div class="help-block">
+                                                                <a href="~@Detail.PROPOSAL_LAMPIRAN_FILE_PATH" target="_blank" style="color:green;">Download Informasi Detail Hasil Penelitian</a>
+                                                            </div>   
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="help-block">
+                                                                -
+                                                            </div>   
+                                                        }
+                                                    </div>
+
+                                                    <div class="help-block">
+                                                        Lampiran Terpisah Informasi detail hasil penelitian atau kajian terhadap SNI
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Tujuan dan alasan spesifik mengenai perumusan yang akan dilakukan</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    @if (Detail.PROPOSAL_TUJUAN != null)
+                                                    {
+                                                        <div class="detailtext">
+                                                            @Detail.PROPOSAL_TUJUAN
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="detailtext">-</div>
+                                                    }
+                                                    <div class="help-block">
+                                                        Tujuan dan alasan spesifik mengenai perumusan yang akan dilakukan (termasuk alasan dilakukan amandemen/revisi/ralat untuk SNI tersebut.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Kesesuaian dengan program pemerintah (sebutkan secara terperinci)</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    @if (Detail.PROPOSAL_PROGRAM_PEMERINTAH != null)
+                                                    {
+                                                        <div class="detailtext">
+                                                            @Detail.PROPOSAL_PROGRAM_PEMERINTAH
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="detailtext">-</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Pihak-pihak utama yang Berkepentingan</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    @if (Detail.PROPOSAL_PIHAK_BERKEPENTINGAN != null)
+                                                    {
+                                                        <div class="detailtext">
+                                                            @Html.Raw(Detail.PROPOSAL_PIHAK_BERKEPENTINGAN.Replace("|", "<br>"))
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="detailtext">-</div>
+                                                    }
+                                                    <div class="help-block">
+                                                        Pihak-pihak utama yang berkepentingan yang dapat mengambil manfaat dari kegiatan perumusan
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">SNI Acuan Normatif</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    @if (ViewBag.AcuanNormatif.Count > 0)
+                                                    {
+                                                        <div class="detailtext">
+                                                            <ol style="padding-left: 15px;">
+                                                                @foreach (var an in ViewBag.AcuanNormatif)
+                                                                {
+                                                                    <li>@an.PROPOSAL_REF_JOIN</li>
+                                                                }
+                                                            </ol>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="detailtext">-</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Acuan Non SNI</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    @if (ViewBag.AcuanNonNormatif.Count > 0)
+                                                    {
+                                                        <div class="detailtext">
+                                                            <ol style="padding-left: 15px;">
+                                                                @foreach (var an in ViewBag.AcuanNonNormatif)
+                                                                {
+                                                                    <li>@an.PROPOSAL_REF_JOIN</li>
+                                                                }
+                                                            </ol>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="detailtext">-</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Bibliografi</label>
+                                                <div class="col-md-9" style="padding-top: 20px">
+                                                    @if (ViewBag.Bibliografi.Count > 0)
+                                                    {
+                                                        <div class="detailtext">
+                                                            <ol style="padding-left: 15px;">
+                                                                @foreach (var an in ViewBag.Bibliografi)
+                                                                {
+                                                                    <li>@an.PROPOSAL_REF_JOIN</li>
+                                                                }
+                                                            </ol>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="detailtext">-</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- END FORM-->
+                                </div>
+                                <!-- END FORM-->
+                            </div>
+                        </div>
+                        <!-- END PORTLET-->
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn red btn-sm" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!--Detail DATA-->
+
+<div id="res_data_referensi" style="display: none;" data-jumlah="@ViewBag.Dokumen.Count">
+    @if (ViewBag.Dokumen.Count != 0)
+    {
+        foreach (var i in ViewBag.Dokumen)
+        {
+        <li class="media dok_pen" data-id="@i.DOC_ID">
+            <div class="media-body">
+                <h4 class="media-heading">@i.DOC_NAME</h4>
+                <div class="media-heading-sub">
+                    @i.DOC_CREATE_NAME
+                </div>
+                <div class="isi_dokument_@i.DOC_ID" style="display:none;"></div>
+            </div>
+        </li>
+        }
+    }
+    else
+    {
+        <li class="media" style="background: #4d6178;">
+            <div class="media-body">
+                <div class="media-heading-sub" style="text-align: center;">
+                    Data Tidak Ditemukan
+                </div>
+            </div>
+        </li>
+    }
+</div>
+<div id="res_data_referensi_lain" style="display: none;" data-jumlah="@ViewBag.RefLain.Count">
+    @if (ViewBag.RefLain.Count != 0)
+    {
+        foreach (var i2 in ViewBag.RefLain)
+        {
+        <li class="media dok_pen" data-id="@i2.DOC_ID" >
+            <div class="media-body">
+                <h4 class="media-heading">@i2.DOC_NAME</h4>
+                <div class="media-heading-sub">
+                    @i2.DOC_CREATE_NAME
+                </div>
+                <div class="isi_dokument_@i2.DOC_ID" style="display:none;"></div>
+            </div>
+        </li>
+        }
+    }
+    else
+    {
+        <li class="media" style="background: #4d6178;">
+            <div class="media-body">
+                <div class="media-heading-sub" style="text-align: center;">
+                    Data Tidak Ditemukan
+                </div>
+            </div>
+        </li>
+    }
+</div>
+
+
+<!--Detail DATA-->
+<script type="text/javascript">
+    function tutuppolling(POLLING_ID, PROPOSAL_ID) {
+        bukaloading();
+        var formData = $(".kirim").serializeObject();
+        $.ajax({
+            type: 'POST',
+            url: "/Perumusan/RSNI2/TutupPolling",
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify(formData)
+        }).done(function (data) {
+            $.when(tutuploading()).then(window.location = "/Perumusan/RSNI2");
+        });
+    }
+    function tutuppollingkonfirmasi(POLLING_ID, PROPOSAL_ID) {
+        bootbox.dialog({
+            message: "Anda yakin Menutup Polling Ini?",
+            title: "Konfirmasi Penutupan Voting Kesepakatan",
+            buttons: {
+                success: {
+                    label: "Yakin",
+                    className: "green",
+                    callback: function () {
+                        tutuppolling(POLLING_ID, PROPOSAL_ID);
+                    }
+                },
+                danger: {
+                    label: "Batal",
+                    className: "red",
+                    callback: function () {
+
+                    }
+                }
+            }
+        });
+    }
+    function getpolling(PROPOSAL_ID) {
+        $('#lakukanpolling').modal('show');
+    }
+    function setpolling() {
+        bukaloading();
+        var formData = $(".kirim").serializeObject();
+        var PROPOSAL_ID = $('#PROPOSAL_ID').val();
+        $.ajax({
+            type: 'POST',
+            url: "/Perumusan/RSNI2/SetVoteUser",
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify(formData)
+        }).done(function (data) {
+            $.when(tutuploading()).then(window.location = "/Perumusan/RSNI2/Polling/" + PROPOSAL_ID);
+        });
+    }
+    function setpollingkonfirmasi() {
+        bootbox.dialog({
+            message: "Anda yakin menyimpan Data ini ?",
+            title: "Konfirmasi Persetujuan Voting Kesepakatan",
+            buttons: {
+                success: {
+                    label: "Yakin",
+                    className: "green",
+                    callback: function () {
+                        setpolling();
+                    }
+                },
+                danger: {
+                    label: "Batal",
+                    className: "red",
+                    callback: function () {
+
+                    }
+                }
+            }
+        });
+    }
+    function simpan_polling() {
+
+        var formData = $(".kirim").serializeObject();
+        if ($('#sispk_form').valid()) {
+            $('#lakukanpolling').modal('hide');
+            bukaloading();
+            $.ajax({
+                type: 'POST',
+                url: "/Perumusan/RSNI2/SetPolling",
+                contentType: "application/json",
+                dataType: 'json',
+                data: JSON.stringify(formData)
+            }).done(function (data) {
+                $.when(tutuploading()).then(window.location = "/Perumusan/RSNI2");
+            });
+        }
+    }
+    function simpanrsni(PROPOSAL_ID, Tipe) {
+        bootbox.dialog({
+            message: "Anda yakin menyimpan Data RSNI ini ?",
+            title: "Konfirmasi Persetujuan Penyimpanan RSNI",
+            buttons: {
+                success: {
+                    label: "Yakin",
+                    className: "green",
+                    callback: function () {
+                        bukaloading();
+                        var RSNI = CKEDITOR.instances.rsni1content.getData();
+                        var formData = { PROPOSAL_ID: PROPOSAL_ID, Tipe: Tipe, rsni1contents: RSNI };
+                        $.ajax({
+                            type: 'POST',
+                            url: "/Perumusan/RSNI2/Create",
+                            contentType: "application/json",
+                            dataType: 'json',
+                            data: JSON.stringify(formData)
+                        }).done(function (data) {
+                            $.when(tutuploading()).then(window.location = "/Perumusan/RSNI1");
+                        });
+                    }
+                },
+                danger: {
+                    label: "Batal",
+                    className: "red",
+                    callback: function () {
+
+                    }
+                }
+            }
+        });
+    }
+
+    function cari_dokumen(ini) {
+        var tipe = parseInt($(ini).attr('data-tipe'));
+        var pencarian = $(ini).val();
+        var id = parseInt($('#PROPOSAL_ID').val());
+
+        var formData = { PROPOSAL_ID: id, SEARCH_NAME: pencarian, SEARCH_TIPE: tipe };
+        $.ajax({
+            type: 'POST',
+            url: "/Perumusan/RSNI1/GetContentSearch",
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify(formData)
+        }).done(function (res) {
+            var Dokumen = res.Dokumen;
+            var i = Dokumen.length;
+            var hasil = "";
+            if (i > 0) {
+                for (var d = 0; d < i; d++) {
+                    hasil += '<li class="media dok_pen" data-id="' + Dokumen[d].DOC_ID + '" onclick="openreferensi(' + Dokumen[d].DOC_ID + ');">';
+                    hasil += '<div class="media-body">';
+                    hasil += '<h4 class="media-heading">' + Dokumen[d].DOC_NAME + '</h4>';
+                    hasil += '<div class="media-heading-sub">';
+                    hasil += Dokumen[d].DOC_CREATE_NAME;
+                    hasil += '</div>';
+                    hasil += ' <div class="isi_dokument_' + Dokumen[d].DOC_ID + '" style="display:none;"></div>';
+                    hasil += '</div>';
+                    hasil += '</li>';
+                }
+            } else {
+                hasil += '<li class="media" style="background: #4d6178;">';
+                hasil += '<div class="media-body">';
+                hasil += '<div class="media-heading-sub" style="text-align:center;">';
+                hasil += 'Data Tidak Ditemukan';
+                hasil += '</div>';
+                hasil += '</div>';
+                hasil += '</li>';
+            }
+            if (tipe == 1) {
+                $('ul.data_dok_pendukung').html(hasil);
+            } else {
+                $('ul.data_dok_referensi').html(hasil);
+            }
+        });
+    }
+    function openreferensi(id) {
+        $('.firstactive').click();
+        $('.dropdown-toggle').click();
+        $('.susunrsnilayout').find('.deflayout').removeClass('col-md-12').addClass('col-md-6');
+        var formData = { DOC_ID: id };
+        var IsiContent = "";
+        $.ajax({
+            type: 'POST',
+            url: "/Perumusan/RSNI1/GetContent",
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify(formData)
+        }).done(function (res) {
+            IsiContent = res.data;
+            $('.susunrsnilayout').append('<div class="col-md-6 newlayout" style="border-left:none;"><div id="infodetail" contenteditable="false">' + IsiContent + '</div></div>');
+            CKEDITOR.inline('infodetail');
+        });
+
+
+    }
+
+    jQuery(document).ready(function () {
+
+        bukaloading();
+        CKEDITOR.disableAutoInline = true;
+        var ckEditor = CKEDITOR.replace('rsni1content');
+        var dataref = jQuery('#res_data_referensi').html();
+        var dataref2 = jQuery('#res_data_referensi_lain').html();
+        var datarefjumlah = jQuery('#res_data_referensi').attr("data-jumlah");
+        var dataref2jumlah = jQuery('#res_data_referensi_lain').attr("data-jumlah");
+        $('ul.data_dok_pendukung').html(dataref);
+        $('ul.data_dok_referensi').html(dataref2);
+        $('.dok_pendukung_jml').html(datarefjumlah);
+        $('.dok_referensi_jml').html(dataref2jumlah);
+
+        ckEditor.on("instanceReady", function (ev) {
+            tutupmenu();
+            tutuploading();
+        });
+        $('.searchinput').keypress(function (e) {
+            if (e.which == 13) {
+                cari_dokumen(this);
+            }
+        });
+        $('#bukaref').click(function () {
+            var isOpen = parseInt($(this).attr('data-isOpen'));
+            if (isOpen == 1) {
+                $(this).attr('data-isOpen', 0);
+                $(this).html('Buka Referensi');
+            } else {
+                $(this).attr('data-isOpen', 1);
+                $(this).html('Tutup Referensi');
+            }
+            $('body').toggleClass('page-quick-sidebar-open');
+        });
+    });
+    jQuery(document).ready(function () {
+        $('.timepicker-no-seconds').timepicker({
+            autoclose: true,
+            minuteStep: 5,
+            showMeridian: false
+        });
+        $('.date-picker').datepicker({
+            orientation: "center",
+            autoclose: true
+        });
+    });
+</script>

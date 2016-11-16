@@ -1,0 +1,358 @@
+﻿@{
+    ViewBag.Title = "Pembatalan Usulan/Perumusan";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Pemeliharaan
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="Create" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nomor Dokumen</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="text" class="form-control wajib" name="MAINTENANCE_DOC_NUMBER" id="MAINTENANCE_DOC_NUMBER">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Terbit</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="text" class="form-control wajib date-picker" name="MAINTENANCE_DATE" id="MAINTENANCE_DATE">
+                                <input type="hidden" id="count_rows" name="count_rows" value="1">
+                            </div>
+                        </div>
+
+                        @* <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Pilih Nomor SNI <span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <select multiple="multiple" class="form-control wajib SNI_ID" id="SNI_ID" name="SNI_ID" placeholder="Pilih SNI">
+                                </select>
+                            </div>
+                        </div>*@
+                        <div class="form-group" style="margin: 10px;">
+                            <table class="table table-bordered" id="list_sni">
+                                <thead>
+                                    <tr>
+                                        <th width="15%">Nomor SNI</th>
+                                        <th width="20%">Tanggal Kaji Ulang</th>
+                                        <th width="15%">Hasil Kaji Ulang</th>
+                                        <th width="20%">Tanggal Laporan ke BSN</th>
+                                        <th width="20%">Tanggal Usulan</th>
+                                        <th width="10%" style="text-align:center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <select class="form-control wajib SNI_ID" id="SNI_ID_0" name="SNI_ID_[0]" placeholder="Pilih SNI">
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <div class=" input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                                <input type="text" class="form-control wajib MAINTENANCE_DETAIL_REV_DATE" id="MAINTENANCE_DETAIL_REV_DATE_0" name="MAINTENANCE_DETAIL_REV_DATE[0]">
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                            </div>
+                                            @*<input type="text" class="form-control" id="MAINTENANCE_DETAIL_REV_DATE" name="MAINTENANCE_DETAIL_REV_DATE" />*@
+                                        </td>
+                                        <td>
+                                            <select class="form-control MAINTENANCE_DETAIL_RESULT" id="MAINTENANCE_DETAIL_RESULT_0" name="MAINTENANCE_DETAIL_RESULT_[0]">
+                                                <option value="0">Tetap</option>
+                                                <option value="1">Perubahan</option>
+                                                <option value="2">Abolisi</option>
+                                            </select>
+                                            @*<input type="text" class="form-control" id="MAINTENANCE_DETAIL_RESULT" name="MAINTENANCE_DETAIL_RESULT" />*@
+                                        </td>
+                                        <td>
+                                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                                <input type="text" class="form-control wajib MAINTENANCE_DETAIL_REPORT_DATE" id="MAINTENANCE_DETAIL_REPORT_DATE_0" name="MAINTENANCE_DETAIL_REPORT_DATE[0]">
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                            </div>
+                                            @*<input type="text" class="form-control" id="MAINTENANCE_DETAIL_REPORT_DATE" name="MAINTENANCE_DETAIL_REPORT_DATE" />*@
+                                        </td>
+                                        <td>
+                                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                                <input type="text" class="form-control wajib MAINTENANCE_DETAIL_USUL_DATE" id="MAINTENANCE_DETAIL_USUL_DATE_0" name="MAINTENANCE_DETAIL_USUL_DATE[0]">
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                            </div>
+                                            @*<input type="text" class="form-control" id="MAINTENANCE_DETAIL_USUL_DATE" name="MAINTENANCE_DETAIL_USUL_DATE" />*@
+                                        </td>
+                                        <td>
+                                            <center><button type="button" class="btn btn-primary btn-xs" id="btn-plus-row"><i class="fa fa-plus"></i></button></center>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="button" id="klik_simpan"><i class="fa fa-check"></i>Simpan</button>
+                                    <a href="@Url.Action("Index")" class="btn default" type="button">Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+    <!-- END PORTLET-->
+</div>
+
+
+
+<script type="text/javascript">
+    //var _validFileExtensions = [".doc", ".docx", ".jpg", ".jpeg", ".png"];
+
+    $("#proposal_select").hide();
+
+    $("#PROPOSAL_STATUS").change(function () {
+        var status = $("#PROPOSAL_STATUS").val();
+        //alert(status);
+
+        if (status != "") {
+            $("#proposal_select").show();
+
+        }
+        else {
+            $("#proposal_select").hide();
+        }
+
+
+    })
+
+    //function ValidasiInput(ini) {
+    //    var _validFileExtensions = $(ini).attr('data-ext').split(",");
+    //    var arrInputs = $(ini);
+    //    for (var i = 0; i < arrInputs.length; i++) {
+    //        var oInput = arrInputs[i];
+    //        if (oInput.type == "file") {
+    //            var sFileName = oInput.value;
+    //            if (sFileName.length > 0) {
+    //                var blnValid = false;
+    //                for (var j = 0; j < _validFileExtensions.length; j++) {
+    //                    var sCurExtension = _validFileExtensions[j];
+    //                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+    //                        blnValid = true;
+    //                        break;
+    //                    }
+    //                }
+
+    //                if (!blnValid) {
+    //                    alert("Maaf, " + sFileName + " tidak dapat di Upload, Extensi yang dapat di Upload adalah : " + _validFileExtensions.join(", "));
+    //                    $(ini).val('');
+    //                    return false;
+    //                }
+    //            }
+    //        }
+    //    }
+
+    //    return true;
+    //}
+
+    function reset_index_SNI_ID() {
+        var idx = 0;
+        $('select.SNI_ID').each(function () {
+            $(this).attr('name', 'SNI_ID_[' + idx + ']');
+            idx++;
+        });        
+    }
+
+    function reset_index_MAINTENANCE_DETAIL_REV_DATE() {
+        var idx = 0;
+       
+        $('input.MAINTENANCE_DETAIL_REV_DATE').each(function () {
+            $(this).attr('name', 'MAINTENANCE_DETAIL_REV_DATE_[' + idx + ']');
+            idx++;
+        });
+       
+    }
+
+    function reset_index_MAINTENANCE_DETAIL_RESULT() {
+        var idx = 0;
+
+            $('select.MAINTENANCE_DETAIL_RESULT').each(function () {
+                $(this).attr('name', 'MAINTENANCE_DETAIL_RESULT_[' + idx + ']');
+                idx++;
+            });
+    
+
+    }
+
+    function reset_index_MAINTENANCE_DETAIL_REPORT_DATE() {
+        var idx = 0;
+        
+            $('input.MAINTENANCE_DETAIL_REPORT_DATE').each(function () {
+                $(this).attr('name', 'MAINTENANCE_DETAIL_REPORT_DATE_[' + idx + ']');
+                idx++;
+            });
+
+    }
+
+    function reset_index_MAINTENANCE_DETAIL_USUL_DATE() {
+        var idx = 0;
+
+            $('input.MAINTENANCE_DETAIL_USUL_DATE').each(function () {
+                $(this).attr('name', 'MAINTENANCE_DETAIL_USUL_DATE_[' + idx + ']');
+                idx++;
+            });
+
+    }
+    
+    var no = 0;   
+
+    function add_row() {
+        no++;
+        $("#list_sni > tbody").append('<tr id="sni_' + no + '">'
+                                        +'<td>'
+                                            + '<select class="form-control wajib SNI_ID" id="SNI_ID_' + no + '" name="SNI_ID_[' + no + ']" placeholder="Pilih SNI">'
+                                            +'</select>'
+                                        +'</td>'
+                                        + '<td>'
+                                            +'<div class=" input-group date date-picker" id="date_satu_'+no+'">'
+                                                + '<input type="text" class="form-control wajib MAINTENANCE_DETAIL_REV_DATE" id="MAINTENANCE_DETAIL_REV_DATE_' + no + '" name="MAINTENANCE_DETAIL_REV_DATE_[' + no + ']">'
+                                                +'<span class="input-group-btn">'
+                                                    +'<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>'
+                                                +'</span>'
+                                            +'</div>'
+                                        +'</td>'
+                                        +'<td>'
+                                            + '<select class="form-control MAINTENANCE_DETAIL_RESULT" id="MAINTENANCE_DETAIL_RESULT_' + no + '" name="MAINTENANCE_DETAIL_RESULT_['+no+']">'
+                                                +'<option value="0">Tetap</option>'
+                                                +'<option value="1">Perubahan</option>'
+                                                +'<option value="2">Abolisi</option>'
+                                            +'</select>'
+                                        +'</td>'
+                                        +'<td>'
+                                            + '<div class="input-group date date-picker" id="date_dua_' + no + '">'
+                                                + '<input type="text" class="form-control wajib MAINTENANCE_DETAIL_REPORT_DATE" id="MAINTENANCE_DETAIL_REPORT_DATE_' + no + '" name="MAINTENANCE_DETAIL_REPORT_DATE_['+no+']">'
+                                                +'<span class="input-group-btn">'
+                                                    +'<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>'
+                                                +'</span>'
+                                            +'</div>'                                           
+                                        +'</td>'
+                                        +'<td>'
+                                            + '<div class="input-group date date-picker" id="date_tiga_' + no + '">'
+                                                + '<input type="text" class="form-control wajib MAINTENANCE_DETAIL_USUL_DATE" id="MAINTENANCE_DETAIL_USUL_DATE_' + no + '" name="MAINTENANCE_DETAIL_USUL_DATE_['+no+']">'
+                                                +'<span class="input-group-btn">'
+                                                    +'<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>'
+                                                +'</span>'
+                                            +'</div>'                                           
+                                        +'</td>'
+                                        +'<td>'
+                                            + '<center><button onclick="hapus_list(' + no + ');"  type="button" class="btn btn-danger btn-xs" id="btn-min"><i class="fa fa-minus"></i></button></center>'
+                                        +'</td>'
+                                    + '</tr>');
+
+        $('#date_satu_' + no + ' > input').datepicker({ format: 'yyyy-mm-dd' });
+        $('#date_dua_' + no + ' > input').datepicker({ format: 'yyyy-mm-dd' });
+        $('#date_tiga_' + no + ' > input').datepicker({ format: 'yyyy-mm-dd' });
+        $('#count_rows').val
+
+        $("#SNI_ID_"+no).select2({
+            //dropdownAutoWidth : true,
+            allowClear: true,
+            width: '100%',
+            ajax: {
+                url: '/SNI/Pemeliharaan/Find_Sni',
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.rasni,
+                        pagination: {
+                            more: (params.page * 10) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            //minimumInputLength: 2,
+        });       
+
+    }
+
+    function hapus_list(id) {
+        $('#sni_' + id).remove();
+        reset_index_MAINTENANCE_DETAIL_USUL_DATE();
+        reset_index_MAINTENANCE_DETAIL_REPORT_DATE();
+        reset_index_MAINTENANCE_DETAIL_RESULT();
+        reset_index_MAINTENANCE_DETAIL_REV_DATE();
+        reset_index_SNI_ID();
+
+    }
+    function send_submit_tipe(res) {
+        $('#SUBMIT_TIPE').val(res);
+    }
+
+    jQuery(document).ready(function () {
+
+        bukaloading();
+
+        tutuploading();
+        $('.date-picker').datepicker({
+            orientation: "center",
+            autoclose: true
+        });
+        $("#SNI_ID_0").select2({
+            //dropdownAutoWidth : true,
+            allowClear: true,
+            width: '100%',
+            ajax: {
+                url: '/SNI/Pemeliharaan/Find_Sni',
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.rasni,
+                        pagination: {
+                            more: (params.page * 10) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            //minimumInputLength: 2,
+        });
+
+        $("#btn-plus-row").click(function () {
+            add_row();
+        });
+
+        $("#klik_simpan").click(function () {
+            var rowCount = $('#list_sni tbody tr').length;
+            $("#count_rows").val(rowCount);
+            alert($("#count_rows").val());
+            $('#klik_simpan').submit();
+        })
+    });
+
+</script>

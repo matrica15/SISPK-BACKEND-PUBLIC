@@ -1,0 +1,355 @@
+﻿@*@model SISPK.Models.VIEW_SUBKOMTEK*@
+@{
+    ViewBag.Title = "Komisi Teknis Detail";
+    var Model = ViewBag.komtek_item;
+    var Komp_Ang = ViewBag.Komp_Ang;
+    var File = ViewBag.sk_file;
+    int no = 1;
+    int no1 = 1;
+    int no2 = 1;
+    int no3 = 1;
+
+    DateTime date = Convert.ToDateTime(Model.KOMTEK_TANGGAL_PEMBENTUKAN);
+    var dates = date;
+}
+
+<style>
+    .isi {
+        padding-top: 8px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Sub KOMTEK Detail
+                </div>
+                <div class="actions">
+                    <a class="btn btn-warning " href="@Url.Action("CreateAnggotaSub/" + @Model.KOMTEK_ID)">
+                        <i class="fa fa-plus"></i>Tambah Anggota</a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-custom ">
+                    @*<ul class="nav nav-tabs ">
+                        <li class="active">
+                            <a href="#detail" data-toggle="tab">Detail Komtek</a>
+                        </li>
+                        <li>
+                            <a href="#anggota" data-toggle="tab">Anggota</a>
+                        </li>
+                    </ul>*@
+                    <div class="tab-content">
+
+                        <form class="form-horizontal form-bordered ng-pristine ng-valid" id="form-username" action="Create" method="post">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">Komtek</label>
+                                    <div class="col-md-4">
+                                        <div class="input-icon right">
+                                            <label class="isi">: @Model.KOMTEK_PARENT_CODE - @Model.PARENT_NAME</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">Sub Komtek</label>
+                                    <div class="col-md-4">
+                                        <div class="input-icon right">
+                                            <label class="isi">: @Model.SUB_KOMTEK_CODE - @Model.SUB_KOMTEK</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">Bidang</label>
+                                    <div class="col-md-4">
+                                        <div class="input-icon right">
+                                            <label class="isi">: @Model.BIDANG_CODE</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">Instansi</label>
+                                    <div class="col-md-4">
+                                        <div class="input-icon right">
+                                            <label class="isi">: @Model.INSTANSI_NAME</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @if (ViewBag.komtek_ics != null)
+                                {
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" style="text-align: left">ICS</label>
+                                        <div class="col-md-10">
+                                            <div class="input-icon right">
+                                                <label class="isi">
+                                                    : 
+                                                     @foreach (var ics in ViewBag.komtek_ics)
+                                                     {
+                                                         <label class="col-md-12"><b>@no.</b> @ics.ICS_NAME_IND </label>
+                                                         no++;
+                                                     }
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">Sekretariat</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <label class="isi">: @Model.KOMTEK_SEKRETARIAT</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">Alamat</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <label class="isi">: @Model.KOMTEK_ADDRESS</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">Telepon</label>
+                                    <div class="col-md-4">
+                                        <div class="input-icon right">
+                                            <label class="isi">: @((Model.KOMTEK_PHONE == null) ? "-" : Model.KOMTEK_PHONE)</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">Fax</label>
+                                    <div class="col-md-4">
+                                        <div class="input-icon right">
+                                            <label class="isi">:@((Model.KOMTEK_FAX == null) ? "-" : Model.KOMTEK_FAX)</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">Email</label>
+                                    <div class="col-md-4">
+                                        <div class="input-icon right">
+                                            <label class="isi">: @((Model.KOMTEK_EMAIL == null || Model.KOMTEK_EMAIL == "") ? "-" : Model.KOMTEK_EMAIL)</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">SK Penetapan</label>
+                                    <div class="col-md-4">
+                                        @if (File != null)
+                                        {
+                                            <div class="input-icon right">
+                                                <label class="isi">: <a href='@((File != null) ? "../../../" + @File.DOC_FILE_PATH + "" + @File.DOC_FILE_NAME + "." + @File.DOC_FILETYPE : "javascript:void()")' @((File != null) ? "download" : "")>@Model.KOMTEK_SK_PENETAPAN</a></label>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="input-icon right">
+                                                <label class="isi">: <a href='#'>@Model.KOMTEK_SK_PENETAPAN</a> (File Belum Tersedia)</label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">CV Komtek</label>
+                                    <div class="col-md-4">
+                                        @if (Model.KOMTEK_CV != null)
+                                        { 
+                                            <div class="input-icon right">
+                                                <label class="isi">: <a href='@((Model.KOMTEK_CV != null) ? "../../../" + Model.KOMTEK_CV : "javascript:void()")' download>CV_@Model.KOMTEK_CODE</a></label>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="input-icon right">
+                                                <label class="isi">: <a href="#">CV_@Model.KOMTEK_CODE</a> (File Belum Tersedia)</label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">Tanggal Pembentukan</label>
+                                    <div class="col-md-4">
+                                        <div class="input-icon right">
+                                            <label class="isi">: @Model.KOMTEK_TANGGAL_PEMBENTUKAN</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">Kontak Person</label>
+                                    <div class="col-md-4">
+                                        <div class="input-icon right">
+                                            <label class="isi">: @Model.KOMTEK_CONTACT_PERSON</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align: left">Keterangan</label>
+                                    <div class="col-md-4">
+                                        <div class="input-icon right">
+                                            <label class="isi">: @Model.KOMTEK_KETERANGAN</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="tabbable-custom ">
+                                    <div class="tab-content">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th width="15%" class="text-center">JABATAN</th>
+                                                    <th width="35%" class="text-center">NAMA ANGGOTA</th>
+                                                    <th width="15%" class="text-center">USERNAME</th>
+                                                    <th width="20%" class="text-center">EMAIL</th>
+                                                    <th width="15%" class="text-center">AKSI</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var list in ViewBag.list_anggota)
+                                                {
+                                                    <tr>
+                                                        <td>@list.JABATAN</td>
+                                                        <td>@list.KOMTEK_ANGGOTA_NAMA</td>
+                                                        <td>@list.USER_NAME</td>
+                                                        <td>@list.KOMTEK_ANGGOTA_EMAIL</td>
+                                                        <td>
+                                                            @if (list.KOMTEK_ANGGOTA_STATUS == 1)
+                                                            {
+                                                                <center>
+                                                            <a data-original-title='Lihat' data-placement='top' data-container='body' class='btn blue btn-sm action tooltips' href='/Master/Subkomtek/ReadAnggota/@list.KOMTEK_ANGGOTA_ID'><i class='action fa fa-file-text-o'></i></a>
+                                                            <a data-original-title='Ubah' data-placement='top' data-container='body' class='btn purple btn-sm action tooltips' href='/Master/Subkomtek/EditAnggota/@list.KOMTEK_ANGGOTA_ID'><i class='action fa fa-edit'></i></a>
+                                                            <a data-original-title='Non-Aktifkan' data-placement='top' data-container='body' class='btn red btn-sm action tooltips' href='/Master/Komtek/NonaktifAnggota/@list.KOMTEK_ANGGOTA_ID'><i class='action glyphicon glyphicon-remove'></i></a>
+                                                        </center>
+                                                            }
+                                                            else
+                                                            {
+                                                                <center>
+                                                            <a data-original-title='Lihat' data-placement='top' data-container='body' class='btn blue btn-sm action tooltips' href='/Master/Subkomtek/ReadAnggota/@list.KOMTEK_ANGGOTA_ID'><i class='action fa fa-file-text-o'></i></a>
+                                                            <a data-original-title='Ubah' data-placement='top' data-container='body' class='btn purple btn-sm action tooltips' href='/Master/Subkomtek/EditAnggota/@list.KOMTEK_ANGGOTA_ID'><i class='action fa fa-edit'></i></a>
+                                                            <a data-original-title='Aktifkan' data-placement='top' data-container='body' class='btn green btn-sm action tooltips' href='/Master/Komtek/AktifAnggota/@list.KOMTEK_ANGGOTA_ID'><i class='action glyphicon glyphicon-ok'></i></a>
+                                                        </center>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                                <div class="tabbable-custom ">
+                                    <div class="tab-content">
+                                        <table class="table table-striped table-hover table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td colspan="4" style="text-align: center; font-weight: bold; font-size: 14px">Komposisi</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center; font-weight: bold; font-size: 14px">No</td>
+                                                    <td style="text-align: center; font-weight: bold; font-size: 14px">Stakeholder</td>
+                                                    <td style="text-align: center; font-weight: bold; font-size: 14px">Jumlah</td>
+                                                    <td style="text-align: center; font-weight: bold; font-size: 14px">Presentase</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var ang in Komp_Ang)
+                                                {
+                                                    <tr>
+                                                        <td>@no3</td>
+                                                        <td>@ang.STAKEHOLDER</td>
+                                                        <td>@ang.JML</td>
+                                                        <td>@ang.PERSENTASE %</td>
+                                                    </tr>
+                                                    no3++;
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+
+                                            <a href="@Url.Action("Index")" class="btn default" >Kembali</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var table1 = $('#Komtek');
+        var oTable = $('#Komtek').dataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Master/Komtek/ListDataKomtek",
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+                $('.kolom').css('width', '10%');
+                $('.kolom2').css('width', '5%');
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [6]
+            }],
+            "order": [
+                [1, 'desc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+
+        var tableWrapper = $('.dataTables_wrapper');
+        tableWrapper.find('.dataTables_length select').select2();
+    });
+
+
+</script>

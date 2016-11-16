@@ -1,0 +1,124 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Ubah Pengguna
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" method="post" action="">
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">NAMA LENGKAP <span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="USER_INTERN_FULLNAME" name="USER_INTERN_FULLNAME" class="form-control wajib" value="@ViewBag.userinternal.USER_INTERN_FULLNAME">
+                                    <input type="hidden" id="USER_ID" name="USER_ID" class="form-control wajib" value="@ViewBag.sysuser.USER_ID">
+                                    <input type="hidden" id="USER_INTERN_ID" name="USER_INTERN_ID" class="form-control wajib" value="@ViewBag.userinternal.USER_INTERN_ID">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">NO TELP</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="USER_INTERN_PHONE" name="USER_INTERN_PHONE" class="form-control" value="@ViewBag.userinternal.USER_INTERN_PHONE">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">EMAIL</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="email" id="USER_INTERN_EMAIL" name="USER_INTERN_EMAIL" class="form-control" value="@ViewBag.userinternal.USER_INTERN_EMAIL">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">ALAMAT</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <textarea id="USER_INTERN_ADDRESS" name="USER_INTERN_ADDRESS" class="form-control">@ViewBag.userinternal.USER_INTERN_ADDRESS</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">USERNAME <span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" id="USER_NAME" name="USER_NAME" class="form-control wajib" value="@ViewBag.sysuser.USER_NAME">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3">AKSES ROLE <span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2 wajib" placeholder="Pilih Akses Role" id="USER_ACCESS_ID" name="USER_ACCESS_ID">
+                                        <option value="">-- pilih --</option>
+                                        @foreach (var access in ViewBag.listAccess)
+                                        {
+                                            var selected = (ViewBag.sysuser.USER_ACCESS_ID == access.ACCESS_ID) ? "selected" : "";
+                                            <option value="@access.ACCESS_ID" @selected>@access.ACCESS_NAME</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">PASSWORD <span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                   <a href="javascript:void(0);" class="btn purple" id="doreset"><i class="fa fa-undo"></i> Reset Password </a>
+                                    <br />
+                                    <br />
+                                    <span id="newpass"></span>
+                                    @*<input type="password" id="USER_PASSWORD" name="USER_PASSWORD" class="form-control wajib" value="@ViewBag.sysuser.USER_PASSWORD">*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                     <button class="btn green" type="submit">Simpan</button>                                     
+                                     <a class="bg btn btn-red btn-icon icon-left" href="@Url.Action("Index")"><i class="entypo-back"></i>Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $("#doreset").click(function () {
+            var id = $("#USER_ID").val();
+            $.ajax({
+                url: '@Url.Action("ResetPassword")',
+                type: "POST",
+                data: 'id=' + id,
+                success: function (data) {
+                    if (data.status == 1) {
+                        $("#newpass").html("").html('Reset Password Berhasil, Password Baru : <b style="color:red;">'+data.value+'</b>');
+                        return false;
+                    } else {
+                        $("#newpass").html("").html('Reset Password Gagal, Sistem Sedang Gangguan');
+                    }
+                }
+            });
+        });
+    });
+
+
+</script>

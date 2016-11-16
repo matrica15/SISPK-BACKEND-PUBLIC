@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "Edit Akses Role";
+    ViewBag.StyleClass = "";
+    var index = 0;
+}
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Edit Akses Role Dokumen
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" action="#" method="post">
+                    <div class="form-body">
+                         <div class="form-group">
+                            <label class="control-label col-md-3">Nama Akses Role Dokumen <span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="text" name="access_name" id="access_name" class="form-control wajib" value="@ViewBag.doc_access.DOC_ACCESS_NAME">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Akses <span style="color: red;">*</span></label>
+                            <div class="col-md-4">
+                               
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Modul / Menu</th>
+                                        <th class="text-center" style="font-weight:bold;">Akses</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.master_sni_style)
+                                    {
+                                        
+                                        string menuName = item.SNI_STYLE_NAME.Replace("_", " ");
+                                        string padding = "10px";
+                                        string bgcolor = "";
+
+                                        var check = "";
+                                        int style_nya = 0;
+
+                                        foreach (var list in ViewBag.SYS_DOC_ACCESS_DETAIL)
+                                        {
+                                            if (list.DOC_ACCESS_DETAIL_STYLE_ID == item.SNI_STYLE_ID)
+                                            {
+                                                if (list.DOC_ACCESS_DETAIL_STYLE_STATUS == 1)
+                                                {
+                                                    check = "checked";
+                                                    style_nya = Convert.ToInt32(list.DOC_ACCESS_DETAIL_STYLE_STATUS);
+                                                }
+                                                
+                                            }
+                                        }
+                                       
+                                        <tr style="@bgcolor">
+
+                                            <td style="padding-left:@padding">
+                                                @menuName
+                                            </td>
+                                            <td class="center">
+                                                <div align="center">
+                                                    <input type="checkbox" id="status_temp_@item.SNI_STYLE_ID" name="status_temp_[@index]" data-index="@index" value="1"  @check="@check" onchange="set_value(this)">
+                                                    <input type="hidden" id="status[@index]" name="status[@index]" value="@style_nya" />
+                                                    <input type="hidden" id="SNI_STYLE_ID[@index]" name="SNI_STYLE_ID[@index]" value="@item.SNI_STYLE_ID" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        index++;
+                                    }
+
+                                </tbody>
+                            </table>
+
+                            <input type="hidden" id="isupdate" value="1">
+                                <input type="hidden" id="id_doc_access" name="id" value="@ViewBag.id_doc_access">
+                            </div>
+                        </div>
+                             <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="submit"><i class="fa fa-check"></i>Simpan</button>
+                                    <a href="@Url.Action("Index")" class="btn default" >Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function set_value(ini) {
+        var index = $(ini).attr('data-index');
+       
+        if ($(ini).is(':checked')) {
+            $('input[name="status[' + index + ']"]').val(1);
+        } else {
+            $('input[name="status[' + index + ']"]').val(0);
+        }
+    }
+    
+</script>
+
+

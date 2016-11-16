@@ -1,0 +1,115 @@
+﻿@{
+    var USER = ViewBag.USER;
+    var user_fullname = "";
+    var notelp = "";
+    var email = "";
+    var alamat = "";
+    if (ViewBag.DataType_id == 1)
+    {
+        notelp = USER.USER_INTERN_PHONE;
+        email = USER.USER_INTERN_EMAIL;
+        alamat = USER.USER_INTERN_ADDRESS;
+        user_fullname = @ViewBag.DataUser.USER_FULL_NAME;
+    }
+    else{
+        notelp = USER.KOMTEK_ANGGOTA_TELP;
+        email = USER.KOMTEK_ANGGOTA_EMAIL;
+        alamat = USER.KOMTEK_ANGGOTA_ADDRESS;
+        user_fullname = USER.KOMTEK_ANGGOTA_NAMA;
+    }
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title tabbable-line">
+                <div class="caption caption-md">
+                    <i class="icon-globe theme-font hide"></i>
+                    <span class="caption-subject font-blue-madison bold uppercase">Profil Saya</span>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="@((ViewBag.tipe==1)?"active":"")">
+                        <a href="/Home/Account?id=1">Informasi Akun</a>
+                    </li>
+                    <li class="@((ViewBag.tipe==2)?"active":"")">
+                        <a href="/Home/Account?id=2">Ubah Password</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="portlet-body">
+                <div class="tab-content">
+                    <!-- PERSONAL INFO TAB -->
+                    <div id="tab_1_1" class="@((ViewBag.tipe==1)?"tab-pane active":"tab-pane")">
+                        <form class="" id="@((ViewBag.tipe==1)?"sispk_form":"")" action="/Home/Account/Update" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control wajib" id="USER_TYPE_ID" name="USER_TYPE_ID" value="@ViewBag.DataType_id">
+                                <label class="control-label">Nama Lengkap</label>
+                                <input type="text" class="form-control wajib" placeholder="Nama Lengkap" id="USER_INTERN_FULLNAME" name="USER_INTERN_FULLNAME" value="@user_fullname">
+                                @if ((ViewBag.tipe == 1)){
+                                <input type="hidden" class="form-control wajib" id="USER_ID" name="USER_ID" value="@ViewBag.DataUser.USER_ID">
+                                <input type="hidden" class="form-control wajib" id="USER_REF_ID" name="USER_REF_ID" value="@ViewBag.DataUser.USER_REF_ID">
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Nomor Telepon</label>
+                                <input type="text" class="form-control wajib" placeholder="Nomor Telepon" id="USER_INTERN_PHONE" name="USER_INTERN_PHONE" value="@notelp">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Email</label>
+                                <input type="text" class="form-control wajib" placeholder="Email" id="USER_INTERN_EMAIL" name="USER_INTERN_EMAIL" value="@email">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Alamat</label>
+                                <textarea id="USER_INTERN_ADDRESS" name="USER_INTERN_ADDRESS" class="form-control wajib" placeholder="Alamat">@alamat</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Username</label>
+                                <input type="text" id="USER_NAME" name="USER_NAME" class="form-control wajib" value="@ViewBag.DataUser.USER_NAME">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Login Terakhir</label>
+                                <input type="text" id="USER_LAST_LOGIN" name="USER_LAST_LOGIN" class="form-control wajib" value="@ViewBag.DataUser.USER_LAST_LOGIN" disabled>
+                            </div>
+                            <div class="margiv-top-10">
+                                <button type="submit" class="btn green-haze">Simpan</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- END PERSONAL INFO TAB -->
+                    <!-- CHANGE AVATAR TAB -->
+                    <!-- END CHANGE AVATAR TAB -->
+                    <!-- CHANGE PASSWORD TAB -->
+                    <div id="tab_1_3" class="@((ViewBag.tipe==2)?"tab-pane active":"tab-pane")">
+                        <form class="" @((ViewBag.tipe==2)?"id=sispk_form":"") action="/Home/Account/ChangePassword" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label class="control-label">Password Lama</label>
+                                <input type="password" name="oldpassword" id="oldpassword" class="form-control">
+                                @if ((ViewBag.tipe == 2)){
+                                <input type="hidden" class="form-control wajib" id="USER_ID" name="USER_ID" value="@ViewBag.DataUser.USER_ID">
+                                <input type="hidden" class="form-control wajib" id="USER_REF_ID" name="USER_REF_ID" value="@ViewBag.DataUser.USER_REF_ID">
+                                <input type="hidden" class="form-control wajib" id="USER_EMAIL" name="USER_EMAIL" value="@email">
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Password Baru</label>
+                                <input type="password" name="USER_PASSWORD" id="USER_PASSWORD" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Ulangi Password Baru</label>
+                                <input type="password" name="RE_USER_PASSWORD" id="RE_USER_PASSWORD" class="form-control">
+                            </div>
+                            <div class="margin-top-10">
+                                <button type="submit" class="btn green-haze">Change Password </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- END CHANGE PASSWORD TAB -->
+                    <!-- PRIVACY SETTINGS TAB -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>

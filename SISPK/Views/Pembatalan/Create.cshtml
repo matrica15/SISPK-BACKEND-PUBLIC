@@ -1,0 +1,186 @@
+﻿@{
+    ViewBag.Title = "Pembatalan Usulan/Perumusan";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Pembatalan Usulan/Perumusan
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="Create" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Pilih Jenis Usulan/Perumusan <span style="color: red;">*</span></label>
+                            <div class="col-md-3">
+                                <select class="form-control wajib PROPOSAL_STATUS" id="PROPOSAL_STATUS" name="PROPOSAL_STATUS">
+                                    <option value="">-- Pilih Jenis Perumusan --</option>
+                                    <option value="0">Usulan</option>
+                                    <option value="2">MTPS</option>
+                                    <option value="3">PNPS</option>
+                                    <option value="4">RSNI 1</option>
+                                    <option value="5">RSNI 2</option>
+                                    <option value="6">RSNI 3</option>
+                                    <option value="7">Jajak Pendapat</option>
+                                    <option value="8">RSNI 5</option>
+                                    <option value="9">RSNI 6</option>
+                                    <option value="10">RASNI</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="proposal_select">
+                            <label for="stakeholder" class="control-label col-md-3">Pilih Usulan/Perumusan <span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <select multiple="multiple" class="form-control wajib PROPOSAL_ID" id="PROPOSAL_ID" name="PROPOSAL_ID" placeholder="Pilih SNI">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">No. Surat Pembatalan</label>
+                            <div class="col-md-4">
+                                <input type="text" id="PROPOSAL_NO_SURAT_PEMBATALAN" class="form-control batal_wajib" name="PROPOSAL_NO_SURAT_PEMBATALAN" accept="application/pdf"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stakeholder" class="control-label col-md-3">Surat Persetujuan Pembatalan<span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <input type="file" id="PROPOSAL_BATAL_ATTACHMENT" class="PROPOSAL_BATAL_ATTACHMENT" name="PROPOSAL_BATAL_ATTACHMENT" accept="application/pdf"/>
+                               @* <select multiple="multiple" class="form-control wajib " id="PROPOSAL_BATAL_ATTACHMENT" name="PROPOSAL_ID" placeholder="Pilih SNI">
+                                </select>*@
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Alasan pembatalan<span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    <textarea class="form-control wajib" id="PROPOSAL_KET_BATAL" name="PROPOSAL_KET_BATAL" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        @*<div class="form-group">
+                            <label class="control-label col-md-3">Upload Lampiran Pembatalan</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="file" name="LAMPIRAN" id="LAMPIRAN" onchange="ValidasiInput(this)" data-ext=".doc,.docx,.jpg,.jpeg,.pdf,.png" class="form-control col-md-3 wajib" style="padding: 0px; font-size: 12px; border-radius: 0px;">
+                            </div>
+                        </div>*@
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="submit"><i class="fa fa-check"></i>Simpan</button>
+                                    <a href="@Url.Action("Index")" class="btn default" type="button">Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+    <!-- END PORTLET-->
+</div>
+
+
+
+<script type="text/javascript">
+    //var _validFileExtensions = [".doc", ".docx", ".jpg", ".jpeg", ".png"];
+    
+    $("#proposal_select").hide();    
+
+    $("#PROPOSAL_STATUS").change(function () {
+        var status = $("#PROPOSAL_STATUS").val();
+        //alert(status);
+
+        if (status != "") {
+            $("#proposal_select").show();
+            $("#PROPOSAL_ID").select2({
+                //dropdownAutoWidth : true,
+                allowClear: true,
+                //width: '100%',
+                ajax: {
+                    url: '/Pembatalan/Pembatalan/FindProposal?status=' + status,
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
+                        return {
+                            results: data.rasni,
+                            pagination: {
+                                more: (params.page * 10) < data.total_count
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                //minimumInputLength: 2,
+            });
+        }
+        else {
+            $("#proposal_select").hide();
+        }
+
+        
+    })    
+
+        //function ValidasiInput(ini) {
+        //    var _validFileExtensions = $(ini).attr('data-ext').split(",");
+        //    var arrInputs = $(ini);
+        //    for (var i = 0; i < arrInputs.length; i++) {
+        //        var oInput = arrInputs[i];
+        //        if (oInput.type == "file") {
+        //            var sFileName = oInput.value;
+        //            if (sFileName.length > 0) {
+        //                var blnValid = false;
+        //                for (var j = 0; j < _validFileExtensions.length; j++) {
+        //                    var sCurExtension = _validFileExtensions[j];
+        //                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+        //                        blnValid = true;
+        //                        break;
+        //                    }
+        //                }
+
+        //                if (!blnValid) {
+        //                    alert("Maaf, " + sFileName + " tidak dapat di Upload, Extensi yang dapat di Upload adalah : " + _validFileExtensions.join(", "));
+        //                    $(ini).val('');
+        //                    return false;
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    return true;
+        //}
+        function send_submit_tipe(res) {
+            $('#SUBMIT_TIPE').val(res);
+        }
+
+    jQuery(document).ready(function () {
+
+        bukaloading();
+
+        tutuploading();
+        $('.date-picker').datepicker({
+            orientation: "center",
+            autoclose: true
+        });
+    });
+
+</script>

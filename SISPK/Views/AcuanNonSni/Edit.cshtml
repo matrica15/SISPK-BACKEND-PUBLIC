@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Edit Acuan Non Normatif";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Edit Acuan Non Normatif
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="" method="post">
+                    <div class="form-body"> 
+
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Type<span style="color: red;">*</span></label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <select class="form-control wajib" id="ACUAN_NON_SNI_TYPE" name="ACUAN_NON_SNI_TYPE">                                       
+                                        <option value="ISO" @((ViewBag.ans.ACUAN_NON_SNI_TYPE == "ISO")?"selected":""))>ISO</option>
+                                        <option value="ISO/IEC" @((ViewBag.ans.ACUAN_NON_SNI_TYPE == "ISO/IEC")?"selected":""))>ISO/IEC</option>
+                                        <option value="ISO/TS" @((ViewBag.ans.ACUAN_NON_SNI_TYPE == "ISO/TS")?"selected":""))>ISO/TS</option>                                       
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Nomor Standar<span style="color: red;">*</span></label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="text" name="ACUAN_NON_SNI_NO_STANDAR" id="ACUAN_NON_SNI_NO_STANDAR" class="form-control wajib"  value="@ViewBag.ans.ACUAN_NON_SNI_NO_STANDAR"/>
+                                    <input type="hidden" name="ACUAN_NON_SNI_ID" id="ACUAN_NON_SNI_ID"  value="@ViewBag.ans.ACUAN_NON_SNI_ID"/>
+                                </div>
+                            </div>
+                        </div> 
+                        
+                        <div class="form-group" >
+                            <label class="control-label col-md-3">Judul<span style="color: red;">*</span></label>
+                            <div class="col-md-7">
+                                <div class="input-icon right">
+                                    <textarea id="ACUAN_NON_SNI_JUDUL" name="ACUAN_NON_SNI_JUDUL" class="form-control wajib">@ViewBag.ans.ACUAN_NON_SNI_JUDUL</textarea>
+                                </div>
+                            </div>
+                        </div>                        
+                        
+                                                                       
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="submit"><i class="fa fa-check"></i>Simpan</button>
+                                    <a href="@Url.Action("Index")" class="btn default" >Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+<script>
+    
+</script>
