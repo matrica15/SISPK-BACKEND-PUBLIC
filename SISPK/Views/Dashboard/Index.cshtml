@@ -1,859 +1,860 @@
 ﻿@using SISPK.Helpers
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    var AktifData = ViewBag.AktifData;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	var AktifData = ViewBag.AktifData;
 }
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 <style>
-    * {
-        box-sizing: border-box;
-    }
+	* {
+		box-sizing: border-box;
+	}
 
-    .dahboardprogress {
-        padding: 0;
-        list-style-type: none;
-        font-family: arial;
-        font-size: 12px;
-        clear: both;
-        line-height: 1em;
-        margin: 0 -1px;
-        text-align: center;
-    }
+	.dahboardprogress {
+		padding: 0;
+		list-style-type: none;
+		font-family: arial;
+		font-size: 12px;
+		clear: both;
+		line-height: 1em;
+		margin: 0 -1px;
+		text-align: center;
+	}
 
-        .dahboardprogress li {
-            float: left;
-            padding: 10px 10px 10px 20px;
-            background: hsla(34,85%,55%,1);
-            color: #fff;
-            position: relative;
-            border-top: 1px solid hsla(34,85%,55%,1);
-            border-bottom: 1px solid hsla(34,85%,55%,1);
-            width: 8.5%;
-            margin: 5px 1px;
-        }
+		.dahboardprogress li {
+			float: left;
+			padding: 10px 10px 10px 20px;
+			background: hsla(34,85%,55%,1);
+			color: #fff;
+			position: relative;
+			border-top: 1px solid hsla(34,85%,55%,1);
+			border-bottom: 1px solid hsla(34,85%,55%,1);
+			width: 8.5%;
+			margin: 5px 1px;
+		}
 
-            .dahboardprogress li a {
-                color: #fff;
-                font-size: 13px;
-                text-decoration: none;
-            }
+			.dahboardprogress li a {
+				color: #fff;
+				font-size: 13px;
+				text-decoration: none;
+			}
 
-            .dahboardprogress li:before {
-                content: '';
-                border-left: 16px solid #fff;
-                border-top: 16px solid transparent;
-                border-bottom: 16px solid transparent;
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
+			.dahboardprogress li:before {
+				content: '';
+				border-left: 16px solid #fff;
+				border-top: 16px solid transparent;
+				border-bottom: 16px solid transparent;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
 
-            .dahboardprogress li:after {
-                content: '';
-                border-left: 16px solid hsla(34,85%,55%,1);
-                border-top: 16px solid transparent;
-                border-bottom: 16px solid transparent;
-                position: absolute;
-                top: 0;
-                left: 100%;
-                z-index: 20;
-            }
+			.dahboardprogress li:after {
+				content: '';
+				border-left: 16px solid hsla(34,85%,55%,1);
+				border-top: 16px solid transparent;
+				border-bottom: 16px solid transparent;
+				position: absolute;
+				top: 0;
+				left: 100%;
+				z-index: 20;
+			}
 
-            .dahboardprogress li.active {
-                background: hsla(34,85%,25%,1);
-                border-color: hsla(34,85%,25%,1);
-            }
+			.dahboardprogress li.active {
+				background: hsla(34,85%,25%,1);
+				border-color: hsla(34,85%,25%,1);
+			}
 
-                .dahboardprogress li.active:after {
-                    border-left-color: hsla(34,85%,25%,1);
-                }
+				.dahboardprogress li.active:after {
+					border-left-color: hsla(34,85%,25%,1);
+				}
 
 
-    .static_label {
-        font-size: 14px;
-        color: #333333;
-        font-family: "Open Sans",sans-serif;
-        font-weight: normal;
-    }
+	.static_label {
+		font-size: 14px;
+		color: #333333;
+		font-family: "Open Sans",sans-serif;
+		font-weight: normal;
+	}
 
-    .tableprogress {
-        padding: 0;
-        list-style-type: none;
-        font-family: arial;
-        font-size: 12px;
-        clear: both;
-        line-height: 1em;
-        margin: 0 -1px;
-        text-align: center;
-    }
+	.tableprogress {
+		padding: 0;
+		list-style-type: none;
+		font-family: arial;
+		font-size: 12px;
+		clear: both;
+		line-height: 1em;
+		margin: 0 -1px;
+		text-align: center;
+	}
 
-        .tableprogress li {
-            float: left;
-            padding: 2px 2px 2px 4px;
-            background: hsla(34,85%,55%,1);
-            color: #fff;
-            position: relative;
-            border-top: 1px solid hsla(34,85%,55%,1);
-            border-bottom: 1px solid hsla(34,85%,55%,1);
-            width: 9.5%;
-            margin: 0px 1px 0px 1px;
-        }
+		.tableprogress li {
+			float: left;
+			padding: 2px 2px 2px 4px;
+			background: hsla(34,85%,55%,1);
+			color: #fff;
+			position: relative;
+			border-top: 1px solid hsla(34,85%,55%,1);
+			border-bottom: 1px solid hsla(34,85%,55%,1);
+			width: 9.5%;
+			margin: 0px 1px 0px 1px;
+		}
 
-            .tableprogress li a {
-                color: #fff;
-                font-size: 12px;
-                text-decoration: none;
-            }
+			.tableprogress li a {
+				color: #fff;
+				font-size: 12px;
+				text-decoration: none;
+			}
 
-            .tableprogress li:before {
-                content: '';
-                border-left: 8px solid #fff;
-                border-top: 8px solid transparent;
-                border-bottom: 8px solid transparent;
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
+			.tableprogress li:before {
+				content: '';
+				border-left: 8px solid #fff;
+				border-top: 8px solid transparent;
+				border-bottom: 8px solid transparent;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
 
-            .tableprogress li:after {
-                content: '';
-                border-left: 8px solid hsla(34,85%,55%,1);
-                border-top: 8px solid transparent;
-                border-bottom: 8px solid transparent;
-                position: absolute;
-                top: 0;
-                left: 100%;
-                z-index: 20;
-            }
+			.tableprogress li:after {
+				content: '';
+				border-left: 8px solid hsla(34,85%,55%,1);
+				border-top: 8px solid transparent;
+				border-bottom: 8px solid transparent;
+				position: absolute;
+				top: 0;
+				left: 100%;
+				z-index: 20;
+			}
 
-            .tableprogress li.active {
-                background: hsla(34,85%,25%,1);
-                border-color: hsla(34,85%,25%,1);
-            }
+			.tableprogress li.active {
+				background: hsla(34,85%,25%,1);
+				border-color: hsla(34,85%,25%,1);
+			}
 
-                .tableprogress li.active:after {
-                    border-left-color: hsla(34,85%,25%,1);
-                }
+				.tableprogress li.active:after {
+					border-left-color: hsla(34,85%,25%,1);
+				}
 </style>
 @*<div class="alert alert-warning alert-dismissable">
-    <button aria-hidden="true" data-dismiss="alert" class="close" type="button"></button>
-    <strong>Peringatan!</strong> Proses Penyusunan RSNI 4 telah memasuki Bulan ke 4. Segera Lakukan Perumusan RSNI 4.
+	<button aria-hidden="true" data-dismiss="alert" class="close" type="button"></button>
+	<strong>Peringatan!</strong> Proses Penyusunan RSNI 4 telah memasuki Bulan ke 4. Segera Lakukan Perumusan RSNI 4.
 						
 </div>*@
-<div class="row">
-    <div class="col-md-12">
-        <div class="portlet box blue">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-cogs"></i>Status Perumusan Aktif
-						
-                </div>
-            </div>
-            <div class="portlet-body">
-                @if (ViewBag.IS_KOMTEK == 1)
-                {
-                    if (AktifData != null)
-                    {
-                        var DataProgress = AktifData.PROGRESS.Replace("tableprogress", "dahboardprogress");
-                    <div>@Html.Raw(DataProgress)</div>
-                    <div class="clearfix"></div>
-                    <div style="padding-top: 10px;">
-                        <table>
-                            <tr>
-                                <td style="width: 9%; min-width: 9%; padding: 5px; font-weight: bold;">No PNPS</td>
-                                <td style="width: 1%; min-width: 1%; padding: 5px; font-weight: bold;">:</td>
-                                <td style="width: 90%; min-width: 90%; padding: 5px;">@((ViewBag.IS_KOMTEK == 1) ? AktifData.PROPOSAL_PNPS_CODE : "-")</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 9%; min-width: 9%; padding: 5px; font-weight: bold;">Judul PNPS</td>
-                                <td style="width: 1%; min-width: 1%; padding: 5px; font-weight: bold;">:</td>
-                                <td style="width: 90%; min-width: 90%; padding: 5px;">@((ViewBag.IS_KOMTEK == 1) ? AktifData.PROPOSAL_JUDUL_PNPS : "-")</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 9%; min-width: 9%; padding: 5px; font-weight: bold;">Tahapan</td>
-                                <td style="width: 1%; min-width: 1%; padding: 5px; font-weight: bold;">:</td>
-                                <td style="width: 90%; min-width: 90%; padding: 5px;">@((ViewBag.IS_KOMTEK == 1) ? AktifData.PROPOSAL_TAHAPAN : "-")</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 9%; min-width: 9%; padding: 5px; font-weight: bold;">Status</td>
-                                <td style="width: 1%; min-width: 1%; padding: 5px; font-weight: bold;">:</td>
-                                <td style="width: 90%; min-width: 90%; padding: 5px;">@((ViewBag.IS_KOMTEK == 1) ? AktifData.PROPOSAL_STATUS_NAME : "-")</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="clearfix"></div>
-                    }
-                    else
-                    { 
-                    <ul class="dahboardprogress" id="dahboardprogress">
-                        <li class="usulan_0"><a href="/Pengajuan/Usulan">Usulan</a></li>
-                        <li class="usulan_2"><a href="/Pengajuan/Usulan">MTPS</a></li>
-                        <li class="usulan_3"><a href="/Pengajuan/Usulan">PNPS</a></li>
-                        <li class="usulan_4"><a href="/Perumusan/RSNI1">RSNI1</a></li>
-                        <li class="usulan_5"><a href="/Perumusan/RSNI2">RSNI2</a></li>
-                        <li class="usulan_6"><a href="/Perumusan/RSNI3">RSNI3</a></li>
-                        <li class="usulan_7"><a href="/Perumusan/RSNI4">RSNI4</a></li>
-                        <li class="usulan_8"><a href="/Perumusan/RSNI5">RSNI5</a></li>
-                        <li class="usulan_9"><a href="/Perumusan/RSNI6">RSNI6</a></li>
-                        <li class="usulan_10"><a href="/Perumusan/RASNI">RASNI</a></li>
-                        <li class="usulan_11"><a href="/SNI/SNIList">SNI</a></li>
-                    </ul>
-                    <div class="clearfix"></div>
-                    }
-                }
-                else
-                {
-                    <div style="padding-top: 10px;">
-                        <table id="usulanbaru" class="display table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" style="width: 30px;"><i class="action fa fa-file-text-o"></i></th>
-                                    <th class="text-center">PROPOSAL ID</th>
-                                    <th class="text-center" style="width: 90px;">Kode<br />
-                                        PNPS</th>
-                                    <th class="text-center">Judul<br />
-                                        PNPS</th>
-                                    <th class="text-center">Kode<br />
-                                        Komtek</th>
-                                    <th class="text-center">Nama<br />
-                                        Komtek</th>
-                                    <th class="text-center" style="width: 100px;">Nama<br />
-                                        Komtek</th>
-                                   <th class="text-center" style="width: 100px;">Jenis<br />
-                                        Perumusan</th>
-                                    <th class="text-center">Ruang<br />
-                                        Lingkup</th>
-                                    <th class="text-center" style="width: 600px;">Progress</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div class="clearfix"></div>
-                }
-            </div>
-        </div>
 
-    </div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-cogs"></i>Status Perumusan Aktif
+						
+				</div>
+			</div>
+			<div class="portlet-body">
+				@if (ViewBag.IS_KOMTEK == 1)
+				{
+					if (AktifData != null)
+					{
+						var DataProgress = AktifData.PROGRESS.Replace("tableprogress", "dahboardprogress");
+					<div>@Html.Raw(DataProgress)</div>
+					<div class="clearfix"></div>
+					<div style="padding-top: 10px;">
+						<table>
+							<tr>
+								<td style="width: 9%; min-width: 9%; padding: 5px; font-weight: bold;">No PNPS</td>
+								<td style="width: 1%; min-width: 1%; padding: 5px; font-weight: bold;">:</td>
+								<td style="width: 90%; min-width: 90%; padding: 5px;">@((ViewBag.IS_KOMTEK == 1) ? AktifData.PROPOSAL_PNPS_CODE : "-")</td>
+							</tr>
+							<tr>
+								<td style="width: 9%; min-width: 9%; padding: 5px; font-weight: bold;">Judul PNPS</td>
+								<td style="width: 1%; min-width: 1%; padding: 5px; font-weight: bold;">:</td>
+								<td style="width: 90%; min-width: 90%; padding: 5px;">@((ViewBag.IS_KOMTEK == 1) ? AktifData.PROPOSAL_JUDUL_PNPS : "-")</td>
+							</tr>
+							<tr>
+								<td style="width: 9%; min-width: 9%; padding: 5px; font-weight: bold;">Tahapan</td>
+								<td style="width: 1%; min-width: 1%; padding: 5px; font-weight: bold;">:</td>
+								<td style="width: 90%; min-width: 90%; padding: 5px;">@((ViewBag.IS_KOMTEK == 1) ? AktifData.PROPOSAL_TAHAPAN : "-")</td>
+							</tr>
+							<tr>
+								<td style="width: 9%; min-width: 9%; padding: 5px; font-weight: bold;">Status</td>
+								<td style="width: 1%; min-width: 1%; padding: 5px; font-weight: bold;">:</td>
+								<td style="width: 90%; min-width: 90%; padding: 5px;">@((ViewBag.IS_KOMTEK == 1) ? AktifData.PROPOSAL_STATUS_NAME : "-")</td>
+							</tr>
+						</table>
+					</div>
+					<div class="clearfix"></div>
+					}
+					else
+					{ 
+					<ul class="dahboardprogress" id="dahboardprogress">
+						<li class="usulan_0"><a href="/Pengajuan/Usulan">Usulan</a></li>
+						<li class="usulan_2"><a href="/Pengajuan/Usulan">MTPS</a></li>
+						<li class="usulan_3"><a href="/Pengajuan/Usulan">PNPS</a></li>
+						<li class="usulan_4"><a href="/Perumusan/RSNI1">RSNI1</a></li>
+						<li class="usulan_5"><a href="/Perumusan/RSNI2">RSNI2</a></li>
+						<li class="usulan_6"><a href="/Perumusan/RSNI3">RSNI3</a></li>
+						<li class="usulan_7"><a href="/Perumusan/RSNI4">RSNI4</a></li>
+						<li class="usulan_8"><a href="/Perumusan/RSNI5">RSNI5</a></li>
+						<li class="usulan_9"><a href="/Perumusan/RSNI6">RSNI6</a></li>
+						<li class="usulan_10"><a href="/Perumusan/RASNI">RASNI</a></li>
+						<li class="usulan_11"><a href="/SNI/SNIList">SNI</a></li>
+					</ul>
+					<div class="clearfix"></div>
+					}
+				}
+				else
+				{
+					<div style="padding-top: 10px;">
+						<table id="usulanbaru" class="display table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th class="text-center" style="width: 30px;"><i class="action fa fa-file-text-o"></i></th>
+									<th class="text-center">PROPOSAL ID</th>
+									<th class="text-center" style="width: 90px;">Kode<br />
+										PNPS</th>
+									<th class="text-center">Judul<br />
+										PNPS</th>
+									<th class="text-center">Kode<br />
+										Komtek</th>
+									<th class="text-center">Nama<br />
+										Komtek</th>
+									<th class="text-center" style="width: 100px;">Nama<br />
+										Komtek</th>
+								   <th class="text-center" style="width: 100px;">Jenis<br />
+										Perumusan</th>
+									<th class="text-center">Ruang<br />
+										Lingkup</th>
+									<th class="text-center" style="width: 600px;">Progress</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<div class="clearfix"></div>
+				}
+			</div>
+		</div>
+
+	</div>
 </div>
 @if (ViewBag.IS_KOMTEK != 1)
-                {
+				{
 <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat red-intense">
-            <div class="visual">
-                <i class="fa fa-file"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    @ViewBag.JML_MTPS
-                </div>
-                <div class="desc">
-                    MTPS
-                </div>
-            </div>
-            <a class="more" href="/Pengajuan/MTPS">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat yellow-gold">
-            <div class="visual">
-                <i class="fa fa-file"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    @ViewBag.JML_PNPS
-                </div>
-                <div class="desc">
-                    PNPS
-                </div>
-            </div>
-            <a class="more" href="/Pengajuan/Pengesahan">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat blue-madison">
-            <div class="visual">
-                <i class="fa fa-file"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    @ViewBag.JML_RASNI
-                </div>
-                <div class="desc">
-                    RASNI
-                </div>
-            </div>
-            <a class="more" href="/Perumusan/RASNI">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat green-haze">
-            <div class="visual">
-                <i class="fa fa-file"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    @ViewBag.JML_SNI
-                </div>
-                <div class="desc">
-                    SNI
-                </div>
-            </div>
-            <a class="more" href="/SNI/SNIList">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat red-intense">
+			<div class="visual">
+				<i class="fa fa-file"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					@ViewBag.JML_MTPS
+				</div>
+				<div class="desc">
+					MTPS
+				</div>
+			</div>
+			<a class="more" href="/Pengajuan/MTPS">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat yellow-gold">
+			<div class="visual">
+				<i class="fa fa-file"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					@ViewBag.JML_PNPS
+				</div>
+				<div class="desc">
+					PNPS
+				</div>
+			</div>
+			<a class="more" href="/Pengajuan/Pengesahan">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat blue-madison">
+			<div class="visual">
+				<i class="fa fa-file"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					@ViewBag.JML_RASNI
+				</div>
+				<div class="desc">
+					RASNI
+				</div>
+			</div>
+			<a class="more" href="/Perumusan/RASNI">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat green-haze">
+			<div class="visual">
+				<i class="fa fa-file"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					@ViewBag.JML_SNI
+				</div>
+				<div class="desc">
+					SNI
+				</div>
+			</div>
+			<a class="more" href="/SNI/SNIList">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
 </div>
 
 <div class="row">
-    <div class="col-md-6 col-sm-6">
-        <!-- BEGIN PORTLET-->
-        <div class="portlet light ">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-share font-red-sunglo hide"></i>
-                    <span class="caption-subject font-red-sunglo bold uppercase">Jumlah SNI</span>
-                    <span class="caption-helper">Per Tahun</span>
-                </div>
+	<div class="col-md-6 col-sm-6">
+		<!-- BEGIN PORTLET-->
+		<div class="portlet light ">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="icon-share font-red-sunglo hide"></i>
+					<span class="caption-subject font-red-sunglo bold uppercase">Jumlah SNI</span>
+					<span class="caption-helper">Per Tahun</span>
+				</div>
 
-            </div>
-            <div class="portlet-body">
-                <div id="chart_bar_1" style="min-width: 310px; height: 350px; margin: 0 auto"></div>
-            </div>
-        </div>
-        <!-- END PORTLET-->
-    </div>
-    <div class="col-md-6 col-sm-6">
-        <!-- BEGIN PORTLET-->
-        <div class="portlet light ">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-share font-red-sunglo hide"></i>
-                    <span class="caption-subject font-red-sunglo bold uppercase">Jumlah SNI</span>
-                    <span class="caption-helper">Per Tahun</span>
-                </div>
+			</div>
+			<div class="portlet-body">
+				<div id="chart_bar_1" style="min-width: 310px; height: 350px; margin: 0 auto"></div>
+			</div>
+		</div>
+		<!-- END PORTLET-->
+	</div>
+	<div class="col-md-6 col-sm-6">
+		<!-- BEGIN PORTLET-->
+		<div class="portlet light ">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="icon-share font-red-sunglo hide"></i>
+					<span class="caption-subject font-red-sunglo bold uppercase">Jumlah SNI</span>
+					<span class="caption-helper">Per Tahun</span>
+				</div>
 
-            </div>
-            <div class="portlet-body">
-                <div id="chart_bar_2" style="min-width: 310px; max-width: 800px; height: 350px; margin: 0 auto"></div>
-            </div>
-        </div>
-        <!-- END PORTLET-->
-    </div>
+			</div>
+			<div class="portlet-body">
+				<div id="chart_bar_2" style="min-width: 310px; max-width: 800px; height: 350px; margin: 0 auto"></div>
+			</div>
+		</div>
+		<!-- END PORTLET-->
+	</div>
 </div>
 
 <div class="row">
-    <div class="col-md-6 col-sm-6">
-        <div class="portlet light ">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-share font-red-sunglo hide"></i>
-                    <span class="caption-subject font-red-sunglo bold uppercase">Persentase Tahapan SNI</span>
-                    <span class="caption-helper">Tahun berjalan</span>
-                </div>
+	<div class="col-md-6 col-sm-6">
+		<div class="portlet light ">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="icon-share font-red-sunglo hide"></i>
+					<span class="caption-subject font-red-sunglo bold uppercase">Persentase Tahapan SNI</span>
+					<span class="caption-helper">Tahun berjalan</span>
+				</div>
 
-            </div>
-            <div class="portlet-body">
-                <div id="chart_pie" style="min-width: 310px; max-width: 800px; height: 350px; margin: 0 auto"></div>
-            </div>
-        </div>
-    </div>
+			</div>
+			<div class="portlet-body">
+				<div id="chart_pie" style="min-width: 310px; max-width: 800px; height: 350px; margin: 0 auto"></div>
+			</div>
+		</div>
+	</div>
 
-    <div class="col-md-6 col-sm-6">
-        <div class="portlet light ">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-share font-red-sunglo hide"></i>
-                    <span class="caption-subject font-red-sunglo bold uppercase">Partisipasi Masyarakat </span>
-                    <span class="caption-helper">Tahun berjalan</span>
-                </div>
+	<div class="col-md-6 col-sm-6">
+		<div class="portlet light ">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="icon-share font-red-sunglo hide"></i>
+					<span class="caption-subject font-red-sunglo bold uppercase">Partisipasi Masyarakat </span>
+					<span class="caption-helper">Tahun berjalan</span>
+				</div>
 
-            </div>
-            <div class="portlet-body">
-                <div id="chart_line" style="min-width: 310px; max-width: 800px; height: 350px; margin: 0 auto"></div>
-            </div>
-        </div>
-    </div>
+			</div>
+			<div class="portlet-body">
+				<div id="chart_line" style="min-width: 310px; max-width: 800px; height: 350px; margin: 0 auto"></div>
+			</div>
+		</div>
+	</div>
 </div>
 
 }else{
-    <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat red-intense">
-            <div class="visual">
-                <i class="fa fa-file"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    @ViewBag.JML_MTPS
-                </div>
-                <div class="desc">
-                    MTPS
-                </div>
-            </div>
-            <a class="more" href="/Pengajuan/Usulan">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat yellow-gold">
-            <div class="visual">
-                <i class="fa fa-file"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    @ViewBag.JML_PNPS
-                </div>
-                <div class="desc">
-                    PNPS
-                </div>
-            </div>
-            <a class="more" href="/Pengajuan/Usulan">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat blue-madison">
-            <div class="visual">
-                <i class="fa fa-file"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    @ViewBag.JML_RASNI
-                </div>
-                <div class="desc">
-                    RASNI
-                </div>
-            </div>
-            <a class="more" href="/Pengajuan/Usulan">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat green-haze">
-            <div class="visual">
-                <i class="fa fa-file"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    @ViewBag.JML_SNI
-                </div>
-                <div class="desc">
-                    SNI
-                </div>
-            </div>
-            <a class="more" href="/SNI/SNIList">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
+	<div class="row">
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat red-intense">
+			<div class="visual">
+				<i class="fa fa-file"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					@ViewBag.JML_MTPS
+				</div>
+				<div class="desc">
+					MTPS
+				</div>
+			</div>
+			<a class="more" href="/Pengajuan/Usulan">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat yellow-gold">
+			<div class="visual">
+				<i class="fa fa-file"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					@ViewBag.JML_PNPS
+				</div>
+				<div class="desc">
+					PNPS
+				</div>
+			</div>
+			<a class="more" href="/Pengajuan/Usulan">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat blue-madison">
+			<div class="visual">
+				<i class="fa fa-file"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					@ViewBag.JML_RASNI
+				</div>
+				<div class="desc">
+					RASNI
+				</div>
+			</div>
+			<a class="more" href="/Pengajuan/Usulan">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat green-haze">
+			<div class="visual">
+				<i class="fa fa-file"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					@ViewBag.JML_SNI
+				</div>
+				<div class="desc">
+					SNI
+				</div>
+			</div>
+			<a class="more" href="/SNI/SNIList">Lihat Daftar <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
 </div>
 }
 <div class="clearfix">
 </div>
 <script>
-    $(function () {
+	$(function () {
 
-        jumlahsni1();
-        jumlahsni2();
-        persentasesni(2015);
-        jml_partisipasi(2015);
-    });
-    function jumlahsni1() {
-        $.ajax({
-            url: "/Home/Dashboard/chart_bar_1",
-            type: "POST",
-            async: true,
-            dataType: 'json',
-            success: function (data) {
-                var categories = data.categories;
-                var series = data.series;
-                
-                $('#chart_bar_1').highcharts({
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: ''
-                    },
+		jumlahsni1();
+		jumlahsni2();
+		persentasesni(2015);
+		jml_partisipasi(2015);
+	});
+	function jumlahsni1() {
+		$.ajax({
+			url: "/Home/Dashboard/chart_bar_1",
+			type: "POST",
+			async: true,
+			dataType: 'json',
+			success: function (data) {
+				var categories = data.categories;
+				var series = data.series;
+				
+				$('#chart_bar_1').highcharts({
+					chart: {
+						type: 'column'
+					},
+					title: {
+						text: ''
+					},
 
-                    xAxis: {
-                        categories: categories,
-                        crosshair: true
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: 'Jumlah Dokumen'
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                            '<td style="padding:0"><b>{point.y}</b></td></tr>',
-                        footerFormat: '</table>',
-                        shared: true,
-                        useHTML: true
-                    },
-                    plotOptions: {
-                        column: {
-                            pointPadding: 0.2,
-                            borderWidth: 0
-                        }
-                    },
-                    series: series
-                });
-            }
-        });
-    }
-    function jumlahsni2() {
-        $.ajax({
-            url: "/Home/Dashboard/chart_bar_1",
-            type: "POST",
-            async: true,
-            dataType: 'json',
-            success: function (data) {
-                var categories = data.categories;
-                var series = data.series;
-                $('#chart_bar_2').highcharts({
-                    chart: {
-                        type: 'bar'
-                    },
-                    title: {
-                        text: ''
-                    },
-                    xAxis: {
-                        categories: categories
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: 'Jumlah Dokumen'
-                        }
-                    },
-                    legend: {
-                        reversed: true
-                    },
-                    plotOptions: {
-                        series: {
-                            stacking: 'normal'
-                        }
-                    },
-                    series: series
-                });
-            }
-        });
-    }
-    function persentasesni(tahun) {
-        $.ajax({
-            url: "/Home/Dashboard/chart_pie",
-            type: "POST",
-            async: true,
-            dataType: 'json',
-            data: { year: tahun },
-            success: function (data) {
-                var series = data.series;
-                // Radialize the colors
-            
+					xAxis: {
+						categories: categories,
+						crosshair: true
+					},
+					yAxis: {
+						min: 0,
+						title: {
+							text: 'Jumlah Dokumen'
+						}
+					},
+					tooltip: {
+						headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+						pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+							'<td style="padding:0"><b>{point.y}</b></td></tr>',
+						footerFormat: '</table>',
+						shared: true,
+						useHTML: true
+					},
+					plotOptions: {
+						column: {
+							pointPadding: 0.2,
+							borderWidth: 0
+						}
+					},
+					series: series
+				});
+			}
+		});
+	}
+	function jumlahsni2() {
+		$.ajax({
+			url: "/Home/Dashboard/chart_bar_1",
+			type: "POST",
+			async: true,
+			dataType: 'json',
+			success: function (data) {
+				var categories = data.categories;
+				var series = data.series;
+				$('#chart_bar_2').highcharts({
+					chart: {
+						type: 'bar'
+					},
+					title: {
+						text: ''
+					},
+					xAxis: {
+						categories: categories
+					},
+					yAxis: {
+						min: 0,
+						title: {
+							text: 'Jumlah Dokumen'
+						}
+					},
+					legend: {
+						reversed: true
+					},
+					plotOptions: {
+						series: {
+							stacking: 'normal'
+						}
+					},
+					series: series
+				});
+			}
+		});
+	}
+	function persentasesni(tahun) {
+		$.ajax({
+			url: "/Home/Dashboard/chart_pie",
+			type: "POST",
+			async: true,
+			dataType: 'json',
+			data: { year: tahun },
+			success: function (data) {
+				var series = data.series;
+				// Radialize the colors
+			
 
-                // Build the chart
-                $('#chart_pie').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: ''
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                                style: {
-                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                                },
-                                connectorColor: 'silver'
-                            }
-                        }
-                    },
-                    series: [{
-                        name: 'Persentase',
-                        data: series
-                    }]
-                });
-            }
-        });
-    }
-    function jml_partisipasi(tahun) {
-        $.ajax({
-            url: "/Home/Dashboard/chart_line",
-            type: "POST",
-            async: true,
-            dataType: 'json',
-            data: { year: tahun },
-            success: function (data) {
-                var seriesdata = data.seriesdata;
-                var categories = data.categories;
-                $('#chart_line').highcharts({
-                    chart: {
-                        type: 'line'
-                    },
-                    title: {
-                        text: ''
-                    },
-                    subtitle: {
-                        text: ''
-                    },
-                    xAxis: {
-                        categories: categories
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Banyaknya'
-                        }
-                    },
-                    plotOptions: {
-                        line: {
-                            dataLabels: {
-                                enabled: true
-                            },
-                            enableMouseTracking: false
-                        }
-                    },
-                    series: [{
-                        name: 'Partisipasi Masyarakat',
-                        data: seriesdata
-                    }]
-                });
-            }
-        });
-    }
-    function format(d) {
-        return '<table>' +
-            '<tr>' +
-            '<td style="width:140px;font-weight:bold;vertical-align:top;">Kode PNPS</td>' +
-            '<td class="text-center" style="padding-left:10px;padding-right:10px;font-weight:bold;vertical-align:top;">:</td>' +
-            '<td>' + d.PROPOSAL_PNPS_CODE + '</td>' +
-            '</tr>' +
-             '<tr>' +
-            '<td style="width:140px;font-weight:bold;vertical-align:top;">Jenis Perumusan</td>' +
-            '<td class="text-center" style="padding-left:10px;padding-right:10px;font-weight:bold;vertical-align:top;">:</td>' +
-            '<td>' + d.PROPOSAL_JENIS_PERUMUSAN_NAME + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="width:140px;font-weight:bold;vertical-align:top;">Nama Komtek</td>' +
-            '<td class="text-center" style="padding-left:10px;padding-right:10px;font-weight:bold;vertical-align:top;">:</td>' +
-            '<td>' + d.KOMTEK_CODE + ' ' + d.KOMTEK_NAME + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="width:140px;font-weight:bold;vertical-align:top;">Judul PNPS</td>' +
-            '<td class="text-center" style="padding-left:10px;padding-right:10px;font-weight:bold;vertical-align:top;">:</td>' +
-            '<td>' + d.PROPOSAL_JUDUL_PNPS + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="width:140px;font-weight:bold;vertical-align:top;">Ruang Lingkup</td>' +
-            '<td class="text-center" style="padding-left:10px;padding-right:10px;font-weight:bold;vertical-align:top;">:</td>' +
-            '<td style="vertical-align:top;">' + d.PROPOSAL_RUANG_LINGKUP + '</td>' +
-            '</tr>' +
-            '</table>';
-    }
-    jQuery(document).ready(function () {
-        Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
-            return {
-                radialGradient: {
-                    cx: 0.5,
-                    cy: 0.3,
-                    r: 0.7
-                },
-                stops: [
-                    [0, color],
-                    [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
-                ]
-            };
-        });
-        var dt = $('#usulanbaru').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "bServerSide": true,
-            "sAjaxSource": "/Home/Dashboard/DataDashboard",
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "Data tidak tersedia",
-                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                "infoEmpty": "Menampilkan 0 Data",
-                "infoFiltered": "",
-                "lengthMenu": "Menampilkan _MENU_ Data",
-                "search": "Pencarian:",
-                "zeroRecords": "Pencarian Tidak Ditemukan",
-                "sProcessing": "Proses Pengambilan Data",
-            },
-            "fnDrawCallback": function () {
-                jsDefSetting();
-            },
-            "columns": [
-                {
-                    "class": "details-control",
-                    "orderable": false,
-                    "data": "<i class='action fa fa-file-text-o'></i>",
-                    "defaultContent": ""
-                },
-                { "data": "PROPOSAL_ID" },
-                { "data": "PROPOSAL_PNPS_CODE" },
-                { "data": "PROPOSAL_JUDUL_PNPS" },
-                { "data": "KOMTEK_CODE" },
-                { "data": "KOMTEK_NAME" },
-                { "data": "KOMTEK_FULLNAME" },
-                { "data": "PROPOSAL_JENIS_PERUMUSAN_NAME" },
-                { "data": "PROPOSAL_RUANG_LINGKUP" },
-                { "data": "PROGRESS", "orderable": false, }
-            ],
-            "columnDefs": [
-                {
-                    "render": function (data, type, row) {
-                        return '<center><a href="javascript:void(0)"><i class="action fa fa-file-text-o"></a></center>';
-                    },
-                    "targets": 0
-                },
-                {
-                    "targets": [1,4,5,8],
-                    "visible": false
-                }
-            ],
-            "order": [[0, 'desc']]
-        });
-      
-        var tableWrapper = $('.dataTables_wrapper');
-        tableWrapper.find('.dataTables_length select').select2();
-        // Array to track the ids of the details displayed rows
-        var detailRows = [];
+				// Build the chart
+				$('#chart_pie').highcharts({
+					chart: {
+						plotBackgroundColor: null,
+						plotBorderWidth: null,
+						plotShadow: false,
+						type: 'pie'
+					},
+					title: {
+						text: ''
+					},
+					tooltip: {
+						pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+					},
+					plotOptions: {
+						pie: {
+							allowPointSelect: true,
+							cursor: 'pointer',
+							dataLabels: {
+								enabled: true,
+								format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+								style: {
+									color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+								},
+								connectorColor: 'silver'
+							}
+						}
+					},
+					series: [{
+						name: 'Persentase',
+						data: series
+					}]
+				});
+			}
+		});
+	}
+	function jml_partisipasi(tahun) {
+		$.ajax({
+			url: "/Home/Dashboard/chart_line",
+			type: "POST",
+			async: true,
+			dataType: 'json',
+			data: { year: tahun },
+			success: function (data) {
+				var seriesdata = data.seriesdata;
+				var categories = data.categories;
+				$('#chart_line').highcharts({
+					chart: {
+						type: 'line'
+					},
+					title: {
+						text: ''
+					},
+					subtitle: {
+						text: ''
+					},
+					xAxis: {
+						categories: categories
+					},
+					yAxis: {
+						title: {
+							text: 'Banyaknya'
+						}
+					},
+					plotOptions: {
+						line: {
+							dataLabels: {
+								enabled: true
+							},
+							enableMouseTracking: false
+						}
+					},
+					series: [{
+						name: 'Partisipasi Masyarakat',
+						data: seriesdata
+					}]
+				});
+			}
+		});
+	}
+	function format(d) {
+		return '<table>' +
+			'<tr>' +
+			'<td style="width:140px;font-weight:bold;vertical-align:top;">Kode PNPS</td>' +
+			'<td class="text-center" style="padding-left:10px;padding-right:10px;font-weight:bold;vertical-align:top;">:</td>' +
+			'<td>' + d.PROPOSAL_PNPS_CODE + '</td>' +
+			'</tr>' +
+			 '<tr>' +
+			'<td style="width:140px;font-weight:bold;vertical-align:top;">Jenis Perumusan</td>' +
+			'<td class="text-center" style="padding-left:10px;padding-right:10px;font-weight:bold;vertical-align:top;">:</td>' +
+			'<td>' + d.PROPOSAL_JENIS_PERUMUSAN_NAME + '</td>' +
+			'</tr>' +
+			'<tr>' +
+			'<td style="width:140px;font-weight:bold;vertical-align:top;">Nama Komtek</td>' +
+			'<td class="text-center" style="padding-left:10px;padding-right:10px;font-weight:bold;vertical-align:top;">:</td>' +
+			'<td>' + d.KOMTEK_CODE + ' ' + d.KOMTEK_NAME + '</td>' +
+			'</tr>' +
+			'<tr>' +
+			'<td style="width:140px;font-weight:bold;vertical-align:top;">Judul PNPS</td>' +
+			'<td class="text-center" style="padding-left:10px;padding-right:10px;font-weight:bold;vertical-align:top;">:</td>' +
+			'<td>' + d.PROPOSAL_JUDUL_PNPS + '</td>' +
+			'</tr>' +
+			'<tr>' +
+			'<td style="width:140px;font-weight:bold;vertical-align:top;">Ruang Lingkup</td>' +
+			'<td class="text-center" style="padding-left:10px;padding-right:10px;font-weight:bold;vertical-align:top;">:</td>' +
+			'<td style="vertical-align:top;">' + d.PROPOSAL_RUANG_LINGKUP + '</td>' +
+			'</tr>' +
+			'</table>';
+	}
+	jQuery(document).ready(function () {
+		Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+			return {
+				radialGradient: {
+					cx: 0.5,
+					cy: 0.3,
+					r: 0.7
+				},
+				stops: [
+					[0, color],
+					[1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+				]
+			};
+		});
+		var dt = $('#usulanbaru').DataTable({
+			"processing": true,
+			"serverSide": true,
+			"bServerSide": true,
+			"sAjaxSource": "/Home/Dashboard/DataDashboard",
+			"language": {
+				"aria": {
+					"sortAscending": ": activate to sort column ascending",
+					"sortDescending": ": activate to sort column descending"
+				},
+				"emptyTable": "Data tidak tersedia",
+				"info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+				"infoEmpty": "Menampilkan 0 Data",
+				"infoFiltered": "",
+				"lengthMenu": "Menampilkan _MENU_ Data",
+				"search": "Pencarian:",
+				"zeroRecords": "Pencarian Tidak Ditemukan",
+				"sProcessing": "Proses Pengambilan Data",
+			},
+			"fnDrawCallback": function () {
+				jsDefSetting();
+			},
+			"columns": [
+				{
+					"class": "details-control",
+					"orderable": false,
+					"data": "<i class='action fa fa-file-text-o'></i>",
+					"defaultContent": ""
+				},
+				{ "data": "PROPOSAL_ID" },
+				{ "data": "PROPOSAL_PNPS_CODE" },
+				{ "data": "PROPOSAL_JUDUL_PNPS" },
+				{ "data": "KOMTEK_CODE" },
+				{ "data": "KOMTEK_NAME" },
+				{ "data": "KOMTEK_FULLNAME" },
+				{ "data": "PROPOSAL_JENIS_PERUMUSAN_NAME" },
+				{ "data": "PROPOSAL_RUANG_LINGKUP" },
+				{ "data": "PROGRESS", "orderable": false, }
+			],
+			"columnDefs": [
+				{
+					"render": function (data, type, row) {
+						return '<center><a href="javascript:void(0)"><i class="action fa fa-file-text-o"></a></center>';
+					},
+					"targets": 0
+				},
+				{
+					"targets": [1,4,5,8],
+					"visible": false
+				}
+			],
+			"order": [[0, 'desc']]
+		});
+	  
+		var tableWrapper = $('.dataTables_wrapper');
+		tableWrapper.find('.dataTables_length select').select2();
+		// Array to track the ids of the details displayed rows
+		var detailRows = [];
 
-        $('#usulanbaru tbody').on('click', 'tr td.details-control', function () {
-            var tr = $(this).closest('tr');
-            var row = dt.row(tr);
-            var idx = $.inArray(tr.attr('id'), detailRows);
+		$('#usulanbaru tbody').on('click', 'tr td.details-control', function () {
+			var tr = $(this).closest('tr');
+			var row = dt.row(tr);
+			var idx = $.inArray(tr.attr('id'), detailRows);
 
-            if (row.child.isShown()) {
-                tr.removeClass('detailstable');
-                row.child.hide();
+			if (row.child.isShown()) {
+				tr.removeClass('detailstable');
+				row.child.hide();
 
-                // Remove from the 'open' array
-                detailRows.splice(idx, 1);
-            }
-            else {
-                tr.addClass('detailstable');
-                row.child(format(row.data())).show();
+				// Remove from the 'open' array
+				detailRows.splice(idx, 1);
+			}
+			else {
+				tr.addClass('detailstable');
+				row.child(format(row.data())).show();
 
-                // Add to the 'open' array
-                if (idx === -1) {
-                    detailRows.push(tr.attr('id'));
-                }
-            }
-        });
+				// Add to the 'open' array
+				if (idx === -1) {
+					detailRows.push(tr.attr('id'));
+				}
+			}
+		});
 
-        // On each draw, loop over the `detailRows` array and show any child rows
-        dt.on('draw', function () {
-            $.each(detailRows, function (i, id) {
-                $('#' + id + ' td.details-control').trigger('click');
-            });
-        });
-      
-    });
+		// On each draw, loop over the `detailRows` array and show any child rows
+		dt.on('draw', function () {
+			$.each(detailRows, function (i, id) {
+				$('#' + id + ' td.details-control').trigger('click');
+			});
+		});
+	  
+	});
   
 
-    $(function () {
-        
-    });
+	$(function () {
+		
+	});
 
-    $(function () {
+	$(function () {
 
-        
-    });
+		
+	});
 
-    $(function () {
-        
-    });
-    function get_chart_kegiatan() {
-        $.ajax({
-            url: "/Home/Dashboard/GetJumlahSNI",
-            type: "POST",
-            async: true,
-            dataType: 'json',
-            data: "years=2015",
-            success: function (data) {
-                var datachart = "";
-                op = data.value[0].data;
-                adm = data.value[1].data;
-                pa = data.value[2].data;
-                pl = data.value[3].data;
-                var tes = (data.Data);
-
-
-                var options = {
-                    chart: {
-                        renderTo: 'chart_bar_1',
-                        type: 'column'
-                    },
-                    title: {
-                        text: ''
-                    },
-
-                    xAxis: {
-                        categories: [data.Tahun],
-                        crosshair: true
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: 'Jumlah Dokumen'
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                            '<td style="padding:0"><b>{point.y}</b></td></tr>',
-                        footerFormat: '</table>',
-                        shared: true,
-                        useHTML: true
-                    },
-                    plotOptions: {
-                        column: {
-                            pointPadding: 0.2,
-                            borderWidth: 0
-                        }
-                    },
-                    series: tes
-                };
+	$(function () {
+		
+	});
+	function get_chart_kegiatan() {
+		$.ajax({
+			url: "/Home/Dashboard/GetJumlahSNI",
+			type: "POST",
+			async: true,
+			dataType: 'json',
+			data: "years=2015",
+			success: function (data) {
+				var datachart = "";
+				op = data.value[0].data;
+				adm = data.value[1].data;
+				pa = data.value[2].data;
+				pl = data.value[3].data;
+				var tes = (data.Data);
 
 
-                var tesss = "";
-                for (var i = 0; i < tes.length; i++) {
-                    tesss += '{"name":"' + tes[i].PROPOSAL_TAHAPAN + '","data":[' + tes[i].JUMLAH + ']},';
-                }
+				var options = {
+					chart: {
+						renderTo: 'chart_bar_1',
+						type: 'column'
+					},
+					title: {
+						text: ''
+					},
 
-                tesss = tesss.slice(0, -1);
-                tesss = "[" + tesss + "]";
-                tesss = jQuery.parseJSON(tesss);
-                options.series = tesss;
+					xAxis: {
+						categories: [data.Tahun],
+						crosshair: true
+					},
+					yAxis: {
+						min: 0,
+						title: {
+							text: 'Jumlah Dokumen'
+						}
+					},
+					tooltip: {
+						headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+						pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+							'<td style="padding:0"><b>{point.y}</b></td></tr>',
+						footerFormat: '</table>',
+						shared: true,
+						useHTML: true
+					},
+					plotOptions: {
+						column: {
+							pointPadding: 0.2,
+							borderWidth: 0
+						}
+					},
+					series: tes
+				};
 
-                var chart = new Highcharts.Chart(options);
 
-            }
-        });
+				var tesss = "";
+				for (var i = 0; i < tes.length; i++) {
+					tesss += '{"name":"' + tes[i].PROPOSAL_TAHAPAN + '","data":[' + tes[i].JUMLAH + ']},';
+				}
 
-    }
+				tesss = tesss.slice(0, -1);
+				tesss = "[" + tesss + "]";
+				tesss = jQuery.parseJSON(tesss);
+				options.series = tesss;
+
+				var chart = new Highcharts.Chart(options);
+
+			}
+		});
+
+	}
 </script>
