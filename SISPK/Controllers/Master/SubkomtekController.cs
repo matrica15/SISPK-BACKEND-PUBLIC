@@ -41,34 +41,37 @@ namespace SISPK.Controllers.Master
             DateTime dates = Convert.ToDateTime(m_komtek.KOMTEK_TANGGAL_PEMBENTUKAN);
             var date = "TO_DATE('" + dates.ToString("yyyy-MM-dd HH:mm:ss") + "', 'yyyy-mm-dd hh24:mi:ss')";
             //var parent = "";
+
             //KOMTEK_BIDANG_ID,KOMTEK_INSTANSI_ID,
+
             int lastid_doc = MixHelper.GetSequence("TRX_DOCUMENTS");
 
-            string pathnya = Server.MapPath("~/Upload/Dokumen/KOMTEK_CV/");
-            HttpPostedFileBase file_cv = Request.Files["KOMTEK_CV"];
-            var file_name_cv = "";
-            var filePath_cv = "";
-            var fileExtension_cv = "";
-            if (file_cv != null)
-            {
-                //Check whether Directory (Folder) exists.
-                if (!Directory.Exists(pathnya))
-                {
-                    //If Directory (Folder) does not exists. Create it.
-                    Directory.CreateDirectory(pathnya);
-                }
-                string lampiranregulasipath = file_cv.FileName;
-                if (lampiranregulasipath.Trim() != "")
-                {
-                    lampiranregulasipath = Path.GetFileNameWithoutExtension(file_cv.FileName);
-                    fileExtension_cv = Path.GetExtension(file_cv.FileName);
-                    file_name_cv = "Komtek_CV_" + m_komtek.KOMTEK_CODE.Replace('/', '-') + "_" + lastid + fileExtension_cv;
-                    filePath_cv = pathnya + file_name_cv;
-                    file_cv.SaveAs(filePath_cv);
-                }
-            }
+            //string pathnya = Server.MapPath("~/Upload/Dokumen/KOMTEK_CV/");
+            //HttpPostedFileBase file_cv = Request.Files["KOMTEK_CV"];
+            //var file_name_cv = "";
+            //var filePath_cv = "";
+            //var fileExtension_cv = "";
+            //if (file_cv != null)
+            //{
+            //    //Check whether Directory (Folder) exists.
+            //    if (!Directory.Exists(pathnya))
+            //    {
+            //        //If Directory (Folder) does not exists. Create it.
+            //        Directory.CreateDirectory(pathnya);
+            //    }
+            //    string lampiranregulasipath = file_cv.FileName;
+            //    if (lampiranregulasipath.Trim() != "")
+            //    {
+            //        lampiranregulasipath = Path.GetFileNameWithoutExtension(file_cv.FileName);
+            //        fileExtension_cv = Path.GetExtension(file_cv.FileName);
+            //        file_name_cv = "Komtek_CV_" + m_komtek.KOMTEK_CODE.Replace('/', '-') + "_" + lastid + fileExtension_cv;
+            //        filePath_cv = pathnya + file_name_cv;
+            //        file_cv.SaveAs(filePath_cv);
+            //    }
+            //}
 
-            var fname = "KOMTEK_ID,KOMTEK_PARENT_CODE,KOMTEK_CODE,KOMTEK_BIDANG_ID,KOMTEK_INSTANSI_ID,KOMTEK_NAME,KOMTEK_SEKRETARIAT,KOMTEK_ADDRESS,KOMTEK_PHONE,KOMTEK_FAX,KOMTEK_EMAIL,KOMTEK_SK_PENETAPAN,KOMTEK_CV,KOMTEK_TANGGAL_PEMBENTUKAN,KOMTEK_DESCRIPTION,KOMTEK_CREATE_BY,KOMTEK_CREATE_DATE,KOMTEK_LOG_CODE,KOMTEK_CONTACT_PERSON,KOMTEK_KETERANGAN,KOMTEK_STATUS";
+            //var fname = "KOMTEK_ID,KOMTEK_PARENT_CODE,KOMTEK_CODE,KOMTEK_BIDANG_ID,KOMTEK_INSTANSI_ID,KOMTEK_NAME,KOMTEK_SEKRETARIAT,KOMTEK_ADDRESS,KOMTEK_PHONE,KOMTEK_FAX,KOMTEK_EMAIL,KOMTEK_SK_PENETAPAN,KOMTEK_CV,KOMTEK_TANGGAL_PEMBENTUKAN,KOMTEK_DESCRIPTION,KOMTEK_CREATE_BY,KOMTEK_CREATE_DATE,KOMTEK_LOG_CODE,KOMTEK_CONTACT_PERSON,KOMTEK_KETERANGAN,KOMTEK_STATUS";
+            var fname = "KOMTEK_ID,KOMTEK_PARENT_CODE,KOMTEK_CODE,KOMTEK_BIDANG_ID,KOMTEK_INSTANSI_ID,KOMTEK_NAME,KOMTEK_SEKRETARIAT,KOMTEK_ADDRESS,KOMTEK_PHONE,KOMTEK_FAX,KOMTEK_EMAIL,KOMTEK_SK_PENETAPAN,KOMTEK_TANGGAL_PEMBENTUKAN,KOMTEK_DESCRIPTION,KOMTEK_CREATE_BY,KOMTEK_CREATE_DATE,KOMTEK_LOG_CODE,KOMTEK_CONTACT_PERSON,KOMTEK_KETERANGAN,KOMTEK_STATUS";
             var fvalue = "'" + lastid + "', " +
                         "'" + m_komtek.KOMTEK_PARENT_CODE + "', " +
                         "'" + m_komtek.KOMTEK_CODE + "', " +
@@ -81,7 +84,7 @@ namespace SISPK.Controllers.Master
                         "'" + m_komtek.KOMTEK_FAX + "'," +
                         "'" + m_komtek.KOMTEK_EMAIL + "'," +
                         "'" + m_komtek.KOMTEK_SK_PENETAPAN + "'," +
-                        "'/Upload/Dokumen/KOMTEK_CV/" + file_name_cv + "'," +
+                        //"'/Upload/Dokumen/KOMTEK_CV/" + file_name_cv + "'," +
                         date + "," +
                         "'" + m_komtek.KOMTEK_DESCRIPTION + "'," +
                         "'" + UserId + "'," +

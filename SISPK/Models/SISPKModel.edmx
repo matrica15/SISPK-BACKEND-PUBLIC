@@ -992,6 +992,7 @@
       "VIEW_ANGGOTA"."KOMTEK_ANGGOTA_APPROVE_DATE" AS "KOMTEK_ANGGOTA_APPROVE_DATE", 
       "VIEW_ANGGOTA"."KOMTEK_ANGGOTA_STATUS" AS "KOMTEK_ANGGOTA_STATUS", 
       "VIEW_ANGGOTA"."KOMTEK_ANGGOTA_LOG_CODE" AS "KOMTEK_ANGGOTA_LOG_CODE", 
+      "VIEW_ANGGOTA"."KOMTEK_ANGGOTA_CV" AS "KOMTEK_ANGGOTA_CV", 
       "VIEW_ANGGOTA"."KOMTEK_CODE" AS "KOMTEK_CODE", 
       "VIEW_ANGGOTA"."KOMTEK_PARENT_CODE" AS "KOMTEK_PARENT_CODE", 
       "VIEW_ANGGOTA"."KOMTEK_NAME" AS "KOMTEK_NAME", 
@@ -4685,6 +4686,7 @@
           <Property Name="KOMTEK_ANGGOTA_APPROVE_DATE" Type="date" />
           <Property Name="KOMTEK_ANGGOTA_STATUS" Type="number" />
           <Property Name="KOMTEK_ANGGOTA_LOG_CODE" Type="varchar2" MaxLength="32" />
+          <Property Name="KOMTEK_ANGGOTA_CV" Type="varchar2" MaxLength="512" />
           <Property Name="KOMTEK_CODE" Type="varchar2" MaxLength="255" />
           <Property Name="KOMTEK_PARENT_CODE" Type="varchar2" MaxLength="255" />
           <Property Name="KOMTEK_NAME" Type="varchar2" MaxLength="2000" />
@@ -8634,6 +8636,7 @@
           <Property Type="DateTime" Name="KOMTEK_ANGGOTA_APPROVE_DATE" />
           <Property Type="Decimal" Name="KOMTEK_ANGGOTA_STATUS" Precision="38" Scale="0" />
           <Property Type="String" Name="KOMTEK_ANGGOTA_LOG_CODE" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="KOMTEK_ANGGOTA_CV" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="KOMTEK_CODE" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="KOMTEK_PARENT_CODE" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="KOMTEK_NAME" MaxLength="2000" FixedLength="false" Unicode="false" />
@@ -12312,6 +12315,7 @@
                 <ScalarProperty Name="KOMTEK_PARENT_CODE" ColumnName="KOMTEK_PARENT_CODE" />
                 <ScalarProperty Name="KOMTEK_CODE" ColumnName="KOMTEK_CODE" />
                 <ScalarProperty Name="KOMTEK_ANGGOTA_LOG_CODE" ColumnName="KOMTEK_ANGGOTA_LOG_CODE" />
+                <ScalarProperty Name="KOMTEK_ANGGOTA_CV" ColumnName="KOMTEK_ANGGOTA_CV" />
                 <ScalarProperty Name="KOMTEK_ANGGOTA_STATUS" ColumnName="KOMTEK_ANGGOTA_STATUS" />
                 <ScalarProperty Name="KOMTEK_ANGGOTA_APPROVE_DATE" ColumnName="KOMTEK_ANGGOTA_APPROVE_DATE" />
                 <ScalarProperty Name="KOMTEK_ANGGOTA_APPROVE_BY" ColumnName="KOMTEK_ANGGOTA_APPROVE_BY" />
