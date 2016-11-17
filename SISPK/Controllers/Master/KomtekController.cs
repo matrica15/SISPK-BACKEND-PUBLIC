@@ -205,7 +205,31 @@ namespace SISPK.Controllers.Master
             //var date = "TO_DATE('" + dates.ToString("yyyy-MM-dd HH:mm:ss") + "', 'yyyy-mm-dd hh24:mi:ss')";
             //var parent = "0";
 
-            var fname = "KOMTEK_ANGGOTA_ID,KOMTEK_ANGGOTA_KOMTEK_ID,KOMTEK_ANGGOTA_KODE,KOMTEK_ANGGOTA_NAMA,KOMTEK_ANGGOTA_JABATAN,KOMTEK_ANGGOTA_INSTANSI,KOMTEK_ANGGOTA_ADDRESS,KOMTEK_ANGGOTA_TELP,KOMTEK_ANGGOTA_FAX,KOMTEK_ANGGOTA_EMAIL,KOMTEK_ANGGOTA_STAKEHOLDER,KOMTEK_ANGGOTA_EDUCATION,KOMTEK_ANGGOTA_EXPERTISE,KOMTEK_ANGGOTA_CREATE_BY,KOMTEK_ANGGOTA_DATE,KOMTEK_ANGGOTA_LOG_CODE,KOMTEK_ANGGOTA_STATUS";
+            string pathnya = Server.MapPath("~/Upload/Dokumen/KOMTEK_CV/");
+            HttpPostedFileBase file_cv = Request.Files["KOMTEK_CV"];
+            var file_name_cv = "";
+            var filePath_cv = "";
+            var fileExtension_cv = "";
+            if (file_cv != null)
+            {
+                //Check whether Directory (Folder) exists.
+                if (!Directory.Exists(pathnya))
+                {
+                    //If Directory (Folder) does not exists. Create it.
+                    Directory.CreateDirectory(pathnya);
+                }
+                string lampiranregulasipath = file_cv.FileName;
+                if (lampiranregulasipath.Trim() != "")
+                {
+                    lampiranregulasipath = Path.GetFileNameWithoutExtension(file_cv.FileName);
+                    fileExtension_cv = Path.GetExtension(file_cv.FileName);
+                    file_name_cv = "Komtek_CV_" + mka.KOMTEK_ANGGOTA_KOMTEK_ID + "_" + mka.KOMTEK_ANGGOTA_NAMA + fileExtension_cv;
+                    filePath_cv = pathnya + file_name_cv.Replace(" ", "_");
+                    file_cv.SaveAs(filePath_cv);
+                }
+            }
+
+            var fname = "KOMTEK_ANGGOTA_ID,KOMTEK_ANGGOTA_KOMTEK_ID,KOMTEK_ANGGOTA_KODE,KOMTEK_ANGGOTA_NAMA,KOMTEK_ANGGOTA_JABATAN,KOMTEK_ANGGOTA_INSTANSI,KOMTEK_ANGGOTA_ADDRESS,KOMTEK_ANGGOTA_TELP,KOMTEK_ANGGOTA_FAX,KOMTEK_ANGGOTA_EMAIL,KOMTEK_ANGGOTA_STAKEHOLDER,KOMTEK_ANGGOTA_EDUCATION,KOMTEK_ANGGOTA_EXPERTISE,KOMTEK_ANGGOTA_CREATE_BY,KOMTEK_ANGGOTA_DATE,KOMTEK_ANGGOTA_LOG_CODE,KOMTEK_ANGGOTA_STATUS,KOMTEK_ANGGOTA_CV";
             var fvalue = "'" + lastid + "'," +
                         "'" + mka.KOMTEK_ANGGOTA_KOMTEK_ID + "'," +
                         "" + kode + "," +
@@ -222,7 +246,8 @@ namespace SISPK.Controllers.Master
                         "'" + UserId + "'," +
                         datenow + "," +
                         "'" + logcode + "'," +
-                        "1";
+                        "1,"+
+                        "'/Upload/Dokumen/KOMTEK_CV/" + file_name_cv.Replace(" ", "_") + "'";
 
             //return Json(new { query = "INSERT INTO MASTER_KOMTEK_ANGGOTA (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")" }, JsonRequestBehavior.AllowGet);
             db.Database.ExecuteSqlCommand("INSERT INTO MASTER_KOMTEK_ANGGOTA (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")");
@@ -251,7 +276,7 @@ namespace SISPK.Controllers.Master
             //var komtek_name = db.Database.SqlQuery<int>("SELECT KOMTEK_NAME FROM MASTER_KOMITE_TEKNIS WHERE KOMTEK_ID ="+).SingleOrDefault();
             
             //Send Account Activation to Email
-            var email = (from t in db.SYS_EMAIL where t.EMAIL_IS_USE == 1 select t).SingleOrDefault();
+            /*var email = (from t in db.SYS_EMAIL where t.EMAIL_IS_USE == 1 select t).SingleOrDefault();
             SendMailHelper.MailUsername = email.EMAIL_NAME;      //"aleh.mail@gmail.com";
             SendMailHelper.MailPassword = email.EMAIL_PASSWORD;  //"r4h45143uy";
 
@@ -271,7 +296,7 @@ namespace SISPK.Controllers.Master
             mailer.Send();
 
             TempData["MailMember"] = mka.KOMTEK_ANGGOTA_EMAIL;           
-
+            */
             String objek = fvalue.Replace("'", "-");
             String objek1 = fvalueu.Replace("'", "-");
             MixHelper.InsertLog(logcode, objek, 1);
@@ -314,7 +339,68 @@ namespace SISPK.Controllers.Master
             int lastid = MixHelper.GetSequence("MASTER_KOMITE_TEKNIS");
             var datenow = MixHelper.ConvertDateNow();
 
-            var update =
+            string pathnya = Server.MapPath("~/Upload/Dokumen/KOMTEK_CV/");
+            HttpPostedFileBase file_cv = Request.Files["KOMTEK_CV"];
+            var upload = Request.Files["KOMTEK_CV"];
+            var file_name_cv = "";
+            var filePath_cv = "";
+            var fileExtension_cv = "";
+            if (upload.ContentLength > 0)
+            {
+                //Check whether Directory (Folder) exists.
+                if (!Directory.Exists(pathnya))
+                {
+                    //If Directory (Folder) does not exists. Create it.
+                    Directory.CreateDirectory(pathnya);
+                }
+                string lampiranregulasipath = file_cv.FileName;
+                if (lampiranregulasipath.Trim() != "")
+                {
+                    lampiranregulasipath = Path.GetFileNameWithoutExtension(file_cv.FileName);
+                    fileExtension_cv = Path.GetExtension(file_cv.FileName);
+                    file_name_cv = "Komtek_CV_" + mka.KOMTEK_ANGGOTA_KOMTEK_ID + "_" + mka.KOMTEK_ANGGOTA_NAMA + fileExtension_cv;
+                    filePath_cv = pathnya + file_name_cv.Replace(" ", "_");
+                    file_cv.SaveAs(filePath_cv);
+                }
+
+                var update =
+                        "KOMTEK_ANGGOTA_NAMA = '" + mka.KOMTEK_ANGGOTA_NAMA + "'," +
+                        "KOMTEK_ANGGOTA_JABATAN = '" + mka.KOMTEK_ANGGOTA_JABATAN + "'," +
+                        "KOMTEK_ANGGOTA_INSTANSI = '" + mka.KOMTEK_ANGGOTA_INSTANSI + "'," +
+                        "KOMTEK_ANGGOTA_ADDRESS = '" + mka.KOMTEK_ANGGOTA_ADDRESS + "'," +
+                        "KOMTEK_ANGGOTA_TELP = '" + mka.KOMTEK_ANGGOTA_TELP + "'," +
+                        "KOMTEK_ANGGOTA_FAX = '" + mka.KOMTEK_ANGGOTA_FAX + "'," +
+                        "KOMTEK_ANGGOTA_EMAIL = '" + mka.KOMTEK_ANGGOTA_EMAIL + "'," +
+                        "KOMTEK_ANGGOTA_STAKEHOLDER = '" + mka.KOMTEK_ANGGOTA_STAKEHOLDER + "'," +
+                        "KOMTEK_ANGGOTA_EDUCATION = '" + mka.KOMTEK_ANGGOTA_EDUCATION + "'," +
+                        "KOMTEK_ANGGOTA_EXPERTISE = '" + mka.KOMTEK_ANGGOTA_EXPERTISE + "'," +
+                        "KOMTEK_ANGGOTA_UPDATE_BY = '" + UserId + "'," +
+                        "KOMTEK_ANGGOTA_UPDATE_DATE = " + datenow + "," +
+                        "KOMTEK_ANGGOTA_LOG_CODE = '" + mka.KOMTEK_ANGGOTA_LOG_CODE + "'," +
+                        "KOMTEK_ANGGOTA_CV = '/Upload/Dokumen/KOMTEK_CV/" + file_name_cv.Replace(" ", "_") + "'";
+
+                var clause = "where KOMTEK_ANGGOTA_ID = " + mka.KOMTEK_ANGGOTA_ID;
+                db.Database.ExecuteSqlCommand("UPDATE MASTER_KOMTEK_ANGGOTA SET " + update.Replace("''", "NULL") + " " + clause);
+
+                var updateu = "USER_NAME = '" + mka.KOMTEK_ANGGOTA_EMAIL + "'," +
+                          "USER_UPDATE_BY = '" + UserId + "'," +
+                          "USER_UPDATE_DATE = " + datenow + "," +
+                          "USER_LOG_CODE = '" + mka.KOMTEK_ANGGOTA_LOG_CODE + "'";
+
+                var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_KODE;
+                db.Database.ExecuteSqlCommand("UPDATE SYS_USER SET " + updateu.Replace("''", "NULL") + " " + clauseu);
+
+
+                String objek = update.Replace("'", "-");
+                String objek1 = updateu.Replace("'", "-");
+                MixHelper.InsertLog(logcode, objek, 1);
+                MixHelper.InsertLog(logcode, objek1, 1);
+                TempData["Notifikasi"] = 1;
+                TempData["NotifikasiText"] = "Data Berhasil Disimpan";
+            }
+            else
+            {
+                var update =
                         "KOMTEK_ANGGOTA_NAMA = '" + mka.KOMTEK_ANGGOTA_NAMA + "'," +
                         "KOMTEK_ANGGOTA_JABATAN = '" + mka.KOMTEK_ANGGOTA_JABATAN + "'," +
                         "KOMTEK_ANGGOTA_INSTANSI = '" + mka.KOMTEK_ANGGOTA_INSTANSI + "'," +
@@ -329,26 +415,26 @@ namespace SISPK.Controllers.Master
                         "KOMTEK_ANGGOTA_UPDATE_DATE = " + datenow + "," +
                         "KOMTEK_ANGGOTA_LOG_CODE = '" + mka.KOMTEK_ANGGOTA_LOG_CODE + "'";
 
+                var clause = "where KOMTEK_ANGGOTA_ID = " + mka.KOMTEK_ANGGOTA_ID;
+                db.Database.ExecuteSqlCommand("UPDATE MASTER_KOMTEK_ANGGOTA SET " + update.Replace("''", "NULL") + " " + clause);
 
-
-            var clause = "where KOMTEK_ANGGOTA_ID = " + mka.KOMTEK_ANGGOTA_ID;            
-            db.Database.ExecuteSqlCommand("UPDATE MASTER_KOMTEK_ANGGOTA SET " + update.Replace("''", "NULL") + " " + clause);
-                        
-            var updateu = "USER_NAME = '" + mka.KOMTEK_ANGGOTA_EMAIL + "'," +
+                var updateu = "USER_NAME = '" + mka.KOMTEK_ANGGOTA_EMAIL + "'," +
                           "USER_UPDATE_BY = '" + UserId + "'," +
                           "USER_UPDATE_DATE = " + datenow + "," +
                           "USER_LOG_CODE = '" + mka.KOMTEK_ANGGOTA_LOG_CODE + "'";
 
-            var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_KODE;            
-            db.Database.ExecuteSqlCommand("UPDATE SYS_USER SET " + updateu.Replace("''", "NULL") + " " + clauseu);
-                        
+                var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_KODE;
+                db.Database.ExecuteSqlCommand("UPDATE SYS_USER SET " + updateu.Replace("''", "NULL") + " " + clauseu);
 
-            String objek = update.Replace("'", "-");
-            String objek1 = updateu.Replace("'", "-");
-            MixHelper.InsertLog(logcode, objek, 1);
-            MixHelper.InsertLog(logcode, objek1, 1);
-            TempData["Notifikasi"] = 1;
-            TempData["NotifikasiText"] = "Data Berhasil Disimpan";
+
+                String objek = update.Replace("'", "-");
+                String objek1 = updateu.Replace("'", "-");
+                MixHelper.InsertLog(logcode, objek, 1);
+                MixHelper.InsertLog(logcode, objek1, 1);
+                TempData["Notifikasi"] = 1;
+                TempData["NotifikasiText"] = "Data Berhasil Disimpan";
+            }
+                       
             return RedirectToAction("DetailKomtek/"+mka.KOMTEK_ANGGOTA_KOMTEK_ID);
         }
 

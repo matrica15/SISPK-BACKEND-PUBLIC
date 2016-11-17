@@ -35,6 +35,7 @@ namespace SISPK.Models
         public Nullable<System.DateTime> KOMTEK_ANGGOTA_APPROVE_DATE { get; set; }
         public Nullable<decimal> KOMTEK_ANGGOTA_STATUS { get; set; }
         public string KOMTEK_ANGGOTA_LOG_CODE { get; set; }
+        public string KOMTEK_ANGGOTA_CV { get; set; }
         public string KOMTEK_CODE { get; set; }
         public string KOMTEK_PARENT_CODE { get; set; }
         public string KOMTEK_NAME { get; set; }
