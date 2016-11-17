@@ -6343,6 +6343,7 @@
     <Content Include="Views\Files\Index.cshtml" />
     <Content Include="Views\MTPS\Comment.cshtml" />
     <Content Include="Views\RSNI4\Comment.cshtml" />
+    <Content Include="_bin_deployableAssemblies\Aspose.Pdf.dll" />
     <EntityDeploy Include="Models\SISPKModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SISPKModel.Designer.cs</LastGenOutput>
@@ -8307,6 +8308,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
     <Folder Include="Upload\Dokumen\KOMTEK_CV\" />
+    <Folder Include="Upload\Dokumen\KOMTEK_SK\" />
     <Folder Include="Upload\Dokumen\LAINNYA\Dokumen\" />
     <Folder Include="Upload\Dokumen\LAINNYA\LPK\" />
     <Folder Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.03-02.01\" />
