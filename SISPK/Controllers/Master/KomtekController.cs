@@ -276,7 +276,7 @@ namespace SISPK.Controllers.Master
             //var komtek_name = db.Database.SqlQuery<int>("SELECT KOMTEK_NAME FROM MASTER_KOMITE_TEKNIS WHERE KOMTEK_ID ="+).SingleOrDefault();
             
             //Send Account Activation to Email
-            /*var email = (from t in db.SYS_EMAIL where t.EMAIL_IS_USE == 1 select t).SingleOrDefault();
+            var email = (from t in db.SYS_EMAIL where t.EMAIL_IS_USE == 1 select t).SingleOrDefault();
             SendMailHelper.MailUsername = email.EMAIL_NAME;      //"aleh.mail@gmail.com";
             SendMailHelper.MailPassword = email.EMAIL_PASSWORD;  //"r4h45143uy";
 
@@ -296,7 +296,7 @@ namespace SISPK.Controllers.Master
             mailer.Send();
 
             TempData["MailMember"] = mka.KOMTEK_ANGGOTA_EMAIL;           
-            */
+            
             String objek = fvalue.Replace("'", "-");
             String objek1 = fvalueu.Replace("'", "-");
             MixHelper.InsertLog(logcode, objek, 1);

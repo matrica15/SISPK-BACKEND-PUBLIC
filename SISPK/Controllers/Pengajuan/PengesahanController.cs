@@ -113,10 +113,7 @@ namespace SISPK.Controllers.Pengajuan
             var PROPOSAL_PNPS_CODE = db.Database.SqlQuery<string>("SELECT CAST(TO_CHAR (SYSDATE, 'YYYY') || '.' || KOMTEK_CODE || '.' || ( SELECT CAST ( ( CASE WHEN LENGTH (COUNT(PROPOSAL_ID) + 1) = 1 THEN '0' || CAST ( COUNT (PROPOSAL_ID) + 1 AS VARCHAR2 (255) ) ELSE CAST ( COUNT (PROPOSAL_ID) + 1 AS VARCHAR2 (255) ) END ) AS VARCHAR2 (255) ) PNPSCODE FROM TRX_PROPOSAL WHERE PROPOSAL_KOMTEK_ID = KOMTEK_ID ) AS VARCHAR2(255)) AS PNPSCODE FROM MASTER_KOMITE_TEKNIS WHERE KOMTEK_ID = " + PROPOSAL_KOMTEK_ID).SingleOrDefault();
             db.Database.ExecuteSqlCommand("UPDATE TRX_PROPOSAL SET PROPOSAL_KOMTEK_ID=" + PROPOSAL_KOMTEK_ID + ",PROPOSAL_PNPS_CODE = '" + PROPOSAL_PNPS_CODE + "', PROPOSAL_UPDATE_DATE = " + DATENOW + ", PROPOSAL_UPDATE_BY = " + USER_ID + " WHERE PROPOSAL_ID = " + PROPOSAL_ID);
             if (APPROVAL_TYPE == 1)
-            {
-                
-                
-                
+            {                
                 var Data = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();
                 Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/PNPS/" + Data.PROPOSAL_PNPS_CODE));
                 string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/PNPS/" + Data.PROPOSAL_PNPS_CODE + "/");
@@ -259,6 +256,54 @@ namespace SISPK.Controllers.Pengajuan
                     db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_ICS_REF (PROPOSAL_ICS_REF_ID,PROPOSAL_ICS_REF_PROPOSAL_ID,PROPOSAL_ICS_REF_ICS_ID)VALUES(" + PROPOSAL_ICS_REF_ID + "," + PROPOSAL_ID + "," + i + ")");
                 }
             }
+
+            string pathnya = Server.MapPath("~/Upload/Dokumen/SK_PNPS/");
+            HttpPostedFileBase file_sk = Request.Files["SK_PNPS"];
+            var upload = Request.Files["SK_PNPS"];
+            var file_name_sk = "";
+            var filePath_sk = "";
+            var fileExtension_sk = "";
+            if (upload.ContentLength > 0)
+            {
+                //Check whether Directory (Folder) exists.
+                if (!Directory.Exists(pathnya))
+                {
+                    //If Directory (Folder) does not exists. Create it.
+                    Directory.CreateDirectory(pathnya);
+                }
+                string lampiranregulasipath = file_sk.FileName;
+                if (lampiranregulasipath.Trim() != "")
+                {
+                    var Data = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();
+                    lampiranregulasipath = Path.GetFileNameWithoutExtension(file_sk.FileName);
+                    fileExtension_sk = Path.GetExtension(file_sk.FileName);
+                    file_name_sk = "SK_PNPS_" + Data.PROPOSAL_PNPS_CODE + "_" + PROPOSAL_ID  + "_" + TGL_SEKARANG + fileExtension_sk;
+                    filePath_sk = pathnya + file_name_sk.Replace(" ", "_");
+                    file_sk.SaveAs(filePath_sk);
+
+                    var LOGCODE_ST = MixHelper.GetLogCode();
+                    int LASTID_ST = MixHelper.GetSequence("TRX_DOCUMENTS");
+                    var FNAME_TANGGAPAN_MTPS = "DOC_ID,DOC_FOLDER_ID,DOC_RELATED_TYPE,DOC_RELATED_ID,DOC_NAME,DOC_DESCRIPTION,DOC_FILE_PATH,DOC_FILE_NAME,DOC_FILETYPE,DOC_EDITABLE,DOC_CREATE_BY,DOC_CREATE_DATE,DOC_STATUS,DOC_LOG_CODE";
+                    var FVALUE_TANGGAPAN_MTPS = "'" + LASTID_ST + "', " +
+                                "'11', " +
+                                "'99', " +
+                                "'" + PROPOSAL_ID + "', " +
+                                "'" + "(" + Data.PROPOSAL_PNPS_CODE + ") SK PNPS" + "', " +
+                                "'SK PNPS dengan kode PNPS : " + Data.PROPOSAL_PNPS_CODE + "', " +
+                                "'" + "/Upload/Dokumen/SK_PNPS/" + "', " +
+                                "'" + "SK_PNPS_" + Data.PROPOSAL_PNPS_CODE + "_" + PROPOSAL_ID + "_" + TGL_SEKARANG + "', " +
+                                "'pdf', " +
+                                "'0', " +
+                                "'" + USER_ID + "', " +
+                                DATENOW + "," +
+                                "'1', " +
+                                "'" + LOGCODE_ST + "'";
+                    db.Database.ExecuteSqlCommand("INSERT INTO TRX_DOCUMENTS (" + FNAME_TANGGAPAN_MTPS + ") VALUES (" + FVALUE_TANGGAPAN_MTPS.Replace("''", "NULL") + ")");
+                    String objekTanggapan = FVALUE_TANGGAPAN_MTPS.Replace("'", "-");
+                    MixHelper.InsertLog(LOGCODE_ST, objekTanggapan, 1);
+                }
+            }
+
             TempData["Notifikasi"] = 1;
             TempData["NotifikasiText"] = "Data Berhasil Disimpan";
 
