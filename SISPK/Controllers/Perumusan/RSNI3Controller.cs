@@ -628,6 +628,30 @@ namespace SISPK.Controllers.Perumusan
                     String objekTanggapan = FVALUE_DATA_RSNI.Replace("'", "-");
                     MixHelper.InsertLog(LOGCODE_DATA_RSNI, objekTanggapan, 1);
                 }
+                else
+                {
+                    //FILE_DATA_RSNI.SaveAs(path + "NOTULEN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + EXT_NOTULEN.ToLower());
+                    //int LASTID_NOTULEN = MixHelper.GetSequence("TRX_DOCUMENTS");
+                    //var LOGCODE_NOTULEN = MixHelper.GetLogCode();
+                    //var FNAME_NOTULEN = "DOC_ID,DOC_FOLDER_ID,DOC_RELATED_TYPE,DOC_RELATED_ID,DOC_NAME,DOC_DESCRIPTION,DOC_FILE_PATH,DOC_FILE_NAME,DOC_FILETYPE,DOC_EDITABLE,DOC_CREATE_BY,DOC_CREATE_DATE,DOC_STATUS,DOC_LOG_CODE";
+                    //var FVALUE_NOTULEN = "'" + LASTID_NOTULEN + "', " +
+                    //            "'14', " +
+                    //            "'10', " +
+                    //            "'" + PROPOSAL_ID + "', " +
+                    //            "'" + "(" + PROPOSAL_PNPS_CODE_FIXER + ") Notulen Rapat Konsensus RSNI 3 Ver " + VERSION_RAKON + "', " +
+                    //            "'Notulen Rapat Konsensus RSNI 3 Ver " + VERSION_RAKON + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
+                    //            "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
+                    //            "'" + "NOTULEN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
+                    //            "'" + EXT_NOTULEN.ToLower().Replace(".", "") + "', " +
+                    //            "'0', " +
+                    //            "'" + USER_ID + "', " +
+                    //            DATENOW + "," +
+                    //            "'1', " +
+                    //            "'" + LOGCODE_NOTULEN + "'";
+                    //db.Database.ExecuteSqlCommand("INSERT INTO TRX_DOCUMENTS (" + FNAME_NOTULEN + ") VALUES (" + FVALUE_NOTULEN.Replace("''", "NULL") + ")");
+                    //String objekTanggapan = FVALUE_NOTULEN.Replace("'", "-");
+                    //MixHelper.InsertLog(LOGCODE_NOTULEN, objekTanggapan, 1);
+                }
             }
 
             if (APPROVAL_TYPE == 1)

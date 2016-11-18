@@ -124,12 +124,21 @@
                 <!-- BEGIN FORM-->
                 <div class="form-horizontal form-bordered">
                     <div class="form-body">
-                        <form class="form form-horizontal form-bordered" role="form" method="post" id="sispk_form">
+                        <form class="form form-horizontal form-bordered" role="form" method="post" id="sispk_form" enctype="multipart/form-data">
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <input type="hidden" name="PROPOSAL_ID" value="@Detail.PROPOSAL_ID" id="PROPOSAL_ID"/>
                                     <input type="hidden" name="POLLING_DETAIL_POLLING_ID" value="@Detail.POLLING_ID"/>
                                     <textarea id='komentar' class="form-control POLLING_DETAIL_REASON" name='POLLING_DETAIL_REASON'></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <span>Lampiran Pendapat : </span>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="file" name="POLLING_FILE" accept=".pdf,application/pdf" onchange="ValidasiInputPDF(this)" />
+                                    <span style="color:red;font-style:italic">File yang upload harus PDF</span>
                                 </div>
                             </div>
 
@@ -160,6 +169,10 @@
                                                     <div class='clearfix'></div>
                                                     <div class="comment-post" style='padding-top: 10px;'>
                                                         @Html.Raw(i.POLLING_DETAIL_REASON)
+                                                        @if (i.POLLING_DETAIL_FILE_PATH != "" && i.POLLING_DETAIL_FILE_PATH != null)
+                                                        {
+                                                            <label class="form-control-static"><a class="" href="@(i.POLLING_DETAIL_FILE_PATH)" target="_blank" style="color:green;">Lampiran Komentar</a></label><br>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -647,27 +660,28 @@
                                                     index++;
                                                     if (index % 2 == 0)
                                                     {
-                                                <li class="out">
-                                                    <div class="avatar angkatanggapangenap">@index</div>
-                                                    <div class="message">
-                                                        <span class="arrow"></span>
-                                                        <a href="javascript:;" class="name">@i.USER_PUBLIC_NAMA_LENGKAP </a>
-                                                        <span class="datetime">pada @i.POLLING_FULL_DATE_NAME </span>
-                                                        <span class="body">@Html.Raw(i.POLLING_DETAIL_REASON)</span>
-                                                    </div>
-                                                </li>
+                                                        <li class="out">
+                                                            <div class="avatar angkatanggapangenap">@index</div>
+                                                            <div class="message">
+                                                                <span class="arrow"></span>
+                                                                <a href="javascript:;" class="name">@i.USER_PUBLIC_NAMA_LENGKAP </a>
+                                                                <span class="datetime">pada @i.POLLING_FULL_DATE_NAME </span>
+                                                                <span class="body"> @Html.Raw(i.POLLING_DETAIL_REASON)</span>
+
+                                                        </div>
+                                                    </li>
                                                     }
                                                     else
                                                     {
-                                                <li class="in">
-                                                    <div class="avatar angkatanggapanganjil">@index</div>
-                                                    <div class="message">
-                                                        <span class="arrow"></span>
-                                                        <a href="javascript:;" class="name">@i.USER_PUBLIC_NAMA_LENGKAP </a>
-                                                        <span class="datetime">pada @i.POLLING_FULL_DATE_NAME </span>
-                                                        <span class="body">@Html.Raw(i.POLLING_DETAIL_REASON)</span>
-                                                    </div>
-                                                </li>
+                                                        <li class="in">
+                                                            <div class="avatar angkatanggapanganjil">@index</div>
+                                                            <div class="message">
+                                                                <span class="arrow"></span>
+                                                                <a href="javascript:;" class="name">@i.USER_PUBLIC_NAMA_LENGKAP </a>
+                                                                <span class="datetime">pada @i.POLLING_FULL_DATE_NAME </span>
+                                                                <span class="body">@Html.Raw(i.POLLING_DETAIL_REASON)</span>
+                                                            </div>
+                                                        </li>
                                                     }
                                                 }
                                             }
@@ -713,6 +727,34 @@
 
                     if (!blnValid) {
                         alert("Maaf, " + sFileName + " tidak dapat di Upload, Extensi yang dapat di Upload adalah : " + _validFileExtensions.join(", "));
+                        $('#RISALAH_RAPAT').val('');
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+    var _validFileExtensionsPDF = [".pdf"];
+    function ValidasiInputPDF(ini) {
+        var arrInputs = $(ini);
+        for (var i = 0; i < arrInputs.length; i++) {
+            var oInput = arrInputs[i];
+            if (oInput.type == "file") {
+                var sFileName = oInput.value;
+                if (sFileName.length > 0) {
+                    var blnValid = false;
+                    for (var j = 0; j < _validFileExtensionsPDF.length; j++) {
+                        var sCurExtension = _validFileExtensionsPDF[j];
+                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                            blnValid = true;
+                            break;
+                        }
+                    }
+
+                    if (!blnValid) {
+                        alert("Maaf, " + sFileName + " tidak dapat di Upload, Extensi yang dapat di Upload adalah : " + _validFileExtensionsPDF.join(", "));
                         $('#RISALAH_RAPAT').val('');
                         return false;
                     }
