@@ -143,7 +143,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group jalur_perumusan" style="display: none;">
+                        <div class="form-group jalur_perumusan" style="@((Detail.PROPOSAL_JENIS_PERUMUSAN == 2 || Detail.PROPOSAL_JENIS_PERUMUSAN == 1) ? "display:block;" : "display:none;")">
                             <label class="control-label col-md-3">Jalur Perumusan SNI <span class="required">*</span></label>
                             <div class="col-md-4">
                                 <div style="text-align: left" class="input-group col-md-12">
@@ -404,7 +404,7 @@
                                             <input type="radio" class="form-control" @((Detail.PROPOSAL_IS_ORG_MENDUKUNG == 1) ? "checked='checked'" : "") name="PROPOSAL_IS_ORG_MENDUKUNG" id="PROPOSAL_IS_ORG_MENDUKUNG_1" value="1" onclick="setorg()">
                                             Ya</label>
                                         <label>
-                                            <input type="radio" class="form-control" @((Detail.PROPOSAL_IS_ORG_MENDUKUNG == 2) ? "checked='checked'" : "") name="PROPOSAL_IS_ORG_MENDUKUNG" id="PROPOSAL_IS_ORG_MENDUKUNG_2" value="0" onclick="setorg()">
+                                            <input type="radio" class="form-control" @((Detail.PROPOSAL_IS_ORG_MENDUKUNG == 0) ? "checked='checked'" : "") name="PROPOSAL_IS_ORG_MENDUKUNG" id="PROPOSAL_IS_ORG_MENDUKUNG_2" value="0" onclick="setorg()">
                                             Tidak
                                         </label>
                                     </div>
@@ -645,6 +645,7 @@
             $(".amd_list").slideDown("fast");
             $(".ralat_list").slideUp("fast");
             $(".revisi_list").slideUp("fast");
+            $(".daftar_adopsi").slideUp("fast");
             $(".terjemahan_list").slideUp("fast");
             $(".jalur_perumusan").slideUp("fast");
 
@@ -653,6 +654,7 @@
             $(".amd_list").slideUp("fast");
             $(".ralat_list").slideUp("fast");
             $(".revisi_list").slideUp("fast");
+            $(".daftar_adopsi").slideUp("fast");
             $(".jalur_perumusan").slideUp("fast");
         } else {
             $(".revisi_list").slideUp("fast");
