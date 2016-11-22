@@ -41,5 +41,6 @@ namespace SISPK.Models
         public string KOMTEK_CONTACT_PERSON { get; set; }
         public string KOMTEK_KETERANGAN { get; set; }
         public string KOMTEK_CV { get; set; }
+        public string KOMTEK_LINGKUP { get; set; }
     }
 }

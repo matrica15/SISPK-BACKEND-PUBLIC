@@ -102,6 +102,16 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="control-label col-md-3">Ruang Lingkup</label>
+                            <div class="col-md-7">
+                                <div class="input-icon right">
+
+                                    <textarea id="KOMTEK_LINGKUP" name="KOMTEK_LINGKUP" class="form-control wajib">@((Model.KOMTEK_LINGKUP != null) ? Model.KOMTEK_LINGKUP : "")</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="control-label col-md-3">Sekretariat <span style="color: red;">*</span></label>
                             <div class="col-md-4">
                                 <div class="input-icon right">
@@ -194,13 +204,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group" id="btn-ganti-cv">
+                        @*<div class="form-group" id="btn-ganti-cv">
                             <label class="control-label col-md-3">Komtek CV <span style="color: red;">*</span></label>
                             @if (File != null)
                             {
                                 <div class="col-md-5">
                                     <div class="input-icon right" style="padding-bottom: 5px">
-                                        @*<input type="text" id="KOMTEK_CV" name="KOMTEK_CV" class="form-control wajib" value="@Model.KOMTEK_CV" />*@
+                                        <input type="text" id="KOMTEK_CV" name="KOMTEK_CV" class="form-control wajib" value="@Model.KOMTEK_CV" />
                                     </div>
                                     <div id="btn-ganti-cv-child">
                                         <a href='@((Model.KOMTEK_CV != null) ? "../../../" + @Model.KOMTEK_CV : "javascript:void()")' download>@((Model.KOMTEK_CV != null) ? "CV_" + Model.KOMTEK_CODE : "CV belum tersedia")</a>&nbsp&nbsp
@@ -213,13 +223,13 @@
                             {
                                 <div class="col-md-5">
                                     <div class="input-icon right" style="padding-bottom: 5px">
-                                        @*<input type="text" id="KOMTEK_CV" name="KOMTEK_CV" class="form-control wajib" value="@Model.KOMTEK_SK_PENETAPAN" />*@
+                                        <input type="text" id="KOMTEK_CV" name="KOMTEK_CV" class="form-control wajib" value="@Model.KOMTEK_SK_PENETAPAN" />
                                     </div>
                                     <button type="button" id="CV_file" name="CV_file">Upload File CV</button>
                                 </div>
                             }
 
-                        </div>
+                        </div>*@
 
 
                         <div class="form-group" id="ganti_file_cv">
