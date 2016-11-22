@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a75d370537cf45e1aa346d8eea868c35" Name="Diagram1" ZoomLevel="17">
+      <Diagram DiagramId="a75d370537cf45e1aa346d8eea868c35" Name="Diagram1" ZoomLevel="88">
         <EntityTypeShape EntityType="SISPKModel.MASTER_ACUAN_NON_SNI" Width="1.5" PointX="7.75164457399009" PointY="22.061145748040239" />
         <EntityTypeShape EntityType="SISPKModel.MASTER_BIBLIOGRAFI" Width="1.5" PointX="7.0017639319420626" PointY="23.752566810582096" />
         <EntityTypeShape EntityType="SISPKModel.MASTER_BIDANG" Width="1.5" PointX="5.8720304527655385" PointY="27.236980629729565" />
