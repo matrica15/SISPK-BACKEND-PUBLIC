@@ -28,5 +28,6 @@ namespace SISPK.Models
         public Nullable<decimal> POLLING_DETAIL_STATUS { get; set; }
         public Nullable<decimal> POLLING_DETAIL_PASAL { get; set; }
         public Nullable<decimal> POLLING_DETAIL_INPUT_TYPE { get; set; }
+        public string POLLING_DETAIL_FILE_PATH { get; set; }
     }
 }

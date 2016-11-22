@@ -66,6 +66,10 @@
     <Reference Include="EPPlus">
       <HintPath>..\packages\EPPlus.4.0.4\lib\net20\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -5083,9 +5087,11 @@
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.01-01.03\DAFTAR_TANGGAPAN_PUBLIKASI_USULAN_PNPS_2016.01-01.03_20160818112630.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.01-01.03\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.01-01.03_20160818113347.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.01-01.03\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.01-01.03_20160818114928.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.01-01.04\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.01-01.04_20161117192023.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.01-04.03\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.01-04.03_20160823115858.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.01-04.03\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.01-04.03_20160823121544.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.03-02.01\DAFTAR_TANGGAPAN_PUBLIKASI_USULAN_PNPS_2016.03-02.01_20160818155430.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.03-02.02\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.03-02.02_20161117192954.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.29-05.02\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.29-05.02_20161026150357.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.71-02.01\DAFTAR_TANGGAPAN_PUBLIKASI_USULAN_PNPS_2016.71-02.01_20160812141522.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.71-02.01\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.71-02.01_20160812141548.xml" />
@@ -5130,6 +5136,7 @@
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.71-02.04\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.71-02.04_20160622155308.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.71-02.04\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.71-02.04_20160721103339.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.71-02.04\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.71-02.04_20160818142712.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.71-02.04\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.71-02.04_20161117183357.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20160621-0001\BUKTI_DUKUNGAN_USULAN_20160621-0001_20160621202856.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20160621-0001\BUKTI_DUKUNGAN_USULAN_20160621-0001_20160621203206.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20160621-0001\BUKTI_DUKUNGAN_USULAN_20160621-0001_20160621203437.xml" />
@@ -5247,6 +5254,7 @@
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20160824-0001\LAMPIRAN_PENDUKUNG_USULAN_20160824-0001_20160824162833.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20160824-0005\BUKTI_DUKUNGAN_USULAN_20160824-0005_20160824175359.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20160824-0005\DAFTAR_TANGGAPAN_PUBLIKASI_USULAN_PNPS_20160824-0005_20161111232023.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20160824-0005\DAFTAR_TANGGAPAN_PUBLIKASI_USULAN_PNPS_20160824-0005_20161117181807.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20160824-0005\LAMPIRAN_OUTLINE_RSNI_20160824-0005_20160824175359.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20160824-0005\LAMPIRAN_PENDUKUNG_USULAN_20160824-0005_20160824175359.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20160824-0005\SURAT_PENGAJUAN_PNPS_20160824-0005_20160824175359.xml" />
@@ -5267,13 +5275,19 @@
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20161031-0001\DAFTAR_TANGGAPAN_PUBLIKASI_USULAN_PNPS_20161031-0001_20161031150923.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20161110-0001\LAMPIRAN_OUTLINE_RSNI_20161110-0001_20161111160542.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20161110-0001\SURAT_PENGAJUAN_PNPS_20161110-0001_20161111160542.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20161117-0001\DAFTAR_TANGGAPAN_PUBLIKASI_USULAN_PNPS_20161117-0001_20161117192904.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20161117-0001\LAMPIRAN_OUTLINE_RSNI_20161117-0001_20161117192751.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20161117-0001\LAMPIRAN_PENDUKUNG_USULAN_20161117-0001_20161117192751.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20161117-0001\SURAT_PENGAJUAN_PNPS_20161117-0001_20161117192751.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.01-01.02\SURAT_PERSETUJUAN_PNPS_2016.01-01.02_20160812142103.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.01-01.03\SURAT_PERSETUJUAN_PNPS_2016.01-01.03_20160818113347.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.01-01.03\SURAT_PERSETUJUAN_PNPS_2016.01-01.03_20160818114928.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.01-01.04\SURAT_PERSETUJUAN_PNPS_2016.01-01.04_20161117192023.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.01-01.05\SURAT_PERSETUJUAN_PNPS_2016.01-01.05_20161026145245.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.01-04.03\SURAT_PERSETUJUAN_PNPS_2016.01-04.03_20160823115858.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.01-04.03\SURAT_PERSETUJUAN_PNPS_2016.01-04.03_20160823121544.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.03-02.02\SURAT_PERSETUJUAN_PNPS_2016.03-02.02_20161111233911.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.03-02.02\SURAT_PERSETUJUAN_PNPS_2016.03-02.02_20161117192954.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.29-05.02\SURAT_PERSETUJUAN_PNPS_2016.29-05.02_20161026150357.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.71-02.01\SURAT_PERSETUJUAN_PNPS_2016.71-02.01_20160812141548.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.71-02.02\SURAT_PERSETUJUAN_PNPS_2016.71-02.02_20160622005118.xml" />
@@ -5296,6 +5310,7 @@
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.71-02.04\SURAT_PERSETUJUAN_PNPS_2016.71-02.04_20160622155308.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.71-02.04\SURAT_PERSETUJUAN_PNPS_2016.71-02.04_20160721103339.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.71-02.04\SURAT_PERSETUJUAN_PNPS_2016.71-02.04_20160818142712.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.71-02.04\SURAT_PERSETUJUAN_PNPS_2016.71-02.04_20161117183357.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.71-02.05\SURAT_PERSETUJUAN_PNPS_2016.71-02.05_20161111233321.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.71-02.06\SURAT_PERSETUJUAN_PNPS_2016.71-02.06_20161031151019.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\20160621-0001\FORMULIR_PENGAJUAN_USULAN_PNPS_20160621-0001.xml" />
@@ -5341,6 +5356,7 @@
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\20161030-0002\FORMULIR_PENGAJUAN_USULAN_PNPS_20161030-0002_20161030200951.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\20161031-0001\FORMULIR_PENGAJUAN_USULAN_PNPS_20161031-0001_20161031150823.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\20161110-0001\FORMULIR_PENGAJUAN_USULAN_PNPS_20161110-0001_20161112001640.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\20161117-0001\FORMULIR_PENGAJUAN_USULAN_PNPS_20161117-0001_20161117192842.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RASNI\2015.01-01.02\BERITA_ACARA_Ver1_2015.01-01.02.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RASNI\2015.01-01.02\DAFTAR_HADIR_Ver1_2015.01-01.02.PNG" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RASNI\2015.01-01.02\DRAFT\DRAFT_2015.01-01.02_Ver1.XML" />
@@ -5419,6 +5435,7 @@
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI1\2016.01-01.02\RSNI1_2016.01-01.02_20160812142137.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI1\2016.01-02.27\RSNI1_2016.01-02.27.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI1\2016.01-02.36\RSNI1_2016.01-02.36.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI1\2016.03-02.02\RSNI1_2016.03-02.02_20161117193222.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI1\2016.03-07.06\RSNI1_2016.03-07.06.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI1\2016.07-02.25\RSNI1_2016.07-02.25.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI1\2016.07-03.19\RSNI1_2016.07-03.19.xml" />
@@ -5505,6 +5522,7 @@
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.01-02.36\DRAFT\DRAFT_RSNI2_2016.01-02.36_Ver1.XML" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.01-02.36\NOTULEN_RAPAT_TEKNIS_1_RSNI2_2016.01-02.36.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.01-02.36\RSNI2_RAPAT_TEKNIS_1_2016.01-02.36.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.03-02.02\RSNI2_Ver_1_2016.03-02.02.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.03-07.06\BERITA_ACARA_RAPAT_TEKNIS_1_RSNI2_2016.03-07.06.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.03-07.06\DAFTAR_HADIR_RAPAT_TEKNIS_1_RSNI2_2016.03-07.06.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.03-07.06\DRAFT\DRAFT_RSNI2_2016.03-07.06_Ver1.XML" />
@@ -5630,6 +5648,7 @@
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.01-02.36\NOTULEN_TAS_Ver1_2016.01-02.36.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.01-02.36\NOTULEN_Ver1_2016.01-02.36.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.01-02.36\RSNI3_Ver1_2016.01-02.36.xml" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-02.02\RSNI3_Ver_1_2016.03-02.02.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-07.06\BERITA_ACARA_Ver1_2016.03-07.06.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-07.06\DAFTAR_HADIR_Ver1_2016.03-07.06.xml" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-07.06\DRAFT\DRAFT_2016.03-07.06_Ver1.XML" />
@@ -8174,6 +8193,47 @@
     <Content Include="Upload\Usulan\INFORMASI_PEENELITIAN_24.pdf" />
     <Content Include="Upload\Usulan\INFORMASI_PEENELITIAN_25.pdf" />
     <Content Include="Upload\Usulan\INFORMASI_PEENELITIAN_26.pdf" />
+    <Content Include="Web.config" />
+    <Content Include="Upload\Dokumen\KOMTEK_SK\Komtek_123_160.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.01-01.04\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.01-01.04_20161117192023.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.03-02.02\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.03-02.02_20161117192954.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\2016.71-02.04\RISALAH_RAPAT_PUBLIKASI_USULAN_PNPS_2016.71-02.04_20161117183357.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20160824-0005\DAFTAR_TANGGAPAN_PUBLIKASI_USULAN_PNPS_20160824-0005_20161117181807.docx" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20160824-0005\DAFTAR_TANGGAPAN_PUBLIKASI_USULAN_PNPS_20160824-0005_20161117181807.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20161117-0001\DAFTAR_TANGGAPAN_PUBLIKASI_USULAN_PNPS_20161117-0001_20161117192904.docx" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20161117-0001\DAFTAR_TANGGAPAN_PUBLIKASI_USULAN_PNPS_20161117-0001_20161117192904.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20161117-0001\LAMPIRAN_OUTLINE_RSNI_20161117-0001_20161117192751.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20161117-0001\LAMPIRAN_PENDUKUNG_USULAN_20161117-0001_20161117192751.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\20161117-0001\SURAT_PENGAJUAN_PNPS_20161117-0001_20161117192751.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.01-01.04\SURAT_PERSETUJUAN_PNPS_2016.01-01.04_20161117192023.docx" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.01-01.04\SURAT_PERSETUJUAN_PNPS_2016.01-01.04_20161117192023.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.03-02.02\SURAT_PERSETUJUAN_PNPS_2016.03-02.02_20161117192954.docx" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.03-02.02\SURAT_PERSETUJUAN_PNPS_2016.03-02.02_20161117192954.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.71-02.04\SURAT_PERSETUJUAN_PNPS_2016.71-02.04_20161117183357.docx" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.71-02.04\SURAT_PERSETUJUAN_PNPS_2016.71-02.04_20161117183357.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\20161117-0001\FORMULIR_PENGAJUAN_USULAN_PNPS_20161117-0001_20161117192842.docx" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\20161117-0001\FORMULIR_PENGAJUAN_USULAN_PNPS_20161117-0001_20161117192842.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI1\2016.03-02.02\RSNI1_2016.03-02.02_20161117193222.docx" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI1\2016.03-02.02\RSNI1_2016.03-02.02_20161117193222.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.03-02.02\BERITA_ACARA_RATEK_RSNI2_Ver_1_2016.03-02.02.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.03-02.02\DAFTAR_HADIR_RSNI2_Ver_1_2016.03-02.02.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.03-02.02\NOTULEN_RSNI2_Ver_1_2016.03-02.02.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.03-02.02\RSNI2_Ver_1_2016.03-02.02.docx" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.03-02.02\RSNI2_Ver_1_2016.03-02.02.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\2016.03-02.02\SURAT_UNDANGAN_RAPAT_RSNI2_Ver_1_2016.03-02.02.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-02.02\BERITA_ACARA_RAKON_RSNI3_Ver_1_2016.03-02.02.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-02.02\DAFTAR_HADIR_RSNI3_Ver_1_2016.03-02.02.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-02.02\NOTULEN_RSNI3_Ver_1_2016.03-02.02.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-02.02\RSNI3_Ver_1_2016.03-02.02.docx" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-02.02\RSNI3_Ver_1_2016.03-02.02.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-02.02\SURAT_PENYERAHAN_RSNI3_Ver_1_2016.03-02.02.pdf" />
+    <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-02.02\SURAT_UNDANGAN_RAPAT_RSNI3_Ver_1_2016.03-02.02.pdf" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -8206,15 +8266,6 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -8308,14 +8359,15 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
     <Folder Include="Upload\Dokumen\KOMTEK_CV\" />
-    <Folder Include="Upload\Dokumen\KOMTEK_SK\" />
     <Folder Include="Upload\Dokumen\LAINNYA\Dokumen\" />
     <Folder Include="Upload\Dokumen\LAINNYA\LPK\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.01-05.03\" />
     <Folder Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\2016.03-02.01\" />
     <Folder Include="Upload\Dokumen\RANCANGAN_SNI\RSNI7\" />
     <Folder Include="Upload\Dokumen\RANCANGAN_SNI\RSNI8\" />
     <Folder Include="Upload\Dokumen\REFERENSI\" />
     <Folder Include="Upload\Dokumen\SK_REGULASI\" />
+    <Folder Include="Upload\Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

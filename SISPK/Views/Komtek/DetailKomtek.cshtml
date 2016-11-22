@@ -89,7 +89,7 @@
                                                 : 
                                                      @foreach (var ics in ViewBag.komtek_ics)
                                                      {
-                                                         <label class="col-md-12"><b>@no.</b> @ics.ICS_NAME_IND </label>
+                                                         <label class="col-md-12"><b>@ics.ICS_CODE . </b> @ics.ICS_NAME_IND </label>
                                                          no++;
                                                      }
                                             </label>
@@ -160,7 +160,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    @*<div class="form-group">
                                         <label class="control-label col-md-2" style="text-align: left">CV Komtek</label>
                                         <div class="col-md-4">
                                             @if (Model.KOMTEK_CV != null)
@@ -175,7 +175,7 @@
                                             </div>
                                             }
                                         </div>
-                                    </div>                             
+                                    </div>*@                             
 
                                 <div class="form-group">
                                     <label class="control-label col-md-2" style="text-align: left">Tanggal Pembentukan</label>
