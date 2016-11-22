@@ -233,6 +233,34 @@ namespace SISPK.Controllers.Laporan
             }
             return new FileStreamResult(dstStream, mime);
         }
+
+        public ActionResult TemplateHakPAten(string Type = "docx")
+        {
+            string dataDir = Server.MapPath("~/Format/Laporan/");
+            Stream stream = System.IO.File.OpenRead(dataDir + "TEMPLATE_HAK_PATEN.docx");
+            Aspose.Words.Document doc = new Aspose.Words.Document(stream);
+            stream.Close();
+
+            MemoryStream dstStream = new MemoryStream();
+
+            var mime = "";
+            doc.Save(dstStream, SaveFormat.Docx);
+            mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            byte[] byteInfo = dstStream.ToArray();
+            dstStream.Write(byteInfo, 0, byteInfo.Length);
+            dstStream.Position = 0;
+
+            Response.ContentType = mime;
+
+            Response.AddHeader("content-disposition", "attachment;  filename=TEMPLATE_HAK_PATEN." + Type);
+            Response.BinaryWrite(byteInfo);
+            Response.End();
+
+            return new FileStreamResult(dstStream, mime);
+        }
+
+       
+
         private static void InsertWatermarkIntoHeader(Paragraph watermarkPara, Section sect, HeaderFooterType headerType)
         {
 

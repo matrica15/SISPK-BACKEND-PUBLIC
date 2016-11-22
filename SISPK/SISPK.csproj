@@ -8228,6 +8228,7 @@
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-02.02\RSNI3_Ver_1_2016.03-02.02.pdf" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-02.02\SURAT_PENYERAHAN_RSNI3_Ver_1_2016.03-02.02.pdf" />
     <Content Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\2016.03-02.02\SURAT_UNDANGAN_RAPAT_RSNI3_Ver_1_2016.03-02.02.pdf" />
+    <Content Include="Format\Laporan\TEMPLATE_HAK_PATEN.docx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -8358,6 +8359,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
+    <Folder Include="Upload\Dokumen\HAK_PATEN\" />
     <Folder Include="Upload\Dokumen\KOMTEK_CV\" />
     <Folder Include="Upload\Dokumen\LAINNYA\Dokumen\" />
     <Folder Include="Upload\Dokumen\LAINNYA\LPK\" />

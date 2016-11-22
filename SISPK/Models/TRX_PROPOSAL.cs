@@ -77,5 +77,6 @@ namespace SISPK.Models
         public string PROPOSAL_RETEK_ID { get; set; }
         public string PROPOSAL_LPK_ID { get; set; }
         public string KLASIFIKASI_JNS_SNI { get; set; }
+        public string PROPOSAL_HAK_PATEN_LOCATION { get; set; }
     }
 }

@@ -125,11 +125,36 @@ namespace SISPK.Controllers.Pengajuan
             {
                 PROPOSAL_RETEK_ID_CONVERT = string.Join(";", PROPOSAL_RETEK_ID);
             }
+
+            string pathnya = Server.MapPath("~/Upload/Dokumen/HAK_PATEN/");
+            HttpPostedFileBase file_paten = Request.Files["PROPOSAL_HAK_PATEN_LOCATION"];
+            var file_name_paten = "";
+            var filePath_paten = "";
+            var fileExtension_paten = "";
+            if (file_paten != null)
+            {
+                //Check whether Directory (Folder) exists.
+                if (!Directory.Exists(pathnya))
+                {
+                    //If Directory (Folder) does not exists. Create it.
+                    Directory.CreateDirectory(pathnya);
+                }
+                string lampiranregulasipath = file_paten.FileName;
+                if (lampiranregulasipath.Trim() != "")
+                {
+                    lampiranregulasipath = Path.GetFileNameWithoutExtension(file_paten.FileName);
+                    fileExtension_paten = Path.GetExtension(file_paten.FileName);
+                    file_name_paten = "HAK_PATEN_ID_PROPOSAL_" + LASTID + "_" + fileExtension_paten;
+                    filePath_paten = pathnya + file_name_paten.Replace(" ", "_");
+                    file_paten.SaveAs(filePath_paten);
+                }
+            }
+
             //var PROPOSAL_LPK_ID_CONVERT = string.Join(";", PROPOSAL_LPK_ID);
             //var PROPOSAL_RETEK_ID_CONVERT = string.Join(";", PROPOSAL_RETEK_ID);
             PROPOSAL_LPK_ID_CONVERT = ((PROPOSAL_LPK_ID_CONVERT == null) ? "" : PROPOSAL_LPK_ID_CONVERT);
             PROPOSAL_RETEK_ID_CONVERT = ((PROPOSAL_RETEK_ID_CONVERT == null) ? "" : PROPOSAL_RETEK_ID_CONVERT);
-            var fname = "PROPOSAL_ID,PROPOSAL_TYPE,PROPOSAL_RETEK_ID,PROPOSAL_LPK_ID,PROPOSAL_YEAR,PROPOSAL_KOMTEK_ID,PROPOSAL_KONSEPTOR,PROPOSAL_INSTITUSI,PROPOSAL_JUDUL_PNPS,PROPOSAL_RUANG_LINGKUP,PROPOSAL_JENIS_PERUMUSAN,PROPOSAL_JALUR,PROPOSAL_JENIS_ADOPSI,PROPOSAL_METODE_ADOPSI,PROPOSAL_TERJEMAHAN_SNI_ID,PROPOSAL_RALAT_SNI_ID,PROPOSAL_AMD_SNI_ID,PROPOSAL_IS_URGENT,PROPOSAL_PASAL,PROPOSAL_IS_HAK_PATEN,PROPOSAL_IS_HAK_PATEN_DESC,PROPOSAL_INFORMASI,PROPOSAL_TUJUAN,PROPOSAL_PROGRAM_PEMERINTAH,PROPOSAL_PIHAK_BERKEPENTINGAN,PROPOSAL_CREATE_BY,PROPOSAL_CREATE_DATE,PROPOSAL_STATUS,PROPOSAL_STATUS_PROSES,PROPOSAL_LOG_CODE,PROPOSAL_MANFAAT_PENERAPAN,PROPOSAL_IS_ORG_MENDUKUNG,PROPOSAL_IS_DUPLIKASI_DESC,PROPOSAL_CODE";
+            var fname = "PROPOSAL_ID,PROPOSAL_TYPE,PROPOSAL_RETEK_ID,PROPOSAL_LPK_ID,PROPOSAL_YEAR,PROPOSAL_KOMTEK_ID,PROPOSAL_KONSEPTOR,PROPOSAL_INSTITUSI,PROPOSAL_JUDUL_PNPS,PROPOSAL_RUANG_LINGKUP,PROPOSAL_JENIS_PERUMUSAN,PROPOSAL_JALUR,PROPOSAL_JENIS_ADOPSI,PROPOSAL_METODE_ADOPSI,PROPOSAL_TERJEMAHAN_SNI_ID,PROPOSAL_RALAT_SNI_ID,PROPOSAL_AMD_SNI_ID,PROPOSAL_IS_URGENT,PROPOSAL_PASAL,PROPOSAL_IS_HAK_PATEN,PROPOSAL_IS_HAK_PATEN_DESC,PROPOSAL_INFORMASI,PROPOSAL_TUJUAN,PROPOSAL_PROGRAM_PEMERINTAH,PROPOSAL_PIHAK_BERKEPENTINGAN,PROPOSAL_CREATE_BY,PROPOSAL_CREATE_DATE,PROPOSAL_STATUS,PROPOSAL_STATUS_PROSES,PROPOSAL_LOG_CODE,PROPOSAL_MANFAAT_PENERAPAN,PROPOSAL_IS_ORG_MENDUKUNG,PROPOSAL_IS_DUPLIKASI_DESC,PROPOSAL_HAK_PATEN_LOCATION,PROPOSAL_CODE";
             var fvalue = "'" + LASTID + "', " +
                         "'" + INPUT.PROPOSAL_TYPE + "', " +
                         "'" + PROPOSAL_RETEK_ID_CONVERT + "', " +
@@ -163,9 +188,12 @@ namespace SISPK.Controllers.Pengajuan
                         "'" + INPUT.PROPOSAL_MANFAAT_PENERAPAN + "'," +
                         "'" + INPUT.PROPOSAL_IS_ORG_MENDUKUNG + "'," +
                         "'" + INPUT.PROPOSAL_IS_DUPLIKASI_DESC + "'," +
+                        "'/Upload/Dokumen/HAK_PATEN/" + file_name_paten.Replace(" ", "_") + "'," +
                         "'" + PROPOSAL_CODE + "'";
 
             db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")");
+            //var tester1 = ("INSERT INTO TRX_PROPOSAL (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")");
+            //return Content ("tes" + tester);
             var tester = "INSERT INTO TRX_PROPOSAL_FIXER (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")";
             if (PROPOSAL_REV_MERIVISI_ID != null)
             {

@@ -633,17 +633,19 @@
           <EntitySet Name="TRX_PROPOSAL" EntityType="SISPKModel.Store.TRX_PROPOSAL" store:Type="Tables" Schema="C##BSN_SISPK" />
           <EntitySet Name="TRX_PROPOSAL_ADOPSI" EntityType="SISPKModel.Store.TRX_PROPOSAL_ADOPSI" store:Type="Tables" Schema="C##BSN_SISPK" />
           <EntitySet Name="TRX_PROPOSAL_APPROVAL" EntityType="SISPKModel.Store.TRX_PROPOSAL_APPROVAL" store:Type="Tables" store:Schema="C##BSN_SISPK" store:Name="TRX_PROPOSAL_APPROVAL">
-            <DefiningQuery>SELECT 
-      "TRX_PROPOSAL_APPROVAL"."APPROVAL_ID" AS "APPROVAL_ID", 
-      "TRX_PROPOSAL_APPROVAL"."APPROVAL_PROPOSAL_ID" AS "APPROVAL_PROPOSAL_ID", 
-      "TRX_PROPOSAL_APPROVAL"."APPROVAL_TYPE" AS "APPROVAL_TYPE", 
-      "TRX_PROPOSAL_APPROVAL"."APPROVAL_REASON" AS "APPROVAL_REASON", 
-      "TRX_PROPOSAL_APPROVAL"."APPROVAL_DATE" AS "APPROVAL_DATE", 
-      "TRX_PROPOSAL_APPROVAL"."APPROVAL_BY" AS "APPROVAL_BY", 
-      "TRX_PROPOSAL_APPROVAL"."APPROVAL_STATUS_PROPOSAL" AS "APPROVAL_STATUS_PROPOSAL", 
-      "TRX_PROPOSAL_APPROVAL"."APPROVAL_STATUS_SESSION" AS "APPROVAL_STATUS_SESSION", 
-      "TRX_PROPOSAL_APPROVAL"."APPROVAL_STATUS" AS "APPROVAL_STATUS"
-      FROM "C##BSN_SISPK"."TRX_PROPOSAL_APPROVAL" "TRX_PROPOSAL_APPROVAL"</DefiningQuery>
+            <DefiningQuery>
+              SELECT
+              "TRX_PROPOSAL_APPROVAL"."APPROVAL_ID" AS "APPROVAL_ID",
+              "TRX_PROPOSAL_APPROVAL"."APPROVAL_PROPOSAL_ID" AS "APPROVAL_PROPOSAL_ID",
+              "TRX_PROPOSAL_APPROVAL"."APPROVAL_TYPE" AS "APPROVAL_TYPE",
+              "TRX_PROPOSAL_APPROVAL"."APPROVAL_REASON" AS "APPROVAL_REASON",
+              "TRX_PROPOSAL_APPROVAL"."APPROVAL_DATE" AS "APPROVAL_DATE",
+              "TRX_PROPOSAL_APPROVAL"."APPROVAL_BY" AS "APPROVAL_BY",
+              "TRX_PROPOSAL_APPROVAL"."APPROVAL_STATUS_PROPOSAL" AS "APPROVAL_STATUS_PROPOSAL",
+              "TRX_PROPOSAL_APPROVAL"."APPROVAL_STATUS_SESSION" AS "APPROVAL_STATUS_SESSION",
+              "TRX_PROPOSAL_APPROVAL"."APPROVAL_STATUS" AS "APPROVAL_STATUS",
+              "TRX_PROPOSAL_APPROVAL"."PROPOSAL_HAK_PATEN_LOCATION" AS "PROPOSAL_HAK_PATEN_LOCATION"
+              FROM "C##BSN_SISPK"."TRX_PROPOSAL_APPROVAL" "TRX_PROPOSAL_APPROVAL"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="TRX_PROPOSAL_ICS_REF" EntityType="SISPKModel.Store.TRX_PROPOSAL_ICS_REF" store:Type="Tables" store:Schema="C##BSN_SISPK" store:Name="TRX_PROPOSAL_ICS_REF">
             <DefiningQuery>SELECT 
@@ -4245,6 +4247,7 @@
           <Property Name="PROPOSAL_NO_SURAT_PEMBATALAN" Type="varchar2" MaxLength="255" />
           <Property Name="PROPOSAL_RETEK_ID" Type="varchar2" />
           <Property Name="PROPOSAL_LPK_ID" Type="varchar2" />
+          <Property Name="PROPOSAL_HAK_PATEN_LOCATION" Type="varchar2" />
         </EntityType>
         <EntityType Name="TRX_PROPOSAL_ADOPSI">
           <Key>
@@ -8246,6 +8249,7 @@
           <Property Type="String" Name="PROPOSAL_NO_SURAT_PEMBATALAN" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="PROPOSAL_RETEK_ID" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="PROPOSAL_LPK_ID" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PROPOSAL_HAK_PATEN_LOCATION" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TRX_PROPOSAL_ADOPSI">
           <Key>
@@ -11923,6 +11927,7 @@
                 <ScalarProperty Name="PROPOSAL_YEAR" ColumnName="PROPOSAL_YEAR" />
                 <ScalarProperty Name="PROPOSAL_TYPE" ColumnName="PROPOSAL_TYPE" />
                 <ScalarProperty Name="PROPOSAL_ID" ColumnName="PROPOSAL_ID" />
+                <ScalarProperty Name="PROPOSAL_HAK_PATEN_LOCATION" ColumnName="PROPOSAL_HAK_PATEN_LOCATION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
