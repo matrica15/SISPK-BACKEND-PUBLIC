@@ -45,7 +45,6 @@ namespace SISPK.Controllers.Master
             var date = "TO_DATE('" + dates.ToString("yyyy-MM-dd HH:mm:ss") + "', 'yyyy-mm-dd hh24:mi:ss')";
             var parent = "0";
             int lastid_doc = MixHelper.GetSequence("TRX_DOCUMENTS");
-
             string pathnya = Server.MapPath("~/Upload/Dokumen/KOMTEK_CV/");
             HttpPostedFileBase file_cv = Request.Files["KOMTEK_CV"];
             var file_name_cv = "";

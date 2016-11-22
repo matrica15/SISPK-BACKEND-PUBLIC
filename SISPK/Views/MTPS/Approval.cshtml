@@ -184,6 +184,10 @@
                                                     <div class='clearfix'></div>
                                                     <div class="comment-post" style='padding-top: 10px;'>
                                                         @Html.Raw(i.POLLING_DETAIL_REASON)
+                                                        @if (i.POLLING_DETAIL_FILE_PATH != "" && i.POLLING_DETAIL_FILE_PATH != null)
+                                                        {
+                                                            <label class="form-control-static"><a class="" href="@(i.POLLING_DETAIL_FILE_PATH)" target="_blank" style="color:green;">Lampiran Komentar</a></label><br>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
