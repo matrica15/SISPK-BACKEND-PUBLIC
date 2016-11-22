@@ -165,7 +165,8 @@
       "MASTER_KOMITE_TEKNIS"."KOMTEK_TEMP_ID" AS "KOMTEK_TEMP_ID", 
       "MASTER_KOMITE_TEKNIS"."KOMTEK_CONTACT_PERSON" AS "KOMTEK_CONTACT_PERSON", 
       "MASTER_KOMITE_TEKNIS"."KOMTEK_KETERANGAN" AS "KOMTEK_KETERANGAN", 
-      "MASTER_KOMITE_TEKNIS"."KOMTEK_CV" AS "KOMTEK_CV"
+      "MASTER_KOMITE_TEKNIS"."KOMTEK_CV" AS "KOMTEK_CV",
+      "MASTER_KOMITE_TEKNIS"."KOMTEK_LINGKUP" AS "KOMTEK_LINGKUP"
       FROM "C##BSN_SISPK"."MASTER_KOMITE_TEKNIS" "MASTER_KOMITE_TEKNIS"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="MASTER_KOMTEK_ANGGOTA" EntityType="SISPKModel.Store.MASTER_KOMTEK_ANGGOTA" store:Type="Tables" store:Schema="C##BSN_SISPK" store:Name="MASTER_KOMTEK_ANGGOTA">
@@ -1436,7 +1437,8 @@
       "VIEW_KOMTEK"."BIDANG_NAME" AS "BIDANG_NAME", 
       "VIEW_KOMTEK"."BIDANG_CODE" AS "BIDANG_CODE", 
       "VIEW_KOMTEK"."INSTANSI_CODE" AS "INSTANSI_CODE", 
-      "VIEW_KOMTEK"."INSTANSI_NAME" AS "INSTANSI_NAME"
+      "VIEW_KOMTEK"."INSTANSI_NAME" AS "INSTANSI_NAME",
+      "VIEW_KOMTEK"."KOMTEK_LINGKUP" AS "KOMTEK_LINGKUP"
       FROM "C##BSN_SISPK"."VIEW_KOMTEK" "VIEW_KOMTEK"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VIEW_KOMTEK_FULL" EntityType="SISPKModel.Store.VIEW_KOMTEK_FULL" store:Type="Views" store:Schema="C##BSN_SISPK" store:Name="VIEW_KOMTEK_FULL">
@@ -2984,42 +2986,44 @@
       FROM "C##BSN_SISPK"."VIEW_SNI_WAJIB" "VIEW_SNI_WAJIB"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VIEW_SUBKOMTEK" EntityType="SISPKModel.Store.VIEW_SUBKOMTEK" store:Type="Views" store:Schema="C##BSN_SISPK" store:Name="VIEW_SUBKOMTEK">
-            <DefiningQuery>SELECT 
-      "VIEW_SUBKOMTEK"."KOMTEK_ID" AS "KOMTEK_ID", 
-      "VIEW_SUBKOMTEK"."KOMTEK_PARENT_CODE" AS "KOMTEK_PARENT_CODE", 
-      "VIEW_SUBKOMTEK"."SUB_KOMTEK" AS "SUB_KOMTEK", 
-      "VIEW_SUBKOMTEK"."PARENT_NAME" AS "PARENT_NAME", 
-      "VIEW_SUBKOMTEK"."KOMTEK_SEKRETARIAT" AS "KOMTEK_SEKRETARIAT", 
-      "VIEW_SUBKOMTEK"."KOMTEK_ADDRESS" AS "KOMTEK_ADDRESS", 
-      "VIEW_SUBKOMTEK"."KOMTEK_BIDANG_ID" AS "KOMTEK_BIDANG_ID", 
-      "VIEW_SUBKOMTEK"."KOMTEK_INSTANSI_ID" AS "KOMTEK_INSTANSI_ID", 
-      "VIEW_SUBKOMTEK"."KOMTEK_PHONE" AS "KOMTEK_PHONE", 
-      "VIEW_SUBKOMTEK"."KOMTEK_FAX" AS "KOMTEK_FAX", 
-      "VIEW_SUBKOMTEK"."KOMTEK_EMAIL" AS "KOMTEK_EMAIL", 
-      "VIEW_SUBKOMTEK"."KOMTEK_SK_PENETAPAN" AS "KOMTEK_SK_PENETAPAN", 
-      "VIEW_SUBKOMTEK"."KOMTEK_TANGGAL_PEMBENTUKAN" AS "KOMTEK_TANGGAL_PEMBENTUKAN", 
-      "VIEW_SUBKOMTEK"."KOMTEK_DESCRIPTION" AS "KOMTEK_DESCRIPTION", 
-      "VIEW_SUBKOMTEK"."KOMTEK_CREATE_BY" AS "KOMTEK_CREATE_BY", 
-      "VIEW_SUBKOMTEK"."KOMTEK_CREATE_DATE" AS "KOMTEK_CREATE_DATE", 
-      "VIEW_SUBKOMTEK"."KOMTEK_UPDATE_BY" AS "KOMTEK_UPDATE_BY", 
-      "VIEW_SUBKOMTEK"."KOMTEK_UPDATE_DATE" AS "KOMTEK_UPDATE_DATE", 
-      "VIEW_SUBKOMTEK"."KOMTEK_APPROVE_BY" AS "KOMTEK_APPROVE_BY", 
-      "VIEW_SUBKOMTEK"."KOMTEK_APPROVE_DATE" AS "KOMTEK_APPROVE_DATE", 
-      "VIEW_SUBKOMTEK"."KOMTEK_STATUS" AS "KOMTEK_STATUS", 
-      "VIEW_SUBKOMTEK"."KOMTEK_LOG_CODE" AS "KOMTEK_LOG_CODE", 
-      "VIEW_SUBKOMTEK"."SUB_KOMTEK_CODE" AS "SUB_KOMTEK_CODE", 
-      "VIEW_SUBKOMTEK"."KOMTEK_TEMP_ID" AS "KOMTEK_TEMP_ID", 
-      "VIEW_SUBKOMTEK"."KOMTEK_CONTACT_PERSON" AS "KOMTEK_CONTACT_PERSON", 
-      "VIEW_SUBKOMTEK"."KOMTEK_KETERANGAN" AS "KOMTEK_KETERANGAN", 
-      "VIEW_SUBKOMTEK"."KOMTEK_CV" AS "KOMTEK_CV", 
-      "VIEW_SUBKOMTEK"."KOMTEK_CODE" AS "KOMTEK_CODE", 
-      "VIEW_SUBKOMTEK"."KOMTEK" AS "KOMTEK", 
-      "VIEW_SUBKOMTEK"."T_KOMTEK_ATTACHMENT" AS "T_KOMTEK_ATTACHMENT", 
-      "VIEW_SUBKOMTEK"."BIDANG_NAME" AS "BIDANG_NAME", 
-      "VIEW_SUBKOMTEK"."BIDANG_CODE" AS "BIDANG_CODE", 
-      "VIEW_SUBKOMTEK"."INSTANSI_CODE" AS "INSTANSI_CODE", 
-      "VIEW_SUBKOMTEK"."INSTANSI_NAME" AS "INSTANSI_NAME"
-      FROM "C##BSN_SISPK"."VIEW_SUBKOMTEK" "VIEW_SUBKOMTEK"</DefiningQuery>
+            <DefiningQuery>
+              SELECT
+              "VIEW_SUBKOMTEK"."KOMTEK_ID" AS "KOMTEK_ID",
+              "VIEW_SUBKOMTEK"."KOMTEK_PARENT_CODE" AS "KOMTEK_PARENT_CODE",
+              "VIEW_SUBKOMTEK"."SUB_KOMTEK" AS "SUB_KOMTEK",
+              "VIEW_SUBKOMTEK"."PARENT_NAME" AS "PARENT_NAME",
+              "VIEW_SUBKOMTEK"."KOMTEK_SEKRETARIAT" AS "KOMTEK_SEKRETARIAT",
+              "VIEW_SUBKOMTEK"."KOMTEK_ADDRESS" AS "KOMTEK_ADDRESS",
+              "VIEW_SUBKOMTEK"."KOMTEK_BIDANG_ID" AS "KOMTEK_BIDANG_ID",
+              "VIEW_SUBKOMTEK"."KOMTEK_INSTANSI_ID" AS "KOMTEK_INSTANSI_ID",
+              "VIEW_SUBKOMTEK"."KOMTEK_PHONE" AS "KOMTEK_PHONE",
+              "VIEW_SUBKOMTEK"."KOMTEK_FAX" AS "KOMTEK_FAX",
+              "VIEW_SUBKOMTEK"."KOMTEK_EMAIL" AS "KOMTEK_EMAIL",
+              "VIEW_SUBKOMTEK"."KOMTEK_SK_PENETAPAN" AS "KOMTEK_SK_PENETAPAN",
+              "VIEW_SUBKOMTEK"."KOMTEK_TANGGAL_PEMBENTUKAN" AS "KOMTEK_TANGGAL_PEMBENTUKAN",
+              "VIEW_SUBKOMTEK"."KOMTEK_DESCRIPTION" AS "KOMTEK_DESCRIPTION",
+              "VIEW_SUBKOMTEK"."KOMTEK_CREATE_BY" AS "KOMTEK_CREATE_BY",
+              "VIEW_SUBKOMTEK"."KOMTEK_CREATE_DATE" AS "KOMTEK_CREATE_DATE",
+              "VIEW_SUBKOMTEK"."KOMTEK_UPDATE_BY" AS "KOMTEK_UPDATE_BY",
+              "VIEW_SUBKOMTEK"."KOMTEK_UPDATE_DATE" AS "KOMTEK_UPDATE_DATE",
+              "VIEW_SUBKOMTEK"."KOMTEK_APPROVE_BY" AS "KOMTEK_APPROVE_BY",
+              "VIEW_SUBKOMTEK"."KOMTEK_APPROVE_DATE" AS "KOMTEK_APPROVE_DATE",
+              "VIEW_SUBKOMTEK"."KOMTEK_STATUS" AS "KOMTEK_STATUS",
+              "VIEW_SUBKOMTEK"."KOMTEK_LOG_CODE" AS "KOMTEK_LOG_CODE",
+              "VIEW_SUBKOMTEK"."SUB_KOMTEK_CODE" AS "SUB_KOMTEK_CODE",
+              "VIEW_SUBKOMTEK"."KOMTEK_TEMP_ID" AS "KOMTEK_TEMP_ID",
+              "VIEW_SUBKOMTEK"."KOMTEK_CONTACT_PERSON" AS "KOMTEK_CONTACT_PERSON",
+              "VIEW_SUBKOMTEK"."KOMTEK_KETERANGAN" AS "KOMTEK_KETERANGAN",
+              "VIEW_SUBKOMTEK"."KOMTEK_CV" AS "KOMTEK_CV",
+              "VIEW_SUBKOMTEK"."KOMTEK_CODE" AS "KOMTEK_CODE",
+              "VIEW_SUBKOMTEK"."KOMTEK" AS "KOMTEK",
+              "VIEW_SUBKOMTEK"."T_KOMTEK_ATTACHMENT" AS "T_KOMTEK_ATTACHMENT",
+              "VIEW_SUBKOMTEK"."BIDANG_NAME" AS "BIDANG_NAME",
+              "VIEW_SUBKOMTEK"."BIDANG_CODE" AS "BIDANG_CODE",
+              "VIEW_SUBKOMTEK"."INSTANSI_CODE" AS "INSTANSI_CODE",
+              "VIEW_SUBKOMTEK"."INSTANSI_NAME" AS "INSTANSI_NAME",
+              "VIEW_SUBKOMTEK"."KOMTEK_LINGKUP" AS "KOMTEK_LINGKUP"
+              FROM "C##BSN_SISPK"."VIEW_SUBKOMTEK" "VIEW_SUBKOMTEK"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VIEW_T_KOMTEK" EntityType="SISPKModel.Store.VIEW_T_KOMTEK" store:Type="Views" store:Schema="C##BSN_SISPK" store:Name="VIEW_T_KOMTEK">
             <DefiningQuery>SELECT 
@@ -3345,6 +3349,7 @@
           <Property Name="KOMTEK_CONTACT_PERSON" Type="varchar2" MaxLength="255" />
           <Property Name="KOMTEK_KETERANGAN" Type="varchar2" MaxLength="2000" />
           <Property Name="KOMTEK_CV" Type="varchar2" MaxLength="255" />
+          <Property Name="KOMTEK_LINGKUP" Type="varchar2" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'C##BSN_SISPK.MASTER_KOMTEK_ANGGOTA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -5179,6 +5184,7 @@
           <Property Name="BIDANG_CODE" Type="varchar2" MaxLength="24" />
           <Property Name="INSTANSI_CODE" Type="varchar2" MaxLength="24" />
           <Property Name="INSTANSI_NAME" Type="varchar2" MaxLength="96" />
+          <Property Name="KOMTEK_LINGKUP" Type="varchar2" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'C##BSN_SISPK.VIEW_KOMTEK_FULL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -6944,6 +6950,7 @@
           <Property Name="BIDANG_CODE" Type="varchar2" MaxLength="24" />
           <Property Name="INSTANSI_CODE" Type="varchar2" MaxLength="24" />
           <Property Name="INSTANSI_NAME" Type="varchar2" MaxLength="96" />
+          <Property Name="KOMTEK_LINGKUP" Type="varchar2" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'C##BSN_SISPK.VIEW_T_KOMTEK' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -7424,6 +7431,7 @@
           <Property Type="String" Name="KOMTEK_CONTACT_PERSON" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="KOMTEK_KETERANGAN" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="KOMTEK_CV" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="KOMTEK_LINGKUP" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="MASTER_KOMTEK_ANGGOTA">
           <Key>
@@ -9096,6 +9104,7 @@
           <Property Type="String" Name="BIDANG_CODE" MaxLength="24" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="INSTANSI_CODE" MaxLength="24" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="INSTANSI_NAME" MaxLength="96" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="KOMTEK_LINGKUP" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="VIEW_KOMTEK_FULL">
           <Key>
@@ -10735,6 +10744,7 @@
           <Property Type="String" Name="BIDANG_CODE" MaxLength="24" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="INSTANSI_CODE" MaxLength="24" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="INSTANSI_NAME" MaxLength="96" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="KOMTEK_LINGKUP" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="VIEW_T_KOMTEK">
           <Key>
@@ -11056,6 +11066,7 @@
                 <ScalarProperty Name="KOMTEK_CODE" ColumnName="KOMTEK_CODE" />
                 <ScalarProperty Name="KOMTEK_PARENT_CODE" ColumnName="KOMTEK_PARENT_CODE" />
                 <ScalarProperty Name="KOMTEK_ID" ColumnName="KOMTEK_ID" />
+                <ScalarProperty Name="KOMTEK_LINGKUP" ColumnName="KOMTEK_LINGKUP" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -12793,6 +12804,7 @@
                 <ScalarProperty Name="KOMTEK_NAME" ColumnName="KOMTEK_NAME" />
                 <ScalarProperty Name="KOMTEK_PARENT_CODE" ColumnName="KOMTEK_PARENT_CODE" />
                 <ScalarProperty Name="KOMTEK_ID" ColumnName="KOMTEK_ID" />
+                <ScalarProperty Name="KOMTEK_LINGKUP" ColumnName="KOMTEK_LINGKUP" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -14458,6 +14470,7 @@
                 <ScalarProperty Name="SUB_KOMTEK" ColumnName="SUB_KOMTEK" />
                 <ScalarProperty Name="KOMTEK_PARENT_CODE" ColumnName="KOMTEK_PARENT_CODE" />
                 <ScalarProperty Name="KOMTEK_ID" ColumnName="KOMTEK_ID" />
+                <ScalarProperty Name="KOMTEK_LINGKUP" ColumnName="KOMTEK_LINGKUP" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

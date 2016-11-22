@@ -71,7 +71,7 @@ namespace SISPK.Controllers.Master
             //}
 
             //var fname = "KOMTEK_ID,KOMTEK_PARENT_CODE,KOMTEK_CODE,KOMTEK_BIDANG_ID,KOMTEK_INSTANSI_ID,KOMTEK_NAME,KOMTEK_SEKRETARIAT,KOMTEK_ADDRESS,KOMTEK_PHONE,KOMTEK_FAX,KOMTEK_EMAIL,KOMTEK_SK_PENETAPAN,KOMTEK_CV,KOMTEK_TANGGAL_PEMBENTUKAN,KOMTEK_DESCRIPTION,KOMTEK_CREATE_BY,KOMTEK_CREATE_DATE,KOMTEK_LOG_CODE,KOMTEK_CONTACT_PERSON,KOMTEK_KETERANGAN,KOMTEK_STATUS";
-            var fname = "KOMTEK_ID,KOMTEK_PARENT_CODE,KOMTEK_CODE,KOMTEK_BIDANG_ID,KOMTEK_INSTANSI_ID,KOMTEK_NAME,KOMTEK_SEKRETARIAT,KOMTEK_ADDRESS,KOMTEK_PHONE,KOMTEK_FAX,KOMTEK_EMAIL,KOMTEK_SK_PENETAPAN,KOMTEK_TANGGAL_PEMBENTUKAN,KOMTEK_DESCRIPTION,KOMTEK_CREATE_BY,KOMTEK_CREATE_DATE,KOMTEK_LOG_CODE,KOMTEK_CONTACT_PERSON,KOMTEK_KETERANGAN,KOMTEK_STATUS";
+            var fname = "KOMTEK_ID,KOMTEK_PARENT_CODE,KOMTEK_CODE,KOMTEK_BIDANG_ID,KOMTEK_INSTANSI_ID,KOMTEK_NAME,KOMTEK_SEKRETARIAT,KOMTEK_ADDRESS,KOMTEK_PHONE,KOMTEK_FAX,KOMTEK_EMAIL,KOMTEK_SK_PENETAPAN,KOMTEK_TANGGAL_PEMBENTUKAN,KOMTEK_DESCRIPTION,KOMTEK_CREATE_BY,KOMTEK_CREATE_DATE,KOMTEK_LOG_CODE,KOMTEK_CONTACT_PERSON,KOMTEK_KETERANGAN,KOMTEK_LINGKUP,KOMTEK_STATUS";
             var fvalue = "'" + lastid + "', " +
                         "'" + m_komtek.KOMTEK_PARENT_CODE + "', " +
                         "'" + m_komtek.KOMTEK_CODE + "', " +
@@ -92,6 +92,7 @@ namespace SISPK.Controllers.Master
                         "'" + logcode + "'," +
                         "'" + m_komtek.KOMTEK_CONTACT_PERSON + "'," +
                         "'" + m_komtek.KOMTEK_KETERANGAN + "'," +
+                        "'" + m_komtek.KOMTEK_LINGKUP + "'," +
                         "1";
             //return Json(new { query = "INSERT INTO MASTER_KOMITE_TEKNIS (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")" }, JsonRequestBehavior.AllowGet);
             db.Database.ExecuteSqlCommand("INSERT INTO MASTER_KOMITE_TEKNIS (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")");
@@ -216,7 +217,7 @@ namespace SISPK.Controllers.Master
                            "KOMTEK_FAX = '" + m_komtek.KOMTEK_FAX + "'," +
                            "KOMTEK_EMAIL = '" + m_komtek.KOMTEK_EMAIL + "'," +
                            "KOMTEK_SK_PENETAPAN = '" + m_komtek.KOMTEK_SK_PENETAPAN + "'," +
-                           "KOMTEK_CV = 'Upload/Dokumen/KOMTEK_CV/" + file_name_cv + "'," +
+                           //"KOMTEK_CV = 'Upload/Dokumen/KOMTEK_CV/" + file_name_cv + "'," +
                            "KOMTEK_TANGGAL_PEMBENTUKAN = " + date + "," +
                            "KOMTEK_DESCRIPTION = '" + m_komtek.KOMTEK_DESCRIPTION + "'," +
                            "KOMTEK_CONTACT_PERSON = '" + m_komtek.KOMTEK_CONTACT_PERSON + "'," +
@@ -224,6 +225,7 @@ namespace SISPK.Controllers.Master
                            "KOMTEK_CREATE_BY = '" + UserId + "'," +
                            "KOMTEK_CREATE_DATE = " + datenow + "," +
                            "KOMTEK_STATUS = '" + status + "'," +
+                           "KOMTEK_LINGKUP = '" + m_komtek.KOMTEK_LINGKUP + "'," +
                            "KOMTEK_LOG_CODE = '" + m_komtek.KOMTEK_LOG_CODE + "'";
             }
             else
