@@ -70,6 +70,7 @@ namespace SISPK.Controllers.Pengajuan
         }
         public ActionResult Detail(int id = 0)
         {
+            //var paten = (from ptn in db.VIEW_PROPOSAL where ptn.PROPOSAL_ID == id select ptn).SingleOrDefault();
             var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == id select proposal).SingleOrDefault();
             var AcuanNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 1 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
             var AcuanNonNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 2 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
@@ -93,6 +94,9 @@ namespace SISPK.Controllers.Pengajuan
             ViewData["Surat"] = Surat;
             ViewData["Outline"] = Outline;
             return View();
+
+            //var HakPaten = ("SELECT SUBSTR(PROPOSAL_HAK_PATEN_LOCATION, 1, 26) AS FILE_PATCH,REGEXP_SUBSTR(PROPOSAL_HAK_PATEN_LOCATION, '[^/'']+', 1, 4) AS FILE_NAME FROM TRX_PROPOSAL WHERE PROPOSAL_ID = " + id);
+            //return Content("test : "+ DataProposal);
         }
         
         public ActionResult Test() {
@@ -126,6 +130,8 @@ namespace SISPK.Controllers.Pengajuan
                 PROPOSAL_RETEK_ID_CONVERT = string.Join(";", PROPOSAL_RETEK_ID);
             }
 
+            
+
             string pathnya = Server.MapPath("~/Upload/Dokumen/HAK_PATEN/");
             HttpPostedFileBase file_paten = Request.Files["PROPOSAL_HAK_PATEN_LOCATION"];
             var file_name_paten = "";
@@ -150,12 +156,18 @@ namespace SISPK.Controllers.Pengajuan
                 }
             }
 
-            //var PROPOSAL_LPK_ID_CONVERT = string.Join(";", PROPOSAL_LPK_ID);
-            //var PROPOSAL_RETEK_ID_CONVERT = string.Join(";", PROPOSAL_RETEK_ID);
-            PROPOSAL_LPK_ID_CONVERT = ((PROPOSAL_LPK_ID_CONVERT == null) ? "" : PROPOSAL_LPK_ID_CONVERT);
-            PROPOSAL_RETEK_ID_CONVERT = ((PROPOSAL_RETEK_ID_CONVERT == null) ? "" : PROPOSAL_RETEK_ID_CONVERT);
-            var fname = "PROPOSAL_ID,PROPOSAL_TYPE,PROPOSAL_RETEK_ID,PROPOSAL_LPK_ID,PROPOSAL_YEAR,PROPOSAL_KOMTEK_ID,PROPOSAL_KONSEPTOR,PROPOSAL_INSTITUSI,PROPOSAL_JUDUL_PNPS,PROPOSAL_RUANG_LINGKUP,PROPOSAL_JENIS_PERUMUSAN,PROPOSAL_JALUR,PROPOSAL_JENIS_ADOPSI,PROPOSAL_METODE_ADOPSI,PROPOSAL_TERJEMAHAN_SNI_ID,PROPOSAL_RALAT_SNI_ID,PROPOSAL_AMD_SNI_ID,PROPOSAL_IS_URGENT,PROPOSAL_PASAL,PROPOSAL_IS_HAK_PATEN,PROPOSAL_IS_HAK_PATEN_DESC,PROPOSAL_INFORMASI,PROPOSAL_TUJUAN,PROPOSAL_PROGRAM_PEMERINTAH,PROPOSAL_PIHAK_BERKEPENTINGAN,PROPOSAL_CREATE_BY,PROPOSAL_CREATE_DATE,PROPOSAL_STATUS,PROPOSAL_STATUS_PROSES,PROPOSAL_LOG_CODE,PROPOSAL_MANFAAT_PENERAPAN,PROPOSAL_IS_ORG_MENDUKUNG,PROPOSAL_IS_DUPLIKASI_DESC,PROPOSAL_HAK_PATEN_LOCATION,PROPOSAL_CODE";
-            var fvalue = "'" + LASTID + "', " +
+
+            var fname = "";
+            var fvalue = "";
+
+            if (INPUT.PROPOSAL_HAK_PATEN_LOCATION != null)
+            {
+                //var PROPOSAL_LPK_ID_CONVERT = string.Join(";", PROPOSAL_LPK_ID);
+                //var PROPOSAL_RETEK_ID_CONVERT = string.Join(";", PROPOSAL_RETEK_ID);
+                PROPOSAL_LPK_ID_CONVERT = ((PROPOSAL_LPK_ID_CONVERT == null) ? "" : PROPOSAL_LPK_ID_CONVERT);
+                PROPOSAL_RETEK_ID_CONVERT = ((PROPOSAL_RETEK_ID_CONVERT == null) ? "" : PROPOSAL_RETEK_ID_CONVERT);
+                fname = "PROPOSAL_ID,PROPOSAL_TYPE,PROPOSAL_RETEK_ID,PROPOSAL_LPK_ID,PROPOSAL_YEAR,PROPOSAL_KOMTEK_ID,PROPOSAL_KONSEPTOR,PROPOSAL_INSTITUSI,PROPOSAL_JUDUL_PNPS,PROPOSAL_RUANG_LINGKUP,PROPOSAL_JENIS_PERUMUSAN,PROPOSAL_JALUR,PROPOSAL_JENIS_ADOPSI,PROPOSAL_METODE_ADOPSI,PROPOSAL_TERJEMAHAN_SNI_ID,PROPOSAL_RALAT_SNI_ID,PROPOSAL_AMD_SNI_ID,PROPOSAL_IS_URGENT,PROPOSAL_PASAL,PROPOSAL_IS_HAK_PATEN,PROPOSAL_IS_HAK_PATEN_DESC,PROPOSAL_INFORMASI,PROPOSAL_TUJUAN,PROPOSAL_PROGRAM_PEMERINTAH,PROPOSAL_PIHAK_BERKEPENTINGAN,PROPOSAL_CREATE_BY,PROPOSAL_CREATE_DATE,PROPOSAL_STATUS,PROPOSAL_STATUS_PROSES,PROPOSAL_LOG_CODE,PROPOSAL_MANFAAT_PENERAPAN,PROPOSAL_IS_ORG_MENDUKUNG,PROPOSAL_IS_DUPLIKASI_DESC,PROPOSAL_HAK_PATEN_LOCATION,PROPOSAL_CODE";
+                fvalue = "'" + LASTID + "', " +
                         "'" + INPUT.PROPOSAL_TYPE + "', " +
                         "'" + PROPOSAL_RETEK_ID_CONVERT + "', " +
                         "'" + PROPOSAL_LPK_ID_CONVERT + "', " +
@@ -190,6 +202,50 @@ namespace SISPK.Controllers.Pengajuan
                         "'" + INPUT.PROPOSAL_IS_DUPLIKASI_DESC + "'," +
                         "'/Upload/Dokumen/HAK_PATEN/" + file_name_paten.Replace(" ", "_") + "'," +
                         "'" + PROPOSAL_CODE + "'";
+            }
+            else
+            {
+                //var PROPOSAL_LPK_ID_CONVERT = string.Join(";", PROPOSAL_LPK_ID);
+                //var PROPOSAL_RETEK_ID_CONVERT = string.Join(";", PROPOSAL_RETEK_ID);
+                PROPOSAL_LPK_ID_CONVERT = ((PROPOSAL_LPK_ID_CONVERT == null) ? "" : PROPOSAL_LPK_ID_CONVERT);
+                PROPOSAL_RETEK_ID_CONVERT = ((PROPOSAL_RETEK_ID_CONVERT == null) ? "" : PROPOSAL_RETEK_ID_CONVERT);
+                fname = "PROPOSAL_ID,PROPOSAL_TYPE,PROPOSAL_RETEK_ID,PROPOSAL_LPK_ID,PROPOSAL_YEAR,PROPOSAL_KOMTEK_ID,PROPOSAL_KONSEPTOR,PROPOSAL_INSTITUSI,PROPOSAL_JUDUL_PNPS,PROPOSAL_RUANG_LINGKUP,PROPOSAL_JENIS_PERUMUSAN,PROPOSAL_JALUR,PROPOSAL_JENIS_ADOPSI,PROPOSAL_METODE_ADOPSI,PROPOSAL_TERJEMAHAN_SNI_ID,PROPOSAL_RALAT_SNI_ID,PROPOSAL_AMD_SNI_ID,PROPOSAL_IS_URGENT,PROPOSAL_PASAL,PROPOSAL_IS_HAK_PATEN,PROPOSAL_IS_HAK_PATEN_DESC,PROPOSAL_INFORMASI,PROPOSAL_TUJUAN,PROPOSAL_PROGRAM_PEMERINTAH,PROPOSAL_PIHAK_BERKEPENTINGAN,PROPOSAL_CREATE_BY,PROPOSAL_CREATE_DATE,PROPOSAL_STATUS,PROPOSAL_STATUS_PROSES,PROPOSAL_LOG_CODE,PROPOSAL_MANFAAT_PENERAPAN,PROPOSAL_IS_ORG_MENDUKUNG,PROPOSAL_IS_DUPLIKASI_DESC,PROPOSAL_CODE";
+                fvalue = "'" + LASTID + "', " +
+                        "'" + INPUT.PROPOSAL_TYPE + "', " +
+                        "'" + PROPOSAL_RETEK_ID_CONVERT + "', " +
+                        "'" + PROPOSAL_LPK_ID_CONVERT + "', " +
+                        "'" + INPUT.PROPOSAL_YEAR + "', " +
+                        "'" + INPUT.PROPOSAL_KOMTEK_ID + "', " +
+                        "'" + INPUT.PROPOSAL_KONSEPTOR + "', " +
+                        "'" + INPUT.PROPOSAL_INSTITUSI + "', " +
+                        "'" + INPUT.PROPOSAL_JUDUL_PNPS + "', " +
+                        "'" + INPUT.PROPOSAL_RUANG_LINGKUP + "', " +
+                        "'" + INPUT.PROPOSAL_JENIS_PERUMUSAN + "', " +
+                        "'" + INPUT.PROPOSAL_JALUR + "', " +
+                        "'" + INPUT.PROPOSAL_JENIS_ADOPSI + "', " +
+                        "'" + INPUT.PROPOSAL_METODE_ADOPSI + "', " +
+                        "'" + INPUT.PROPOSAL_TERJEMAHAN_SNI_ID + "', " +
+                        "'" + INPUT.PROPOSAL_RALAT_SNI_ID + "', " +
+                        "'" + INPUT.PROPOSAL_AMD_SNI_ID + "', " +
+                        "'" + INPUT.PROPOSAL_IS_URGENT + "', " +
+                        "'" + INPUT.PROPOSAL_PASAL + "', " +
+                        "'" + INPUT.PROPOSAL_IS_HAK_PATEN + "', " +
+                        "'" + INPUT.PROPOSAL_IS_HAK_PATEN_DESC + "', " +
+                        "'" + INPUT.PROPOSAL_INFORMASI + "', " +
+                        "'" + INPUT.PROPOSAL_TUJUAN + "', " +
+                        "'" + INPUT.PROPOSAL_PROGRAM_PEMERINTAH + "', " +
+                        "'" + INPUT.PROPOSAL_PIHAK_BERKEPENTINGAN + "', " +
+                        "'" + USER_ID + "', " +
+                        DATENOW + "," +
+                        "'0', " +
+                        "'1', " +
+                        "'" + LOGCODE + "'," +
+                        "'" + INPUT.PROPOSAL_MANFAAT_PENERAPAN + "'," +
+                        "'" + INPUT.PROPOSAL_IS_ORG_MENDUKUNG + "'," +
+                        "'" + INPUT.PROPOSAL_IS_DUPLIKASI_DESC + "'," +
+                        "'" + PROPOSAL_CODE + "'";
+            }
+            
 
             db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")");
             //var tester1 = ("INSERT INTO TRX_PROPOSAL (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")");
@@ -2288,5 +2344,6 @@ namespace SISPK.Controllers.Pengajuan
             //return RedirectToAction("Index");
             return true;
         }
+
     }
 }

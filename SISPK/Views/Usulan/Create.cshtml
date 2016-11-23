@@ -251,7 +251,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        @*<div class="form-group" id="u_hakPaten" style="display:none">
                             <label class="control-label col-md-3">Upload Hak Paten</label>
 
 
@@ -260,9 +260,39 @@
                             </div>
 
                             <div class="col-md-6 control-label detailtext" style="border-left: none;">
-                                <a href="/Laporan/Export/TemplateHakPAten" target="_blank" style="color: blue; text-decoration: none;">Download Template RSNI</a>
+                                <a href="/Laporan/Export/TemplateHakPAten" target="_blank" style="color: blue; text-decoration: none;">Download Template Hak Paten</a>
                             </div>
 
+                        </div>*@
+
+                        <div class="form-group" id="u_hakPaten" style="display:none">
+                            <label class="control-label col-md-3">Upload Hak Paten</label>
+                            <div class="col-md-9">
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            <div class="input-group input-large">
+                                                <div class="form-control uneditable-input span3" data-trigger="fileinput">
+                                                    <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename"></span>
+                                                </div>
+                                                <span class="input-group-addon btn default btn-file">
+                                                    <span class="fileinput-new">Pilih File </span>
+                                                    <span class="fileinput-exists">Ganti </span>
+                                                    <input type="file" name="PROPOSAL_HAK_PATEN_LOCATION" id="PROPOSAL_HAK_PATEN_LOCATION" accept=".docx" onchange="ValidasiInput1(this)">
+                                                </span>
+                                                <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">Hapus </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 control-label detailtext" style="border-left: none;">
+                                    <a href="/Laporan/Export/TemplateHakPAten" target="_blank" style="color: blue; text-decoration: none;">Download Template Hak Paten</a>
+                                </div>
+                                <div class="help-block">
+                                    format upload dalam bentuk file M. office word (.docx)<br />
+                                </div>
+                            </div>
+                            
                         </div>
 
                         <div class="form-group">
@@ -273,6 +303,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label class="control-label col-md-3">Informasi detail hasil penelitian atau kajian terhadap SNI</label>
                             <div class="col-md-9">
@@ -694,11 +725,14 @@
     }
     function sethakpaten() {
         var value = $('input[name="PROPOSAL_IS_HAK_PATEN"]:checked').val();
+        //alert(value);
         if (value == 0) {
             $('#PROPOSAL_IS_HAK_PATEN_DESC').prop("readonly", true);
+            $('#u_hakPaten').hide();
         } else {
             $('#PROPOSAL_IS_HAK_PATEN_DESC').prop("readonly", false);
             $('#PROPOSAL_IS_HAK_PATEN_DESC').val('');
+            $('#u_hakPaten').show();
         }
     }
     function setorg() {

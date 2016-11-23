@@ -145,5 +145,6 @@ namespace SISPK.Models
         public Nullable<decimal> POLLING_JML_PARTISIPAN { get; set; }
         public string PROPOSAL_RETEK_ID { get; set; }
         public string PROPOSAL_LPK_ID { get; set; }
+        public string PROPOSAL_HAK_PATEN_LOCATION { get; set; }
     }
 }
