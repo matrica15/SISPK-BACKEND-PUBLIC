@@ -537,7 +537,7 @@ namespace SISPK.Controllers.Perumusan
                     string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RSNI1/" + PROPOSAL_PNPS_CODE_FIXER + "/");
                     Stream stremdokumen = DATA_RSNI.InputStream;
                     byte[] appData = new byte[DATA_RSNI.ContentLength + 1];
-                    stremdokumen.Read(appData, 0, DATA_RSNI.ContentLength);
+                    stremdokumen.Read(appData, 0, DATA_RSNI.ContentLength); 
                     string Extension = Path.GetExtension(DATA_RSNI.FileName);
                     if (Extension.ToLower() == ".docx" || Extension.ToLower() == ".doc")
                     {
