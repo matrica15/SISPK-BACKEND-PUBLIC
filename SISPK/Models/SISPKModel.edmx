@@ -2064,6 +2064,7 @@
               "VIEW_PROPOSAL"."POLLING_IS_KUORUM" AS "POLLING_IS_KUORUM",
               "VIEW_PROPOSAL"."POLLING_JML_PARTISIPAN" AS "POLLING_JML_PARTISIPAN",
               "VIEW_PROPOSAL"."PROPOSAL_HAK_PATEN_LOCATION" AS "PROPOSAL_HAK_PATEN_LOCATION",
+              "VIEW_PROPOSAL"."PROPOSAL_KET_BATAL" AS "PROPOSAL_KET_BATAL"
               "VIEW_PROPOSAL"."PROPOSAL_HAK_PATEN_NAME" AS "PROPOSAL_HAK_PATEN_NAME",
               "VIEW_PROPOSAL"."KLASIFIKASI_JNS_SNI" AS "KLASIFIKASI_JNS_SNI"
               FROM "C##BSN_SISPK"."VIEW_PROPOSAL" "VIEW_PROPOSAL"</DefiningQuery>
@@ -5904,6 +5905,7 @@
           <Property Name="POLLING_JML_PARTISIPAN" Type="number" />
           <Property Name="PROPOSAL_HAK_PATEN_LOCATION" Type="varchar2" />
           <Property Name="PROPOSAL_HAK_PATEN_NAME" Type="varchar2" />
+          <Property Name="PROPOSAL_KET_BATAL" Type="varchar2" />
           <Property Name="KLASIFIKASI_JNS_SNI" Type="varchar2" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -9782,6 +9784,7 @@
           <Property Type="String" Name="PROPOSAL_HAK_PATEN_LOCATION" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="PROPOSAL_HAK_PATEN_NAME" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="KLASIFIKASI_JNS_SNI" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PROPOSAL_KET_BATAL" MaxLength="4000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="VIEW_PROPOSAL_ICS">
           <Key>
@@ -13510,6 +13513,7 @@
                 <ScalarProperty Name="PROPOSAL_ID" ColumnName="PROPOSAL_ID" />
                 <ScalarProperty Name="PROPOSAL_HAK_PATEN_LOCATION" ColumnName="PROPOSAL_HAK_PATEN_LOCATION" />
                 <ScalarProperty Name="PROPOSAL_HAK_PATEN_NAME" ColumnName="PROPOSAL_HAK_PATEN_NAME" />
+                <ScalarProperty Name="PROPOSAL_KET_BATAL" ColumnName="PROPOSAL_KET_BATAL" />
                 <ScalarProperty Name="KLASIFIKASI_JNS_SNI" ColumnName="KLASIFIKASI_JNS_SNI" />
               </MappingFragment>
             </EntityTypeMapping>

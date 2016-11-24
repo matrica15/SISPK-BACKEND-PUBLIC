@@ -103,6 +103,7 @@ namespace SISPK.Controllers.Pembatalan
             Convert.ToString(list.PROPOSAL_JUDUL_PNPS),
             Convert.ToString(list.PROPOSAL_JENIS_PERUMUSAN_NAME),
             Convert.ToString(list.PROPOSAL_TAHAPAN),
+            Convert.ToString(list.PROPOSAL_KET_BATAL),
             Convert.ToString("<center><a href='Pembatalan/Detail/" + list.PROPOSAL_ID + "' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a><a href='Pembatalan/Backstatus/" + list.PROPOSAL_ID + "' class='btn purple btn-sm action tooltips' data-container='body' style='"+ aksi +"' data-placement='top' data-original-title='Tidak Jadi dibatalkan'><i class='action fa fa-check'></i></a></center>"),
                 //Convert.ToString("<center><a href='PenetapanSNI/Detail/"+list.SNI_SK_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a></center>"),
             };
@@ -170,8 +171,10 @@ namespace SISPK.Controllers.Pembatalan
         }
 
         public ActionResult Detail(int id = 0) {
+
             var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == id select proposal).SingleOrDefault();
             var AcuanNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 1 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
+            //return Content("Test - " + id);
             var AcuanNonNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 2 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
             var Bibliografi = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 3 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
             var ICS = (from an in db.VIEW_PROPOSAL_ICS where an.PROPOSAL_ICS_REF_PROPOSAL_ID == id orderby an.ICS_CODE ascending select an).ToList();
