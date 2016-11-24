@@ -26,23 +26,16 @@
                 <form class="form-horizontal form-bordered" enctype="multipart/form-data" target="_blank">
                     <div class="form-body">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Nomor Dokumen</label>
+                            <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis</label>
                             <div class="col-md-9 control-label detailtext">
-                               @Detail.MAINTENANCE_DOC_NUMBER
+                               @Detail.KOMTEK_CODE . @Detail.KOMTEK_NAME
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3">Tanggal Terbit</label>
+                            <label class="control-label col-md-3">Nomor SNI / Judul SNI</label>
                             <div class="col-md-9 control-label detailtext">
-                                @Detail.MAINTENANCE_DATE_TEXT
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Nomor SNI</label>
-                            <div class="col-md-9 control-label detailtext">
-                                @Detail.SNI_NOMOR
+                                @Detail.SNI_NOMOR / @Detail.SNI_JUDUL
                             </div>
                         </div>
 
@@ -67,10 +60,10 @@
                             </div>
                         </div>
 
-                         <div class="form-group">
-                            <label class="control-label col-md-3">Tanggal Usulan</label>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">File Kaji Ulang SNI</label>
                             <div class="col-md-9 control-label detailtext">
-                                @Detail.MAINTENANCE_USUL_DATE_TEXT
+                                @((Detail.MAINTENANCE_DETAIL_KJ_ULG_NAME == null) ? "-" : Html.Raw("<a href='" + Detail.MAINTENANCE_DETAIL_KJ_ULG_LOC + "" + Detail.MAINTENANCE_DETAIL_KJ_ULG_NAME + "' target='_blank'> Download File Hak Paten </a>"))
                             </div>
                         </div>
 

@@ -16,28 +16,111 @@
                 <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="Create" method="post" enctype="multipart/form-data">
                     <div class="form-body">
 
+                        
                         <div class="form-group">
-                            <label class="control-label col-md-3">Nomor Dokumen</label>
-                            <div class="col-md-3 control-label detailtext">
-                                <input type="text" class="form-control wajib" name="MAINTENANCE_DOC_NUMBER" id="MAINTENANCE_DOC_NUMBER">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Tanggal Terbit</label>
-                            <div class="col-md-3 control-label detailtext">
-                                <input type="text" class="form-control wajib date-picker" name="MAINTENANCE_DATE" id="MAINTENANCE_DATE">
-                                <input type="hidden" id="count_rows" name="count_rows" value="1">
+                            <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis <span class="required">*</span></label>
+                            <div class="col-md-9">
+                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih Komite Teknis / Subkomite Teknis" id="MAINTENANCE_KOMTEK" name="MAINTENANCE_KOMTEK">
+                                    <option></option>
+                                    @foreach (var kt in ViewBag.ListKomtek)
+                                    {
+                                        <option value="@kt.KOMTEK_ID">@kt.KOMTEK_CODE. @kt.KOMTEK_NAME</option>
+                                    }
+                                </select>
                             </div>
                         </div>
 
-                        @* <div class="form-group">
-                            <label for="stakeholder" class="control-label col-md-3">Pilih Nomor SNI <span style="color: red;">*</span></label>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">No SNI / Judul SNI<span class="required">*</span></label>
                             <div class="col-md-9">
-                                <select multiple="multiple" class="form-control wajib SNI_ID" id="SNI_ID" name="SNI_ID" placeholder="Pilih SNI">
+                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih No SNI / Judul SNI" id="MAINTENANCE_DETAIL_SNI_ID" name="MAINTENANCE_DETAIL_SNI_ID">
+                                    <option></option>
+                                    @foreach (var sni in ViewBag.V_sni)
+                                    {
+                                        <option value="@sni.SNI_ID">@sni.SNI_NOMOR / @sni.SNI_JUDUL</option>
+                                    }
                                 </select>
                             </div>
+                        </div>
+                        
+                        @*<div class="form-group">
+                            <label class="control-label col-md-3">Judul<span class="required">*</span></label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="text" class="form-control" name="MAINTENANCE_DOC_NUMBER" id="MAINTENANCE_DOC_NUMBER">
+                            </div>
                         </div>*@
-                        <div class="form-group" style="margin: 10px;">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Kaji Ulang<span class="required">*</span></label>
+                            <div class="col-md-3">
+                                <div class=" input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" class="form-control wajib" id="MAINTENANCE_DETAIL_REV_DATE" name="MAINTENANCE_DETAIL_REV_DATE">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Hasil Kaji Ulang<span class="required">*</span></label>
+                            <div class="col-md-3">
+                                <select class="form-control wajib" id="MAINTENANCE_DETAIL_RESULT" name="MAINTENANCE_DETAIL_RESULT">
+                                    <option value="0">Tetap</option>
+                                    <option value="1">Perubahan</option>
+                                    <option value="2">Abolisi</option>
+                                </select>
+                            </div> 
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Laporan ke BSN<span class="required">*</span></label>
+                            <div class="col-md-3">
+                                <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" class="form-control wajib" id="MAINTENANCE_DETAIL_REPORT_DATE" name="MAINTENANCE_DETAIL_REPORT_DATE">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="u_hakPaten">
+                            <label class="control-label col-md-3">Upload Formulir Kaji Ulang SNI</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="input-group input-large">
+                                            <div class="form-control uneditable-input span3" data-trigger="fileinput">
+                                                <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename"></span>
+                                            </div>
+                                            <span class="input-group-addon btn default btn-file">
+                                                <span class="fileinput-new">Pilih File </span>
+                                                <span class="fileinput-exists">Ganti </span>
+                                                <input type="file" name="MAINTENANCE_DETAIL_KJ_ULG_NAME" id="MAINTENANCE_DETAIL_KJ_ULG_NAME" accept=".docx" onchange="ValidasiInput1(this)">
+                                            </span>
+                                            <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">Hapus </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="help-block">
+                                    format upload dalam bentuk file M. office word (.docx)<br />
+                                </div>
+                                <div class="col-md-6 control-label detailtext" style="border-left: none;">
+                                    <a href="/Laporan/Export/Formulir_Kaji_Ulang_SNI" target="_blank" style="color: blue; text-decoration: none;">Download Template Kaji Ulang SNI</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">No Surat</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="text" class="form-control" name="MAINTENANCE_DETAIL_NO_SURAT" id="MAINTENANCE_DETAIL_NO_SURAT">
+                            </div>
+                        </div>
+
+                        @*<div class="form-group" style="margin: 10px;">
                             <table class="table table-bordered" id="list_sni">
                                 <thead>
                                     <tr>
@@ -62,7 +145,7 @@
                                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                                 </span>
                                             </div>
-                                            @*<input type="text" class="form-control" id="MAINTENANCE_DETAIL_REV_DATE" name="MAINTENANCE_DETAIL_REV_DATE" />*@
+                                            <input type="text" class="form-control" id="MAINTENANCE_DETAIL_REV_DATE" name="MAINTENANCE_DETAIL_REV_DATE" />
                                         </td>
                                         <td>
                                             <select class="form-control MAINTENANCE_DETAIL_RESULT" id="MAINTENANCE_DETAIL_RESULT_0" name="MAINTENANCE_DETAIL_RESULT_[0]">
@@ -70,7 +153,7 @@
                                                 <option value="1">Perubahan</option>
                                                 <option value="2">Abolisi</option>
                                             </select>
-                                            @*<input type="text" class="form-control" id="MAINTENANCE_DETAIL_RESULT" name="MAINTENANCE_DETAIL_RESULT" />*@
+                                            <input type="text" class="form-control" id="MAINTENANCE_DETAIL_RESULT" name="MAINTENANCE_DETAIL_RESULT" />
                                         </td>
                                         <td>
                                             <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
@@ -79,7 +162,7 @@
                                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                                 </span>
                                             </div>
-                                            @*<input type="text" class="form-control" id="MAINTENANCE_DETAIL_REPORT_DATE" name="MAINTENANCE_DETAIL_REPORT_DATE" />*@
+                                            <input type="text" class="form-control" id="MAINTENANCE_DETAIL_REPORT_DATE" name="MAINTENANCE_DETAIL_REPORT_DATE" />
                                         </td>
                                         <td>
                                             <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
@@ -88,7 +171,7 @@
                                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                                 </span>
                                             </div>
-                                            @*<input type="text" class="form-control" id="MAINTENANCE_DETAIL_USUL_DATE" name="MAINTENANCE_DETAIL_USUL_DATE" />*@
+                                            <input type="text" class="form-control" id="MAINTENANCE_DETAIL_USUL_DATE" name="MAINTENANCE_DETAIL_USUL_DATE" />
                                         </td>
                                         <td>
                                             <center><button type="button" class="btn btn-primary btn-xs" id="btn-plus-row"><i class="fa fa-plus"></i></button></center>
@@ -97,7 +180,7 @@
                                 </tbody>
 
                             </table>
-                        </div>
+                        </div>*@
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
@@ -118,6 +201,34 @@
 
 
 <script type="text/javascript">
+    var _validFileExtensions1 = [".docx"];
+    function ValidasiInput1(ini) {
+        var arrInputs = $(ini);
+        for (var i = 0; i < arrInputs.length; i++) {
+            var oInput = arrInputs[i];
+            if (oInput.type == "file") {
+                var sFileName = oInput.value;
+                if (sFileName.length > 0) {
+                    var blnValid = false;
+                    for (var j = 0; j < _validFileExtensions1.length; j++) {
+                        var sCurExtension = _validFileExtensions1[j];
+                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                            blnValid = true;
+                            break;
+                        }
+                    }
+
+                    if (!blnValid) {
+                        alert("Maaf, " + sFileName + " tidak dapat di Upload, Extensi yang dapat di Upload adalah : " + _validFileExtensions1.join(", "));
+                        $(ini).val('');
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
     //var _validFileExtensions = [".doc", ".docx", ".jpg", ".jpeg", ".png"];
 
     $("#proposal_select").hide();
@@ -350,7 +461,7 @@
         $("#klik_simpan").click(function () {
             var rowCount = $('#list_sni tbody tr').length;
             $("#count_rows").val(rowCount);
-            alert($("#count_rows").val());
+            //alert($("#count_rows").val());
             $('#klik_simpan').submit();
         })
     });

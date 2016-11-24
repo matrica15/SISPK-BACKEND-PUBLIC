@@ -1718,30 +1718,36 @@
       FROM "C##BSN_SISPK"."VIEW_NOTIF" "VIEW_NOTIF"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VIEW_PEMELIHARAAN" EntityType="SISPKModel.Store.VIEW_PEMELIHARAAN" store:Type="Views" store:Schema="C##BSN_SISPK" store:Name="VIEW_PEMELIHARAAN">
-            <DefiningQuery>SELECT 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_ID" AS "MAINTENANCE_DETAIL_ID", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_MTN_ID" AS "MAINTENANCE_DETAIL_MTN_ID", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_SNI_ID" AS "MAINTENANCE_DETAIL_SNI_ID", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_REV_DATE" AS "MAINTENANCE_DETAIL_REV_DATE", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_REV_DATE_TEXT" AS "MAINTENANCE_REV_DATE_TEXT", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_RESULT" AS "MAINTENANCE_DETAIL_RESULT", 
-      "VIEW_PEMELIHARAAN"."DETAIL_RESULT_TEXT" AS "DETAIL_RESULT_TEXT", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_REPORT_DATE" AS "MAINTENANCE_DETAIL_REPORT_DATE", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_REPORT_DATE_TEXT" AS "MAINTENANCE_REPORT_DATE_TEXT", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_USUL_DATE" AS "MAINTENANCE_DETAIL_USUL_DATE", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_USUL_DATE_TEXT" AS "MAINTENANCE_USUL_DATE_TEXT", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_ID" AS "MAINTENANCE_ID", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_DOC_NUMBER" AS "MAINTENANCE_DOC_NUMBER", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_REV_NUMBER" AS "MAINTENANCE_REV_NUMBER", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_DATE" AS "MAINTENANCE_DATE", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_DATE_TEXT" AS "MAINTENANCE_DATE_TEXT", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_CREATE_BY" AS "MAINTENANCE_CREATE_BY", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_CREATE_DATE" AS "MAINTENANCE_CREATE_DATE", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_UPDATE_BY" AS "MAINTENANCE_UPDATE_BY", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_UPDATE_DATE" AS "MAINTENANCE_UPDATE_DATE", 
-      "VIEW_PEMELIHARAAN"."MAINTENANCE_STATUS" AS "MAINTENANCE_STATUS", 
-      "VIEW_PEMELIHARAAN"."SNI_NOMOR" AS "SNI_NOMOR"
-      FROM "C##BSN_SISPK"."VIEW_PEMELIHARAAN" "VIEW_PEMELIHARAAN"</DefiningQuery>
+            <DefiningQuery>
+              SELECT
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_ID" AS "MAINTENANCE_DETAIL_ID",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_MTN_ID" AS "MAINTENANCE_DETAIL_MTN_ID",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_SNI_ID" AS "MAINTENANCE_DETAIL_SNI_ID",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_REV_DATE" AS "MAINTENANCE_DETAIL_REV_DATE",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_REV_DATE_TEXT" AS "MAINTENANCE_REV_DATE_TEXT",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_RESULT" AS "MAINTENANCE_DETAIL_RESULT",
+              "VIEW_PEMELIHARAAN"."DETAIL_RESULT_TEXT" AS "DETAIL_RESULT_TEXT",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_REPORT_DATE" AS "MAINTENANCE_DETAIL_REPORT_DATE",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_REPORT_DATE_TEXT" AS "MAINTENANCE_REPORT_DATE_TEXT",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_USUL_DATE" AS "MAINTENANCE_DETAIL_USUL_DATE",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_USUL_DATE_TEXT" AS "MAINTENANCE_USUL_DATE_TEXT",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_ID" AS "MAINTENANCE_ID",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_DOC_NUMBER" AS "MAINTENANCE_DOC_NUMBER",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_REV_NUMBER" AS "MAINTENANCE_REV_NUMBER",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_DATE" AS "MAINTENANCE_DATE",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_DATE_TEXT" AS "MAINTENANCE_DATE_TEXT",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_CREATE_BY" AS "MAINTENANCE_CREATE_BY",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_CREATE_DATE" AS "MAINTENANCE_CREATE_DATE",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_UPDATE_BY" AS "MAINTENANCE_UPDATE_BY",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_UPDATE_DATE" AS "MAINTENANCE_UPDATE_DATE",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_STATUS" AS "MAINTENANCE_STATUS",
+              "VIEW_PEMELIHARAAN"."SNI_NOMOR" AS "SNI_NOMOR",
+              "VIEW_PEMELIHARAAN"."SNI_JUDUL" AS "SNI_JUDUL",
+              "VIEW_PEMELIHARAAN"."KOMTEK_NAME" AS "KOMTEK_NAME",
+              "VIEW_PEMELIHARAAN"."KOMTEK_CODE" AS "KOMTEK_CODE",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_KJ_ULG_LOC" AS "MAINTENANCE_DETAIL_KJ_ULG_LOC",
+              "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_KJ_ULG_NAME" AS "MAINTENANCE_DETAIL_KJ_ULG_NAME"
+              FROM "C##BSN_SISPK"."VIEW_PEMELIHARAAN" "VIEW_PEMELIHARAAN"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VIEW_POLLING" EntityType="SISPKModel.Store.VIEW_POLLING" store:Type="Views" store:Schema="C##BSN_SISPK" store:Name="VIEW_POLLING">
             <DefiningQuery>SELECT 
@@ -2058,7 +2064,8 @@
               "VIEW_PROPOSAL"."POLLING_IS_KUORUM" AS "POLLING_IS_KUORUM",
               "VIEW_PROPOSAL"."POLLING_JML_PARTISIPAN" AS "POLLING_JML_PARTISIPAN",
               "VIEW_PROPOSAL"."PROPOSAL_HAK_PATEN_LOCATION" AS "PROPOSAL_HAK_PATEN_LOCATION",
-              "VIEW_PROPOSAL"."PROPOSAL_HAK_PATEN_NAME" AS "PROPOSAL_HAK_PATEN_NAME"
+              "VIEW_PROPOSAL"."PROPOSAL_HAK_PATEN_NAME" AS "PROPOSAL_HAK_PATEN_NAME",
+              "VIEW_PROPOSAL"."KLASIFIKASI_JNS_SNI" AS "KLASIFIKASI_JNS_SNI"
               FROM "C##BSN_SISPK"."VIEW_PROPOSAL" "VIEW_PROPOSAL"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VIEW_PROPOSAL_ICS" EntityType="SISPKModel.Store.VIEW_PROPOSAL_ICS" store:Type="Views" store:Schema="C##BSN_SISPK" store:Name="VIEW_PROPOSAL_ICS">
@@ -4037,6 +4044,9 @@
           <Property Name="MAINTENANCE_DETAIL_RESULT" Type="number" />
           <Property Name="MAINTENANCE_DETAIL_REPORT_DATE" Type="date" />
           <Property Name="MAINTENANCE_DETAIL_USUL_DATE" Type="date" />
+          <Property Name="MAINTENANCE_DETAIL_KJ_ULG_LOC" Type="varchar2" />
+          <Property Name="MAINTENANCE_DETAIL_KJ_ULG_NAME" Type="varchar2" />
+          <Property Name="MAINTENANCE_DETAIL_NO_SURAT" Type="varchar2" />
         </EntityType>
         <EntityType Name="TRX_MAINTENANCES">
           <Key>
@@ -4051,6 +4061,7 @@
           <Property Name="MAINTENANCE_UPDATE_BY" Type="number" />
           <Property Name="MAINTENANCE_UPDATE_DATE" Type="date" />
           <Property Name="MAINTENANCE_STATUS" Type="number" />
+          <Property Name="MAINTENANCE_KOMTEK" Type="number" />
         </EntityType>
         <EntityType Name="TRX_MONITORING">
           <Key>
@@ -5555,6 +5566,11 @@
           <Property Name="MAINTENANCE_UPDATE_DATE" Type="date" />
           <Property Name="MAINTENANCE_STATUS" Type="number" />
           <Property Name="SNI_NOMOR" Type="varchar2" MaxLength="255" />
+          <Property Name="SNI_JUDUL" Type="varchar2" MaxLength="255" />
+          <Property Name="KOMTEK_NAME" Type="varchar2" MaxLength="255" />
+          <Property Name="KOMTEK_CODE" Type="varchar2" MaxLength="255" />
+          <Property Name="MAINTENANCE_DETAIL_KJ_ULG_LOC" Type="varchar2" MaxLength="255" />
+          <Property Name="MAINTENANCE_DETAIL_KJ_ULG_NAME" Type="varchar2" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'C##BSN_SISPK.VIEW_POLLING' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -5888,6 +5904,7 @@
           <Property Name="POLLING_JML_PARTISIPAN" Type="number" />
           <Property Name="PROPOSAL_HAK_PATEN_LOCATION" Type="varchar2" />
           <Property Name="PROPOSAL_HAK_PATEN_NAME" Type="varchar2" />
+          <Property Name="KLASIFIKASI_JNS_SNI" Type="varchar2" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'C##BSN_SISPK.VIEW_PROPOSAL_ICS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -8048,6 +8065,9 @@
           <Property Type="Decimal" Name="MAINTENANCE_DETAIL_RESULT" Precision="38" Scale="0" />
           <Property Type="DateTime" Name="MAINTENANCE_DETAIL_REPORT_DATE" />
           <Property Type="DateTime" Name="MAINTENANCE_DETAIL_USUL_DATE" />
+          <Property Type="String" Name="MAINTENANCE_DETAIL_KJ_ULG_LOC" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MAINTENANCE_DETAIL_KJ_ULG_NAME" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MAINTENANCE_DETAIL_NO_SURAT" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TRX_MAINTENANCES">
           <Key>
@@ -8062,6 +8082,7 @@
           <Property Type="Decimal" Name="MAINTENANCE_UPDATE_BY" Precision="38" Scale="0" />
           <Property Type="DateTime" Name="MAINTENANCE_UPDATE_DATE" />
           <Property Type="Decimal" Name="MAINTENANCE_STATUS" Precision="38" Scale="0" />
+          <Property Type="Decimal" Name="MAINTENANCE_KOMTEK" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="TRX_MONITORING">
           <Key>
@@ -9434,6 +9455,11 @@
           <Property Type="DateTime" Name="MAINTENANCE_UPDATE_DATE" />
           <Property Type="Decimal" Name="MAINTENANCE_STATUS" Precision="38" Scale="0" />
           <Property Type="String" Name="SNI_NOMOR" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SNI_JUDUL" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="KOMTEK_NAME" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="KOMTEK_CODE" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MAINTENANCE_DETAIL_KJ_ULG_LOC" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MAINTENANCE_DETAIL_KJ_ULG_NAME" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="VIEW_POLLING">
           <Key>
@@ -9755,6 +9781,7 @@
           <Property Type="String" Name="PROPOSAL_LPK_ID" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="PROPOSAL_HAK_PATEN_LOCATION" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="PROPOSAL_HAK_PATEN_NAME" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="KLASIFIKASI_JNS_SNI" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="VIEW_PROPOSAL_ICS">
           <Key>
@@ -11724,6 +11751,9 @@
                 <ScalarProperty Name="MAINTENANCE_DETAIL_SNI_ID" ColumnName="MAINTENANCE_DETAIL_SNI_ID" />
                 <ScalarProperty Name="MAINTENANCE_DETAIL_MTN_ID" ColumnName="MAINTENANCE_DETAIL_MTN_ID" />
                 <ScalarProperty Name="MAINTENANCE_DETAIL_ID" ColumnName="MAINTENANCE_DETAIL_ID" />
+                <ScalarProperty Name="MAINTENANCE_DETAIL_KJ_ULG_LOC" ColumnName="MAINTENANCE_DETAIL_KJ_ULG_LOC" />
+                <ScalarProperty Name="MAINTENANCE_DETAIL_KJ_ULG_NAME" ColumnName="MAINTENANCE_DETAIL_KJ_ULG_NAME" />
+                <ScalarProperty Name="MAINTENANCE_DETAIL_NO_SURAT" ColumnName="MAINTENANCE_DETAIL_NO_SURAT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11739,6 +11769,7 @@
                 <ScalarProperty Name="MAINTENANCE_REV_NUMBER" ColumnName="MAINTENANCE_REV_NUMBER" />
                 <ScalarProperty Name="MAINTENANCE_DOC_NUMBER" ColumnName="MAINTENANCE_DOC_NUMBER" />
                 <ScalarProperty Name="MAINTENANCE_ID" ColumnName="MAINTENANCE_ID" />
+                <ScalarProperty Name="MAINTENANCE_KOMTEK" ColumnName="MAINTENANCE_KOMTEK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -13150,6 +13181,11 @@
                 <ScalarProperty Name="MAINTENANCE_DETAIL_SNI_ID" ColumnName="MAINTENANCE_DETAIL_SNI_ID" />
                 <ScalarProperty Name="MAINTENANCE_DETAIL_MTN_ID" ColumnName="MAINTENANCE_DETAIL_MTN_ID" />
                 <ScalarProperty Name="MAINTENANCE_DETAIL_ID" ColumnName="MAINTENANCE_DETAIL_ID" />
+                <ScalarProperty Name="SNI_JUDUL" ColumnName="SNI_JUDUL" />
+                <ScalarProperty Name="KOMTEK_NAME" ColumnName="KOMTEK_NAME" />
+                <ScalarProperty Name="KOMTEK_CODE" ColumnName="KOMTEK_CODE" />
+                <ScalarProperty Name="MAINTENANCE_DETAIL_KJ_ULG_LOC" ColumnName="MAINTENANCE_DETAIL_KJ_ULG_LOC" />
+                <ScalarProperty Name="MAINTENANCE_DETAIL_KJ_ULG_NAME" ColumnName="MAINTENANCE_DETAIL_KJ_ULG_NAME" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -13474,6 +13510,7 @@
                 <ScalarProperty Name="PROPOSAL_ID" ColumnName="PROPOSAL_ID" />
                 <ScalarProperty Name="PROPOSAL_HAK_PATEN_LOCATION" ColumnName="PROPOSAL_HAK_PATEN_LOCATION" />
                 <ScalarProperty Name="PROPOSAL_HAK_PATEN_NAME" ColumnName="PROPOSAL_HAK_PATEN_NAME" />
+                <ScalarProperty Name="KLASIFIKASI_JNS_SNI" ColumnName="KLASIFIKASI_JNS_SNI" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

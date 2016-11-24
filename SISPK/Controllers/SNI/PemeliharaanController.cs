@@ -28,82 +28,121 @@ namespace SISPK.Controllers.Pemeliharaan
 
         public ActionResult Create()
         {
+            var ListKomtek = (from komtek in db.MASTER_KOMITE_TEKNIS where komtek.KOMTEK_STATUS == 1 orderby komtek.KOMTEK_CODE ascending select komtek).ToList();
+            var V_sni = (from sni in db.TRX_SNI orderby sni.SNI_ID ascending select sni).ToList();
+            ViewData["V_sni"] = V_sni;
+            ViewData["ListKomtek"] = ListKomtek;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(TRX_MAINTENANCES mtn, FormCollection form)
+        public ActionResult Create(TRX_MAINTENANCES mtn, TRX_MAINTENANCE_DETAILS mtd)
         {
             var UserId = Session["USER_ID"];
             var logcode = MixHelper.GetLogCode();
             int lastid = MixHelper.GetSequence("TRX_MAINTENANCES");
             var datenow = MixHelper.ConvertDateNow();
+            var id_sni = Convert.ToString(mtd.MAINTENANCE_DETAIL_SNI_ID);
 
-            //return Json(new
-            //{
-            //    sEcho = mtn,
-            //    pas = mt_detail,
-            //    aasss = form,
+            //return Content(id_sni);
 
-            //}, JsonRequestBehavior.AllowGet);
-
-            
-
-            if (Convert.ToInt32(form["count_rows"]) > 0)
+            string pathnya = Server.MapPath("~/Upload/Dokumen/FORM_KAJI_ULANG/");
+            HttpPostedFileBase file_paten = Request.Files["MAINTENANCE_DETAIL_KJ_ULG_NAME"];
+            var file_name_paten = "";
+            var filePath_paten = "";
+            var fileExtension_paten = "";
+            if (file_paten != null)
             {
-                DateTime MAINTENANCE_DATE_a = Convert.ToDateTime(mtn.MAINTENANCE_DATE);
-                var MAINTENANCE_DATE = "TO_DATE('" + MAINTENANCE_DATE_a.ToString("yyyy-MM-dd HH:mm:ss") + "', 'yyyy-mm-dd hh24:mi:ss')";
-
-                //KOMTEK_BIDANG_ID,KOMTEK_INSTANSI_ID,
-                var fname = "MAINTENANCE_ID,MAINTENANCE_DOC_NUMBER,MAINTENANCE_DATE,MAINTENANCE_CREATE_BY,MAINTENANCE_CREATE_DATE,MAINTENANCE_STATUS";
-                var fvalue = "'" + lastid + "', " +
-                            "'" + mtn.MAINTENANCE_DOC_NUMBER + "'," +
-                            MAINTENANCE_DATE + ", " +
-                            "'" + UserId + "'," +
-                             datenow + "," +
-                            "1";
-                //return Json(new { query = "INSERT INTO MASTER_KOMITE_TEKNIS (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")" }, JsonRequestBehavior.AllowGet);
-                db.Database.ExecuteSqlCommand("INSERT INTO TRX_MAINTENANCES (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")");
-
-
-                String objek = fvalue.Replace("'", "-");
-                MixHelper.InsertLog(logcode, objek, 1);
-
-                for (var a = 0; a < Convert.ToInt32(form["count_rows"]); a++)
+                //Check whether Directory (Folder) exists.
+                if (!Directory.Exists(pathnya))
                 {
-                    int lastid_detail = MixHelper.GetSequence("TRX_MAINTENANCE_DETAILS");
-
-
-                    DateTime MAINTENANCE_DETAIL_REV_DATE_ = Convert.ToDateTime(form["MAINTENANCE_DETAIL_REV_DATE_[" + a + "]"]);
-                    var MAINTENANCE_DETAIL_REV_DATE = "TO_DATE('" + MAINTENANCE_DETAIL_REV_DATE_.ToString("yyyy-MM-dd HH:mm:ss") + "', 'yyyy-mm-dd hh24:mi:ss')";
-
-                    DateTime MAINTENANCE_DETAIL_REPORT_DATE_ = Convert.ToDateTime(form["MAINTENANCE_DETAIL_REPORT_DATE_[" + a + "]"]);
-                    var MAINTENANCE_DETAIL_REPORT_DATE = "TO_DATE('" + MAINTENANCE_DETAIL_REPORT_DATE_.ToString("yyyy-MM-dd HH:mm:ss") + "', 'yyyy-mm-dd hh24:mi:ss')";
-
-                    DateTime MAINTENANCE_DETAIL_USUL_DATE_ = Convert.ToDateTime(form["MAINTENANCE_DETAIL_USUL_DATE_[" + a + "]"]);
-                    var MAINTENANCE_DETAIL_USUL_DATE = "TO_DATE('" + MAINTENANCE_DETAIL_USUL_DATE_.ToString("yyyy-MM-dd HH:mm:ss") + "', 'yyyy-mm-dd hh24:mi:ss')";
-
-                    var fnameS = "MAINTENANCE_DETAIL_ID,MAINTENANCE_DETAIL_MTN_ID,MAINTENANCE_DETAIL_SNI_ID,MAINTENANCE_DETAIL_REV_DATE,MAINTENANCE_DETAIL_RESULT,MAINTENANCE_DETAIL_REPORT_DATE,MAINTENANCE_DETAIL_USUL_DATE";
-                    var fvalueS = "'" + lastid_detail + "', " +
-                                "'" + lastid + "', " +
-                                "'" + form["SNI_ID_[" + a + "]"] + "', " +
-                                MAINTENANCE_DETAIL_REV_DATE + "," +
-                                "'" + form["MAINTENANCE_DETAIL_RESULT_[" + a + "]"] + "', " +
-                                MAINTENANCE_DETAIL_REPORT_DATE + "," +
-                                MAINTENANCE_DETAIL_USUL_DATE + "";
-                    //return Json(new { query = "INSERT INTO MASTER_KOMITE_TEKNIS (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")" }, JsonRequestBehavior.AllowGet);
-                    db.Database.ExecuteSqlCommand("INSERT INTO TRX_MAINTENANCE_DETAILS (" + fnameS + ") VALUES (" + fvalueS.Replace("''", "NULL") + ")");
-                   
-
+                    //If Directory (Folder) does not exists. Create it.
+                    Directory.CreateDirectory(pathnya);
                 }
-
-                TempData["Notifikasi"] = 1;
-                TempData["NotifikasiText"] = "Data Berhasil Disimpan";
+                string lampiranregulasipath = file_paten.FileName;
+                if (lampiranregulasipath.Trim() != "")
+                {
+                    lampiranregulasipath = Path.GetFileNameWithoutExtension(file_paten.FileName);
+                    fileExtension_paten = Path.GetExtension(file_paten.FileName);
+                    file_name_paten = "FORM_KAJI_ULANG_PEMELIHARAAN_IDM_" + lastid + fileExtension_paten;
+                    filePath_paten = pathnya + file_name_paten.Replace(" ", "_");
+                    file_paten.SaveAs(filePath_paten);
+                }
             }
-            else {
-                TempData["Notifikasi"] = 2;
-                TempData["NotifikasiText"] = "Data Gagal Disimpan";
-            }           
+
+
+
+            //if (Convert.ToInt32(form["count_rows"]) > 0)
+            //{
+            DateTime MAINTENANCE_DATE_a = Convert.ToDateTime(mtn.MAINTENANCE_DATE);
+            var MAINTENANCE_DATE = "TO_DATE('" + MAINTENANCE_DATE_a.ToString("yyyy-MM-dd HH:mm:ss") + "', 'yyyy-mm-dd hh24:mi:ss')";
+
+            //KOMTEK_BIDANG_ID,KOMTEK_INSTANSI_ID,
+            var fname = "MAINTENANCE_ID,MAINTENANCE_DOC_NUMBER,MAINTENANCE_KOMTEK,MAINTENANCE_CREATE_BY,MAINTENANCE_CREATE_DATE,MAINTENANCE_STATUS";
+            var fvalue = "'" + lastid + "', " +
+                        "'" + mtn.MAINTENANCE_DOC_NUMBER + "'," +
+                        mtn.MAINTENANCE_KOMTEK + ", " +
+                        "'" + UserId + "'," +
+                            datenow + "," +
+                        "1";
+            //return Json(new { query = "INSERT INTO MASTER_KOMITE_TEKNIS (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")" }, JsonRequestBehavior.AllowGet);
+            db.Database.ExecuteSqlCommand("INSERT INTO TRX_MAINTENANCES (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")");
+
+
+            String objek = fvalue.Replace("'", "-");
+            MixHelper.InsertLog(logcode, objek, 1);
+
+            //for (var a = 0; a < Convert.ToInt32(form["count_rows"]); a++)
+            //{
+            int lastid_detail = MixHelper.GetSequence("TRX_MAINTENANCE_DETAILS");
+
+
+            DateTime MAINTENANCE_DETAIL_REV_DATE_ = Convert.ToDateTime(mtd.MAINTENANCE_DETAIL_REV_DATE);
+            var MAINTENANCE_DETAIL_REV_DATE = "TO_DATE('" + MAINTENANCE_DETAIL_REV_DATE_.ToString("yyyy-MM-dd HH:mm:ss") + "', 'yyyy-mm-dd hh24:mi:ss')";
+
+            DateTime MAINTENANCE_DETAIL_REPORT_DATE_ = Convert.ToDateTime(mtd.MAINTENANCE_DETAIL_REPORT_DATE);
+            var MAINTENANCE_DETAIL_REPORT_DATE = "TO_DATE('" + MAINTENANCE_DETAIL_REPORT_DATE_.ToString("yyyy-MM-dd HH:mm:ss") + "', 'yyyy-mm-dd hh24:mi:ss')";
+            var fnameS = "";
+            var fvalueS = "";
+            if (mtd.MAINTENANCE_DETAIL_KJ_ULG_NAME != null)
+            {
+                fnameS = "MAINTENANCE_DETAIL_ID,MAINTENANCE_DETAIL_MTN_ID,MAINTENANCE_DETAIL_SNI_ID,MAINTENANCE_DETAIL_REV_DATE,MAINTENANCE_DETAIL_RESULT,MAINTENANCE_DETAIL_REPORT_DATE,MAINTENANCE_DETAIL_KJ_ULG_LOC,MAINTENANCE_DETAIL_KJ_ULG_NAME,MAINTENANCE_DETAIL_NO_SURAT";
+                fvalueS = "'" + lastid_detail + "', " +
+                        "'" + lastid + "', " +
+                        "'" + mtd.MAINTENANCE_DETAIL_SNI_ID + "', " +
+                        MAINTENANCE_DETAIL_REV_DATE + "," +
+                        "'" + mtd.MAINTENANCE_DETAIL_RESULT + "', " +
+                        MAINTENANCE_DETAIL_REPORT_DATE + "," +
+                        "'/Upload/Dokumen/FORM_KAJI_ULANG/'," +
+                        "'" + file_name_paten.Replace(" ", "_") + "'," +
+                        "'" + mtd.MAINTENANCE_DETAIL_NO_SURAT + "'";
+            }
+            else
+            {
+                fnameS = "MAINTENANCE_DETAIL_ID,MAINTENANCE_DETAIL_MTN_ID,MAINTENANCE_DETAIL_SNI_ID,MAINTENANCE_DETAIL_REV_DATE,MAINTENANCE_DETAIL_RESULT,MAINTENANCE_DETAIL_REPORT_DATE,MAINTENANCE_DETAIL_NO_SURAT";
+                fvalueS = "'" + lastid_detail + "', " +
+                        "'" + lastid + "', " +
+                        "'" + mtd.MAINTENANCE_DETAIL_SNI_ID + "', " +
+                        MAINTENANCE_DETAIL_REV_DATE + "," +
+                        "'" + mtd.MAINTENANCE_DETAIL_RESULT + "', " +
+                        MAINTENANCE_DETAIL_REPORT_DATE + "," +
+                        "'" + mtd.MAINTENANCE_DETAIL_NO_SURAT + "'";
+            }
+            
+            //return Json(new { query = "INSERT INTO MASTER_KOMITE_TEKNIS (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")" }, JsonRequestBehavior.AllowGet);
+            db.Database.ExecuteSqlCommand("INSERT INTO TRX_MAINTENANCE_DETAILS (" + fnameS + ") VALUES (" + fvalueS.Replace("''", "NULL") + ")");
+
+
+            //}
+
+            TempData["Notifikasi"] = 1;
+            TempData["NotifikasiText"] = "Data Berhasil Disimpan";
+            //}
+            //else
+            //{
+            //    TempData["Notifikasi"] = 2;
+            //    TempData["NotifikasiText"] = "Data Gagal Disimpan";
+            //}
 
 
             return RedirectToAction("Index");
@@ -116,7 +155,7 @@ namespace SISPK.Controllers.Pemeliharaan
             var limit = 10;
 
             List<string> order_field = new List<string>();
-            order_field.Add("MAINTENANCE_DOC_NUMBER");
+            order_field.Add("SNI_JUDUL");
             order_field.Add("MAINTENANCE_DATE_TEXT");
             order_field.Add("SNI_NOMOR");
             order_field.Add("MAINTENANCE_REPORT_DATE_TEXT");
@@ -154,7 +193,7 @@ namespace SISPK.Controllers.Pemeliharaan
                     }
                     i++;
                 }
-                search_clause += " OR MAINTENANCE_DOC_NUMBER = '%" + search + "%')";
+                search_clause += " OR SNI_JUDUL = '%" + search + "%')";
             }
 
             string inject_clause_count = "";
@@ -170,11 +209,11 @@ namespace SISPK.Controllers.Pemeliharaan
             var result = from list in SelectedData
                          select new string[] 
             { 
-                Convert.ToString("<center>"+list.MAINTENANCE_DOC_NUMBER+"</center>"), 
-                Convert.ToString(list.MAINTENANCE_DATE_TEXT),
-                Convert.ToString(list.SNI_NOMOR),
-                Convert.ToString(list.MAINTENANCE_REPORT_DATE_TEXT),
-                Convert.ToString(list.DETAIL_RESULT_TEXT),
+                Convert.ToString("<center>"+list.SNI_JUDUL+"</center>"), 
+                //Convert.ToString(list.MAINTENANCE_DATE_TEXT),
+                Convert.ToString("<center>"+list.SNI_NOMOR+"</center>"),
+                Convert.ToString("<center>"+list.MAINTENANCE_REPORT_DATE_TEXT+"</center>"),
+                Convert.ToString("<center>"+list.DETAIL_RESULT_TEXT+"</center>"),
                 Convert.ToString("<center><a href='Pemeliharaan/Detail/"+list.MAINTENANCE_DETAIL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a></center>"),
                 //Convert.ToString("<center><a href='PenetapanSNI/Detail/"+list.SNI_SK_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a></center>"),
             };

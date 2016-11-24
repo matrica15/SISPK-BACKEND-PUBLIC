@@ -147,5 +147,6 @@ namespace SISPK.Models
         public string PROPOSAL_LPK_ID { get; set; }
         public string PROPOSAL_HAK_PATEN_LOCATION { get; set; }
         public string PROPOSAL_HAK_PATEN_NAME { get; set; }
+        public string KLASIFIKASI_JNS_SNI { get; set; }
     }
 }
