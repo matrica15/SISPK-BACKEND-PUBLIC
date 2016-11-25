@@ -21,14 +21,25 @@
                             <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis <span class="required">*</span></label>
                             <div class="col-md-9">
                                 <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih Komite Teknis / Subkomite Teknis" id="MAINTENANCE_KOMTEK" name="MAINTENANCE_KOMTEK">
-                                    <option></option>
-                                    @foreach (var kt in ViewBag.ListKomtek)
-                                    {
-                                        <option value="@kt.KOMTEK_ID">@kt.KOMTEK_CODE. @kt.KOMTEK_NAME</option>
-                                    }
-                                </select>
+                                    @*<select class="form-control select2me wajib col-md-12" data-placeholder="Pilih Komite Teknis / Subkomite Teknis" id="MAINTENANCE_KOMTEK" name="MAINTENANCE_KOMTEK" onchange="komtek()">*@
+                                        <option></option>
+                                        @foreach (var kt in ViewBag.ListKomtek)
+                                        {
+                                            <option value="@kt.KOMTEK_CODE">@kt.KOMTEK_CODE. @kt.KOMTEK_NAME</option>
+                                        }
+                                    </select>
                             </div>
                         </div>
+
+                        @*<div class="form-group">
+                            <label class="control-label col-md-3">No SNI / Judul SNI<span class="required">*</span></label>
+                            <div class="col-md-9">
+                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih No SNI / Judul SNI" id="MAINTENANCE_DETAIL_SNI_ID" name="MAINTENANCE_DETAIL_SNI_ID">
+                                    <option></option>
+                                    
+                                </select>
+                            </div>
+                        </div>*@
 
                         <div class="form-group">
                             <label class="control-label col-md-3">No SNI / Judul SNI<span class="required">*</span></label>
@@ -201,6 +212,31 @@
 
 
 <script type="text/javascript">
+    function komtek() {
+        var KOMTEK_CODE = $('#MAINTENANCE_KOMTEK').val();
+        //alert(KOMTEK_CODE);
+        $.ajax({
+            url : '@Url.Action("Cek_komtek")' ,
+            type: "POST",
+            data: { 'KOMTEK_CODE' : KOMTEK_CODE },
+            dataType: 'json',
+            success: function (d) {
+               
+                alert('sukses');
+                alert(d.isi_data);
+                $.each(d, function (index, row) {
+                    alert(row.Message);
+                    //$('#kota').append('<option value=' + row.KabupatenID + '>' + row.NamaKabupaten + '</option>');
+                });
+              
+                
+            },
+            error: function () {
+                alert('gagal');
+            }
+
+        });
+    }
     var _validFileExtensions1 = [".docx"];
     function ValidasiInput1(ini) {
         var arrInputs = $(ini);

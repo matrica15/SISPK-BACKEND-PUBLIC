@@ -4062,7 +4062,7 @@
           <Property Name="MAINTENANCE_UPDATE_BY" Type="number" />
           <Property Name="MAINTENANCE_UPDATE_DATE" Type="date" />
           <Property Name="MAINTENANCE_STATUS" Type="number" />
-          <Property Name="MAINTENANCE_KOMTEK" Type="number" />
+          <Property Name="MAINTENANCE_KOMTEK" Type="varchar2" />
         </EntityType>
         <EntityType Name="TRX_MONITORING">
           <Key>
@@ -8084,7 +8084,7 @@
           <Property Type="Decimal" Name="MAINTENANCE_UPDATE_BY" Precision="38" Scale="0" />
           <Property Type="DateTime" Name="MAINTENANCE_UPDATE_DATE" />
           <Property Type="Decimal" Name="MAINTENANCE_STATUS" Precision="38" Scale="0" />
-          <Property Type="Decimal" Name="MAINTENANCE_KOMTEK" Precision="38" Scale="0" />
+          <Property Type="String" Name="MAINTENANCE_KOMTEK" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TRX_MONITORING">
           <Key>

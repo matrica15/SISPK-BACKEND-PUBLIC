@@ -81,7 +81,7 @@ namespace SISPK.Controllers.Pemeliharaan
             var fname = "MAINTENANCE_ID,MAINTENANCE_DOC_NUMBER,MAINTENANCE_KOMTEK,MAINTENANCE_CREATE_BY,MAINTENANCE_CREATE_DATE,MAINTENANCE_STATUS";
             var fvalue = "'" + lastid + "', " +
                         "'" + mtn.MAINTENANCE_DOC_NUMBER + "'," +
-                        mtn.MAINTENANCE_KOMTEK + ", " +
+                        "'"+mtn.MAINTENANCE_KOMTEK + "', " +
                         "'" + UserId + "'," +
                             datenow + "," +
                         "1";
@@ -201,14 +201,95 @@ namespace SISPK.Controllers.Pemeliharaan
             if (where_clause != "" || search_clause != "")
             {
                 inject_clause_count = "WHERE " + where_clause + " " + search_clause;
-                inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER FROM (SELECT * FROM VIEW_PEMELIHARAAN WHERE " + where_clause + " " + search_clause + " ORDER BY " + order + " " + sort + ") T1 WHERE ROWNUM <= " + Convert.ToString(limit + start) + ") WHERE ROWNUMBER > " + Convert.ToString(start);
+                inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER,(TO_CHAR(SYSDATE,'YYYY ')-REGEXP_SUBSTR(SNI_NOMOR, '[^:'']+', 1,2)) AS UMUR_SNI FROM (SELECT * FROM VIEW_PEMELIHARAAN WHERE " + where_clause + " " + search_clause + " ORDER BY " + order + " " + sort + ") T1 WHERE ROWNUM <= " + Convert.ToString(limit + start) + ") WHERE UMUR_SNI <= 5 AND ROWNUMBER > " + Convert.ToString(start);
             }
             var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_PEMELIHARAAN " + inject_clause_count);
             var SelectedData = db.Database.SqlQuery<VIEW_PEMELIHARAAN>(inject_clause_select);
 
+            //return Content(inject_clause_select);
+
             var result = from list in SelectedData
-                         select new string[] 
-            { 
+                         select new string[]
+            {
+                Convert.ToString("<center>"+list.SNI_JUDUL+"</center>"), 
+                //Convert.ToString(list.MAINTENANCE_DATE_TEXT),
+                Convert.ToString("<center>"+list.SNI_NOMOR+"</center>"),
+                Convert.ToString("<center>"+list.MAINTENANCE_REPORT_DATE_TEXT+"</center>"),
+                Convert.ToString("<center>"+list.DETAIL_RESULT_TEXT+"</center>"),
+                Convert.ToString("<center><a href='Pemeliharaan/Detail/"+list.MAINTENANCE_DETAIL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a></center>"),
+                //Convert.ToString("<center><a href='PenetapanSNI/Detail/"+list.SNI_SK_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a></center>"),
+            };
+            return Json(new
+            {
+                SelectedData,
+                sEcho = param.sEcho,
+                iTotalRecords = CountData,
+                iTotalDisplayRecords = CountData,
+                aaData = result.ToArray()
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult listPemeliharaan5(DataTables param)
+        {
+            var default_order = "MAINTENANCE_DATE";
+            var limit = 10;
+
+            List<string> order_field = new List<string>();
+            order_field.Add("SNI_JUDUL");
+            order_field.Add("MAINTENANCE_DATE_TEXT");
+            order_field.Add("SNI_NOMOR");
+            order_field.Add("MAINTENANCE_REPORT_DATE_TEXT");
+            order_field.Add("DETAIL_RESULT_TEXT");
+
+            string order_key = (param.iSortCol_0 == "0") ? "0" : param.iSortCol_0;
+            string order = (param.iSortCol_0 == "0") ? default_order : order_field[Convert.ToInt32(order_key)];
+            string sort = (param.sSortDir_0 == "") ? "desc" : param.sSortDir_0;
+            string search = (param.sSearch == "") ? "" : param.sSearch;
+
+            limit = (param.iDisplayLength == 0) ? limit : param.iDisplayLength;
+            var start = (param.iDisplayStart == 0) ? 0 : param.iDisplayStart;
+
+
+            string where_clause = "";
+
+            string search_clause = "";
+            if (search != "")
+            {
+                if (where_clause != "")
+                {
+                    search_clause += " AND ";
+                }
+                search_clause += "(";
+                var i = 1;
+                foreach (var fields in order_field)
+                {
+                    if (fields != "")
+                    {
+                        search_clause += fields + "  LIKE '%" + search + "%'";
+                        if (i < order_field.Count())
+                        {
+                            search_clause += " OR ";
+                        }
+                    }
+                    i++;
+                }
+                search_clause += " OR SNI_JUDUL = '%" + search + "%')";
+            }
+
+            string inject_clause_count = "";
+            string inject_clause_select = "";
+            if (where_clause != "" || search_clause != "")
+            {
+                inject_clause_count = "WHERE " + where_clause + " " + search_clause;
+                inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER,(TO_CHAR(SYSDATE,'YYYY ')-REGEXP_SUBSTR(SNI_NOMOR, '[^:'']+', 1,2)) AS UMUR_SNI FROM (SELECT * FROM VIEW_PEMELIHARAAN WHERE " + where_clause + " " + search_clause + " ORDER BY " + order + " " + sort + ") T1 WHERE ROWNUM <= " + Convert.ToString(limit + start) + ") WHERE UMUR_SNI > 5 AND ROWNUMBER > " + Convert.ToString(start);
+            }
+            var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_PEMELIHARAAN " + inject_clause_count);
+            var SelectedData = db.Database.SqlQuery<VIEW_PEMELIHARAAN>(inject_clause_select);
+
+            //return Content(inject_clause_select);
+
+            var result = from list in SelectedData
+                         select new string[]
+            {
                 Convert.ToString("<center>"+list.SNI_JUDUL+"</center>"), 
                 //Convert.ToString(list.MAINTENANCE_DATE_TEXT),
                 Convert.ToString("<center>"+list.SNI_NOMOR+"</center>"),
@@ -243,6 +324,34 @@ namespace SISPK.Controllers.Pemeliharaan
             var rasni = from cust in datarasni select new { id = cust.SNI_ID, text = cust.SNI_NOMOR };
 
             return Json(new { rasni, total_count = CountData, inject_clause_select }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Cek_komtek(VIEW_SNI SNI)
+        {
+            var id = SNI.KOMTEK_CODE;
+            //string inject_clause_select = "SELECT * FROM VIEW_SNI WHERE KOMTEK_CODE = '" + id;
+            //var datasni = db.Database.SqlQuery<VIEW_SNI>(inject_clause_select);
+            //var d_sni = from sni in datasni select new { id = sni.SNI_ID};
+
+            //return Json(new { sni = d_sni }, JsonRequestBehavior.AllowGet);
+
+            //var data = db.Database.SqlQuery<VIEW_SNI>("SELECT SNI_ID,SNI_NOMOR,SNI_JUDUL FROM VIEW_SNI WHERE KOMTEK_CODE = '"+ id +"'").ToList();
+            var data = (from sni in db.VIEW_SNI where sni.KOMTEK_CODE == id select sni).ToList();
+            //var jsonData = new
+            //{
+            //    Result = true,
+            //    Message = "success",
+            //    isidata = data,
+            //    ,
+            //    JsonRequestBehavior.AllowGet
+            //};
+
+            return Json(new { id = id, isi_data = data });
+
+            //return Json(jsonData);
+
+            //return Json(new { rasni, total_count = CountData, inject_clause_select }, JsonRequestBehavior.AllowGet);
+
         }
     }
 }
