@@ -16,35 +16,11 @@
                 <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="Create" method="post" enctype="multipart/form-data">
                     <div class="form-body">
 
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis <span class="required">*</span></label>
-                            <div class="col-md-9">
-                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih Komite Teknis / Subkomite Teknis" id="MAINTENANCE_KOMTEK" name="MAINTENANCE_KOMTEK">
-                                    @*<select class="form-control select2me wajib col-md-12" data-placeholder="Pilih Komite Teknis / Subkomite Teknis" id="MAINTENANCE_KOMTEK" name="MAINTENANCE_KOMTEK" onchange="komtek()">*@
-                                        <option></option>
-                                        @foreach (var kt in ViewBag.ListKomtek)
-                                        {
-                                            <option value="@kt.KOMTEK_CODE">@kt.KOMTEK_CODE. @kt.KOMTEK_NAME</option>
-                                        }
-                                    </select>
-                            </div>
-                        </div>
-
-                        @*<div class="form-group">
-                            <label class="control-label col-md-3">No SNI / Judul SNI<span class="required">*</span></label>
-                            <div class="col-md-9">
-                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih No SNI / Judul SNI" id="MAINTENANCE_DETAIL_SNI_ID" name="MAINTENANCE_DETAIL_SNI_ID">
-                                    <option></option>
-                                    
-                                </select>
-                            </div>
-                        </div>*@
 
                         <div class="form-group">
                             <label class="control-label col-md-3">No SNI / Judul SNI<span class="required">*</span></label>
                             <div class="col-md-9">
-                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih No SNI / Judul SNI" id="MAINTENANCE_DETAIL_SNI_ID" name="MAINTENANCE_DETAIL_SNI_ID">
+                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih No SNI / Judul SNI" id="MAINTENANCE_DETAIL_SNI_ID" name="MAINTENANCE_DETAIL_SNI_ID" onchange="sni()">
                                     <option></option>
                                     @foreach (var sni in ViewBag.V_sni)
                                     {
@@ -53,11 +29,27 @@
                                 </select>
                             </div>
                         </div>
-                        
-                        @*<div class="form-group">
-                            <label class="control-label col-md-3">Judul<span class="required">*</span></label>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis</label>
                             <div class="col-md-3 control-label detailtext">
-                                <input type="text" class="form-control" name="MAINTENANCE_DOC_NUMBER" id="MAINTENANCE_DOC_NUMBER">
+                                <h5 id="MAINTENANCE_KOMTEK1"></h5>
+                                @*<input type="text" class="form-control" id="MAINTENANCE_KOMTEK1">*@
+                                <input type="hidden" class="form-control" name="MAINTENANCE_KOMTEK" id="MAINTENANCE_KOMTEK">
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                            <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis <span class="required">*</span></label>
+                            <div class="col-md-9">
+                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih Komite Teknis / Subkomite Teknis" id="MAINTENANCE_KOMTEK" name="MAINTENANCE_KOMTEK">
+                                    <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih Komite Teknis / Subkomite Teknis" id="MAINTENANCE_KOMTEK" name="MAINTENANCE_KOMTEK" onchange="komtek()">
+                                    <option></option>
+                                    @foreach (var kt in ViewBag.ListKomtek)
+                                    {
+                                        <option value="@kt.KOMTEK_CODE">@kt.KOMTEK_CODE. @kt.KOMTEK_NAME</option>
+                                    }
+                                </select>
                             </div>
                         </div>*@
 
@@ -212,27 +204,26 @@
 
 
 <script type="text/javascript">
-    function komtek() {
-        var KOMTEK_CODE = $('#MAINTENANCE_KOMTEK').val();
-        //alert(KOMTEK_CODE);
+    function sni() {
+        var SNI_ID = $('#MAINTENANCE_DETAIL_SNI_ID').val();
+        //alert(SNI_ID);
         $.ajax({
-            url : '@Url.Action("Cek_komtek")' ,
+            url : '@Url.Action("Cek_sni")' ,
             type: "POST",
-            data: { 'KOMTEK_CODE' : KOMTEK_CODE },
+            data: { 'SNI_ID': SNI_ID },
             dataType: 'json',
             success: function (d) {
                
-                alert('sukses');
-                alert(d.isi_data);
-                $.each(d, function (index, row) {
-                    alert(row.Message);
-                    //$('#kota').append('<option value=' + row.KabupatenID + '>' + row.NamaKabupaten + '</option>');
-                });
-              
-                
+                //alert('sukses');
+                //alert(d.idL);
+                //alert(d.komtek_kd+"."+d.komtek_nm);
+                $('#MAINTENANCE_KOMTEK1').html(d.komtek_kd + "." + d.komtek_nm);
+                $('#MAINTENANCE_KOMTEK').val(d.komtek_kd);
+                return false;
+               
             },
             error: function () {
-                alert('gagal');
+                //alert('gagal');
             }
 
         });

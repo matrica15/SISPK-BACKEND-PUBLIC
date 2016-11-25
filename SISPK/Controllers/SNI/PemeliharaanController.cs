@@ -326,9 +326,14 @@ namespace SISPK.Controllers.Pemeliharaan
             return Json(new { rasni, total_count = CountData, inject_clause_select }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Cek_komtek(VIEW_SNI SNI)
+        public ActionResult Cek_sni(VIEW_SNI SNI)
         {
-            var id = SNI.KOMTEK_CODE;
+            string kmt_kd = "";
+            string kmt_nm = "";
+            var id = SNI.SNI_ID;
+            kmt_kd = db.Database.SqlQuery<string>("SELECT KOMTEK_CODE FROM VIEW_SNI WHERE SNI_ID = " + id).SingleOrDefault();
+            kmt_nm = db.Database.SqlQuery<string>("SELECT KOMTEK_NAME FROM VIEW_SNI WHERE SNI_ID = " + id).SingleOrDefault();
+            return Json(new { idL = id ,komtek_kd = kmt_kd ,komtek_nm = kmt_nm}, JsonRequestBehavior.AllowGet);
             //string inject_clause_select = "SELECT * FROM VIEW_SNI WHERE KOMTEK_CODE = '" + id;
             //var datasni = db.Database.SqlQuery<VIEW_SNI>(inject_clause_select);
             //var d_sni = from sni in datasni select new { id = sni.SNI_ID};
@@ -336,7 +341,7 @@ namespace SISPK.Controllers.Pemeliharaan
             //return Json(new { sni = d_sni }, JsonRequestBehavior.AllowGet);
 
             //var data = db.Database.SqlQuery<VIEW_SNI>("SELECT SNI_ID,SNI_NOMOR,SNI_JUDUL FROM VIEW_SNI WHERE KOMTEK_CODE = '"+ id +"'").ToList();
-            var data = (from sni in db.VIEW_SNI where sni.KOMTEK_CODE == id select sni).ToList();
+            //var data = (from sni in db.VIEW_SNI where sni.KOMTEK_CODE == id select sni).ToList();
             //var jsonData = new
             //{
             //    Result = true,
@@ -346,7 +351,7 @@ namespace SISPK.Controllers.Pemeliharaan
             //    JsonRequestBehavior.AllowGet
             //};
 
-            return Json(new { id = id, isi_data = data });
+
 
             //return Json(jsonData);
 
