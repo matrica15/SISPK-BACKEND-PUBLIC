@@ -21,5 +21,8 @@ namespace SISPK.Models
         public Nullable<decimal> MAINTENANCE_DETAIL_RESULT { get; set; }
         public Nullable<System.DateTime> MAINTENANCE_DETAIL_REPORT_DATE { get; set; }
         public Nullable<System.DateTime> MAINTENANCE_DETAIL_USUL_DATE { get; set; }
+        public string MAINTENANCE_DETAIL_KJ_ULG_LOC { get; set; }
+        public string MAINTENANCE_DETAIL_KJ_ULG_NAME { get; set; }
+        public string MAINTENANCE_DETAIL_NO_SURAT { get; set; }
     }
 }

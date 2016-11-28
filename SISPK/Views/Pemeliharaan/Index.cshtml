@@ -16,22 +16,22 @@
             </div>
             
             <div class="portlet-body">
-                @*<div class="tabbable-custom ">*@
-                   @* <ul class="nav nav-tabs ">
+                <div class="tabbable-custom ">
+                    <ul class="nav nav-tabs ">
                         <li class="active">
-                            <a href="#aktif" data-toggle="tab" >SNI Belum Publikasi</a>
+                            <a href="#kecil_5" data-toggle="tab" >SNI dibawah 5 Tahun</a>
                         </li>
                         <li>
-                            <a href="#non-aktif" data-toggle="tab" >SNI Sudah Publikasi</a>
+                            <a href="#besar_5" data-toggle="tab" >SNI lebih dari 5 Tahun</a>
                         </li>
-                    </ul>       *@            
+                    </ul>                   
                     <div class="tab-content">
-                        <div class="tab-pane active" id="aktif">
-                            <table class="table table-striped table-bordered table-hover" id="pembatalan">
+                        <div class="tab-pane active" id="kecil_5">
+                            <table class="table table-striped table-bordered table-hover" id="pembatalan1">
                                 <thead>
                                     <tr>                                        
-                                        <th width="15%" class="text-center">Nomor Dokumen</th>
-                                        <th width="15%" class="text-center">Tanggal </th>
+                                        <th width="15%" class="text-center">Judul SNI</th>
+                                        @*<th width="15%" class="text-center">Tanggal </th>*@
                                         <th width="20%" class="text-center">NOMOR SNI </th> 
                                         <th width="15%" class="text-center">Tanggal Laporan</th>
                                         <th width="20%" class="text-center">Pemeliharaan</th>
@@ -41,20 +41,22 @@
                             </table>
                          </div>
                         
-                        @*<div class="tab-pane" id="non-aktif">
-                            <table class="table table-striped table-bordered table-hover" id="sni2">
+                        <div class="tab-pane" id="besar_5">
+                            <table class="table table-striped table-bordered table-hover" id="pembatalan2">
                                 <thead>
-                                    <tr>                                        
-                                        <th width="30%" class="text-center">NOMOR SK </th>
-                                        <th width="30%" class="text-center">Tanggal SK</th>                                        
-                                        <th width="15%" class="text-center">Jumlah SNI</th>                                                                                
-                                        <th width="15%" class="text-center">Aksi</th>
+                                    <tr>
+                                        <th width="15%" class="text-center">Judul SNI</th>
+                                        @*<th width="15%" class="text-center">Tanggal </th>*@
+                                        <th width="20%" class="text-center">NOMOR SNI </th>
+                                        <th width="15%" class="text-center">Tanggal Laporan</th>
+                                        <th width="20%" class="text-center">Pemeliharaan</th>
+                                        <th width="10%" class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
-                            </table>*@
+                            </table>
                          </div>                
                     </div>
-                @*</div>*@
+                </div>
             </div>
            
         </div>
@@ -64,12 +66,54 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function () {
-        var table1 = $('#pembatalan');
+        var table1 = $('#pembatalan1');
         var oTable = table1.dataTable({
             "processing": true,
             "serverSide": true,
             "bServerSide": true,
             "sAjaxSource": "/Sni/Pemeliharaan/listPemeliharaan",
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+                $('.kolom').css('width', '10%');
+                $('.kolom2').css('width', '5%');
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [2]
+            }],
+            "order": [
+                [1, 'desc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+
+        var tableWrapper = $('.dataTables_wrapper');
+        tableWrapper.find('.dataTables_length select').select2();
+
+        var table2 = $('#pembatalan2');
+        var oTable = table2.dataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Sni/Pemeliharaan/listPemeliharaan5",
             "language": {
                 "aria": {
                     "sortAscending": ": activate to sort column ascending",

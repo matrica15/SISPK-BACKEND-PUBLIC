@@ -23,5 +23,6 @@ namespace SISPK.Models
         public Nullable<decimal> MAINTENANCE_UPDATE_BY { get; set; }
         public Nullable<System.DateTime> MAINTENANCE_UPDATE_DATE { get; set; }
         public Nullable<decimal> MAINTENANCE_STATUS { get; set; }
+        public string MAINTENANCE_KOMTEK { get; set; }
     }
 }

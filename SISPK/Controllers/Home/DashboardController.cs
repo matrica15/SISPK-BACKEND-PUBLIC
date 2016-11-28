@@ -34,7 +34,11 @@ namespace SISPK.Controllers.Home
             ViewData["IS_KOMTEK"] = IS_KOMTEK;
             ViewData["USER_KOMTEK_ID"] = USER_KOMTEK_ID;
             ViewData["AktifData"] = AktifData;
+
             return View();
+
+            //var tt = ("SELECT * FROM ( SELECT AA.*, ROWNUM NOMOR FROM ( SELECT * FROM VIEW_PROPOSAL_DASHBOARD WHERE PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID + " AND PROPOSAL_STATUS > 1 ORDER BY PROPOSAL_ID DESC) AA WHERE ROWNUM <= 1 ) WHERE NOMOR > 0");
+            //return Content(tt);
         }
         public ActionResult Home()
         {
