@@ -5860,6 +5860,7 @@
     <Content Include="Upload\Usulan\INFORMASI_PEENELITIAN_26.pdf" />
     <Content Include="Web.config" />
     <Content Include="Format\Laporan\TEMPLATE_HAK_PATEN.docx" />
+    <Content Include="Views\JajakPendapat\EditComment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
