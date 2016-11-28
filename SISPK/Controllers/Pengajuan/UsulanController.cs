@@ -71,7 +71,7 @@ namespace SISPK.Controllers.Pengajuan
         public ActionResult Detail(int id = 0)
         {
             //var paten = (from ptn in db.VIEW_PROPOSAL where ptn.PROPOSAL_ID == id select ptn).SingleOrDefault();
-            var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == id select proposal).SingleOrDefault();
+            var DataProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + id).SingleOrDefault();
             var AcuanNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 1 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
             var AcuanNonNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 2 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
             var Bibliografi = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 3 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
@@ -312,7 +312,8 @@ namespace SISPK.Controllers.Pengajuan
                     }
                 }
             }
-            var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == LASTID select proposal).SingleOrDefault();
+            var DataProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + LASTID).SingleOrDefault();
+            //var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == LASTID select proposal).SingleOrDefault();
             var PROPOSAL_PNPS_CODE_FIXER = DataProposal.PROPOSAL_CODE;
             var PROPOSAL_ID = LASTID;
             var TGL_SEKARANG = DateTime.Now.ToString("yyyyMMddHHmmss");

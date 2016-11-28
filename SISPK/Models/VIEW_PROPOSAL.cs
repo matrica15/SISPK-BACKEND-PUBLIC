@@ -14,7 +14,7 @@ namespace SISPK.Models
     
     public partial class VIEW_PROPOSAL
     {
-        public decimal PROPOSAL_ID { get; set; }
+        public decimal? PROPOSAL_ID { get; set; }
         public Nullable<decimal> PROPOSAL_TYPE { get; set; }
         public string PROPOSAL_TYPE_NAME { get; set; }
         public string PROPOSAL_TAHAPAN { get; set; }
