@@ -809,6 +809,7 @@ namespace SISPK.Controllers.Perumusan
 
             string path = "";
             string filePathpdf = "";
+            var pathnya = "";
 
             HttpPostedFileBase file4 = Request.Files["POLLING_FILE"];
             if (file4.ContentLength > 0)
@@ -826,6 +827,7 @@ namespace SISPK.Controllers.Perumusan
                     filePathpdf = path + "POLLING_" + VP.PROPOSAL_ID + "_" + TGL_SEKARANG + ".pdf";
                     pdf.Save(@"" + filePathpdf, Aspose.Pdf.SaveFormat.Pdf);
                 }
+                pathnya = "/Upload/DokPolling/POLLING_" + VP.PROPOSAL_ID + "_" + TGL_SEKARANG + ".pdf";
             }
 
             using (OracleConnection con = new OracleConnection("Data Source=" + GetIP.CONFIG_VALUE + ";User ID=" + GetUser.CONFIG_VALUE + ";PASSWORD=" + GetPassword.CONFIG_VALUE + ";"))
@@ -834,7 +836,6 @@ namespace SISPK.Controllers.Perumusan
 
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    var pathnya = "/Upload/DokPolling/POLLING_" + VP.PROPOSAL_ID + "_" + TGL_SEKARANG + ".pdf";
 
                     var UserId = Session["USER_ID"];
                     var logcode = MixHelper.GetLogCode();
@@ -872,12 +873,186 @@ namespace SISPK.Controllers.Perumusan
             }
         }
 
+        public ActionResult EditComment(int id = 0)
+        {
+            var USER_ID = Convert.ToInt32(Session["USER_ID"]);
+            var datapoling = (from poll in db.VIEW_POLLING_DETAIL where poll.POLLING_DETAIL_ID == id select poll).SingleOrDefault();
+            var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_POLLING_ID == datapoling.POLLING_DETAIL_POLLING_ID select proposal).SingleOrDefault();
+            var id_prop = DataProposal.PROPOSAL_ID;
+            var AcuanNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 1 && an.PROPOSAL_REF_PROPOSAL_ID == id_prop orderby an.PROPOSAL_REF_ID ascending select an).ToList();
+            var AcuanNonNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 2 && an.PROPOSAL_REF_PROPOSAL_ID == id_prop orderby an.PROPOSAL_REF_ID ascending select an).ToList();
+            var Bibliografi = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 3 && an.PROPOSAL_REF_PROPOSAL_ID == id_prop orderby an.PROPOSAL_REF_ID ascending select an).ToList();
+            var ICS = (from an in db.VIEW_PROPOSAL_ICS where an.PROPOSAL_ICS_REF_PROPOSAL_ID == id_prop orderby an.ICS_CODE ascending select an).ToList();
+            var AdopsiList = (from an in db.TRX_PROPOSAL_ADOPSI where an.PROPOSAL_ADOPSI_PROPOSAL_ID == id_prop orderby an.PROPOSAL_ADOPSI_NOMOR_JUDUL ascending select an).ToList();
+            var RevisiList = db.Database.SqlQuery<VIEW_SNI_SELECT>("SELECT BB.* FROM TRX_PROPOSAL_REV AA INNER JOIN VIEW_SNI_SELECT BB ON AA.PROPOSAL_REV_MERIVISI_ID = BB.ID WHERE AA.PROPOSAL_REV_PROPOSAL_ID = '" + id_prop + "' ORDER BY AA.PROPOSAL_REV_ID ASC").ToList();
+            var Lampiran = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + id_prop + " AND DOC_RELATED_TYPE = 30").FirstOrDefault();
+            var Bukti = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + id_prop + " AND DOC_RELATED_TYPE = 29").FirstOrDefault();
+            var Surat = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + id_prop + " AND DOC_RELATED_TYPE = 32").FirstOrDefault();
+            var Outline = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + id_prop + " AND DOC_RELATED_TYPE = 36").FirstOrDefault();
+            var DataKomtek = (from komtek in db.MASTER_KOMITE_TEKNIS where komtek.KOMTEK_STATUS == 1 && komtek.KOMTEK_ID == DataProposal.KOMTEK_ID select komtek).SingleOrDefault();
+            var IsKetua = db.Database.SqlQuery<string>("SELECT JABATAN FROM VIEW_ANGGOTA WHERE KOMTEK_ANGGOTA_KOMTEK_ID = " + DataProposal.KOMTEK_ID + " AND USER_ID = " + USER_ID).SingleOrDefault();
+            var BA = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT AA.* FROM TRX_DOCUMENTS AA WHERE AA.DOC_RELATED_ID = " + id_prop + " AND AA.DOC_RELATED_TYPE = 8 AND AA.DOC_FOLDER_ID = 14 AND AA.DOC_STATUS = 1 AND AA.DOC_ID = (SELECT MAX(DOC_ID) FROM TRX_DOCUMENTS BB WHERE BB.DOC_RELATED_ID = AA.DOC_RELATED_ID AND BB.DOC_RELATED_TYPE = AA.DOC_RELATED_TYPE AND BB.DOC_FOLDER_ID = AA.DOC_FOLDER_ID AND BB.DOC_STATUS = AA.DOC_STATUS)").SingleOrDefault();
+            var DH = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT AA.* FROM TRX_DOCUMENTS AA WHERE AA.DOC_RELATED_ID = " + id_prop + " AND AA.DOC_RELATED_TYPE = 9 AND AA.DOC_FOLDER_ID = 14 AND AA.DOC_STATUS = 1 AND AA.DOC_ID = (SELECT MAX(DOC_ID) FROM TRX_DOCUMENTS BB WHERE BB.DOC_RELATED_ID = AA.DOC_RELATED_ID AND BB.DOC_RELATED_TYPE = AA.DOC_RELATED_TYPE AND BB.DOC_FOLDER_ID = AA.DOC_FOLDER_ID AND BB.DOC_STATUS = AA.DOC_STATUS)").SingleOrDefault();
+            var NT = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT AA.* FROM TRX_DOCUMENTS AA WHERE AA.DOC_RELATED_ID = " + id_prop + " AND AA.DOC_RELATED_TYPE = 10 AND AA.DOC_FOLDER_ID = 14 AND AA.DOC_STATUS = 1 AND AA.DOC_ID = (SELECT MAX(DOC_ID) FROM TRX_DOCUMENTS BB WHERE BB.DOC_RELATED_ID = AA.DOC_RELATED_ID AND BB.DOC_RELATED_TYPE = AA.DOC_RELATED_TYPE AND BB.DOC_FOLDER_ID = AA.DOC_FOLDER_ID AND BB.DOC_STATUS = AA.DOC_STATUS)").SingleOrDefault();
+            var SRT = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT AA.* FROM TRX_DOCUMENTS AA WHERE AA.DOC_RELATED_ID = " + id_prop + " AND AA.DOC_RELATED_TYPE = 35 AND AA.DOC_FOLDER_ID = 14 AND AA.DOC_STATUS = 1 AND AA.DOC_ID = (SELECT MAX(DOC_ID) FROM TRX_DOCUMENTS BB WHERE BB.DOC_RELATED_ID = AA.DOC_RELATED_ID AND BB.DOC_RELATED_TYPE = AA.DOC_RELATED_TYPE AND BB.DOC_FOLDER_ID = AA.DOC_FOLDER_ID AND BB.DOC_STATUS = AA.DOC_STATUS)").SingleOrDefault();
+            var SRTP = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT AA.* FROM TRX_DOCUMENTS AA WHERE AA.DOC_RELATED_ID = " + id_prop + " AND AA.DOC_RELATED_TYPE = 35 AND AA.DOC_FOLDER_ID = 14 AND AA.DOC_STATUS = 1 AND AA.DOC_ID = (SELECT MAX(DOC_ID) FROM TRX_DOCUMENTS BB WHERE BB.DOC_RELATED_ID = AA.DOC_RELATED_ID AND BB.DOC_RELATED_TYPE = AA.DOC_RELATED_TYPE AND BB.DOC_FOLDER_ID = AA.DOC_FOLDER_ID AND BB.DOC_STATUS = AA.DOC_STATUS)").SingleOrDefault();
+            var LTAS = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT AA.* FROM TRX_DOCUMENTS AA WHERE AA.DOC_RELATED_ID = " + id_prop + " AND AA.DOC_RELATED_TYPE = 37 AND AA.DOC_FOLDER_ID = 14 AND AA.DOC_STATUS = 1 AND AA.DOC_ID = (SELECT MAX(DOC_ID) FROM TRX_DOCUMENTS BB WHERE BB.DOC_RELATED_ID = AA.DOC_RELATED_ID AND BB.DOC_RELATED_TYPE = AA.DOC_RELATED_TYPE AND BB.DOC_FOLDER_ID = AA.DOC_FOLDER_ID AND BB.DOC_STATUS = AA.DOC_STATUS)").SingleOrDefault();
+            var VERSION_RATEK = db.Database.SqlQuery<decimal>("SELECT CAST(NVL(MAX(T1.PROPOSAL_RAPAT_VERSION),0) AS NUMBER)+1 AS PROPOSAL_RAPAT_VERSION FROM TRX_PROPOSAL_RAPAT T1 WHERE T1.PROPOSAL_RAPAT_PROPOSAL_ID = " + id_prop + " AND T1.PROPOSAL_RAPAT_PROPOSAL_STATUS = 6").SingleOrDefault();
+            var DetailRatek = db.Database.SqlQuery<VIEW_PROPOSAL_RAPAT>("SELECT * FROM VIEW_PROPOSAL_RAPAT WHERE PROPOSAL_RAPAT_PROPOSAL_ID = " + id_prop + " AND PROPOSAL_RAPAT_PROPOSAL_STATUS = 6 AND PROPOSAL_RAPAT_VERSION = " + (VERSION_RATEK - 1)).FirstOrDefault();
+            var DetailHistoryRatek = db.Database.SqlQuery<VIEW_PROPOSAL_RAPAT>("SELECT * FROM VIEW_PROPOSAL_RAPAT WHERE PROPOSAL_RAPAT_PROPOSAL_ID = " + id_prop + " AND PROPOSAL_RAPAT_PROPOSAL_STATUS IN (5,6) ").ToList();
+            var DetailPolling = db.Database.SqlQuery<VIEW_POLLING_DETAIL>("SELECT AA.* FROM VIEW_POLLING_DETAIL AA WHERE AA.POLLING_DETAIL_POLLING_ID = " + DataProposal.PROPOSAL_POLLING_ID + " ORDER BY AA.POLLING_DETAIL_INPUT_TYPE ASC,AA.POLLING_DETAIL_PASAL,AA.POLLING_DETAIL_OPTION ASC,POLLING_DETAIL_CREATE_DATE DESC").ToList();
+
+            ViewData["DetailPolling"] = DetailPolling;
+            ViewData["Komtek"] = DataKomtek;
+            ViewData["DataProposal"] = DataProposal;
+            ViewData["AcuanNormatif"] = AcuanNormatif;
+            ViewData["AcuanNonNormatif"] = AcuanNonNormatif;
+            ViewData["Bibliografi"] = Bibliografi;
+            ViewData["ICS"] = ICS;
+            ViewData["AdopsiList"] = AdopsiList;
+            ViewData["RevisiList"] = RevisiList;
+            ViewData["Lampiran"] = Lampiran;
+            ViewData["Bukti"] = Bukti;
+            ViewData["Surat"] = Surat;
+            ViewData["Outline"] = Outline;
+            ViewData["IsKetua"] = ((IsKetua == "Ketua" || IsKetua == "Sekretariat") ? 1 : 0);
+            ViewData["VERSION_RATEK"] = VERSION_RATEK;
+            ViewData["DetailRatek"] = DetailRatek;
+            ViewData["DetailHistoryRatek"] = DetailHistoryRatek;
+            ViewData["Notulen"] = NT;
+            ViewData["DaftarHadir"] = DH;
+            ViewData["Berita"] = BA;
+            ViewData["SuratRT"] = SRT;
+            ViewData["SRTP"] = SRTP;
+            ViewData["LTAS"] = LTAS;
+            ViewData["polling"] = datapoling;
+
+            var Dokumen = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_STATUS = 1 AND DOC_RELATED_ID = " + id_prop).ToList();
+            var DefaultDokumen = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT * FROM TRX_DOCUMENTS WHERE DOC_RELATED_ID = " + id_prop + " AND DOC_RELATED_TYPE = 17 AND DOC_FOLDER_ID = 15 AND DOC_STATUS = 1  AND ROWNUM = 1 ORDER BY DOC_ID DESC").SingleOrDefault();
+            if (DefaultDokumen == null)
+            {
+                var DefaultDokumenRSNI1 = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT * FROM TRX_DOCUMENTS WHERE DOC_RELATED_ID = " + id_prop + " AND DOC_RELATED_TYPE = 11 AND DOC_FOLDER_ID = 14 AND DOC_STATUS = 1  AND ROWNUM = 1 ORDER BY DOC_ID DESC").SingleOrDefault();
+                ViewData["DefaultDokumen"] = DefaultDokumenRSNI1;
+            }
+            else
+            {
+                ViewData["DefaultDokumen"] = DefaultDokumen;
+            }
+            ViewData["Dokumen"] = Dokumen;
+
+            string SearchName = DataProposal.PROPOSAL_JUDUL_PNPS;
+            string[] Name = SearchName.Split(' ');
+            string QueryRefLain = "SELECT * FROM VIEW_DOCUMENTS WHERE DOC_STATUS = 1 AND (DOC_RELATED_ID <> " + id_prop + " OR DOC_RELATED_ID IS NULL) AND ( ";
+            string lastItem = Name.Last();
+
+            foreach (string Res in Name)
+            {
+                if (!object.ReferenceEquals(Res, lastItem))
+                {
+                    QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' OR ";
+                }
+                else
+                {
+                    QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' )";
+                }
+            }
+            var RefLain = db.Database.SqlQuery<VIEW_DOCUMENTS>(QueryRefLain).ToList();
+            ViewData["RefLain"] = RefLain;
+            return View();
+        }
+
+        [HttpPost, ValidateInput(false)]
+        public ActionResult EditComment(TRX_POLLING_DETAILS input, VIEW_PROPOSAL VP, FormCollection form)
+        {
+            var GetIP = db.Database.SqlQuery<SYS_CONFIG>("SELECT * FROM SYS_CONFIG WHERE CONFIG_ID = 12").FirstOrDefault();
+            var GetUser = db.Database.SqlQuery<SYS_CONFIG>("SELECT * FROM SYS_CONFIG WHERE CONFIG_ID = 13").FirstOrDefault();
+            var GetPassword = db.Database.SqlQuery<SYS_CONFIG>("SELECT * FROM SYS_CONFIG WHERE CONFIG_ID = 14").FirstOrDefault();
+            var GetPath = db.Database.SqlQuery<SYS_CONFIG>("SELECT * FROM SYS_CONFIG WHERE CONFIG_ID = 15").FirstOrDefault();
+            var TGL_SEKARANG = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            string path = "";
+            string filePathpdf = "";
+            string dir = "";
+
+            if (input.POLLING_DETAIL_FILE_PATH != "" && input.POLLING_DETAIL_FILE_PATH != null)
+            {
+                dir = input.POLLING_DETAIL_FILE_PATH;
+            }
+            else
+            {
+                dir = "/Upload/DokPolling/POLLING_" + VP.PROPOSAL_ID + "_" + TGL_SEKARANG + ".pdf";
+            }
+
+            HttpPostedFileBase file4 = Request.Files["POLLING_FILE"];
+            if (file4.ContentLength > 0)
+            {
+                Directory.CreateDirectory(GetPath.CONFIG_VALUE + "/Upload/DokPolling");
+                path = GetPath.CONFIG_VALUE + "" + dir;
+                Stream stremdokumen = file4.InputStream;
+                byte[] appData = new byte[file4.ContentLength + 1];
+                stremdokumen.Read(appData, 0, file4.ContentLength);
+                string Extension = Path.GetExtension(file4.FileName);
+                if (Extension.ToLower() == ".pdf")
+                {
+                    Aspose.Pdf.Document pdf = new Aspose.Pdf.Document(stremdokumen);
+                    //Aspose.Words.Document docx = new Aspose.Words.Document(stremdokumen);
+                    filePathpdf = path;
+                    pdf.Save(@"" + filePathpdf, Aspose.Pdf.SaveFormat.Pdf);
+                }
+            }
+
+            using (OracleConnection con = new OracleConnection("Data Source=" + GetIP.CONFIG_VALUE + ";User ID=" + GetUser.CONFIG_VALUE + ";PASSWORD=" + GetPassword.CONFIG_VALUE + ";"))
+            {
+                con.Open();
+
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    var UserId = Session["USER_ID"];
+                    var logcode = MixHelper.GetLogCode();
+                    var datenow = MixHelper.ConvertDateNow();
+                    var updatequery = "UPDATE TRX_POLLING_DETAILS SET " +
+                                "POLLING_DETAIL_REASON = :parameter, " +
+                                "POLLING_DETAIL_UPDATE_BY = '" + UserId + "', " +
+                                "POLLING_DETAIL_FILE_PATH = '" + dir + "', " +
+                                "POLLING_DETAIL_UPDATE_DATE = " + datenow +
+                                " WHERE POLLING_DETAIL_ID = '" + input.POLLING_DETAIL_ID + "'";
+                    //return Json(new{sas =updatequery },JsonRequestBehavior.AllowGet);
+                    //db.Database.ExecuteSqlCommand(updatequery);
+                    cmd.Connection = con;
+                    cmd.CommandType = System.Data.CommandType.Text;
+
+                    cmd.CommandText = updatequery;
+
+                    OracleParameter oracleParameterClob = new OracleParameter();
+                    oracleParameterClob.OracleDbType = OracleDbType.Clob;
+                    //1 million long string
+                    oracleParameterClob.Value = input.POLLING_DETAIL_REASON;
+
+
+                    cmd.Parameters.Add(oracleParameterClob);
+
+                    cmd.ExecuteNonQuery();
+
+                    TempData["Notifikasi"] = 1;
+                    TempData["NotifikasiText"] = "Terima kasih, pendapat anda berhasil di simpan.";
+                }
+
+                con.Close();
+
+                var proposal_id = Convert.ToInt32(form["PROPOSAL_ID"]);
+                return RedirectToAction("Comment/" + proposal_id);
+            }
+        }
+
+
         public ActionResult cekdata(TRX_POLLING_DETAILS form)
         {
             int status = 0;
+            int row_id = 0;
             var UserId = Session["USER_ID"];
+            row_id = db.Database.SqlQuery<int>("SELECT POLLING_DETAIL_ID FROM TRX_POLLING_DETAILS WHERE POLLING_DETAIL_POLLING_ID = " + form.POLLING_DETAIL_POLLING_ID + " AND POLLING_DETAIL_PASAL = '" + form.POLLING_DETAIL_PASAL + "' AND POLLING_DETAIL_OPTION = " + form.POLLING_DETAIL_OPTION + " AND POLLING_DETAIL_CREATE_BY =" + UserId).SingleOrDefault();
             status = db.Database.SqlQuery<int>("SELECT COUNT(POLLING_DETAIL_ID) AS JML_POLL FROM TRX_POLLING_DETAILS WHERE POLLING_DETAIL_POLLING_ID = " + form.POLLING_DETAIL_POLLING_ID + " AND POLLING_DETAIL_PASAL = " + form.POLLING_DETAIL_PASAL + " AND POLLING_DETAIL_OPTION = " + form.POLLING_DETAIL_OPTION + " AND POLLING_DETAIL_CREATE_BY =" + UserId).SingleOrDefault();
-            return Json(new { status = status, query = "SELECT COUNT(POLLING_DETAIL_ID) AS JML_POLL FROM TRX_POLLING_DETAILS WHERE POLLING_DETAIL_POLLING_ID = " + form.POLLING_DETAIL_POLLING_ID + " AND POLLING_DETAIL_PASAL = " + form.POLLING_DETAIL_PASAL + " AND POLLING_DETAIL_OPTION = " + form.POLLING_DETAIL_OPTION + " AND POLLING_DETAIL_CREATE_BY =" + UserId }, JsonRequestBehavior.AllowGet);
+            return Json(new { status = status, row_id = row_id, query = "SELECT COUNT(POLLING_DETAIL_ID) AS JML_POLL FROM TRX_POLLING_DETAILS WHERE POLLING_DETAIL_POLLING_ID = " + form.POLLING_DETAIL_POLLING_ID + " AND POLLING_DETAIL_PASAL = " + form.POLLING_DETAIL_PASAL + " AND POLLING_DETAIL_OPTION = " + form.POLLING_DETAIL_OPTION + " AND POLLING_DETAIL_CREATE_BY =" + UserId }, JsonRequestBehavior.AllowGet);
         }
     }
 }

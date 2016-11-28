@@ -48,7 +48,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>Form Komentar Jajak Pendapat
+                    <i class="fa fa-gift"></i>Form Edit Komentar Jajak Pendapat
                 </div>
             </div>
             <div class="portlet-body form">
@@ -201,7 +201,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-comment"></i>Buat Tanggapan
+                    <i class="fa fa-comment"></i>Edit Tanggapan
                 </div>
             </div>
             <div class="portlet-body form">
@@ -212,35 +212,28 @@
 
                             <div class="form-group">
                                 <label class="col-md-2 control-label"><strong>Tipe Komentar</strong></label>
-                                <div class="col-md-10" style="padding-left: 0px;">
-                                    <div class="radio-list">
-                                        <label class="radio-inline">
-                                            <input type="radio" class="opsi" name="POLLING_DETAIL_OPTION" id="POLLING_DETAIL_OPTION1" value="1" checked>
-                                            Editorial </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" class="opsi" name="POLLING_DETAIL_OPTION" id="POLLING_DETAIL_OPTION2" value="2">
-                                            Substansial</label>
-                                        <label class="radio-inline">
-                                            <input type="radio" class="opsi" name="POLLING_DETAIL_OPTION" id="POLLING_DETAIL_OPTION3" value="3">
-                                            Lainnya
-                                        </label>
-                                    </div>
+                                <div class="col-md-10" style="padding-left:0px;">
+                                    <span class="form-control-static">
+                                        <input type="hidden" name="PROPOSAL_ID" value="@Detail.PROPOSAL_ID" id="PROPOSAL_ID" />
+                                        <input type="hidden" name="POLLING_DETAIL_ID" id="POLLING_DETAIL_ID" value="@ViewBag.polling.POLLING_DETAIL_ID" />
+                                        <input type="hidden" name="POLLING_DETAIL_FILE_PATH" id="POLLING_DETAIL_FILE_PATH" value="@ViewBag.polling.POLLING_DETAIL_FILE_PATH" />
+                                        <input type="hidden" name="POLLING_DETAIL_POLLING_ID" id="POLLING_DETAIL_POLLING_ID" value="@ViewBag.polling.POLLING_DETAIL_POLLING_ID" />
+                                        @ViewBag.polling.PILIHAN
+
+                                    </span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-2 control-label" id="labelPasal" style="font-weight:bold">Pasal</label>
-                                <div id="pasalCol" class="col-md-1">
-                                    <input type="text" class="form-control wajib" name="POLLING_DETAIL_PASAL" id="POLLING_DETAIL_PASAL" onkeypress="return isNumberKey(event)">
-                                    <input type="hidden" class="form-control" name="POLLING_DETAIL_POLLING_ID" id="POLLING_DETAIL_POLLING_ID" value="@ViewBag.DataProposal.POLLING_ID">
+                                <label class="col-md-2 control-label"><strong>Pasal</strong></label>
+                                <div class="col-md-2">
+                                    <span class="form-control-static"> @ViewBag.polling.POLLING_DETAIL_PASAL</span>
                                 </div>
                             </div>
 
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <input type="hidden" name="PROPOSAL_ID" value="@Detail.PROPOSAL_ID" id="PROPOSAL_ID"/>
-                                    <input type="hidden" name="POLLING_DETAIL_POLLING_ID" value="@Detail.POLLING_ID"/>
-                                    <textarea id='komentar' class="form-control POLLING_DETAIL_REASON" name='POLLING_DETAIL_REASON'></textarea>
+                                    <textarea id="POLLING_DETAIL_REASON" name="POLLING_DETAIL_REASON" class="wajib">@ViewBag.polling.POLLING_DETAIL_REASON</textarea>
                                 </div>
                             </div>
 
@@ -251,65 +244,17 @@
                                 <div class="col-md-12">
                                     <input type="file" name="POLLING_FILE" accept=".pdf,application/pdf" onchange="ValidasiInput(this)" />
                                     <span style="color:red;font-style:italic">File yang upload harus PDF</span>
+                                    <br />
+                                    @((ViewBag.polling.POLLING_DETAIL_FILE_PATH == null) ? "" : Html.Raw("<a href='" + ViewBag.polling.POLLING_DETAIL_FILE_PATH + "' target='_blank'>Lampiran Yang Sudah Di Upload</a>"))
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <button class='btn btn-success' type='submit' id="kirimdulu">Kirim Komentar</button>
+                                    <button class='btn btn-success' type='submit' id="kirimdulu">Update Komentar</button>
                                 </div>
                             </div>
                         </form>
-                        <div class="form-group">
-                            <div class="col-md-12" style="border-left: none;">
-                                @if (ViewBag.DetailPolling.Count > 0)
-                                {
-                                    foreach (var i in ViewBag.DetailPolling)
-                                    {
-                                        nomor++;
-                                        var edit = "";
-                                        var no_row = "baris" + i.POLLING_DETAIL_ID;
-                                        if (i.POLLING_DETAIL_CREATE_BY == Convert.ToInt32(Session["USER_ID"].ToString()))
-                                        {
-                                            edit = "<a href='/Perumusan/JajakPendapat/EditComment/" + i.POLLING_DETAIL_ID + "' ><i class='fa fa-pencil'></i> edit</a><br /><br />";
-                                        }
-                                    <article class="row" id="@no_row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="panel panel-default arrow left">
-                                                <div class="panel-body @((nomor % 2 == 0) ? "genap" : "ganjil")">
-                                                    <header>
-                                                        <div class='text-left col-sm-6' style="padding-left: 0px;">
-                                                            <div class="comment-user"><i class="fa fa-user"></i>@i.USER_PUBLIC_NAMA_LENGKAP</div>
-                                                            <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i>@i.POLLING_FULL_DATE_NAME</time>
-                                                            <div class="comment-user"><i class="fa fa-check-square-o"></i>@i.PILIHAN</div>
-                                                        </div>
-                                                        <div class='text-right col-sm-6' style="padding-right: 0px;">
-                                                            <a class="icon-btn" href="javascript:;" style='font-weight: bold; font-size: 16px; height: 50px; padding: 5px 0 0;'>@i.POLLING_DETAIL_PASAL<div>PASAL</div>
-                                                            </a>
-                                                        </div>
-                                                    </header>
-
-                                                    <div class='clearfix'></div>
-                                                    <div class="comment-post" style='padding-top: 10px;'>
-                                                        @Html.Raw(i.POLLING_DETAIL_REASON)
-                                                        @if (i.POLLING_DETAIL_FILE_PATH != "" && i.POLLING_DETAIL_FILE_PATH != null)
-                                                        {
-                                                            <label class="form-control-static"><a class="" href="@(i.POLLING_DETAIL_FILE_PATH)" target="_blank" style="color:green;">Lampiran Komentar</a></label><br>
-                                                        }
-                                                        @Html.Raw(edit)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    }
-                                }
-                                else
-                                {
-                                    <span>Tanggapan Belum Tersedia</span>
-                                }
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- END FORM-->
@@ -837,24 +782,6 @@
         return true;
 
     }
-
-    $('input[type=radio][name=POLLING_DETAIL_OPTION]').change(function () {
-        if (this.value == 1 || this.value == 2) {
-            $("#POLLING_DETAIL_PASAL").attr("onkeypress", "return isNumberKey(event)");
-            $("#pasalCol").removeAttr("class");
-            $("#pasalCol").attr("class", "col-md-1");
-            $("#labelPasal").text("Pasal");
-            $("#POLLING_DETAIL_PASAL").val("");
-        }
-        else if (this.value == 3) {
-            $("#POLLING_DETAIL_PASAL").removeAttr("onkeypress");
-            $("#pasalCol").removeAttr("class");
-            $("#pasalCol").attr("class", "col-md-4");
-            $("#labelPasal").text("Topik");
-            $("#POLLING_DETAIL_PASAL").val("");
-            //$("#labelPasal").css("font-weight", "Bold");
-        }
-    });
 
     $("#POLLING_DETAIL_PASAL").change(function () {
         var POLLING_DETAIL_POLLING_ID = $("#POLLING_DETAIL_POLLING_ID").val();
