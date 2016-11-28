@@ -699,10 +699,10 @@
             $("#PROPOSAL_JENIS_ADOPSI option[value='2']").attr("disabled", "disabled");
             $('#PROPOSAL_JENIS_ADOPSI').select2();
             $('#PROPOSAL_JENIS_ADOPSI').val("1").trigger("change");
-            $('#PROPOSAL_METODE_ADOPSI').select2("destroy");
-            $("#PROPOSAL_METODE_ADOPSI option[value='1']").attr("disabled", "disabled");
-            $('#PROPOSAL_METODE_ADOPSI').select2();
-            $('#PROPOSAL_METODE_ADOPSI').val("").trigger("change");
+            $('#PROPOSAL_METODE_ADOPSI_terjemahan').select2("destroy");
+            $("#PROPOSAL_METODE_ADOPSI_terjemahan option[value='1']").attr("disabled", "disabled");
+            $('#PROPOSAL_METODE_ADOPSI_terjemahan').select2();
+            $('#PROPOSAL_METODE_ADOPSI_terjemahan').val("").trigger("change");
         } else {
             $('#PROPOSAL_JALUR').select2("destroy");
             $("#PROPOSAL_JALUR option[value='1']").removeAttr("disabled");
@@ -712,10 +712,10 @@
             $("#PROPOSAL_JENIS_ADOPSI option[value='2']").removeAttr("disabled");
             $('#PROPOSAL_JENIS_ADOPSI').val("");
             $('#PROPOSAL_JENIS_ADOPSI').select2();
-            $('#PROPOSAL_METODE_ADOPSI').select2("destroy");
-            $("#PROPOSAL_METODE_ADOPSI option[value='1']").removeAttr("disabled");
-            $('#PROPOSAL_METODE_ADOPSI').val("");
-            $('#PROPOSAL_METODE_ADOPSI').select2();
+            $('#PROPOSAL_METODE_ADOPSI_terjemahan').select2("destroy");
+            $("#PROPOSAL_METODE_ADOPSI_terjemahan option[value='1']").removeAttr("disabled");
+            $('#PROPOSAL_METODE_ADOPSI_terjemahan').val("");
+            $('#PROPOSAL_METODE_ADOPSI_terjemahan').select2();
         }
     }
     function pilih_jalur(ini) {
@@ -752,10 +752,10 @@
             if (res == 1) {
                 $('.jenis_name').html('Identik');
                 $(".daftar_adopsi_ext_name").show('fast');
-                //$('#PROPOSAL_METODE_ADOPSI').select2("destroy");
-                //$("#PROPOSAL_METODE_ADOPSI option[value='1']").removeAttr("disabled");
-                //$('#PROPOSAL_METODE_ADOPSI').val("");
-                //$('#PROPOSAL_METODE_ADOPSI').select2();
+                $('#PROPOSAL_METODE_ADOPSI').select2("destroy");
+                $("#PROPOSAL_METODE_ADOPSI option[value='1']").removeAttr("disabled");
+                $('#PROPOSAL_METODE_ADOPSI').val("");
+                $('#PROPOSAL_METODE_ADOPSI').select2();
                 //var data_option = '<option value="1">Publikasi ulang - cetak ulang (Republication Reprint)</option><option value="2">Terjemahan 1 Bahasa (Indonesia)</option><option value="3">Terjemahan 2 Bahasa (Indonesia dan Inggris)</option>';
                 //$('#PROPOSAL_METODE_ADOPSI').html(data_option);
             } else if (res == 2) {

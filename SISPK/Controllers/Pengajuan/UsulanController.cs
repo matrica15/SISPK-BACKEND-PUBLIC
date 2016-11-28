@@ -39,7 +39,7 @@ namespace SISPK.Controllers.Pengajuan
         [Auth(RoleTipe = 3)]
         public ActionResult Update(int id = 0)
         {
-            var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == id select proposal).SingleOrDefault();
+            var DataProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + id).SingleOrDefault();
             var DataKomtek = (from komtek in db.MASTER_KOMITE_TEKNIS where komtek.KOMTEK_STATUS == 1 && komtek.KOMTEK_ID == DataProposal.KOMTEK_ID select komtek).SingleOrDefault();
             var AcuanNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 1 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
             var AcuanNonNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 2 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
@@ -686,7 +686,7 @@ namespace SISPK.Controllers.Pengajuan
             var LOGCODE = MixHelper.GetLogCode();
             int LASTID = MixHelper.GetSequence("TRX_PROPOSAL");
             var DATENOW = MixHelper.ConvertDateNow();
-            var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == INPUT.PROPOSAL_ID select proposal).SingleOrDefault();
+            var DataProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + INPUT.PROPOSAL_ID).SingleOrDefault();
             var PROPOSAL_LPK_ID_CONVERT = "";
             var PROPOSAL_RETEK_ID_CONVERT = "";
             if (PROPOSAL_LPK_ID == null)
