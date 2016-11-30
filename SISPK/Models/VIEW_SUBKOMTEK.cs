@@ -48,6 +48,5 @@ namespace SISPK.Models
         public string BIDANG_CODE { get; set; }
         public string INSTANSI_CODE { get; set; }
         public string INSTANSI_NAME { get; set; }
-        public string KOMTEK_LINGKUP { get; set; }
     }
 }

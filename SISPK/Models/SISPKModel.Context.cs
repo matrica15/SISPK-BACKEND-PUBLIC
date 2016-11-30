@@ -28,6 +28,8 @@ namespace SISPK.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<TRX_SK_PENETAPAN> TRX_SK_PENETAPAN { get; set; }
+        public DbSet<TRX_TEST> TRX_TEST { get; set; }
         public DbSet<MASTER_ACUAN_NON_SNI> MASTER_ACUAN_NON_SNI { get; set; }
         public DbSet<MASTER_BIBLIOGRAFI> MASTER_BIBLIOGRAFI { get; set; }
         public DbSet<MASTER_BIDANG> MASTER_BIDANG { get; set; }
@@ -38,7 +40,6 @@ namespace SISPK.Models
         public DbSet<MASTER_INSTANSI> MASTER_INSTANSI { get; set; }
         public DbSet<MASTER_KOMITE_TEKNIS> MASTER_KOMITE_TEKNIS { get; set; }
         public DbSet<MASTER_KOMTEK_ANGGOTA> MASTER_KOMTEK_ANGGOTA { get; set; }
-        public DbSet<MASTER_KOMTEK_ANGGOTA_BACKUP> MASTER_KOMTEK_ANGGOTA_BACKUP { get; set; }
         public DbSet<MASTER_KOMTEK_ICS> MASTER_KOMTEK_ICS { get; set; }
         public DbSet<MASTER_REFERENCES> MASTER_REFERENCES { get; set; }
         public DbSet<MASTER_SCOPE> MASTER_SCOPE { get; set; }
@@ -75,6 +76,7 @@ namespace SISPK.Models
         public DbSet<TRX_LPK_SCOPE> TRX_LPK_SCOPE { get; set; }
         public DbSet<TRX_MAINTENANCE_DETAILS> TRX_MAINTENANCE_DETAILS { get; set; }
         public DbSet<TRX_MAINTENANCES> TRX_MAINTENANCES { get; set; }
+        public DbSet<TRX_MAINTENANCES_copy> TRX_MAINTENANCES_copy { get; set; }
         public DbSet<TRX_MONITORING> TRX_MONITORING { get; set; }
         public DbSet<TRX_POLLING> TRX_POLLING { get; set; }
         public DbSet<TRX_POLLING_DETAILS> TRX_POLLING_DETAILS { get; set; }
@@ -157,6 +159,7 @@ namespace SISPK.Models
         public DbSet<VIEW_USERS_PUBLIC> VIEW_USERS_PUBLIC { get; set; }
         public DbSet<VIEW_WILAYAH_KABUPATEN> VIEW_WILAYAH_KABUPATEN { get; set; }
         public DbSet<VIEW_WILAYAH_PROVINSI> VIEW_WILAYAH_PROVINSI { get; set; }
+        public DbSet<VIEW_PROPOSAL_DASHBOARD> VIEW_PROPOSAL_DASHBOARD { get; set; }
     
         public virtual int PROC_SYS_SEQUENCE_FIXER()
         {

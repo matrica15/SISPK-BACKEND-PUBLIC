@@ -217,8 +217,14 @@
                 //alert('sukses');
                 //alert(d.idL);
                 //alert(d.komtek_kd+"."+d.komtek_nm);
-                $('#MAINTENANCE_KOMTEK1').html(d.komtek_kd + "." + d.komtek_nm);
-                $('#MAINTENANCE_KOMTEK').val(d.komtek_kd);
+                if(d.komtek_kd != null){
+                    $('#MAINTENANCE_KOMTEK1').html(d.komtek_kd + "." + d.komtek_nm);
+                    $('#MAINTENANCE_KOMTEK').val(d.komtek_kd);
+                }else{
+                    $('#MAINTENANCE_KOMTEK1').html("-");
+                    $('#MAINTENANCE_KOMTEK').val("-");
+                }
+                
                 return false;
                
             },

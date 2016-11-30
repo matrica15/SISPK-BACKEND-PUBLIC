@@ -12,7 +12,7 @@ namespace SISPK.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class VIEW_PROPOSAL
+    public partial class VIEW_PROPOSAL_DASHBOARD
     {
         public decimal PROPOSAL_ID { get; set; }
         public Nullable<decimal> PROPOSAL_TYPE { get; set; }

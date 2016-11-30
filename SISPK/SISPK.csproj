@@ -321,9 +321,6 @@
     <Compile Include="Models\MASTER_KOMTEK_ANGGOTA.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MASTER_KOMTEK_ANGGOTA_BACKUP.cs">
-      <DependentUpon>SISPKModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\MASTER_KOMTEK_ICS.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
@@ -441,6 +438,9 @@
     <Compile Include="Models\TRX_MAINTENANCES.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TRX_MAINTENANCES_copy.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TRX_MAINTENANCE_DETAILS.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
@@ -480,6 +480,9 @@
     <Compile Include="Models\TRX_REGULASI_TEKNIS_DETAIL.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TRX_SK_PENETAPAN.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TRX_SNI.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
@@ -493,6 +496,9 @@
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TRX_SURAT_TUGAS.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TRX_TEST.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_MASTER_KOMITE_TEKNIS.cs">
@@ -601,6 +607,9 @@
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VIEW_PROPOSAL.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VIEW_PROPOSAL_DASHBOARD.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VIEW_PROPOSAL_ICS.cs">
