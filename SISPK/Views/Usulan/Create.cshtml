@@ -108,6 +108,31 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group daftar_adopsi_terjemahan" style="display: none;">
+                            <label class="control-label col-md-3">Jenis Adopsi<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me wajib" data-placeholder="Pilih Jenis Adopsi" id="PROPOSAL_JENIS_ADOPSI" name="PROPOSAL_JENIS_ADOPSI" onchange="pilih_jenis_adopsi_terjemahan(this)">
+                                        <option></option>
+                                        <option value="1">Identik</option>
+                                        <option value="2">Modifikasi</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group daftar_adopsi_ext_terjemahan" style="display: none;">
+                            <label class="control-label col-md-3">Metode Adopsi</label>
+                            <div class="col-md-5">
+                                <div style="text-align: left" class="input-group col-md-12">
+                                    <select class="form-control select2me test" data-placeholder="Pilih Metode Adopsi" id="PROPOSAL_METODE_ADOPSI_terjemahan" name="PROPOSAL_METODE_ADOPSI">
+                                        <option></option>
+                                        <option value="1" disabled>Publikasi ulang - cetak ulang (Republication Reprint)</option>
+                                        <option value="2">Terjemahan 1 Bahasa (Indonesia)</option>
+                                        <option value="3">Terjemahan 2 Bahasa (Indonesia dan Inggris)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="daftar_adopsi" style="display: none;">
                             <div class="form-group">
@@ -126,7 +151,7 @@
                                 <label class="control-label col-md-3">Metode Adopsi</label>
                                 <div class="col-md-5">
                                     <div style="text-align: left" class="input-group col-md-12">
-                                        <select class="form-control select2me" data-placeholder="Pilih Metode Adopsi" id="PROPOSAL_METODE_ADOPSI" name="PROPOSAL_METODE_ADOPSI">
+                                        <select class="form-control select2me test" data-placeholder="Pilih Metode Adopsi" id="PROPOSAL_METODE_ADOPSI" name="PROPOSAL_METODE_ADOPSI">
                                             <option></option>
                                             <option value="1">Publikasi ulang - cetak ulang (Republication Reprint)</option>
                                             <option value="2">Terjemahan 1 Bahasa (Indonesia)</option>
@@ -621,12 +646,16 @@
             $(".terjemahan_list").slideUp("fast");
             $('.pasal_list').slideUp("fast");
             $(".jalur_perumusan").slideDown("fast");
+            $(".daftar_adopsi_terjemahan").slideUp("fast");
+            $(".daftar_adopsi_ext_terjemahan").slideUp("fast");
         } else if (res == 2) {
             $(".revisi_list").slideDown("fast");
             $(".ralat_list").slideUp("fast");
             $(".amd_list").slideUp("fast");
             $(".terjemahan_list").slideUp("fast");
             $(".jalur_perumusan").slideDown("fast");
+            $(".daftar_adopsi_terjemahan").slideUp("fast");
+            $(".daftar_adopsi_ext_terjemahan").slideUp("fast");
         } else if (res == 3) {
             $(".ralat_list").slideDown("fast");
             $(".revisi_list").slideUp("fast");
@@ -634,19 +663,25 @@
             $(".daftar_adopsi").slideUp("fast");
             $(".terjemahan_list").slideUp("fast");
             $(".jalur_perumusan").slideUp("fast");
+            $(".daftar_adopsi_terjemahan").slideUp("fast");
+            $(".daftar_adopsi_ext_terjemahan").slideUp("fast");
         } else if (res == 4) {
             $(".amd_list").slideDown("fast");
             $(".ralat_list").slideUp("fast");
             $(".revisi_list").slideUp("fast");
             $(".terjemahan_list").slideUp("fast");
             $(".jalur_perumusan").slideUp("fast");
+            $(".daftar_adopsi_terjemahan").slideUp("fast");
+            $(".daftar_adopsi_ext_terjemahan").slideUp("fast");
 
         } else if (res == 5) {
             $(".terjemahan_list").slideDown("fast");
             $(".amd_list").slideUp("fast");
             $(".ralat_list").slideUp("fast");
             $(".revisi_list").slideUp("fast");
-            $(".jalur_perumusan").slideUp("fast");
+            $(".jalur_perumusan").slideDown("fast");
+            $(".daftar_adopsi_terjemahan").slideDown("fast"); 
+            $(".daftar_adopsi_ext_terjemahan").slideDown("fast");
         } else {
             $(".revisi_list").slideUp("fast");
             $(".ralat_list").slideUp("fast");
@@ -657,14 +692,30 @@
 
         if (res == 5) {
             $('#PROPOSAL_JALUR').select2("destroy");
-            $("#PROPOSAL_JALUR option[value='2']").attr("disabled", "disabled");
+            $("#PROPOSAL_JALUR option[value='1']").attr("disabled", "disabled");
             $('#PROPOSAL_JALUR').select2();
-            $('#PROPOSAL_JALUR').val("1").trigger("change");
+            $('#PROPOSAL_JALUR').val("2").trigger("change");
+            $('#PROPOSAL_JENIS_ADOPSI').select2("destroy");
+            $("#PROPOSAL_JENIS_ADOPSI option[value='2']").attr("disabled", "disabled");
+            $('#PROPOSAL_JENIS_ADOPSI').select2();
+            $('#PROPOSAL_JENIS_ADOPSI').val("1").trigger("change");
+            $('#PROPOSAL_METODE_ADOPSI_terjemahan').select2("destroy");
+            $("#PROPOSAL_METODE_ADOPSI_terjemahan option[value='1']").attr("disabled", "disabled");
+            $('#PROPOSAL_METODE_ADOPSI_terjemahan').select2();
+            $('#PROPOSAL_METODE_ADOPSI_terjemahan').val("").trigger("change");
         } else {
             $('#PROPOSAL_JALUR').select2("destroy");
-            $("#PROPOSAL_JALUR option[value='2']").removeAttr("disabled");
+            $("#PROPOSAL_JALUR option[value='1']").removeAttr("disabled");
             $('#PROPOSAL_JALUR').val("");
             $('#PROPOSAL_JALUR').select2();
+            $('#PROPOSAL_JENIS_ADOPSI').select2("destroy");
+            $("#PROPOSAL_JENIS_ADOPSI option[value='2']").removeAttr("disabled");
+            $('#PROPOSAL_JENIS_ADOPSI').val("");
+            $('#PROPOSAL_JENIS_ADOPSI').select2();
+            $('#PROPOSAL_METODE_ADOPSI_terjemahan').select2("destroy");
+            $("#PROPOSAL_METODE_ADOPSI_terjemahan option[value='1']").removeAttr("disabled");
+            $('#PROPOSAL_METODE_ADOPSI_terjemahan').val("");
+            $('#PROPOSAL_METODE_ADOPSI_terjemahan').select2();
         }
     }
     function pilih_jalur(ini) {
@@ -701,10 +752,38 @@
             if (res == 1) {
                 $('.jenis_name').html('Identik');
                 $(".daftar_adopsi_ext_name").show('fast');
+                $('#PROPOSAL_METODE_ADOPSI').select2("destroy");
+                $("#PROPOSAL_METODE_ADOPSI option[value='1']").removeAttr("disabled");
+                $('#PROPOSAL_METODE_ADOPSI').val("");
+                $('#PROPOSAL_METODE_ADOPSI').select2();
+                //var data_option = '<option value="1">Publikasi ulang - cetak ulang (Republication Reprint)</option><option value="2">Terjemahan 1 Bahasa (Indonesia)</option><option value="3">Terjemahan 2 Bahasa (Indonesia dan Inggris)</option>';
+                //$('#PROPOSAL_METODE_ADOPSI').html(data_option);
             } else if (res == 2) {
                 $('.jenis_name').html('Modifikasi');
                 $(".daftar_adopsi_ext_name").show('fast');
+                $('#PROPOSAL_METODE_ADOPSI').select2("destroy");
+                $("#PROPOSAL_METODE_ADOPSI option[value='1']").attr("disabled", "disabled");
+                $('#PROPOSAL_METODE_ADOPSI').select2();
+                $('#PROPOSAL_METODE_ADOPSI').val("").trigger("change");
+                //var data_option = '<option value="1" disabled>Publikasi ulang - cetak ulang (Republication Reprint)</option><option value="2">Terjemahan 1 Bahasa (Indonesia)</option><option value="3">Terjemahan 2 Bahasa (Indonesia dan Inggris)</option>';
+                //$('#PROPOSAL_METODE_ADOPSI').html(data_option);
             }
+        });
+
+    }
+    function pilih_jenis_adopsi_terjemahan(ini) {
+        var res = parseInt($(ini).val());
+        $(".daftar_adopsi_ext_terjemahan").slideDown("fast", function () {
+            if (res == 1) {
+                //$('.jenis_name').html('Identik');
+                //$(".daftar_adopsi_ext_name").show('fast');
+                $('#PROPOSAL_METODE_ADOPSI_terjemahan').select2("destroy");
+                $("#PROPOSAL_METODE_ADOPSI_terjemahan option[value='1']").attr("disabled", "disabled");
+                $('#PROPOSAL_METODE_ADOPSI_terjemahan').select2();
+                $('#PROPOSAL_METODE_ADOPSI_terjemahan').val("").trigger("change");
+                //var data_option = '<option value="1">Publikasi ulang - cetak ulang (Republication Reprint)</option><option value="2">Terjemahan 1 Bahasa (Indonesia)</option><option value="3">Terjemahan 2 Bahasa (Indonesia dan Inggris)</option>';
+                //$('#PROPOSAL_METODE_ADOPSI').html(data_option);
+            } 
         });
 
     }
