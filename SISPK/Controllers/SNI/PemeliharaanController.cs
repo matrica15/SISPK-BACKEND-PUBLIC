@@ -290,7 +290,7 @@ namespace SISPK.Controllers.Pemeliharaan
             if (where_clause != "" || search_clause != "")
             {
                 inject_clause_count = "WHERE " + where_clause + " " + search_clause;
-                inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER,(TO_CHAR(SYSDATE,'YYYY ')-REGEXP_SUBSTR(SNI_NOMOR, '[^:'']+', 1,2)) AS UMUR_SNI FROM (SELECT * FROM VIEW_SNI WHERE " + where_clause + " " + search_clause + " ORDER BY " + order + " " + sort + ") T1 WHERE ROWNUM <= " + Convert.ToString(limit + start) + ") WHERE SNI_MAINTENANCE_STS IS NULL AND UMUR_SNI >= 1 AND ROWNUMBER > " + Convert.ToString(start);
+                inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER,(TO_CHAR(SYSDATE,'YYYY ')-REGEXP_SUBSTR(SNI_NOMOR, '[^:'']+', 1,2)) AS UMUR_SNI FROM (SELECT * FROM VIEW_SNI WHERE " + where_clause + " " + search_clause + " ORDER BY " + order + " " + sort + ") T1 WHERE ROWNUM <= " + Convert.ToString(limit + start) + ") WHERE SNI_MAINTENANCE_STS IS NULL AND UMUR_SNI > 5 AND ROWNUMBER > " + Convert.ToString(start);
             }
             var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_SNI " + inject_clause_count);
             var SelectedData = db.Database.SqlQuery<VIEW_SNI>(inject_clause_select);
@@ -386,9 +386,9 @@ namespace SISPK.Controllers.Pemeliharaan
                 Convert.ToString("<center>"+list.SNI_JUDUL+"</center>"),
                 Convert.ToString("<center>"+list.MAINTENANCE_DETAIL_NO_SURAT+"</center>"), 
                 //Convert.ToString(list.MAINTENANCE_DATE_TEXT),
-                Convert.ToString("<center>"+list.MAINTENANCE_DETAIL_REV_DATE+"</center>"),
+                "<center>"+(Convert.ToString(list.MAINTENANCE_DETAIL_REV_DATE)).Substring(0,10)+"</center>",
                 Convert.ToString("<center>"+list.DETAIL_RESULT_TEXT+"</center>"),
-                Convert.ToString("<center>"+list.MAINTENANCE_DETAIL_REPORT_DATE+"</center>"),
+                "<center>"+(Convert.ToString(list.MAINTENANCE_DETAIL_REPORT_DATE)).Substring(0,10)+"</center>",
                 Convert.ToString("<center><a href='Pemeliharaan/Detail/"+list.MAINTENANCE_DETAIL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a></center>"),
                 //Convert.ToString("<center><a href='PenetapanSNI/Detail/"+list.SNI_SK_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a></center>"),
             };
