@@ -242,6 +242,7 @@
     <Compile Include="Controllers\Master\IcsController.cs" />
     <Compile Include="Controllers\Master\InstansiController.cs" />
     <Compile Include="Controllers\Master\KomtekController.cs" />
+    <Compile Include="Controllers\Master\Sk_penetapan_pnpsController.cs" />
     <Compile Include="Controllers\Master\SniStyleController.cs" />
     <Compile Include="Controllers\Master\SubkomtekController.cs" />
     <Compile Include="Controllers\Master\TasController.cs" />
@@ -5870,6 +5871,10 @@
     <Content Include="Web.config" />
     <Content Include="Format\Laporan\TEMPLATE_HAK_PATEN.docx" />
     <Content Include="Views\JajakPendapat\EditComment.cshtml" />
+    <Content Include="Views\Pemeliharaan\Detail_sni.cshtml" />
+    <Content Include="Views\Sk_penetapan_pnps\Index.cshtml" />
+    <Content Include="Views\Sk_penetapan_pnps\create.cshtml" />
+    <Content Include="Views\Sk_penetapan_pnps\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -6007,6 +6012,7 @@
     <Folder Include="Upload\Dokumen\LAINNYA\LPK\" />
     <Folder Include="Upload\Dokumen\RANCANGAN_SNI\" />
     <Folder Include="Upload\Dokumen\REFERENSI\" />
+    <Folder Include="Upload\Dokumen\SK_PENETAPAN_PNPS\" />
     <Folder Include="Upload\Dokumen\SK_REGULASI\" />
     <Folder Include="Upload\Upload\" />
   </ItemGroup>

@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">No SNI / Judul SNI<span class="required">*</span></label>
                             <div class="col-md-9">
-                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih No SNI / Judul SNI" id="MAINTENANCE_DETAIL_SNI_ID" name="MAINTENANCE_DETAIL_SNI_ID" onchange="sni()">
+                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih No SNI / Judul SNI" id="MAINTENANCE_DETAIL_SNI_ID" name="MAINTENANCE_DETAIL_SNI_ID" @*onchange="sni()"*@>
                                     <option></option>
                                     @foreach (var sni in ViewBag.V_sni)
                                     {
@@ -30,20 +30,19 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis</label>
                             <div class="col-md-3 control-label detailtext">
                                 <h5 id="MAINTENANCE_KOMTEK1"></h5>
-                                @*<input type="text" class="form-control" id="MAINTENANCE_KOMTEK1">*@
                                 <input type="hidden" class="form-control" name="MAINTENANCE_KOMTEK" id="MAINTENANCE_KOMTEK">
                             </div>
-                        </div>
+                        </div>*@
 
-                        @*<div class="form-group">
+                        <div class="form-group">
                             <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis <span class="required">*</span></label>
                             <div class="col-md-9">
                                 <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih Komite Teknis / Subkomite Teknis" id="MAINTENANCE_KOMTEK" name="MAINTENANCE_KOMTEK">
-                                    <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih Komite Teknis / Subkomite Teknis" id="MAINTENANCE_KOMTEK" name="MAINTENANCE_KOMTEK" onchange="komtek()">
+                                    @*<select class="form-control select2me wajib col-md-12" data-placeholder="Pilih Komite Teknis / Subkomite Teknis" id="MAINTENANCE_KOMTEK" name="MAINTENANCE_KOMTEK" onchange="komtek()">*@
                                     <option></option>
                                     @foreach (var kt in ViewBag.ListKomtek)
                                     {
@@ -51,7 +50,7 @@
                                     }
                                 </select>
                             </div>
-                        </div>*@
+                        </div>
 
                         <div class="form-group">
                             <label class="control-label col-md-3">Tanggal Kaji Ulang<span class="required">*</span></label>

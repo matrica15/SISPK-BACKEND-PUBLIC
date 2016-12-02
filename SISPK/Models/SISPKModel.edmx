@@ -1206,9 +1206,12 @@ warning 6002: The table/view 'C##BSN_SISPK.TRX_REGULASI_TEKNIS_DETAIL' does not 
           </Key>
           <Property Name="PENETAPAN_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="PENETAPAN_NO_SK" Type="varchar2" MaxLength="255" />
-          <Property Name="TANGGAL_SK" Type="varchar2" MaxLength="255" />
+          <Property Name="TANGGAL_SK" Type="date" />
           <Property Name="JUDUL_SK" Type="varchar2" MaxLength="255" />
-          <Property Name="FILE" Type="varchar2" MaxLength="255" />
+          <Property Name="FILES" Type="varchar2" MaxLength="255" />
+          <Property Name="SK_LOCATION" Type="varchar2" MaxLength="255" />
+          <Property Name="CREATE_DATE" Type="date" />
+          <Property Name="CREATE_BY" Type="varchar2" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'C##BSN_SISPK.TRX_SNI' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1232,6 +1235,7 @@ warning 6002: The table/view 'C##BSN_SISPK.TRX_SNI' does not have a primary key 
           <Property Name="SNI_PUBLISH_END_DATE" Type="date" />
           <Property Name="SNI_TIDAK_BERLAKU" Type="number" Precision="38" Scale="0" />
           <Property Name="SNI_JUDUL_ENG" Type="varchar2" MaxLength="4000" />
+          <Property Name="SNI_MAINTENANCE_STS" Type="varchar2" MaxLength="4000" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'C##BSN_SISPK.TRX_SNI_DOC' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2415,6 +2419,7 @@ warning 6002: The table/view 'C##BSN_SISPK.VIEW_PEMELIHARAAN' does not have a pr
           <Property Name="KOMTEK_CODE" Type="varchar2" MaxLength="255" />
           <Property Name="MAINTENANCE_DETAIL_KJ_ULG_LOC" Type="varchar2" MaxLength="255" />
           <Property Name="MAINTENANCE_DETAIL_KJ_ULG_NAME" Type="varchar2" MaxLength="255" />
+          <Property Name="MAINTENANCE_DETAIL_NO_SURAT" Type="varchar2" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'C##BSN_SISPK.VIEW_POLLING' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3322,6 +3327,7 @@ warning 6002: The table/view 'C##BSN_SISPK.VIEW_SNI' does not have a primary key
           <Property Name="DSK_DOC_EDITABLE" Type="number" Precision="38" Scale="0" />
           <Property Name="PROPOSAL_ICS_DETAIL_NAME" Type="varchar2" MaxLength="4000" />
           <Property Name="IS_LIMIT_DOWNLOAD" Type="number" Precision="38" Scale="0" />
+          <Property Name="SNI_MAINTENANCE_STS" Type="varchar2" MaxLength="4000" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'C##BSN_SISPK.VIEW_SNI_ACUAN_NORMATIF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -5157,7 +5163,8 @@ FROM "C##BSN_SISPK"."TRX_REGULASI_TEKNIS_DETAIL" "TRX_REGULASI_TEKNIS_DETAIL"</D
 "TRX_SNI"."SNI_PUBLISH_START_DATE" AS "SNI_PUBLISH_START_DATE", 
 "TRX_SNI"."SNI_PUBLISH_END_DATE" AS "SNI_PUBLISH_END_DATE", 
 "TRX_SNI"."SNI_TIDAK_BERLAKU" AS "SNI_TIDAK_BERLAKU", 
-"TRX_SNI"."SNI_JUDUL_ENG" AS "SNI_JUDUL_ENG"
+"TRX_SNI"."SNI_JUDUL_ENG" AS "SNI_JUDUL_ENG",
+"TRX_SNI"."SNI_MAINTENANCE_STS" AS "SNI_MAINTENANCE_STS"
 FROM "C##BSN_SISPK"."TRX_SNI" "TRX_SNI"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="TRX_SNI_DOC" EntityType="Self.TRX_SNI_DOC" store:Type="Tables" store:Schema="C##BSN_SISPK">
@@ -6181,7 +6188,8 @@ FROM "C##BSN_SISPK"."VIEW_NOTIF" "VIEW_NOTIF"</DefiningQuery>
 "VIEW_PEMELIHARAAN"."KOMTEK_NAME" AS "KOMTEK_NAME", 
 "VIEW_PEMELIHARAAN"."KOMTEK_CODE" AS "KOMTEK_CODE", 
 "VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_KJ_ULG_LOC" AS "MAINTENANCE_DETAIL_KJ_ULG_LOC", 
-"VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_KJ_ULG_NAME" AS "MAINTENANCE_DETAIL_KJ_ULG_NAME"
+"VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_KJ_ULG_NAME" AS "MAINTENANCE_DETAIL_KJ_ULG_NAME",
+"VIEW_PEMELIHARAAN"."MAINTENANCE_DETAIL_NO_SURAT" AS "MAINTENANCE_DETAIL_NO_SURAT"
 FROM "C##BSN_SISPK"."VIEW_PEMELIHARAAN" "VIEW_PEMELIHARAAN"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VIEW_POLLING" EntityType="Self.VIEW_POLLING" store:Type="Views" store:Schema="C##BSN_SISPK">
@@ -7013,7 +7021,8 @@ FROM "C##BSN_SISPK"."VIEW_SK_PER_SNI" "VIEW_SK_PER_SNI"</DefiningQuery>
 "VIEW_SNI"."DSK_DOC_LINK" AS "DSK_DOC_LINK", 
 "VIEW_SNI"."DSK_DOC_EDITABLE" AS "DSK_DOC_EDITABLE", 
 "VIEW_SNI"."PROPOSAL_ICS_DETAIL_NAME" AS "PROPOSAL_ICS_DETAIL_NAME", 
-"VIEW_SNI"."IS_LIMIT_DOWNLOAD" AS "IS_LIMIT_DOWNLOAD"
+"VIEW_SNI"."IS_LIMIT_DOWNLOAD" AS "IS_LIMIT_DOWNLOAD",
+"VIEW_SNI"."SNI_MAINTENANCE_STS" AS "SNI_MAINTENANCE_STS"
 FROM "C##BSN_SISPK"."VIEW_SNI" "VIEW_SNI"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VIEW_SNI_ACUAN_NORMATIF" EntityType="Self.VIEW_SNI_ACUAN_NORMATIF" store:Type="Views" store:Schema="C##BSN_SISPK">
@@ -7879,9 +7888,12 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
           </Key>
           <Property Name="PENETAPAN_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="PENETAPAN_NO_SK" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="TANGGAL_SK" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TANGGAL_SK" Type="DateTime" />
           <Property Name="JUDUL_SK" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="FILE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FILES" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SK_LOCATION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CREATE_DATE" Type="DateTime" />
+          <Property Name="CREATE_BY" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TRX_TEST">
           <Key>
@@ -8988,6 +9000,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
           <Property Name="SNI_PUBLISH_END_DATE" Type="DateTime" />
           <Property Name="SNI_TIDAK_BERLAKU" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="SNI_JUDUL_ENG" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="SNI_MAINTENANCE_STS" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TRX_SNI_DOC">
           <Key>
@@ -10056,6 +10069,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
           <Property Name="KOMTEK_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="MAINTENANCE_DETAIL_KJ_ULG_LOC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="MAINTENANCE_DETAIL_KJ_ULG_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MAINTENANCE_DETAIL_NO_SURAT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="VIEW_POLLING">
           <Key>
@@ -10773,6 +10787,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
           <Property Name="DSK_DOC_EDITABLE" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="PROPOSAL_ICS_DETAIL_NAME" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="IS_LIMIT_DOWNLOAD" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SNI_MAINTENANCE_STS" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="VIEW_SNI_ACUAN_NORMATIF">
           <Key>
@@ -11666,11 +11681,14 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
           <EntitySetMapping Name="TRX_SK_PENETAPAN">
             <EntityTypeMapping TypeName="SISPKModel.TRX_SK_PENETAPAN">
               <MappingFragment StoreEntitySet="TRX_SK_PENETAPAN">
-                <ScalarProperty Name="FILE" ColumnName="FILE" />
+                <ScalarProperty Name="FILES" ColumnName="FILES" />
                 <ScalarProperty Name="JUDUL_SK" ColumnName="JUDUL_SK" />
                 <ScalarProperty Name="TANGGAL_SK" ColumnName="TANGGAL_SK" />
                 <ScalarProperty Name="PENETAPAN_NO_SK" ColumnName="PENETAPAN_NO_SK" />
                 <ScalarProperty Name="PENETAPAN_ID" ColumnName="PENETAPAN_ID" />
+                <ScalarProperty Name="SK_LOCATION" ColumnName="SK_LOCATION" />
+                <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -12838,6 +12856,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
                 <ScalarProperty Name="SNI_DOC_ID" ColumnName="SNI_DOC_ID" />
                 <ScalarProperty Name="SNI_PROPOSAL_ID" ColumnName="SNI_PROPOSAL_ID" />
                 <ScalarProperty Name="SNI_ID" ColumnName="SNI_ID" />
+                <ScalarProperty Name="SNI_MAINTENANCE_STS" ColumnName="SNI_MAINTENANCE_STS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -13932,6 +13951,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
                 <ScalarProperty Name="MAINTENANCE_DETAIL_SNI_ID" ColumnName="MAINTENANCE_DETAIL_SNI_ID" />
                 <ScalarProperty Name="MAINTENANCE_DETAIL_MTN_ID" ColumnName="MAINTENANCE_DETAIL_MTN_ID" />
                 <ScalarProperty Name="MAINTENANCE_DETAIL_ID" ColumnName="MAINTENANCE_DETAIL_ID" />
+                <ScalarProperty Name="MAINTENANCE_DETAIL_NO_SURAT" ColumnName="MAINTENANCE_DETAIL_NO_SURAT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -14661,6 +14681,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
                 <ScalarProperty Name="SNI_DOC_ID" ColumnName="SNI_DOC_ID" />
                 <ScalarProperty Name="SNI_PROPOSAL_ID" ColumnName="SNI_PROPOSAL_ID" />
                 <ScalarProperty Name="SNI_ID" ColumnName="SNI_ID" />
+                <ScalarProperty Name="SNI_MAINTENANCE_STS" ColumnName="SNI_MAINTENANCE_STS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

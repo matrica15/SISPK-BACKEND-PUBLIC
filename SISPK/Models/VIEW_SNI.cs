@@ -166,5 +166,6 @@ namespace SISPK.Models
         public Nullable<decimal> DSK_DOC_EDITABLE { get; set; }
         public string PROPOSAL_ICS_DETAIL_NAME { get; set; }
         public Nullable<decimal> IS_LIMIT_DOWNLOAD { get; set; }
+        public string SNI_MAINTENANCE_STS { get; set; }
     }
 }

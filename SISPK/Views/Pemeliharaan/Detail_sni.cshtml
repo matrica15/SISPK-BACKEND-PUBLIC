@@ -1,0 +1,67 @@
+﻿@{
+    var Detail = ViewBag.detail;
+}
+<style>
+    .select2-selection--single {
+        height: 100% !important;
+    }
+
+    .select2-selection__rendered {
+        word-wrap: break-word !important;
+        text-overflow: inherit !important;
+        white-space: normal !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Lihat Data SNI diatas 5 Tahun
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" enctype="multipart/form-data" target="_blank">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nomor SNI / Judul SNI</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.SNI_NOMOR / @Detail.SNI_JUDUL
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @Detail.KOMTEK_CODE . @Detail.KOMTEK_NAME
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">File Kaji Ulang SNI</label>
+                            <div class="col-md-9 control-label detailtext">
+                                @*@((Detail.MAINTENANCE_DETAIL_KJ_ULG_NAME == null) ? "-" : Html.Raw("<a href='" + Detail.MAINTENANCE_DETAIL_KJ_ULG_LOC + "" + Detail.MAINTENANCE_DETAIL_KJ_ULG_NAME + "' target='_blank'> Download File Hak Paten </a>"))*@
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <a href="@Url.Action("Index")" class="btn default" type="button">Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+

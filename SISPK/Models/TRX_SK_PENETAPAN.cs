@@ -16,8 +16,11 @@ namespace SISPK.Models
     {
         public decimal PENETAPAN_ID { get; set; }
         public string PENETAPAN_NO_SK { get; set; }
-        public string TANGGAL_SK { get; set; }
+        public Nullable<System.DateTime> TANGGAL_SK { get; set; }
         public string JUDUL_SK { get; set; }
-        public string FILE { get; set; }
+        public string FILES { get; set; }
+        public string SK_LOCATION { get; set; }
+        public Nullable<System.DateTime> CREATE_DATE { get; set; }
+        public string CREATE_BY { get; set; }
     }
 }
