@@ -1340,17 +1340,17 @@ namespace SISPK.Controllers.Perumusan
 
         }
         [HttpPost]
-        public ActionResult Pengesahan(TRX_PROPOSAL input, int[] PROPOSAL_REV_MERIVISI_ID, string[] PROPOSAL_ADOPSI_NOMOR_JUDUL, int[] PROPOSAL_REF_SNI_ID, string[] PROPOSAL_REF_NON_SNI, string[] BIBLIOGRAFI)
+        public ActionResult Pengesahan(TRX_PROPOSAL input, string PROPOSAL_TAS_DATE, int[] PROPOSAL_REV_MERIVISI_ID, string[] PROPOSAL_ADOPSI_NOMOR_JUDUL, int[] PROPOSAL_REF_SNI_ID, string[] PROPOSAL_REF_NON_SNI, string[] BIBLIOGRAFI)
         {
             //declare
             int PROPOSAL_ID = 0;
             int PROPOSAL_TAS_ID = 0;
-            string PROPOSAL_TAS_DATE = "";
+            //string PROPOSAL_TAS_DATE = "";
             int PROPOSAL_KOMTEK_ID = 0;
             string PROPOSAL_PNPS_CODE = "";
             PROPOSAL_ID = Convert.ToInt32(input.PROPOSAL_ID);
             PROPOSAL_TAS_ID = Convert.ToInt32(input.PROPOSAL_TAS_ID);
-            PROPOSAL_TAS_DATE = Convert.ToString(input.PROPOSAL_TAS_DATE);
+            //PROPOSAL_TAS_DATE = Convert.ToString(PROPOSAL_TAS_DATE);
             PROPOSAL_KOMTEK_ID = Convert.ToInt32(input.PROPOSAL_KOMTEK_ID);
             PROPOSAL_PNPS_CODE = input.PROPOSAL_PNPS_CODE;
 
@@ -1369,12 +1369,12 @@ namespace SISPK.Controllers.Perumusan
 
             var USER_ID = Convert.ToInt32(Session["USER_ID"]);
             var DATENOW = MixHelper.ConvertDateNow();
-            String PROPOSAL_TAS_DATE_CONVERT = "TO_DATE('" + PROPOSAL_TAS_DATE + "', 'dd-mm-yyyy hh24:mi:ss')";
+            String PROPOSAL_TAS_DATE_CONVERT = "TO_DATE('" + PROPOSAL_TAS_DATE + "', 'yyyy-mm-dd hh24:mi:ss')";
             var update = new SISPK.Controllers.Pengajuan.UsulanController();
             var KLAS_JNS_SNI = KLASIFIKASI_SNI;
             var hasilUpdate = update.UpdateProposal(input, Convert.ToInt32(Session["USER_ID"]), PROPOSAL_REV_MERIVISI_ID, PROPOSAL_ADOPSI_NOMOR_JUDUL, PROPOSAL_REF_SNI_ID, PROPOSAL_REF_NON_SNI, BIBLIOGRAFI,null,null);
 
-            //var test = "UPDATE TRX_PROPOSAL SET PROPOSAL_STATUS = 7,PROPOSAL_TAS_ID = " + PROPOSAL_TAS_ID + ",PROPOSAL_TAS_DATE = " + PROPOSAL_TAS_DATE_CONVERT + ",PROPOSAL_CLASIFICATION_ID = " + PROPOSAL_CLASIFICATION_ID + ", PROPOSAL_STATUS_PROSES = 0, PROPOSAL_IS_POLLING = NULL, PROPOSAL_POLLING_ID = NULL, PROPOSAL_UPDATE_DATE = " + DATENOW + ", KLASIFIKASI_JNS_SNI = '" + KLAS_JNS_SNI + "', PROPOSAL_UPDATE_BY = " + USER_ID + " WHERE PROPOSAL_ID = " + PROPOSAL_ID;
+            var test = "UPDATE TRX_PROPOSAL SET PROPOSAL_STATUS = 7,PROPOSAL_TAS_ID = " + PROPOSAL_TAS_ID + ",PROPOSAL_TAS_DATE = " + PROPOSAL_TAS_DATE_CONVERT + ",PROPOSAL_CLASIFICATION_ID = " + PROPOSAL_CLASIFICATION_ID + ", PROPOSAL_STATUS_PROSES = 0, PROPOSAL_IS_POLLING = NULL, PROPOSAL_POLLING_ID = NULL, PROPOSAL_UPDATE_DATE = " + DATENOW + ", KLASIFIKASI_JNS_SNI = '" + KLAS_JNS_SNI + "', PROPOSAL_UPDATE_BY = " + USER_ID + " WHERE PROPOSAL_ID = " + PROPOSAL_ID;
             //return Content("Status Save : " + test);
             if (APPROVAL_TYPE == 1)
             {

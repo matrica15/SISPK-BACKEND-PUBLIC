@@ -210,7 +210,7 @@
             </div>
             <div class="modal-body">
                 <div style="text-align:center;display:none;" class="opsi_akses_sni">
-                    <select class="form-control wajib col-md-12" data-placeholder="Pilih Tipe Akses Dokumen" id="DOC_ACCESS_ID" name="DOC_ACCESS_ID">
+                    <select class="form-control wajib col-md-12" data-placeholder="Pilih Tipe Akses Dokumen" id="DOC_ACCESS_ID" name="DOC_ACCESS_ID" onchange="set_download(this)">
                         <option value="0">Pilih Tipe Akses Dokumen</option>
                         @if (ViewBag.ListAkses.Count > 0)
                         {
@@ -237,17 +237,24 @@
 
 
 <script type="text/javascript">
-
+    function set_download(ini) {
+        var DOC_ACCESS_ID = $(ini).val();
+        var PROPOSAL_ID = $(ini).attr('PROPOSAL_ID');
+        $('#download_docx').attr({ 'href': '/Download/Files/SNIInternal?PROPOSAL_ID=' + PROPOSAL_ID + '&ACCESS_ID=' + DOC_ACCESS_ID + '&TYPE=docx' });
+        $('#download_pdf').attr({ 'href': '/Download/Files/SNIInternal?PROPOSAL_ID=' + PROPOSAL_ID + '&ACCESS_ID=' + DOC_ACCESS_ID + '&TYPE=pdf' });
+    }
     function download(id, tipe, PROPOSAL_ID) {
         if (tipe == 100) {
             $('.opsi_akses_sni').show();
             var DOC_ACCESS_ID = $('#DOC_ACCESS_ID').val();
             $('#download_docx').attr({ 'href': '/Download/Files/SNIInternal?PROPOSAL_ID=' + PROPOSAL_ID + '&ACCESS_ID=' + DOC_ACCESS_ID + '&TYPE=docx' });
             $('#download_pdf').attr({ 'href': '/Download/Files/SNIInternal?PROPOSAL_ID=' + PROPOSAL_ID + '&ACCESS_ID=' + DOC_ACCESS_ID + '&TYPE=pdf' });
+            $('#DOC_ACCESS_ID').attr('PROPOSAL_ID', PROPOSAL_ID);
         } else {
             $('.opsi_akses_sni').hide();
             $('#download_docx').attr({ 'href': '/Document/DocumentList/Download?docId=' + id });
             $('#download_pdf').attr({ 'href': '/Document/DocumentList/Download?docId=' + id + '&convert=pdf' });
+            $('#DOC_ACCESS_ID').RemoveAttr('PROPOSAL_ID');
         }
         jQuery('#download_doc_option').modal('show');
     }

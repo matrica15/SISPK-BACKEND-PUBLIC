@@ -39,14 +39,36 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Konseptor</label>
+                                <div class="col-md-9">
+                                    <div class="input-icon right">
+                                        <input id="PROPOSAL_KONSEPTOR" type="text" class="form-control tags wajib" placeholder="Tambah Pihak" name="PROPOSAL_KONSEPTOR" value="@Detail.PROPOSAL_KONSEPTOR" />
+                                    </div>
+                                    <div class="help-block">
+                                        <span class="badge badge-warning badge-roundless" style="text-transform: none;">Tekan Enter untuk data selanjutnya</span>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="form-group">
+                                <label class="control-label col-md-3">Konseptor</label>
                                 <div class="col-md-4 control-label detailtext">
                                     <input type="text" id="PROPOSAL_KONSEPTOR" name="PROPOSAL_KONSEPTOR" class="form-control wajib" value="@((Detail.PROPOSAL_KONSEPTOR == null) ? "" : Detail.PROPOSAL_KONSEPTOR)">
                                 </div>
-                            </div>
-                            <div class="form-group">
+                            </div>*@
+                            @*<div class="form-group">
                                 <label class="control-label col-md-3">Institusi Konseptor</label>
                                 <div class="col-md-4 control-label detailtext">
                                     <input type="text" id="PROPOSAL_INSTITUSI" name="PROPOSAL_INSTITUSI" class="form-control wajib " value="@((Detail.PROPOSAL_INSTITUSI == null) ? "" : Detail.PROPOSAL_INSTITUSI)">
+                                </div>
+                            </div>*@
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Institusi Konseptor</label>
+                                <div class="col-md-9">
+                                    <div class="input-icon right">
+                                        <input id="PROPOSAL_INSTITUSI" type="text" class="form-control tags wajib" placeholder="Tambah Pihak" name="PROPOSAL_INSTITUSI" value="@Detail.PROPOSAL_INSTITUSI" />
+                                    </div>
+                                    <div class="help-block">
+                                        <span class="badge badge-warning badge-roundless" style="text-transform: none;">Tekan Enter untuk data selanjutnya</span>
+                                    </div>
                                 </div>
                             </div>
                         }
@@ -721,6 +743,7 @@
             $(".amd_list").slideUp("fast");
             $(".ralat_list").slideUp("fast");
             $(".revisi_list").slideUp("fast");
+            $('.pasal_list').slideUp("fast");
             $(".jalur_perumusan").slideDown("fast");
             $(".daftar_adopsi_terjemahan").slideDown("fast");
             $(".daftar_adopsi_ext_terjemahan").slideDown("fast");

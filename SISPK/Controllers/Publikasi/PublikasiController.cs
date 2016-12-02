@@ -156,6 +156,7 @@ namespace SISPK.Controllers.Publikasi
                     docx.Save(@"" + filePathdoc, Aspose.Words.SaveFormat.Docx);
                     docx.Save(@"" + filePathpdf, Aspose.Words.SaveFormat.Pdf);
                     docx.Save(@"" + filePathxml);
+                    int Total_Hal = docx.PageCount;
                     ////string filePathpdf = path + "SNI_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + "(publish).pdf";
                     //string filePathxml = path + "SNI_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + "(publish).xml";
                     //pdf.Save(@"" + filePathpdf, Aspose.Pdf.SaveFormat.Pdf);
@@ -163,6 +164,7 @@ namespace SISPK.Controllers.Publikasi
                     var LOGCODE_TANGGAPAN_MTPS = MixHelper.GetLogCode();
                     var fupdate = "UPDATE TRX_DOCUMENTS SET DOC_FILE_NAME = 'SNI_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + "(publish)'," +
                             "DOC_UPDATE_BY = " + UserId + "," +
+                            "DOC_INFO = " + Total_Hal + "," +
                             "DOC_UPDATE_DATE = " + datenow + "" +
                             "WHERE DOC_RELATED_ID = " + ts.SNI_PROPOSAL_ID + " AND DOC_FOLDER_ID = 8 AND DOC_RELATED_TYPE = 100";
 

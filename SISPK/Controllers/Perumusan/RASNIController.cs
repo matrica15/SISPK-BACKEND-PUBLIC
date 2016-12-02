@@ -519,9 +519,10 @@ namespace SISPK.Controllers.Perumusan
                     doc.Save(@"" + filePathdoc, Aspose.Words.SaveFormat.Docx);
                     doc.Save(@"" + filePathpdf, Aspose.Words.SaveFormat.Pdf);
                     doc.Save(@"" + filePathxml);
+                    int Total_Hal = doc.PageCount;
                     int LASTID_DATA_RSNI = MixHelper.GetSequence("TRX_DOCUMENTS");
                     var LOGCODE_DATA_RSNI = MixHelper.GetLogCode();
-                    var FNAME_DATA_RSNI = "DOC_ID,DOC_FOLDER_ID,DOC_RELATED_TYPE,DOC_RELATED_ID,DOC_NAME,DOC_DESCRIPTION,DOC_FILE_PATH,DOC_FILE_NAME,DOC_FILETYPE,DOC_EDITABLE,DOC_CREATE_BY,DOC_CREATE_DATE,DOC_STATUS,DOC_LOG_CODE";
+                    var FNAME_DATA_RSNI = "DOC_ID,DOC_FOLDER_ID,DOC_RELATED_TYPE,DOC_RELATED_ID,DOC_NAME,DOC_DESCRIPTION,DOC_FILE_PATH,DOC_FILE_NAME,DOC_FILETYPE,DOC_EDITABLE,DOC_CREATE_BY,DOC_CREATE_DATE,DOC_STATUS,DOC_INFO,DOC_LOG_CODE";
                     var FVALUE_DATA_RSNI = "'" + LASTID_DATA_RSNI + "', " +
                                 "'18', " +
                                 "'18', " +
@@ -535,6 +536,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
                                 "'1', " +
+                                "'" + Total_Hal + "', " +
                                 "'" + LOGCODE_DATA_RSNI + "'";
                     db.Database.ExecuteSqlCommand("INSERT INTO TRX_DOCUMENTS (" + FNAME_DATA_RSNI + ") VALUES (" + FVALUE_DATA_RSNI.Replace("''", "NULL") + ")");
                     String objekTanggapan = FVALUE_DATA_RSNI.Replace("'", "-");

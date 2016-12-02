@@ -412,11 +412,37 @@ namespace SISPK.Controllers.Perumusan
             return View();
         }
         [HttpPost, ValidateInput(false)]
-        public ActionResult Comment(TRX_POLLING_DETAILS input, FormCollection form)
+        public ActionResult Comment(TRX_POLLING_DETAILS input, VIEW_POLLING VP, FormCollection form)
         {
             var GetIP = db.Database.SqlQuery<SYS_CONFIG>("SELECT * FROM SYS_CONFIG WHERE CONFIG_ID = 12").FirstOrDefault();
             var GetUser = db.Database.SqlQuery<SYS_CONFIG>("SELECT * FROM SYS_CONFIG WHERE CONFIG_ID = 13").FirstOrDefault();
             var GetPassword = db.Database.SqlQuery<SYS_CONFIG>("SELECT * FROM SYS_CONFIG WHERE CONFIG_ID = 14").FirstOrDefault();
+            var GetPath = db.Database.SqlQuery<SYS_CONFIG>("SELECT * FROM SYS_CONFIG WHERE CONFIG_ID = 15").FirstOrDefault();
+            var TGL_SEKARANG = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            string path = "";
+            string filePathpdf = "";
+            var pathnya = "";
+
+            HttpPostedFileBase file4 = Request.Files["POLLING_FILE"];
+            if (file4.ContentLength > 0)
+            {
+                Directory.CreateDirectory(GetPath.CONFIG_VALUE + "/Upload/DokPolling");
+                path = GetPath.CONFIG_VALUE + "/Upload/DokPolling/";
+                Stream stremdokumen = file4.InputStream;
+                byte[] appData = new byte[file4.ContentLength + 1];
+                stremdokumen.Read(appData, 0, file4.ContentLength);
+                string Extension = Path.GetExtension(file4.FileName);
+                if (Extension.ToLower() == ".pdf")
+                {
+                    Aspose.Pdf.Document pdf = new Aspose.Pdf.Document(stremdokumen);
+                    //Aspose.Words.Document docx = new Aspose.Words.Document(stremdokumen);
+                    filePathpdf = path + "POLLING_" + VP.PROPOSAL_ID + "_" + TGL_SEKARANG + ".pdf";
+                    pdf.Save(@"" + filePathpdf, Aspose.Pdf.SaveFormat.Pdf);
+                }
+                pathnya = "/Upload/DokPolling/POLLING_" + VP.PROPOSAL_ID + "_" + TGL_SEKARANG + ".pdf";
+            }
+
             using (OracleConnection con = new OracleConnection("Data Source=" + GetIP.CONFIG_VALUE + ";User ID=" + GetUser.CONFIG_VALUE + ";PASSWORD=" + GetPassword.CONFIG_VALUE + ";"))
             {
                 con.Open();
@@ -428,13 +454,13 @@ namespace SISPK.Controllers.Perumusan
                     int lastid = MixHelper.GetSequence("TRX_POLLING_DETAILS");
                     var datenow = MixHelper.ConvertDateNow();
                     var year_now = DateTime.Now.Year;
-                    var fname = "POLLING_DETAIL_ID,POLLING_DETAIL_POLLING_ID,POLLING_DETAIL_OPTION,POLLING_DETAIL_REASON,POLLING_DETAIL_PASAL,POLLING_DETAIL_CREATE_BY,POLLING_DETAIL_CREATE_DATE,POLLING_DETAIL_STATUS,POLLING_DETAIL_INPUT_TYPE";
+                    var fname = "POLLING_DETAIL_ID,POLLING_DETAIL_POLLING_ID,POLLING_DETAIL_OPTION,POLLING_DETAIL_REASON,POLLING_DETAIL_PASAL,POLLING_DETAIL_CREATE_BY,POLLING_DETAIL_CREATE_DATE,POLLING_DETAIL_STATUS,POLLING_DETAIL_FILE_PATH,POLLING_DETAIL_INPUT_TYPE";
 
 
                     cmd.Connection = con;
                     cmd.CommandType = System.Data.CommandType.Text;
 
-                    cmd.CommandText = " INSERT INTO TRX_POLLING_DETAILS (" + fname + ") VALUES ('" + lastid + "','" + input.POLLING_DETAIL_POLLING_ID + "','" + input.POLLING_DETAIL_OPTION + "',:parameter,'" + input.POLLING_DETAIL_PASAL + "'," + UserId + "," + datenow + ",1,1) ";
+                    cmd.CommandText = " INSERT INTO TRX_POLLING_DETAILS (" + fname + ") VALUES ('" + lastid + "','" + input.POLLING_DETAIL_POLLING_ID + "','" + input.POLLING_DETAIL_OPTION + "',:parameter,'" + input.POLLING_DETAIL_PASAL + "'," + UserId + "," + datenow + ",1,'" + pathnya + "',1) ";
 
                     OracleParameter oracleParameterClob = new OracleParameter();
                     oracleParameterClob.OracleDbType = OracleDbType.Clob;
