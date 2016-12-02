@@ -79,6 +79,8 @@ namespace SISPK.Models
         public Nullable<decimal> PROPOSAL_IS_BATAL { get; set; }
         public string PROPOSAL_BATAL_ATTACHMENT { get; set; }
         public Nullable<decimal> PROPOSAL_CLASIFICATION_ID { get; set; }
+        public string PROPOSAL_RETEK_ID { get; set; }
+        public string PROPOSAL_LPK_ID { get; set; }
         public string PROPOSAL_CLASIFICATION_NAME { get; set; }
         public string PROPOSAL_ICS_NAME { get; set; }
         public Nullable<decimal> PROPOSAL_CREATE_BY { get; set; }
@@ -143,11 +145,9 @@ namespace SISPK.Models
         public string POLLING_REASON { get; set; }
         public Nullable<decimal> POLLING_IS_KUORUM { get; set; }
         public Nullable<decimal> POLLING_JML_PARTISIPAN { get; set; }
-        public string PROPOSAL_RETEK_ID { get; set; }
-        public string PROPOSAL_LPK_ID { get; set; }
         public string PROPOSAL_HAK_PATEN_LOCATION { get; set; }
         public string PROPOSAL_HAK_PATEN_NAME { get; set; }
-        public string PROPOSAL_KET_BATAL { get; set; }
         public string KLASIFIKASI_JNS_SNI { get; set; }
+        public string PROPOSAL_KET_BATAL { get; set; }
     }
 }

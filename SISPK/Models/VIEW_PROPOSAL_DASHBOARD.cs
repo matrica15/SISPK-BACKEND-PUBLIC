@@ -12,21 +12,8 @@ namespace SISPK.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class VIEW_SNI
+    public partial class VIEW_PROPOSAL_DASHBOARD
     {
-        public decimal SNI_ID { get; set; }
-        public Nullable<decimal> SNI_PROPOSAL_ID { get; set; }
-        public Nullable<decimal> SNI_DOC_ID { get; set; }
-        public string SNI_NOMOR { get; set; }
-        public string SNI_JUDUL { get; set; }
-        public Nullable<decimal> SNI_STATUS { get; set; }
-        public string SNI_JUDUL_ENG { get; set; }
-        public Nullable<decimal> SNI_IS_PUBLISH { get; set; }
-        public Nullable<System.DateTime> SNI_PUBLISH_START_DATE { get; set; }
-        public string SNI_PUBLISH_START_DATE_NAME { get; set; }
-        public Nullable<System.DateTime> SNI_PUBLISH_END_DATE { get; set; }
-        public string SNI_PUBLISH_END_DATE_NAME { get; set; }
-        public Nullable<decimal> SNI_TIDAK_BERLAKU { get; set; }
         public decimal PROPOSAL_ID { get; set; }
         public Nullable<decimal> PROPOSAL_TYPE { get; set; }
         public string PROPOSAL_TYPE_NAME { get; set; }
@@ -48,6 +35,17 @@ namespace SISPK.Models
         public string PROPOSAL_RUANG_LINGKUP { get; set; }
         public string PROPOSAL_RUANG_LINGKUP_ENG { get; set; }
         public Nullable<decimal> PROPOSAL_JENIS_PERUMUSAN { get; set; }
+        public string PROPOSAL_ABSTRAK { get; set; }
+        public string PROPOSAL_ABSTRAK_ENG { get; set; }
+        public string PROPOSAL_MANFAAT_PENERAPAN { get; set; }
+        public Nullable<decimal> PROPOSAL_IS_ORG_MENDUKUNG { get; set; }
+        public string PROPOSAL_DUKUNGAN_FILE_PATH { get; set; }
+        public Nullable<System.DateTime> PROPOSAL_TAS_DATE { get; set; }
+        public Nullable<decimal> PROPOSAL_TAS_ID { get; set; }
+        public string PROPOSAL_FORMULIR_FILE_PATH { get; set; }
+        public string PROPOSAL_JP_FILE_PATH { get; set; }
+        public string PROPOSAL_IS_DUPLIKASI_DESC { get; set; }
+        public string PROPOSAL_CODE { get; set; }
         public string PROPOSAL_JENIS_PERUMUSAN_NAME { get; set; }
         public Nullable<decimal> PROPOSAL_JALUR { get; set; }
         public string PROPOSAL_JALUR_NAME { get; set; }
@@ -79,9 +77,12 @@ namespace SISPK.Models
         public Nullable<decimal> PROPOSAL_IS_POLLING { get; set; }
         public Nullable<decimal> PROPOSAL_POLLING_ID { get; set; }
         public Nullable<decimal> PROPOSAL_IS_BATAL { get; set; }
+        public string PROPOSAL_BATAL_ATTACHMENT { get; set; }
+        public Nullable<decimal> PROPOSAL_CLASIFICATION_ID { get; set; }
+        public string PROPOSAL_RETEK_ID { get; set; }
+        public string PROPOSAL_LPK_ID { get; set; }
+        public string PROPOSAL_CLASIFICATION_NAME { get; set; }
         public string PROPOSAL_ICS_NAME { get; set; }
-        public string PROPOSAL_ABSTRAK { get; set; }
-        public string PROPOSAL_ABSTRAK_ENG { get; set; }
         public Nullable<decimal> PROPOSAL_CREATE_BY { get; set; }
         public Nullable<System.DateTime> PROPOSAL_CREATE_DATE { get; set; }
         public string PROPOSAL_CREATE_DATE_NAME { get; set; }
@@ -92,6 +93,7 @@ namespace SISPK.Models
         public Nullable<decimal> PROPOSAL_STATUS_PROSES { get; set; }
         public string PROPOSAL_LOG_CODE { get; set; }
         public Nullable<decimal> PROPOSAL_SNI_ID_OLD { get; set; }
+        public string PROPOSAL_NO_SURAT_PEMBATALAN { get; set; }
         public Nullable<decimal> KOMTEK_ID { get; set; }
         public string KOMTEK_PARENT_CODE { get; set; }
         public string KOMTEK_CODE { get; set; }
@@ -121,6 +123,14 @@ namespace SISPK.Models
         public Nullable<decimal> APPROVAL_BY { get; set; }
         public string USER_FULL_NAME { get; set; }
         public Nullable<decimal> APPROVAL_STATUS_SESSION { get; set; }
+        public Nullable<decimal> ST_ID { get; set; }
+        public Nullable<decimal> ST_PROPOSAL_ID { get; set; }
+        public string ST_NO_SURAT { get; set; }
+        public string ST_LAMPIRAN { get; set; }
+        public Nullable<System.DateTime> ST_DATE { get; set; }
+        public Nullable<decimal> ST_PROPOSAL_STATUS { get; set; }
+        public Nullable<decimal> ST_VERSI { get; set; }
+        public Nullable<decimal> ST_STATUS { get; set; }
         public Nullable<decimal> POLLING_IS_CREATE { get; set; }
         public string POLLING_MONITORING_NAME { get; set; }
         public string POLLING_MONITORING_TYPE { get; set; }
@@ -135,37 +145,9 @@ namespace SISPK.Models
         public string POLLING_REASON { get; set; }
         public Nullable<decimal> POLLING_IS_KUORUM { get; set; }
         public Nullable<decimal> POLLING_JML_PARTISIPAN { get; set; }
-        public Nullable<decimal> DSNI_DOC_ID { get; set; }
-        public string DSNI_DOC_CODE { get; set; }
-        public string DSNI_DOC_NAME { get; set; }
-        public string DSNI_DOC_DESCRIPTION { get; set; }
-        public Nullable<decimal> DSNI_DOC_REGULATOR { get; set; }
-        public string DSNI_DOC_FILE_PATH { get; set; }
-        public string DSNI_DOC_FILE_NAME { get; set; }
-        public string DSNI_DOC_FILETYPE { get; set; }
-        public string DSNI_DOC_LINK { get; set; }
-        public Nullable<decimal> DSNI_DOC_EDITABLE { get; set; }
-        public Nullable<decimal> SNI_SK_ID { get; set; }
-        public Nullable<decimal> SNI_SK_SNI_ID { get; set; }
-        public Nullable<decimal> SNI_SK_DOC_ID { get; set; }
-        public string SNI_SK_NOMOR { get; set; }
-        public Nullable<System.DateTime> SNI_SK_DATE { get; set; }
-        public string SNI_SK_DATE_NAME { get; set; }
-        public Nullable<decimal> SNI_SK_STATUS { get; set; }
-        public Nullable<decimal> DSK_DOC_ID { get; set; }
-        public string DSK_DOC_CODE { get; set; }
-        public string DSK_DOC_NUMBER { get; set; }
-        public string DSK_DOC_NAME { get; set; }
-        public string DSK_DOC_DESCRIPTION { get; set; }
-        public Nullable<decimal> DSK_DOC_REGULATOR { get; set; }
-        public string DSK_DOC_INFO { get; set; }
-        public string DSK_DOC_FILE_PATH { get; set; }
-        public string DSK_DOC_FILE_NAME { get; set; }
-        public string DSK_DOC_FILETYPE { get; set; }
-        public string DSK_DOC_LINK { get; set; }
-        public Nullable<decimal> DSK_DOC_EDITABLE { get; set; }
-        public string PROPOSAL_ICS_DETAIL_NAME { get; set; }
-        public Nullable<decimal> IS_LIMIT_DOWNLOAD { get; set; }
-        public string SNI_MAINTENANCE_STS { get; set; }
+        public string PROPOSAL_HAK_PATEN_LOCATION { get; set; }
+        public string PROPOSAL_HAK_PATEN_NAME { get; set; }
+        public string KLASIFIKASI_JNS_SNI { get; set; }
+        public string PROPOSAL_KET_BATAL { get; set; }
     }
 }

@@ -242,6 +242,7 @@
     <Compile Include="Controllers\Master\IcsController.cs" />
     <Compile Include="Controllers\Master\InstansiController.cs" />
     <Compile Include="Controllers\Master\KomtekController.cs" />
+    <Compile Include="Controllers\Master\Sk_penetapan_pnpsController.cs" />
     <Compile Include="Controllers\Master\SniStyleController.cs" />
     <Compile Include="Controllers\Master\SubkomtekController.cs" />
     <Compile Include="Controllers\Master\TasController.cs" />
@@ -319,9 +320,6 @@
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MASTER_KOMTEK_ANGGOTA.cs">
-      <DependentUpon>SISPKModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MASTER_KOMTEK_ANGGOTA_BACKUP.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MASTER_KOMTEK_ICS.cs">
@@ -441,6 +439,9 @@
     <Compile Include="Models\TRX_MAINTENANCES.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TRX_MAINTENANCES_copy.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TRX_MAINTENANCE_DETAILS.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
@@ -480,6 +481,9 @@
     <Compile Include="Models\TRX_REGULASI_TEKNIS_DETAIL.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TRX_SK_PENETAPAN.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TRX_SNI.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
@@ -493,6 +497,9 @@
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TRX_SURAT_TUGAS.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TRX_TEST.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_MASTER_KOMITE_TEKNIS.cs">
@@ -601,6 +608,9 @@
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VIEW_PROPOSAL.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VIEW_PROPOSAL_DASHBOARD.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VIEW_PROPOSAL_ICS.cs">
@@ -5861,6 +5871,10 @@
     <Content Include="Web.config" />
     <Content Include="Format\Laporan\TEMPLATE_HAK_PATEN.docx" />
     <Content Include="Views\JajakPendapat\EditComment.cshtml" />
+    <Content Include="Views\Pemeliharaan\Detail_sni.cshtml" />
+    <Content Include="Views\Sk_penetapan_pnps\Index.cshtml" />
+    <Content Include="Views\Sk_penetapan_pnps\create.cshtml" />
+    <Content Include="Views\Sk_penetapan_pnps\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -5998,6 +6012,7 @@
     <Folder Include="Upload\Dokumen\LAINNYA\LPK\" />
     <Folder Include="Upload\Dokumen\RANCANGAN_SNI\" />
     <Folder Include="Upload\Dokumen\REFERENSI\" />
+    <Folder Include="Upload\Dokumen\SK_PENETAPAN_PNPS\" />
     <Folder Include="Upload\Dokumen\SK_REGULASI\" />
     <Folder Include="Upload\Upload\" />
   </ItemGroup>

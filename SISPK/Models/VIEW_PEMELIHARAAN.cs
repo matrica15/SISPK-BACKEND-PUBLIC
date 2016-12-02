@@ -41,5 +41,6 @@ namespace SISPK.Models
         public string KOMTEK_CODE { get; set; }
         public string MAINTENANCE_DETAIL_KJ_ULG_LOC { get; set; }
         public string MAINTENANCE_DETAIL_KJ_ULG_NAME { get; set; }
+        public string MAINTENANCE_DETAIL_NO_SURAT { get; set; }
     }
 }

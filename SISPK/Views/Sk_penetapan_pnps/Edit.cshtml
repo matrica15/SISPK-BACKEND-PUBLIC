@@ -1,0 +1,173 @@
+﻿@{ 
+    var sk = ViewBag.sk;
+    string tgl = Convert.ToString(sk.TANGGAL_SK);
+    string tgl1 = tgl.Substring(0,10);
+}
+
+<style>
+    .select2-selection--single {
+        height: 100% !important;
+    }
+
+    .select2-selection__rendered {
+        word-wrap: break-word !important;
+        text-overflow: inherit !important;
+        white-space: normal !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Ubah SK Penetapan PNPS
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" action="/Master/Sk_penetapan_pnps/Edit" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">No SK <span class="required">*</span></label>
+                            <div class="col-md-3">
+                                <div class="input-icon right">
+                                    <input type="hidden" id="PENETAPAN_ID" name="PENETAPAN_ID" class="form-control wajib " value="@sk.PENETAPAN_ID">
+                                    <input type="hidden" id="PENETAPAN_NO_SK" name="PENETAPAN_NO_SK" class="form-control wajib " value="@sk.PENETAPAN_NO_SK">
+                                    <input type="text" class="form-control " value="@sk.PENETAPAN_NO_SK" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Judul SK <span class="required">*</span></label>
+                            <div class="col-md-3">
+                                <div class="input-icon right">
+                                    <input type="text" id="JUDUL_SK" name="JUDUL_SK" class="form-control wajib " value="@sk.JUDUL_SK">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Kaji Ulang<span class="required">*</span></label>
+                            <div class="col-md-3">
+                                <div class=" input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" class="form-control wajib" id="TANGGAL_SK" name="TANGGAL_SK">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Upload SK<span class="required">*</span></label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="input-group input-large">
+                                            <div class="form-control uneditable-input span3" data-trigger="fileinput">
+                                                <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename"></span>
+                                            </div>
+                                            <span class="input-group-addon btn default btn-file">
+                                                <span class="fileinput-new">Pilih File </span>
+                                                <span class="fileinput-exists">Ganti </span>
+                                                <input class="wajib" type="file" name="FILES" id="FILES" accept=".pdf,application/pdf" onchange="ValidasiInput(this)">
+                                            </span>
+                                            <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">Hapus </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="help-block">
+                                    format upload dalam bentuk file PDF<br/>
+                                    @((sk.FILES == null) ? "File belum diupload" : Html.Raw("<a href='" + sk.SK_LOCATION + "" + sk.FILES + "' target='_blank'>Download File SK Penetapan PNPS</a>"))
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button class="btn green" type="submit">Kirim</button>
+                                <a class="btn red" type="button" href="@Url.Action("index")">Batal</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var _validFileExtensions = [".pdf"];
+    function ValidasiInput(ini) {
+        var arrInputs = $(ini);
+        for (var i = 0; i < arrInputs.length; i++) {
+            var oInput = arrInputs[i];
+            if (oInput.type == "file") {
+                var sFileName = oInput.value;
+                if (sFileName.length > 0) {
+                    var blnValid = false;
+                    for (var j = 0; j < _validFileExtensions.length; j++) {
+                        var sCurExtension = _validFileExtensions[j];
+                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                            blnValid = true;
+                            break;
+                        }
+                    }
+
+                    if (!blnValid) {
+                        alert("Maaf, " + sFileName + " tidak dapat di Upload, Extensi yang dapat di Upload adalah : " + _validFileExtensions.join(", "));
+                        $(ini).val('');
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    var _validFileExtensions1 = [".docx"];
+    function ValidasiInput1(ini) {
+        var arrInputs = $(ini);
+        for (var i = 0; i < arrInputs.length; i++) {
+            var oInput = arrInputs[i];
+            if (oInput.type == "file") {
+                var sFileName = oInput.value;
+                if (sFileName.length > 0) {
+                    var blnValid = false;
+                    for (var j = 0; j < _validFileExtensions1.length; j++) {
+                        var sCurExtension = _validFileExtensions1[j];
+                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                            blnValid = true;
+                            break;
+                        }
+                    }
+
+                    if (!blnValid) {
+                        alert("Maaf, " + sFileName + " tidak dapat di Upload, Extensi yang dapat di Upload adalah : " + _validFileExtensions1.join(", "));
+                        $(ini).val('');
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+
+    });
+</script>

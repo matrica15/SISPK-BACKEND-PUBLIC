@@ -30,5 +30,6 @@ namespace SISPK.Models
         public Nullable<System.DateTime> SNI_PUBLISH_END_DATE { get; set; }
         public Nullable<decimal> SNI_TIDAK_BERLAKU { get; set; }
         public string SNI_JUDUL_ENG { get; set; }
+        public string SNI_MAINTENANCE_STS { get; set; }
     }
 }
