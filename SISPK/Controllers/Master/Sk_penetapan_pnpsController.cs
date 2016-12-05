@@ -27,14 +27,13 @@ namespace SISPK.Controllers.Master
             return View();
         }
         [HttpPost]
-        public ActionResult create(TRX_SK_PENETAPAN INPUT)
+        public ActionResult create(TRX_SK_PENETAPAN INPUT, string TANGGAL_SK = "")
         {
 
             var UserId = Session["USER_ID"];
             var logcode = MixHelper.GetLogCode();
             int lastid = MixHelper.GetSequence("SK_P_PNPS");
             var datenow = MixHelper.ConvertDateNow();
-            DateTime TANGGAL_SK_NEW = Convert.ToDateTime(INPUT.TANGGAL_SK);
 
             string pathnya = Server.MapPath("~/Upload/Dokumen/SK_PENETAPAN_PNPS/");
             HttpPostedFileBase file_paten = Request.Files["FILES"];
@@ -63,14 +62,14 @@ namespace SISPK.Controllers.Master
             var fname = "PENETAPAN_ID,PENETAPAN_NO_SK,TANGGAL_SK,JUDUL_SK,SK_LOCATION,FILES,CREATE_DATE,CREATE_BY"; 
             var fvalueS = ""+ lastid + ","+
                           "'" + INPUT.PENETAPAN_NO_SK + "'," +
-                          "TO_DATE ('" + INPUT.TANGGAL_SK + "','dd-mm-yyyy hh24:mi:ss')," +
+                          "TO_DATE ('" + TANGGAL_SK + "','yyyy-mm-dd hh24:mi:ss')," +
                           "'" + INPUT.JUDUL_SK + "'," +
                           "'/Upload/Dokumen/SK_PENETAPAN_PNPS/'," +
                           "'" + file_name_paten.Replace(" ", "_") + "'," +
                           "" + datenow + "," +
                           "'" + UserId + "'";
-            db.Database.ExecuteSqlCommand("INSERT INTO TRX_SK_PENETAPAN ("+fname+ ") VALUES (" + fvalueS.Replace("''", "NULL") + ")");
-            
+            db.Database.ExecuteSqlCommand("INSERT INTO TRX_SK_PENETAPAN (" + fname + ") VALUES (" + fvalueS.Replace("''", "NULL") + ")");
+
             TempData["Notifikasi"] = 1;
             TempData["NotifikasiText"] = "Data Berhasil Disimpan";
 

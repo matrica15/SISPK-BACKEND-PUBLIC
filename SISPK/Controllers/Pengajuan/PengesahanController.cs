@@ -411,7 +411,7 @@ namespace SISPK.Controllers.Pengajuan
                 Convert.ToString("<center>"+list.PROPOSAL_IS_URGENT_NAME+"</center>"),
                 Convert.ToString("<center>"+list.PROPOSAL_TAHAPAN+"</center>"),
                 Convert.ToString("<center>"+list.PROPOSAL_STATUS_NAME+"</center>"),
-                Convert.ToString("<center><a href='/Pengajuan/Pengesahan/Detail/"+list.PROPOSAL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a>"+((list.PROPOSAL_STATUS == 3 && list.PROPOSAL_STATUS_PROSES == 1)?"<a href='/Pengajuan/Pengesahan/Approval/"+list.PROPOSAL_ID+"' class='btn purple btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Pengesahan Usulan'><i class='action fa fa-check'></i></a>":"")+"<a href='javascript:void(0)' onclick='cetak_usulan("+list.PROPOSAL_ID+")' class='btn green btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Cetak'><i class='action fa fa-print'></i></a></center>"),
+                Convert.ToString("<center><a href='/Pengajuan/Pengesahan/Detail/"+list.PROPOSAL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a><a href='/Pengajuan/Pengesahan/update/"+list.PROPOSAL_ID+"' class='btn btn-warning btn-sm action tooltips btn_update' data-container='body' data-placement='top' data-original-title='Ubah'><i class='action fa fa-edit'></i></a>"+((list.PROPOSAL_STATUS == 3 && list.PROPOSAL_STATUS_PROSES == 1)?"<a href='/Pengajuan/Pengesahan/Approval/"+list.PROPOSAL_ID+"' class='btn purple btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Pengesahan Usulan'><i class='action fa fa-check'></i></a>":"")+"<a href='javascript:void(0)' onclick='cetak_usulan("+list.PROPOSAL_ID+")' class='btn green btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Cetak'><i class='action fa fa-print'></i></a></center>"),
             };
             return Json(new
             {
@@ -522,6 +522,412 @@ namespace SISPK.Controllers.Pengajuan
                 res = AngkaHari;
             }
             return res;
+        }
+
+        public ActionResult Update(int id = 0)
+        {
+            var DataProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + id).SingleOrDefault();
+            var DataKomtek = (from komtek in db.MASTER_KOMITE_TEKNIS where komtek.KOMTEK_STATUS == 1 && komtek.KOMTEK_ID == DataProposal.KOMTEK_ID select komtek).SingleOrDefault();
+            var AcuanNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 1 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
+            var AcuanNonNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 2 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
+            var Bibliografi = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 3 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
+            var ICS = (from an in db.VIEW_PROPOSAL_ICS where an.PROPOSAL_ICS_REF_PROPOSAL_ID == id orderby an.ICS_CODE ascending select an).ToList();
+            var ListKomtek = (from komtek in db.MASTER_KOMITE_TEKNIS where komtek.KOMTEK_STATUS == 1 orderby komtek.KOMTEK_CODE ascending select komtek).ToList();
+            var AdopsiList = (from an in db.TRX_PROPOSAL_ADOPSI where an.PROPOSAL_ADOPSI_PROPOSAL_ID == id orderby an.PROPOSAL_ADOPSI_NOMOR_JUDUL ascending select an).ToList();
+            var RevisiList = db.Database.SqlQuery<VIEW_SNI_SELECT>("SELECT BB.* FROM TRX_PROPOSAL_REV AA INNER JOIN VIEW_SNI_SELECT BB ON AA.PROPOSAL_REV_MERIVISI_ID = BB.ID WHERE AA.PROPOSAL_REV_PROPOSAL_ID = '" + id + "' ORDER BY AA.PROPOSAL_REV_ID ASC").ToList();
+            var Lampiran = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + id + " AND DOC_RELATED_TYPE = 30").FirstOrDefault();
+            var Bukti = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + id + " AND DOC_RELATED_TYPE = 29").FirstOrDefault();
+            var Surat = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + id + " AND DOC_RELATED_TYPE = 32").FirstOrDefault();
+            var Outline = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + id + " AND DOC_RELATED_TYPE = 36").FirstOrDefault();
+
+            ViewData["DataProposal"] = DataProposal;
+            ViewData["AcuanNormatif"] = AcuanNormatif;
+            ViewData["AcuanNonNormatif"] = AcuanNonNormatif;
+            ViewData["Bibliografi"] = Bibliografi;
+            ViewData["ICS"] = ICS;
+            ViewData["Komtek"] = DataKomtek;
+            ViewData["ListKomtek"] = ListKomtek;
+            ViewData["AdopsiList"] = AdopsiList;
+            ViewData["RevisiList"] = RevisiList;
+            ViewData["Lampiran"] = Lampiran;
+            ViewData["Bukti"] = Bukti;
+            ViewData["Surat"] = Surat;
+            ViewData["Outline"] = Outline;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Update(TRX_PROPOSAL INPUT, int[] PROPOSAL_REV_MERIVISI_ID, string[] PROPOSAL_ADOPSI_NOMOR_JUDUL, int[] PROPOSAL_REF_SNI_ID, string[] PROPOSAL_REF_NON_SNI, string[] BIBLIOGRAFI, string[] PROPOSAL_LPK_ID, string[] PROPOSAL_RETEK_ID)
+        {
+            var ID = Convert.ToInt32(INPUT.PROPOSAL_ID);
+            var USER_ID = Convert.ToInt32(Session["USER_ID"]);
+            var LOGCODE = MixHelper.GetLogCode();
+            int LASTID = MixHelper.GetSequence("TRX_PROPOSAL");
+            var DATENOW = MixHelper.ConvertDateNow();
+            var DataProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + INPUT.PROPOSAL_ID).SingleOrDefault();
+            var PROPOSAL_LPK_ID_CONVERT = "";
+            var PROPOSAL_RETEK_ID_CONVERT = "";
+            if (PROPOSAL_LPK_ID == null)
+            {
+                PROPOSAL_LPK_ID_CONVERT = null;
+            }
+            else
+            {
+                PROPOSAL_LPK_ID_CONVERT = string.Join(";", PROPOSAL_LPK_ID);
+            }
+
+            if (PROPOSAL_RETEK_ID == null)
+            {
+                PROPOSAL_RETEK_ID_CONVERT = null;
+            }
+            else
+            {
+                PROPOSAL_RETEK_ID_CONVERT = string.Join(";", PROPOSAL_RETEK_ID);
+            }
+            //var PROPOSAL_LPK_ID_CONVERT = string.Join(";", PROPOSAL_LPK_ID);
+            //var PROPOSAL_RETEK_ID_CONVERT = string.Join(";", PROPOSAL_RETEK_ID);
+            PROPOSAL_LPK_ID_CONVERT = ((PROPOSAL_LPK_ID_CONVERT == null) ? "" : PROPOSAL_LPK_ID_CONVERT);
+            PROPOSAL_RETEK_ID_CONVERT = ((PROPOSAL_RETEK_ID_CONVERT == null) ? "" : PROPOSAL_RETEK_ID_CONVERT);
+
+            string pathnya = Server.MapPath("~/Upload/Dokumen/HAK_PATEN/");
+            HttpPostedFileBase file_paten = Request.Files["PROPOSAL_HAK_PATEN_LOCATION"];
+            var file_name_paten = "";
+            var filePath_paten = "";
+            var fileExtension_paten = "";
+            if (file_paten != null)
+            {
+                //Check whether Directory (Folder) exists.
+                if (!Directory.Exists(pathnya))
+                {
+                    //If Directory (Folder) does not exists. Create it.
+                    Directory.CreateDirectory(pathnya);
+                }
+                string lampiranregulasipath = file_paten.FileName;
+                if (lampiranregulasipath.Trim() != "")
+                {
+                    lampiranregulasipath = Path.GetFileNameWithoutExtension(file_paten.FileName);
+                    fileExtension_paten = Path.GetExtension(file_paten.FileName);
+                    file_name_paten = "HAK_PATEN_ID_PROPOSAL_" + ID + fileExtension_paten;
+                    filePath_paten = pathnya + file_name_paten.Replace(" ", "_");
+                    file_paten.SaveAs(filePath_paten);
+                }
+            }
+            var Dir = Convert.ToString("/Upload/Dokumen/HAK_PATEN/");
+            var fupdate = "";
+            if (INPUT.PROPOSAL_HAK_PATEN_LOCATION != null)
+            {
+                fupdate = "UPDATE TRX_PROPOSAL SET PROPOSAL_KOMTEK_ID = '" + INPUT.PROPOSAL_KOMTEK_ID + "'," +
+                        "PROPOSAL_KONSEPTOR = '" + INPUT.PROPOSAL_KONSEPTOR + "'," +
+                        "PROPOSAL_INSTITUSI = '" + INPUT.PROPOSAL_INSTITUSI + "'," +
+                        "PROPOSAL_JUDUL_PNPS = '" + INPUT.PROPOSAL_JUDUL_PNPS + "'," +
+                        "PROPOSAL_LPK_ID = '" + PROPOSAL_LPK_ID_CONVERT + "'," +
+                        "PROPOSAL_RETEK_ID = '" + PROPOSAL_RETEK_ID_CONVERT + "'," +
+                        "PROPOSAL_RUANG_LINGKUP = '" + INPUT.PROPOSAL_RUANG_LINGKUP + "'," +
+                        "PROPOSAL_JENIS_PERUMUSAN = '" + INPUT.PROPOSAL_JENIS_PERUMUSAN + "'," +
+                        "PROPOSAL_JALUR = '" + INPUT.PROPOSAL_JALUR + "'," +
+                        "PROPOSAL_JENIS_ADOPSI = '" + INPUT.PROPOSAL_JENIS_ADOPSI + "'," +
+                        "PROPOSAL_METODE_ADOPSI = '" + INPUT.PROPOSAL_METODE_ADOPSI + "'," +
+                        "PROPOSAL_TERJEMAHAN_SNI_ID = '" + INPUT.PROPOSAL_TERJEMAHAN_SNI_ID + "'," +
+                        "PROPOSAL_RALAT_SNI_ID = '" + INPUT.PROPOSAL_RALAT_SNI_ID + "'," +
+                        "PROPOSAL_AMD_SNI_ID = '" + INPUT.PROPOSAL_AMD_SNI_ID + "'," +
+                        "PROPOSAL_IS_URGENT = '" + INPUT.PROPOSAL_IS_URGENT + "'," +
+                        "PROPOSAL_PASAL = '" + INPUT.PROPOSAL_PASAL + "'," +
+                        "PROPOSAL_IS_HAK_PATEN = '" + INPUT.PROPOSAL_IS_HAK_PATEN + "'," +
+                        "PROPOSAL_IS_HAK_PATEN_DESC = '" + INPUT.PROPOSAL_IS_HAK_PATEN_DESC + "'," +
+                        "PROPOSAL_INFORMASI = '" + INPUT.PROPOSAL_INFORMASI + "'," +
+                        "PROPOSAL_TUJUAN = '" + INPUT.PROPOSAL_TUJUAN + "'," +
+                        "PROPOSAL_PROGRAM_PEMERINTAH = '" + INPUT.PROPOSAL_PROGRAM_PEMERINTAH + "'," +
+                        "PROPOSAL_PIHAK_BERKEPENTINGAN = '" + INPUT.PROPOSAL_PIHAK_BERKEPENTINGAN + "'," +
+                        "PROPOSAL_MANFAAT_PENERAPAN = '" + INPUT.PROPOSAL_MANFAAT_PENERAPAN + "'," +
+                        "PROPOSAL_IS_ORG_MENDUKUNG = '" + INPUT.PROPOSAL_IS_ORG_MENDUKUNG + "'," +
+                        "PROPOSAL_IS_DUPLIKASI_DESC = '" + INPUT.PROPOSAL_IS_DUPLIKASI_DESC + "'," +
+                        "PROPOSAL_UPDATE_BY = '" + USER_ID + "'," +
+                        "PROPOSAL_UPDATE_DATE = " + DATENOW + "," +
+                        "PROPOSAL_HAK_PATEN_LOCATION = '" + Dir + "'," +
+                        "PROPOSAL_HAK_PATEN_NAME = '" + file_name_paten.Replace(" ", "_") + "'," +
+                        "PROPOSAL_STATUS_PROSES = " + ((DataProposal.APPROVAL_TYPE == 0) ? 1 : DataProposal.PROPOSAL_STATUS_PROSES) + "," +
+                        "PROPOSAL_LOG_CODE = '" + LOGCODE + "' WHERE PROPOSAL_ID = " + INPUT.PROPOSAL_ID;
+            }
+            else
+            {
+                fupdate = "UPDATE TRX_PROPOSAL SET PROPOSAL_KOMTEK_ID = '" + INPUT.PROPOSAL_KOMTEK_ID + "'," +
+                        "PROPOSAL_KONSEPTOR = '" + INPUT.PROPOSAL_KONSEPTOR + "'," +
+                        "PROPOSAL_INSTITUSI = '" + INPUT.PROPOSAL_INSTITUSI + "'," +
+                        "PROPOSAL_JUDUL_PNPS = '" + INPUT.PROPOSAL_JUDUL_PNPS + "'," +
+                        "PROPOSAL_LPK_ID = '" + PROPOSAL_LPK_ID_CONVERT + "'," +
+                        "PROPOSAL_RETEK_ID = '" + PROPOSAL_RETEK_ID_CONVERT + "'," +
+                        "PROPOSAL_RUANG_LINGKUP = '" + INPUT.PROPOSAL_RUANG_LINGKUP + "'," +
+                        "PROPOSAL_JENIS_PERUMUSAN = '" + INPUT.PROPOSAL_JENIS_PERUMUSAN + "'," +
+                        "PROPOSAL_JALUR = '" + INPUT.PROPOSAL_JALUR + "'," +
+                        "PROPOSAL_JENIS_ADOPSI = '" + INPUT.PROPOSAL_JENIS_ADOPSI + "'," +
+                        "PROPOSAL_METODE_ADOPSI = '" + INPUT.PROPOSAL_METODE_ADOPSI + "'," +
+                        "PROPOSAL_TERJEMAHAN_SNI_ID = '" + INPUT.PROPOSAL_TERJEMAHAN_SNI_ID + "'," +
+                        "PROPOSAL_RALAT_SNI_ID = '" + INPUT.PROPOSAL_RALAT_SNI_ID + "'," +
+                        "PROPOSAL_AMD_SNI_ID = '" + INPUT.PROPOSAL_AMD_SNI_ID + "'," +
+                        "PROPOSAL_IS_URGENT = '" + INPUT.PROPOSAL_IS_URGENT + "'," +
+                        "PROPOSAL_PASAL = '" + INPUT.PROPOSAL_PASAL + "'," +
+                        "PROPOSAL_IS_HAK_PATEN = '" + INPUT.PROPOSAL_IS_HAK_PATEN + "'," +
+                        "PROPOSAL_IS_HAK_PATEN_DESC = '" + INPUT.PROPOSAL_IS_HAK_PATEN_DESC + "'," +
+                        "PROPOSAL_INFORMASI = '" + INPUT.PROPOSAL_INFORMASI + "'," +
+                        "PROPOSAL_TUJUAN = '" + INPUT.PROPOSAL_TUJUAN + "'," +
+                        "PROPOSAL_PROGRAM_PEMERINTAH = '" + INPUT.PROPOSAL_PROGRAM_PEMERINTAH + "'," +
+                        "PROPOSAL_PIHAK_BERKEPENTINGAN = '" + INPUT.PROPOSAL_PIHAK_BERKEPENTINGAN + "'," +
+                        "PROPOSAL_MANFAAT_PENERAPAN = '" + INPUT.PROPOSAL_MANFAAT_PENERAPAN + "'," +
+                        "PROPOSAL_IS_ORG_MENDUKUNG = '" + INPUT.PROPOSAL_IS_ORG_MENDUKUNG + "'," +
+                        "PROPOSAL_IS_DUPLIKASI_DESC = '" + INPUT.PROPOSAL_IS_DUPLIKASI_DESC + "'," +
+                        "PROPOSAL_UPDATE_BY = '" + USER_ID + "'," +
+                        "PROPOSAL_UPDATE_DATE = " + DATENOW + "," +
+                        "PROPOSAL_STATUS_PROSES = " + ((DataProposal.APPROVAL_TYPE == 0) ? 1 : DataProposal.PROPOSAL_STATUS_PROSES) + "," +
+                        "PROPOSAL_LOG_CODE = '" + LOGCODE + "' WHERE PROPOSAL_ID = " + INPUT.PROPOSAL_ID;
+            }
+
+
+            db.Database.ExecuteSqlCommand(fupdate);
+
+            var tester = fupdate;
+            //return Content(tester);
+            if (PROPOSAL_REV_MERIVISI_ID != null)
+            {
+                db.Database.ExecuteSqlCommand("DELETE TRX_PROPOSAL_REV WHERE PROPOSAL_REV_PROPOSAL_ID = " + INPUT.PROPOSAL_ID);
+                foreach (var PROPOSAL_REV_MERIVISI_ID_VAL in PROPOSAL_REV_MERIVISI_ID)
+                {
+                    var PROPOSAL_REV_ID = MixHelper.GetSequence("TRX_PROPOSAL_REV");
+                    db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_REV (PROPOSAL_REV_ID,PROPOSAL_REV_PROPOSAL_ID,PROPOSAL_REV_MERIVISI_ID) VALUES (" + PROPOSAL_REV_ID + "," + INPUT.PROPOSAL_ID + "," + PROPOSAL_REV_MERIVISI_ID_VAL + ")");
+                }
+            }
+            if (PROPOSAL_ADOPSI_NOMOR_JUDUL != null)
+            {
+                db.Database.ExecuteSqlCommand("DELETE TRX_PROPOSAL_ADOPSI WHERE PROPOSAL_ADOPSI_PROPOSAL_ID = " + INPUT.PROPOSAL_ID);
+                foreach (var PROPOSAL_ADOPSI_NOMOR_JUDUL_VAL in PROPOSAL_ADOPSI_NOMOR_JUDUL)
+                {
+                    var PROPOSAL_ADOPSI_ID = MixHelper.GetSequence("TRX_PROPOSAL_ADOPSI");
+                    db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_ADOPSI (PROPOSAL_ADOPSI_ID,PROPOSAL_ADOPSI_PROPOSAL_ID,PROPOSAL_ADOPSI_NOMOR_JUDUL) VALUES (" + PROPOSAL_ADOPSI_ID + "," + INPUT.PROPOSAL_ID + ",'" + PROPOSAL_ADOPSI_NOMOR_JUDUL_VAL + "')");
+                }
+            }
+
+            if (PROPOSAL_REF_SNI_ID != null)
+            {
+                db.Database.ExecuteSqlCommand("DELETE TRX_PROPOSAL_REFERENCE WHERE PROPOSAL_REF_TYPE = 1 AND PROPOSAL_REF_PROPOSAL_ID = " + INPUT.PROPOSAL_ID);
+                foreach (var SNI_ID in PROPOSAL_REF_SNI_ID)
+                {
+                    var PROPOSAL_REF_ID = MixHelper.GetSequence("TRX_PROPOSAL_REFERENCE");
+                    db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_REFERENCE (PROPOSAL_REF_ID,PROPOSAL_REF_PROPOSAL_ID,PROPOSAL_REF_TYPE,PROPOSAL_REF_SNI_ID) VALUES (" + PROPOSAL_REF_ID + "," + INPUT.PROPOSAL_ID + ",1," + SNI_ID + ")");
+                }
+            }
+            if (PROPOSAL_REF_NON_SNI != null)
+            {
+                db.Database.ExecuteSqlCommand("DELETE TRX_PROPOSAL_REFERENCE WHERE PROPOSAL_REF_TYPE = 2 AND PROPOSAL_REF_PROPOSAL_ID = " + INPUT.PROPOSAL_ID);
+                foreach (var DATA_NON_SNI_VAL in PROPOSAL_REF_NON_SNI)
+                {
+                    var PROPOSAL_REF_ID = MixHelper.GetSequence("TRX_PROPOSAL_REFERENCE");
+                    var CEK_PROPOSAL_REF_NON_SNI = db.Database.SqlQuery<MASTER_ACUAN_NON_SNI>("SELECT * FROM MASTER_ACUAN_NON_SNI WHERE ACUAN_NON_SNI_STATUS = 1 AND LOWER(ACUAN_NON_SNI_JUDUL) = '" + DATA_NON_SNI_VAL.ToLower() + "'").SingleOrDefault();
+                    if (CEK_PROPOSAL_REF_NON_SNI != null)
+                    {
+
+                        db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_REFERENCE (PROPOSAL_REF_ID,PROPOSAL_REF_PROPOSAL_ID,PROPOSAL_REF_TYPE,PROPOSAL_REF_SNI_ID,PROPOSAL_REF_EXT_JUDUL) VALUES (" + PROPOSAL_REF_ID + "," + INPUT.PROPOSAL_ID + ",2,'" + CEK_PROPOSAL_REF_NON_SNI.ACUAN_NON_SNI_ID + "','" + DATA_NON_SNI_VAL + "')");
+                    }
+                    else
+                    {
+                        db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_REFERENCE (PROPOSAL_REF_ID,PROPOSAL_REF_PROPOSAL_ID,PROPOSAL_REF_TYPE,PROPOSAL_REF_EXT_JUDUL) VALUES (" + PROPOSAL_REF_ID + "," + INPUT.PROPOSAL_ID + ",2,'" + DATA_NON_SNI_VAL + "')");
+                    }
+                }
+            }
+            if (BIBLIOGRAFI != null)
+            {
+                db.Database.ExecuteSqlCommand("DELETE TRX_PROPOSAL_REFERENCE WHERE PROPOSAL_REF_TYPE = 3 AND PROPOSAL_REF_PROPOSAL_ID = " + INPUT.PROPOSAL_ID);
+                foreach (var BIBLIOGRAFI_VAL in BIBLIOGRAFI)
+                {
+                    var PROPOSAL_REF_ID = MixHelper.GetSequence("TRX_PROPOSAL_REFERENCE");
+                    //db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_REFERENCE (PROPOSAL_REF_ID,PROPOSAL_REF_PROPOSAL_ID,PROPOSAL_REF_TYPE,PROPOSAL_REF_SNI_ID) VALUES (" + PROPOSAL_REF_ID + "," + INPUT.PROPOSAL_ID + ",3,'" + BIBLIOGRAFI_VAL + "')");
+                    var CEK_BIBLIOGRAFI = db.Database.SqlQuery<MASTER_BIBLIOGRAFI>("SELECT * FROM MASTER_BIBLIOGRAFI WHERE BIBLIOGRAFI_STATUS = 1 AND LOWER(BIBLIOGRAFI_JUDUL) = '" + BIBLIOGRAFI_VAL.ToLower() + "'").SingleOrDefault();
+                    if (CEK_BIBLIOGRAFI != null)
+                    {
+                        db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_REFERENCE (PROPOSAL_REF_ID,PROPOSAL_REF_PROPOSAL_ID,PROPOSAL_REF_TYPE,PROPOSAL_REF_SNI_ID,PROPOSAL_REF_EXT_JUDUL) VALUES (" + PROPOSAL_REF_ID + "," + INPUT.PROPOSAL_ID + ",3,'" + CEK_BIBLIOGRAFI.BIBLIOGRAFI_ID + "','" + BIBLIOGRAFI_VAL + "')");
+                    }
+                    else
+                    {
+                        db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_REFERENCE (PROPOSAL_REF_ID,PROPOSAL_REF_PROPOSAL_ID,PROPOSAL_REF_TYPE,PROPOSAL_REF_EXT_JUDUL) VALUES (" + PROPOSAL_REF_ID + "," + INPUT.PROPOSAL_ID + ",3,'" + BIBLIOGRAFI_VAL + "')");
+                    }
+                }
+            }
+
+
+            var PROPOSAL_PNPS_CODE_FIXER = DataProposal.PROPOSAL_CODE;
+            var PROPOSAL_ID = INPUT.PROPOSAL_ID;
+            var TGL_SEKARANG = DateTime.Now.ToString("yyyyMMddHHmmss");
+            if (INPUT.PROPOSAL_IS_ORG_MENDUKUNG == 1)
+            {
+                HttpPostedFileBase file = Request.Files["PROPOSAL_DUKUNGAN_FILE_PATH"];
+                if (file.ContentLength > 0)
+                {
+                    db.Database.ExecuteSqlCommand("UPDATE TRX_DOCUMENTS SET DOC_STATUS = 0 WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + PROPOSAL_ID + " AND DOC_RELATED_TYPE = 29");
+                    int LASTID_DOC = MixHelper.GetSequence("TRX_DOCUMENTS");
+                    Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/MTPS/" + PROPOSAL_PNPS_CODE_FIXER));
+                    string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/MTPS/" + PROPOSAL_PNPS_CODE_FIXER + "/");
+                    Stream stremdokumen = file.InputStream;
+                    byte[] appData = new byte[file.ContentLength + 1];
+                    stremdokumen.Read(appData, 0, file.ContentLength);
+                    string Extension = Path.GetExtension(file.FileName);
+                    if (Extension.ToLower() == ".pdf")
+                    {
+                        Aspose.Pdf.Document pdf = new Aspose.Pdf.Document(stremdokumen);
+                        string filePathpdf = path + "BUKTI_DUKUNGAN_USULAN_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + ".pdf";
+                        string filePathxml = path + "BUKTI_DUKUNGAN_USULAN_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + ".xml";
+                        pdf.Save(@"" + filePathpdf, Aspose.Pdf.SaveFormat.Pdf);
+                        pdf.Save(@"" + filePathxml);
+                        var LOGCODE_TANGGAPAN_MTPS = MixHelper.GetLogCode();
+                        var FNAME_TANGGAPAN_MTPS = "DOC_ID,DOC_FOLDER_ID,DOC_RELATED_TYPE,DOC_RELATED_ID,DOC_NAME,DOC_DESCRIPTION,DOC_FILE_PATH,DOC_FILE_NAME,DOC_FILETYPE,DOC_EDITABLE,DOC_CREATE_BY,DOC_CREATE_DATE,DOC_STATUS,DOC_LOG_CODE";
+                        var FVALUE_TANGGAPAN_MTPS = "'" + LASTID_DOC + "', " +
+                                    "'10', " +
+                                    "'29', " +
+                                    "'" + PROPOSAL_ID + "', " +
+                                    "'" + "(" + PROPOSAL_PNPS_CODE_FIXER + ") Bukti Dukungan Usulan" + "', " +
+                                    "'Bukti Dukungan Usulan dengan Judul PNPS : " + DataProposal.PROPOSAL_JUDUL_PNPS + "', " +
+                                    "'" + "/Upload/Dokumen/RANCANGAN_SNI/MTPS/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
+                                    "'" + "BUKTI_DUKUNGAN_USULAN_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + "" + "', " +
+                                    "'" + Extension.ToUpper().Replace(".", "") + "', " +
+                                    "'0', " +
+                                    "'" + USER_ID + "', " +
+                                    DATENOW + "," +
+                                    "'1', " +
+                                    "'" + LOGCODE_TANGGAPAN_MTPS + "'";
+                        db.Database.ExecuteSqlCommand("INSERT INTO TRX_DOCUMENTS (" + FNAME_TANGGAPAN_MTPS + ") VALUES (" + FVALUE_TANGGAPAN_MTPS.Replace("''", "NULL") + ")");
+                        String objekTanggapan = FVALUE_TANGGAPAN_MTPS.Replace("'", "-");
+                        MixHelper.InsertLog(LOGCODE_TANGGAPAN_MTPS, objekTanggapan, 1);
+                    }
+                }
+            }
+            HttpPostedFileBase file2 = Request.Files["PROPOSAL_LAMPIRAN_FILE_PATH"];
+            if (file2.ContentLength > 0)
+            {
+                db.Database.ExecuteSqlCommand("UPDATE TRX_DOCUMENTS SET DOC_STATUS = 0 WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + PROPOSAL_ID + " AND DOC_RELATED_TYPE = 30");
+                int LASTID_DOC = MixHelper.GetSequence("TRX_DOCUMENTS");
+                Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/MTPS/" + PROPOSAL_PNPS_CODE_FIXER));
+                string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/MTPS/" + PROPOSAL_PNPS_CODE_FIXER + "/");
+                Stream stremdokumen = file2.InputStream;
+                byte[] appData = new byte[file2.ContentLength + 1];
+                stremdokumen.Read(appData, 0, file2.ContentLength);
+                string Extension = Path.GetExtension(file2.FileName);
+                if (Extension.ToLower() == ".pdf")
+                {
+                    Aspose.Pdf.Document pdf = new Aspose.Pdf.Document(stremdokumen);
+                    string filePathpdf = path + "LAMPIRAN_PENDUKUNG_USULAN_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + ".pdf";
+                    string filePathxml = path + "LAMPIRAN_PENDUKUNG_USULAN_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + ".xml";
+                    pdf.Save(@"" + filePathpdf, Aspose.Pdf.SaveFormat.Pdf);
+                    pdf.Save(@"" + filePathxml);
+                    var LOGCODE_TANGGAPAN_MTPS = MixHelper.GetLogCode();
+                    var FNAME_TANGGAPAN_MTPS = "DOC_ID,DOC_FOLDER_ID,DOC_RELATED_TYPE,DOC_RELATED_ID,DOC_NAME,DOC_DESCRIPTION,DOC_FILE_PATH,DOC_FILE_NAME,DOC_FILETYPE,DOC_EDITABLE,DOC_CREATE_BY,DOC_CREATE_DATE,DOC_STATUS,DOC_LOG_CODE";
+                    var FVALUE_TANGGAPAN_MTPS = "'" + LASTID_DOC + "', " +
+                                "'10', " +
+                                "'30', " +
+                                "'" + PROPOSAL_ID + "', " +
+                                "'" + "(" + PROPOSAL_PNPS_CODE_FIXER + ") Lampiran Pendukung Usulan" + "', " +
+                                "'Lampiran Pendukung Usulan dengan Judul PNPS : " + DataProposal.PROPOSAL_JUDUL_PNPS + "', " +
+                                "'" + "/Upload/Dokumen/RANCANGAN_SNI/MTPS/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
+                                "'" + "LAMPIRAN_PENDUKUNG_USULAN_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + "" + "', " +
+                                "'" + Extension.ToUpper().Replace(".", "") + "', " +
+                                "'0', " +
+                                "'" + USER_ID + "', " +
+                                DATENOW + "," +
+                                "'1', " +
+                                "'" + LOGCODE_TANGGAPAN_MTPS + "'";
+                    db.Database.ExecuteSqlCommand("INSERT INTO TRX_DOCUMENTS (" + FNAME_TANGGAPAN_MTPS + ") VALUES (" + FVALUE_TANGGAPAN_MTPS.Replace("''", "NULL") + ")");
+                    String objekTanggapan = FVALUE_TANGGAPAN_MTPS.Replace("'", "-");
+                    MixHelper.InsertLog(LOGCODE_TANGGAPAN_MTPS, objekTanggapan, 1);
+                }
+            }
+            HttpPostedFileBase file3 = Request.Files["PROPOSAL_SURAT_PENGAJUAN_PNPS"];
+            if (file3.ContentLength > 0)
+            {
+                db.Database.ExecuteSqlCommand("UPDATE TRX_DOCUMENTS SET DOC_STATUS = 0 WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + PROPOSAL_ID + " AND DOC_RELATED_TYPE = 32");
+                int LASTID_DOC = MixHelper.GetSequence("TRX_DOCUMENTS");
+                Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/MTPS/" + PROPOSAL_PNPS_CODE_FIXER));
+                string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/MTPS/" + PROPOSAL_PNPS_CODE_FIXER + "/");
+                Stream stremdokumen = file3.InputStream;
+                byte[] appData = new byte[file3.ContentLength + 1];
+                stremdokumen.Read(appData, 0, file3.ContentLength);
+                string Extension = Path.GetExtension(file3.FileName);
+                if (Extension.ToLower() == ".pdf")
+                {
+                    Aspose.Pdf.Document pdf = new Aspose.Pdf.Document(stremdokumen);
+                    string filePathpdf = path + "SURAT_PENGAJUAN_PNPS_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + ".pdf";
+                    string filePathxml = path + "SURAT_PENGAJUAN_PNPS_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + ".xml";
+                    pdf.Save(@"" + filePathpdf, Aspose.Pdf.SaveFormat.Pdf);
+                    pdf.Save(@"" + filePathxml);
+                    var LOGCODE_TANGGAPAN_MTPS = MixHelper.GetLogCode();
+                    var FNAME_TANGGAPAN_MTPS = "DOC_ID,DOC_FOLDER_ID,DOC_RELATED_TYPE,DOC_RELATED_ID,DOC_NAME,DOC_DESCRIPTION,DOC_FILE_PATH,DOC_FILE_NAME,DOC_FILETYPE,DOC_EDITABLE,DOC_CREATE_BY,DOC_CREATE_DATE,DOC_STATUS,DOC_LOG_CODE";
+                    var FVALUE_TANGGAPAN_MTPS = "'" + LASTID_DOC + "', " +
+                                "'10', " +
+                                "'32', " +
+                                "'" + PROPOSAL_ID + "', " +
+                                "'" + "(" + PROPOSAL_PNPS_CODE_FIXER + ") Lampiran Surat Pengajuan PNPS" + "', " +
+                                "'Lampiran Surat Pengajuan PNPS dengan Judul PNPS : " + DataProposal.PROPOSAL_JUDUL_PNPS + "', " +
+                                "'" + "/Upload/Dokumen/RANCANGAN_SNI/MTPS/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
+                                "'" + "SURAT_PENGAJUAN_PNPS_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + "" + "', " +
+                                "'" + Extension.ToUpper().Replace(".", "") + "', " +
+                                "'0', " +
+                                "'" + USER_ID + "', " +
+                                DATENOW + "," +
+                                "'1', " +
+                                "'" + LOGCODE_TANGGAPAN_MTPS + "'";
+                    db.Database.ExecuteSqlCommand("INSERT INTO TRX_DOCUMENTS (" + FNAME_TANGGAPAN_MTPS + ") VALUES (" + FVALUE_TANGGAPAN_MTPS.Replace("''", "NULL") + ")");
+                    String objekTanggapan = FVALUE_TANGGAPAN_MTPS.Replace("'", "-");
+                    MixHelper.InsertLog(LOGCODE_TANGGAPAN_MTPS, objekTanggapan, 1);
+                }
+            }
+
+            HttpPostedFileBase file4 = Request.Files["PROPOSAL_OUTLINE_RSNI"];
+            if (file4.ContentLength > 0)
+            {
+                db.Database.ExecuteSqlCommand("UPDATE TRX_DOCUMENTS SET DOC_STATUS = 0 WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + PROPOSAL_ID + " AND DOC_RELATED_TYPE = 36");
+                int LASTID_DOC = MixHelper.GetSequence("TRX_DOCUMENTS");
+                Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/MTPS/" + PROPOSAL_PNPS_CODE_FIXER));
+                string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/MTPS/" + PROPOSAL_PNPS_CODE_FIXER + "/");
+                Stream stremdokumen = file4.InputStream;
+                byte[] appData = new byte[file4.ContentLength + 1];
+                stremdokumen.Read(appData, 0, file4.ContentLength);
+                string Extension = Path.GetExtension(file4.FileName);
+                if (Extension.ToLower() == ".pdf")
+                {
+                    Aspose.Pdf.Document pdf = new Aspose.Pdf.Document(stremdokumen);
+                    string filePathpdf = path + "LAMPIRAN_OUTLINE_RSNI_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + ".pdf";
+                    string filePathxml = path + "LAMPIRAN_OUTLINE_RSNI_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + ".xml";
+                    pdf.Save(@"" + filePathpdf, Aspose.Pdf.SaveFormat.Pdf);
+                    pdf.Save(@"" + filePathxml);
+                    var LOGCODE_TANGGAPAN_MTPS = MixHelper.GetLogCode();
+                    var FNAME_TANGGAPAN_MTPS = "DOC_ID,DOC_FOLDER_ID,DOC_RELATED_TYPE,DOC_RELATED_ID,DOC_NAME,DOC_DESCRIPTION,DOC_FILE_PATH,DOC_FILE_NAME,DOC_FILETYPE,DOC_EDITABLE,DOC_CREATE_BY,DOC_CREATE_DATE,DOC_STATUS,DOC_LOG_CODE";
+                    var FVALUE_TANGGAPAN_MTPS = "'" + LASTID_DOC + "', " +
+                                "'10', " +
+                                "'36', " +
+                                "'" + PROPOSAL_ID + "', " +
+                                "'" + "(" + PROPOSAL_PNPS_CODE_FIXER + ") Lampiran Outline RSNI" + "', " +
+                                "'Lampiran Outline RSNI dengan Judul PNPS : " + DataProposal.PROPOSAL_JUDUL_PNPS + "', " +
+                                "'" + "/Upload/Dokumen/RANCANGAN_SNI/MTPS/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
+                                "'" + "LAMPIRAN_OUTLINE_RSNI_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + "" + "', " +
+                                "'" + Extension.ToUpper().Replace(".", "") + "', " +
+                                "'0', " +
+                                "'" + USER_ID + "', " +
+                                DATENOW + "," +
+                                "'1', " +
+                                "'" + LOGCODE_TANGGAPAN_MTPS + "'";
+                    db.Database.ExecuteSqlCommand("INSERT INTO TRX_DOCUMENTS (" + FNAME_TANGGAPAN_MTPS + ") VALUES (" + FVALUE_TANGGAPAN_MTPS.Replace("''", "NULL") + ")");
+                    String objekTanggapan = FVALUE_TANGGAPAN_MTPS.Replace("'", "-");
+                    MixHelper.InsertLog(LOGCODE_TANGGAPAN_MTPS, objekTanggapan, 1);
+                }
+            }
+
+            if (DataProposal.APPROVAL_TYPE == 0)
+            {
+                db.Database.ExecuteSqlCommand("UPDATE TRX_PROPOSAL_APPROVAL SET APPROVAL_STATUS = 0 WHERE APPROVAL_PROPOSAL_ID = " + PROPOSAL_ID + " AND APPROVAL_STATUS_PROPOSAL = 0 AND APPROVAL_TYPE = 0");
+            }
+
+            //return Json(new { tester,INPUT, PROPOSAL_REV_MERIVISI_ID, PROPOSAL_ADOPSI_NOMOR_JUDUL, PROPOSAL_REF_SNI_ID, PROPOSAL_REF_NON_SNI, BIBLIOGRAFI }, JsonRequestBehavior.AllowGet);
+            String objek = fupdate.Replace("'", "-");
+            MixHelper.InsertLog(LOGCODE, objek, 2);
+
+            TempData["Notifikasi"] = 1;
+            TempData["NotifikasiText"] = "Data Berhasil Disimpan";
+            return RedirectToAction("Index");
         }
     }
 }

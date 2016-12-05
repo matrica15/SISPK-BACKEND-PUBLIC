@@ -5875,6 +5875,7 @@
     <Content Include="Views\Sk_penetapan_pnps\Index.cshtml" />
     <Content Include="Views\Sk_penetapan_pnps\create.cshtml" />
     <Content Include="Views\Sk_penetapan_pnps\Edit.cshtml" />
+    <Content Include="Views\Pengesahan\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
