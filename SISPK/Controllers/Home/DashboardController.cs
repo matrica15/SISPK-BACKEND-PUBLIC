@@ -53,7 +53,7 @@ namespace SISPK.Controllers.Home
 
             var default_order = "PROPOSAL_ID";
             var limit = 10;
-          var BIDANG_ID = Convert.ToInt32(Session["BIDANG_ID"]);
+            var BIDANG_ID = Convert.ToInt32(Session["BIDANG_ID"]);
             List<string> order_field = new List<string>();
             order_field.Add("PROPOSAL_ID");
             order_field.Add("PROPOSAL_PNPS_CODE");
@@ -74,10 +74,10 @@ namespace SISPK.Controllers.Home
             string where_clause = "";
             if (BIDANG_ID == 0)
             {
-                where_clause = "PROPOSAL_STATUS < 13 AND PROPOSAL_STATUS_PROSES > 0 AND PROPOSAL_STATUS != 9 AND PROPOSAL_APPROVAL_STATUS != 0 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) ";
+                where_clause = "PROPOSAL_STATUS <= 13 AND PROPOSAL_STATUS_PROSES > 0 AND PROPOSAL_STATUS != 9 AND PROPOSAL_APPROVAL_STATUS != 0 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) ";
             } else
             {
-                where_clause = "PROPOSAL_STATUS < 13 AND PROPOSAL_STATUS_PROSES > 0 AND PROPOSAL_STATUS != 9 AND PROPOSAL_APPROVAL_STATUS != 0 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) AND KOMTEK_BIDANG_ID = " + BIDANG_ID;
+                where_clause = "PROPOSAL_STATUS <= 13 AND PROPOSAL_STATUS_PROSES > 0 AND PROPOSAL_STATUS != 9 AND PROPOSAL_APPROVAL_STATUS != 0 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) AND KOMTEK_BIDANG_ID = " + BIDANG_ID;
             }
             
 
@@ -121,11 +121,106 @@ namespace SISPK.Controllers.Home
                 Convert.ToString("<center>"+list.PROPOSAL_CREATE_DATE_NAME+"</center>"),
                 Convert.ToString(list.PROPOSAL_JENIS_PERUMUSAN_NAME),
                 Convert.ToString("<span class='judul_"+list.PROPOSAL_ID+"'>"+list.PROPOSAL_JUDUL_PNPS+"</span>"),
-                Convert.ToString(list.PROPOSAL_JENIS_PERUMUSAN_NAME), 
+                Convert.ToString(list.PROPOSAL_JENIS_PERUMUSAN_NAME),
                 Convert.ToString("<center>"+list.PROPOSAL_TAHAPAN+"</center>"),
                 Convert.ToString("<center><ul class='progress'><li class='usulan_0'><a href='/Pengajuan/Usulan'>Usulan</a></li><li class='usulan_2'><a href='/Pengajuan/Usulan'>MTPS</a></li><li class='usulan_3'><a href='/Pengajuan/Usulan'>PNPS</a></li><li class='usulan_4'><a href='/Perumusan/RSNI1'>RSNI1</a></li><li class='usulan_5'><a href='/Perumusan/RSNI2'>RSNI2</a></li><li class='usulan_6'><a href='/Perumusan/RSNI3'>RSNI3</a></li><li class='usulan_7'><a href='/Perumusan/RSNI4'>RSNI4</a></li><li class='usulan_8'><a href='/Perumusan/RSNI5'>RSNI5</a></li><li class='usulan_9'><a href='/Perumusan/RSNI6'>RSNI6</a></li><li class='usulan_10'><a href='/Perumusan/RASNI'>RASNI</a></li><li class='usulan_11'><a href='/SNI/SNIList'>SNI</a></li></ul></center>"),
                 Convert.ToString("<center><a href='/Pengajuan/Usulan/Detail/"+list.PROPOSAL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a>"+((list.PROPOSAL_STATUS==0 && list.PROPOSAL_APPROVAL_STATUS == 1)?"<a href='/Pengajuan/Usulan/Update/"+list.PROPOSAL_ID+"' class='btn purple btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Ubah'><i class='action fa fa-edit'></i></a><a href='javascript:void(0)' onclick='hapus_usulan("+list.PROPOSAL_ID+")' class='btn red btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Hapus'><i class='action glyphicon glyphicon-remove'></i></a>":"")+"<a href='javascript:void(0)' onclick='cetak_usulan("+list.PROPOSAL_ID+")'  class='btn green btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Cetak'><i class='action fa fa-print'></i></a></center>"),
                 
+            };
+            var sni = from cust in SelectedData
+                      select new
+                      {
+                          PROPOSAL_ID = cust.PROPOSAL_ID,
+                          PROPOSAL_PNPS_CODE = cust.PROPOSAL_PNPS_CODE,
+                          PROPOSAL_JENIS_PERUMUSAN_NAME = cust.PROPOSAL_JENIS_PERUMUSAN_NAME,
+                          PROPOSAL_JUDUL_PNPS = cust.PROPOSAL_JUDUL_PNPS,
+                          PROPOSAL_RUANG_LINGKUP = cust.PROPOSAL_RUANG_LINGKUP,
+                          KOMTEK_CODE = cust.KOMTEK_CODE,
+                          KOMTEK_NAME = cust.KOMTEK_NAME,
+                          KOMTEK_FULLNAME = cust.KOMTEK_CODE + " " + cust.KOMTEK_NAME,
+                          PROGRESS = cust.PROGRESS
+                      };
+            return Json(new
+            {
+                //wew = inject_clause_select,
+                draw = param.sEcho,
+                recordsTotal = CountData,
+                recordsFiltered = CountData,
+                data = sni
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DataDashboardKomtek(DataTables param)
+        {
+
+            var default_order = "PROPOSAL_ID";
+            var limit = 10;
+            var USER_KOMTEK_ID = Convert.ToInt32(Session["KOMTEK_ID"]);
+            List<string> order_field = new List<string>();
+            order_field.Add("PROPOSAL_ID");
+            order_field.Add("PROPOSAL_PNPS_CODE");
+            order_field.Add("PROPOSAL_JENIS_PERUMUSAN_NAME");
+            order_field.Add("PROPOSAL_JUDUL_PNPS");
+            order_field.Add("PROPOSAL_RUANG_LINGKUP");
+            order_field.Add("KOMTEK_CODE");
+            order_field.Add("KOMTEK_NAME");
+            order_field.Add("KOMTEK_CODE");
+            order_field.Add("PROGRESS");
+            string order_key = (param.iSortCol_0 == "0") ? "0" : param.iSortCol_0;
+            string order = (param.iSortCol_0 == "0") ? default_order : order_field[Convert.ToInt32(order_key)];
+            string sort = (param.sSortDir_0 == "") ? "desc" : param.sSortDir_0;
+            string search = (param.sSearch == "") ? "" : param.sSearch;
+
+            limit = (param.iDisplayLength == 0) ? limit : param.iDisplayLength;
+            var start = (param.iDisplayStart == 0) ? 0 : param.iDisplayStart;
+
+            string where_clause = "PROPOSAL_STATUS <= 13 AND PROPOSAL_STATUS != 9 AND PROPOSAL_APPROVAL_STATUS != 0 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) AND PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID;
+            
+            string search_clause = "";
+            if (search != "")
+            {
+                if (where_clause != "")
+                {
+                    search_clause += " AND ";
+                }
+                search_clause += "(";
+                var i = 1;
+                foreach (var fields in order_field)
+                {
+                    if (fields != "")
+                    {
+                        search_clause += fields + "  LIKE '%" + search + "%'";
+                        if (i < order_field.Count())
+                        {
+                            search_clause += " OR ";
+                        }
+                    }
+                    i++;
+                }
+                search_clause += " OR PROPOSAL_CREATE_DATE_NAME = '%" + search + "%')";
+            }
+
+            string inject_clause_count = "";
+            string inject_clause_select = "";
+            if (where_clause != "" || search_clause != "")
+            {
+                inject_clause_count = "WHERE " + where_clause + " " + search_clause;
+                inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER FROM (SELECT * FROM VIEW_PROPOSAL_DASHBOARD WHERE " + where_clause + " " + search_clause + " ORDER BY " + order + " " + sort + ") T1 WHERE ROWNUM <= " + Convert.ToString(limit + start) + ") WHERE ROWNUMBER > " + Convert.ToString(start);
+            }
+            var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_PROPOSAL_DASHBOARD " + inject_clause_count);
+            var SelectedData = db.Database.SqlQuery<VIEW_PROPOSAL>(inject_clause_select);
+
+            var result = from list in SelectedData
+                         select new string[]
+            {
+                Convert.ToString("<center>"+list.PROPOSAL_CREATE_DATE_NAME+"</center>"),
+                Convert.ToString(list.PROPOSAL_JENIS_PERUMUSAN_NAME),
+                Convert.ToString("<span class='judul_"+list.PROPOSAL_ID+"'>"+list.PROPOSAL_JUDUL_PNPS+"</span>"),
+                Convert.ToString(list.PROPOSAL_JENIS_PERUMUSAN_NAME),
+                Convert.ToString("<center>"+list.PROPOSAL_TAHAPAN+"</center>"),
+                Convert.ToString("<center><ul class='progress'><li class='usulan_0'><a href='/Pengajuan/Usulan'>Usulan</a></li><li class='usulan_2'><a href='/Pengajuan/Usulan'>MTPS</a></li><li class='usulan_3'><a href='/Pengajuan/Usulan'>PNPS</a></li><li class='usulan_4'><a href='/Perumusan/RSNI1'>RSNI1</a></li><li class='usulan_5'><a href='/Perumusan/RSNI2'>RSNI2</a></li><li class='usulan_6'><a href='/Perumusan/RSNI3'>RSNI3</a></li><li class='usulan_7'><a href='/Perumusan/RSNI4'>RSNI4</a></li><li class='usulan_8'><a href='/Perumusan/RSNI5'>RSNI5</a></li><li class='usulan_9'><a href='/Perumusan/RSNI6'>RSNI6</a></li><li class='usulan_10'><a href='/Perumusan/RASNI'>RASNI</a></li><li class='usulan_11'><a href='/SNI/SNIList'>SNI</a></li></ul></center>"),
+                Convert.ToString("<center><a href='/Pengajuan/Usulan/Detail/"+list.PROPOSAL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a>"+((list.PROPOSAL_STATUS==0 && list.PROPOSAL_APPROVAL_STATUS == 1)?"<a href='/Pengajuan/Usulan/Update/"+list.PROPOSAL_ID+"' class='btn purple btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Ubah'><i class='action fa fa-edit'></i></a><a href='javascript:void(0)' onclick='hapus_usulan("+list.PROPOSAL_ID+")' class='btn red btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Hapus'><i class='action glyphicon glyphicon-remove'></i></a>":"")+"<a href='javascript:void(0)' onclick='cetak_usulan("+list.PROPOSAL_ID+")'  class='btn green btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Cetak'><i class='action fa fa-print'></i></a></center>"),
+
             };
             var sni = from cust in SelectedData
                       select new
