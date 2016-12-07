@@ -53,7 +53,7 @@ namespace SISPK.Controllers.Home
 
             var default_order = "PROPOSAL_ID";
             var limit = 10;
-            var BIDANG_ID = Convert.ToInt32(Session["BIDANG_ID"]);
+          var BIDANG_ID = Convert.ToInt32(Session["BIDANG_ID"]);
             List<string> order_field = new List<string>();
             order_field.Add("PROPOSAL_ID");
             order_field.Add("PROPOSAL_PNPS_CODE");
@@ -71,9 +71,15 @@ namespace SISPK.Controllers.Home
 
             limit = (param.iDisplayLength == 0) ? limit : param.iDisplayLength;
             var start = (param.iDisplayStart == 0) ? 0 : param.iDisplayStart;
-
-
-            string where_clause = "PROPOSAL_STATUS < 11 AND PROPOSAL_STATUS != 9 AND PROPOSAL_STATUS != 10 AND PROPOSAL_STATUS != 11 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) AND KOMTEK_BIDANG_ID = " + BIDANG_ID;
+            string where_clause = "";
+            if (BIDANG_ID == 0)
+            {
+                where_clause = "PROPOSAL_STATUS < 13 AND PROPOSAL_STATUS_PROSES > 0 AND PROPOSAL_STATUS != 9 AND PROPOSAL_APPROVAL_STATUS != 0 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) ";
+            } else
+            {
+                where_clause = "PROPOSAL_STATUS < 13 AND PROPOSAL_STATUS_PROSES > 0 AND PROPOSAL_STATUS != 9 AND PROPOSAL_APPROVAL_STATUS != 0 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) AND KOMTEK_BIDANG_ID = " + BIDANG_ID;
+            }
+            
 
             string search_clause = "";
             if (search != "")

@@ -170,7 +170,7 @@ namespace SISPK.Controllers.Master
             return View();
         }
         [HttpPost]
-        public ActionResult Edit(TRX_SK_PENETAPAN edit)
+        public ActionResult Edit(TRX_SK_PENETAPAN edit, string TANGGAL_SK = "")
         {
             var UserId = Session["USER_ID"];
             var logcode = MixHelper.GetLogCode();
@@ -203,7 +203,7 @@ namespace SISPK.Controllers.Master
             }
 
             var update = "PENETAPAN_NO_SK = '" + edit.PENETAPAN_NO_SK + "'," +
-                        "TANGGAL_SK = TO_DATE ('" + edit.TANGGAL_SK + "','dd-mm-yyyy hh24:mi:ss')," +
+                        "TANGGAL_SK = TO_DATE ('" + TANGGAL_SK + "','yyyy-mm-dd hh24:mi:ss')," +
                         "JUDUL_SK = '" + edit.JUDUL_SK + "'," +
                         "CREATE_DATE = " + datenow + "";
 

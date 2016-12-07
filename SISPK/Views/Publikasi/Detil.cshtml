@@ -49,7 +49,7 @@
                             <label class="control-label col-md-3">Jumlah Halaman SNI File</label>
                             <div class="col-md-4">
                                 <div style="text-align: left">
-                                    <label class="isi">@(ViewBag.doc.DOC_INFO) Halaman</label>
+                                    <label class="isi">@((ViewBag.doc.DOC_INFO == null)? "-" : ViewBag.doc.DOC_INFO ) Halaman</label>
                                 </div>
                             </div>
                         </div>
