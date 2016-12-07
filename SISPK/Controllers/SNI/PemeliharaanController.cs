@@ -21,7 +21,8 @@ namespace SISPK.Controllers.Pemeliharaan
             return View();
         }
 
-        public ActionResult Detail(int id) {
+        public ActionResult Detail(int id)
+        {
             ViewData["detail"] = db.Database.SqlQuery<VIEW_PEMELIHARAAN>("SELECT * FROM VIEW_PEMELIHARAAN WHERE MAINTENANCE_DETAIL_ID = " + id).SingleOrDefault();
             return View();
         }
@@ -81,7 +82,7 @@ namespace SISPK.Controllers.Pemeliharaan
             var fname = "MAINTENANCE_ID,MAINTENANCE_DOC_NUMBER,MAINTENANCE_KOMTEK,MAINTENANCE_CREATE_BY,MAINTENANCE_CREATE_DATE,MAINTENANCE_STATUS";
             var fvalue = "'" + lastid + "', " +
                         "'" + mtn.MAINTENANCE_DOC_NUMBER + "'," +
-                        "'"+mtn.MAINTENANCE_KOMTEK + "', " +
+                        "'" + mtn.MAINTENANCE_KOMTEK + "', " +
                         "'" + UserId + "'," +
                             datenow + "," +
                         "1";
@@ -128,12 +129,12 @@ namespace SISPK.Controllers.Pemeliharaan
                         MAINTENANCE_DETAIL_REPORT_DATE + "," +
                         "'" + mtd.MAINTENANCE_DETAIL_NO_SURAT + "'";
             }
-            
+
             //return Json(new { query = "INSERT INTO MASTER_KOMITE_TEKNIS (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")" }, JsonRequestBehavior.AllowGet);
             db.Database.ExecuteSqlCommand("INSERT INTO TRX_MAINTENANCE_DETAILS (" + fnameS + ") VALUES (" + fvalueS.Replace("''", "NULL") + ")");
 
             //update trx_sni
-            db.Database.ExecuteSqlCommand("UPDATE TRX_SNI SET SNI_MAINTENANCE_STS = '1' WHERE SNI_ID = "+id_sni);
+            db.Database.ExecuteSqlCommand("UPDATE TRX_SNI SET SNI_MAINTENANCE_STS = '1' WHERE SNI_ID = " + id_sni);
 
             //}
 
@@ -289,8 +290,8 @@ namespace SISPK.Controllers.Pemeliharaan
             string inject_clause_select = "";
             if (where_clause != "" || search_clause != "")
             {
-                inject_clause_count = "WHERE " + where_clause + " " + search_clause;
-                inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER,(TO_CHAR(SYSDATE,'YYYY ')-REGEXP_SUBSTR(SNI_NOMOR, '[^:'']+', 1,2)) AS UMUR_SNI FROM (SELECT * FROM VIEW_SNI WHERE " + where_clause + " " + search_clause + " ORDER BY " + order + " " + sort + ") T1 WHERE ROWNUM <= " + Convert.ToString(limit + start) + ") WHERE SNI_MAINTENANCE_STS IS NULL AND UMUR_SNI > 5 AND ROWNUMBER > " + Convert.ToString(start);
+                inject_clause_count = "WHERE UMUR_SNI >5 AND " + where_clause + " " + search_clause;
+                inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER FROM (SELECT * FROM VIEW_SNI WHERE UMUR_SNI >5 AND " + where_clause + " " + search_clause + " ORDER BY " + order + " " + sort + ") T1 WHERE ROWNUM <= " + Convert.ToString(limit + start) + ") WHERE SNI_MAINTENANCE_STS IS NULL  AND ROWNUMBER > " + Convert.ToString(start);
             }
             var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_SNI " + inject_clause_count);
             var SelectedData = db.Database.SqlQuery<VIEW_SNI>(inject_clause_select);
@@ -505,7 +506,7 @@ namespace SISPK.Controllers.Pemeliharaan
             var kmt = db.Database.SqlQuery<VIEW_SNI>("SELECT * FROM VIEW_SNI WHERE SNI_ID = " + id).FirstOrDefault();
             var kd = kmt.KOMTEK_CODE;
             var nm = kmt.KOMTEK_NAME;
-            return Json(new { idL = id ,komtek_kd = kd ,komtek_nm = nm}, JsonRequestBehavior.AllowGet);
+            return Json(new { idL = id, komtek_kd = kd, komtek_nm = nm }, JsonRequestBehavior.AllowGet);
         }
     }
 }
