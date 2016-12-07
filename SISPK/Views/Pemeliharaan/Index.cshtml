@@ -8,29 +8,30 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-gift"></i>Daftar Pemeliharaan SNI
-                </div> 
+                </div>
                 <div class="actions">
                     <a class="btn btn-warning " href="@Url.Action("create")">
-                        <i class="fa fa-plus"></i>Buat Pemeliharaan</a>
-                </div>              
+                        <i class="fa fa-plus"></i>Buat Pemeliharaan
+                    </a>
+                </div>
             </div>
-            
+
             <div class="portlet-body">
                 <div class="tabbable-custom ">
                     <ul class="nav nav-tabs ">
                         <li class="active">
-                            <a href="#sni_5" data-toggle="tab" >SNI diatas 5 Tahun</a>
+                            <a href="#sni_5" data-toggle="tab">SNI diatas 5 Tahun</a>
                         </li>
                         <li>
                             <a href="#pemeliharaan" data-toggle="tab" >List Pemeliharaan SNI</a>
                         </li>
-                    </ul>                   
+                    </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="sni_5">
                             <table class="table table-striped table-bordered table-hover" id="list_sni">
                                 <thead>
-                                    <tr>  
-                                        <th width="20%" class="text-center">NOMOR SNI </th>                                       
+                                    <tr>
+                                        <th width="20%" class="text-center">NOMOR SNI </th>
                                         <th width="20%" class="text-center">Judul SNI</th>
                                         <th width="30%" class="text-center">Komite Teknis</th>
                                         <th width="20%" class="text-center">Tanggal Penetapan</th>
@@ -38,8 +39,8 @@
                                     </tr>
                                 </thead>
                             </table>
-                         </div>
-                        
+                        </div>
+
                         <div class="tab-pane" id="pemeliharaan">
                             <table class="table table-striped table-bordered table-hover" id="list_pemeliharaan">
                                 <thead>
@@ -55,19 +56,202 @@
                                     </tr>
                                 </thead>
                             </table>
-                         </div>                
+                        </div>
                     </div>
                 </div>
             </div>
-           
+
         </div>
 
 
     </div>
 
-<script type="text/javascript">
+    <script type="text/javascript">
+    //jQuery(document).ready(function () {
+    //    var table1 = $('#list_sni');
+    //    var table2 = $('#list_pemeliharaan');
+    //    var oTable = table1.dataTable({
+    //        "processing": true,
+    //        "serverSide": true,
+    //        "bServerSide": true,
+    //        "sAjaxSource": "/Sni/Pemeliharaan/listPemeliharaan1",
+    //        "language": {
+    //            "aria": {
+    //                "sortAscending": ": activate to sort column ascending",
+    //                "sortDescending": ": activate to sort column descending"
+    //            },
+    //            "emptyTable": "Data tidak tersedia",
+    //            "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+    //            "infoEmpty": "Menampilkan 0 Data",
+    //            "infoFiltered": "",
+    //            "lengthMenu": "Menampilkan _MENU_ Data",
+    //            "search": "Pencarian:",
+    //            "zeroRecords": "Pencarian Tidak Ditemukan",
+    //            "sProcessing": "Proses Pengambilan Data",
+    //        },
+    //        "fnDrawCallback": function () {
+    //            jsDefSetting();
+    //            $('.kolom').css('width', '10%');
+    //            $('.kolom2').css('width', '5%');
+    //        },
+    //        "columnDefs": [{
+    //            "orderable": false,
+    //            "targets": [2]
+    //        }],
+    //        "order": [
+    //            [1, 'desc']
+    //        ],
+    //        "lengthMenu": [
+    //            [5, 15, 20, 100],
+    //            [5, 15, 20, 100]
+    //        ],
+    //        "pageLength": 5,
+    //    });
+
+    //    var tableWrapper = $('.dataTables_wrapper');
+    //    tableWrapper.find('.dataTables_length select').select2();
+
+    //    var table2 = $('#list_pemeliharaan');
+    //    var oTable = table2.dataTable({
+    //        "processing": true,
+    //        "serverSide": true,
+    //        "bServerSide": true,
+    //        "sAjaxSource": "/Sni/Pemeliharaan/listPemeliharaan",
+    //        "language": {
+    //            "aria": {
+    //                "sortAscending": ": activate to sort column ascending",
+    //                "sortDescending": ": activate to sort column descending"
+    //            },
+    //            "emptyTable": "Data tidak tersedia",
+    //            "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+    //            "infoEmpty": "Menampilkan 0 Data",
+    //            "infoFiltered": "",
+    //            "lengthMenu": "Menampilkan _MENU_ Data",
+    //            "search": "Pencarian:",
+    //            "zeroRecords": "Pencarian Tidak Ditemukan",
+    //            "sProcessing": "Proses Pengambilan Data",
+    //        },
+    //        "fnDrawCallback": function () {
+    //            jsDefSetting();
+    //            $('.kolom').css('width', '10%');
+    //            $('.kolom2').css('width', '5%');
+    //        },
+    //        "columnDefs": [{
+    //            "orderable": false,
+    //            "targets": [2]
+    //        }],
+    //        "order": [
+    //            [1, 'desc']
+    //        ],
+    //        "lengthMenu": [
+    //            [5, 15, 20, 100],
+    //            [5, 15, 20, 100]
+    //        ],
+    //        "pageLength": 5,
+    //    });
+
+    //    var tableWrapper = $('.dataTables_wrapper');
+    //    tableWrapper.find('.dataTables_length select').select2();
+    //});
+
+
+
     jQuery(document).ready(function () {
         var table1 = $('#list_sni');
+        var table2 = $('#list_pemeliharaan');
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var type = e.target.hash.substr(1);
+
+            if (type == "sni_5") {
+                table1.DataTable().destroy();
+                table2.DataTable().destroy();
+                var oTable = table1.dataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "bServerSide": true,
+                    "sAjaxSource": "/Sni/Pemeliharaan/listPemeliharaan1",
+                    "language": {
+                        "aria": {
+                            "sortAscending": ": activate to sort column ascending",
+                            "sortDescending": ": activate to sort column descending"
+                        },
+                        "emptyTable": "Data tidak tersedia",
+                        "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                        "infoEmpty": "Menampilkan 0 Data",
+                        "infoFiltered": "",
+                        "lengthMenu": "Menampilkan _MENU_ Data",
+                        "search": "Pencarian:",
+                        "zeroRecords": "Pencarian Tidak Ditemukan",
+                        "sProcessing": "Proses Pengambilan Data",
+                    },
+                    "fnDrawCallback": function () {
+                        jsDefSetting();
+                        $('.kolom').css('width', '10%');
+                        $('.kolom2').css('width', '5%');
+                    },
+                    "columnDefs": [{
+                        "orderable": false,
+                        "targets": [2]
+                    }],
+                    "order": [
+                        [1, 'desc']
+                    ],
+                    "lengthMenu": [
+                        [5, 15, 20, 100],
+                        [5, 15, 20, 100]
+                    ],
+                    "pageLength": 5,
+                });
+
+                var tableWrapper = $('.dataTables_wrapper');
+                tableWrapper.find('.dataTables_length select').select2();
+            } else if (type == "pemeliharaan") {
+
+                table1.DataTable().destroy();
+                table2.DataTable().destroy();
+                var oTable = table2.dataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "bServerSide": true,
+                    "sAjaxSource": "/Sni/Pemeliharaan/listPemeliharaan",
+                    "language": {
+                        "aria": {
+                            "sortAscending": ": activate to sort column ascending",
+                            "sortDescending": ": activate to sort column descending"
+                        },
+                        "emptyTable": "Data tidak tersedia",
+                        "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                        "infoEmpty": "Menampilkan 0 Data",
+                        "infoFiltered": "",
+                        "lengthMenu": "Menampilkan _MENU_ Data",
+                        "search": "Pencarian:",
+                        "zeroRecords": "Pencarian Tidak Ditemukan",
+                        "sProcessing": "Proses Pengambilan Data",
+                    },
+                    "fnDrawCallback": function () {
+                        jsDefSetting();
+                        $('.kolom').css('width', '10%');
+                        $('.kolom2').css('width', '5%');
+                    },
+                    "columnDefs": [{
+                        "orderable": false,
+                        "targets": [2]
+                    }],
+                    "order": [
+                        [1, 'desc']
+                    ],
+                    "lengthMenu": [
+                        [5, 15, 20, 100],
+                        [5, 15, 20, 100]
+                    ],
+                    "pageLength": 5,
+                });
+
+                var tableWrapper = $('.dataTables_wrapper');
+                tableWrapper.find('.dataTables_length select').select2();
+            } 
+
+        });
         var oTable = table1.dataTable({
             "processing": true,
             "serverSide": true,
@@ -109,48 +293,5 @@
         var tableWrapper = $('.dataTables_wrapper');
         tableWrapper.find('.dataTables_length select').select2();
 
-        var table2 = $('#list_pemeliharaan');
-        var oTable = table2.dataTable({
-            "processing": true,
-            "serverSide": true,
-            "bServerSide": true,
-            "sAjaxSource": "/Sni/Pemeliharaan/listPemeliharaan",
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "Data tidak tersedia",
-                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                "infoEmpty": "Menampilkan 0 Data",
-                "infoFiltered": "",
-                "lengthMenu": "Menampilkan _MENU_ Data",
-                "search": "Pencarian:",
-                "zeroRecords": "Pencarian Tidak Ditemukan",
-                "sProcessing": "Proses Pengambilan Data",
-            },
-            "fnDrawCallback": function () {
-                jsDefSetting();
-                $('.kolom').css('width', '10%');
-                $('.kolom2').css('width', '5%');
-            },
-            "columnDefs": [{
-                "orderable": false,
-                "targets": [2]
-            }],
-            "order": [
-                [1, 'desc']
-            ],
-            "lengthMenu": [
-                [5, 15, 20, 100],
-                [5, 15, 20, 100]
-            ],
-            "pageLength": 5,
-        });
-
-        var tableWrapper = $('.dataTables_wrapper');
-        tableWrapper.find('.dataTables_length select').select2();
     });
-
-
-</script>
+    </script>

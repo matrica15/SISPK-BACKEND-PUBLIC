@@ -71,9 +71,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+    <Reference Include="oracle.dataaccess, Version=4.112.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\oraclexe\app\oracle\product\11.2.0\client\odp.net\bin\4\Oracle.DataAccess.dll</HintPath>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Oracle.DataAccess\v4.0_4.112.2.0__89b483f429c47342\oracle.dataaccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -5868,7 +5868,9 @@
     <Content Include="Upload\Usulan\INFORMASI_PEENELITIAN_24.pdf" />
     <Content Include="Upload\Usulan\INFORMASI_PEENELITIAN_25.pdf" />
     <Content Include="Upload\Usulan\INFORMASI_PEENELITIAN_26.pdf" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Format\Laporan\TEMPLATE_HAK_PATEN.docx" />
     <Content Include="Views\JajakPendapat\EditComment.cshtml" />
     <Content Include="Views\Pemeliharaan\Detail_sni.cshtml" />
