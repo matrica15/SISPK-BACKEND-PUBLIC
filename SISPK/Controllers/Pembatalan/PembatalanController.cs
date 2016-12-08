@@ -65,7 +65,7 @@ namespace SISPK.Controllers.Pembatalan
                 {
                     if (fields != "")
                     {
-                        search_clause += fields + "  LIKE '%" + search + "%'";
+                        search_clause += "LOWER(" + fields + ")  LIKE LOWER('%" + search + "%')";
                         if (i < order_field.Count())
                         {
                             search_clause += " OR ";
@@ -73,7 +73,7 @@ namespace SISPK.Controllers.Pembatalan
                     }
                     i++;
                 }
-                search_clause += " OR PROPOSAL_PNPS_CODE = '%" + search + "%')";
+                search_clause += " OR LOWER(PROPOSAL_PNPS_CODE) LIKE LOWER('%" + search + "%'))";
             }
 
             string inject_clause_count = "";

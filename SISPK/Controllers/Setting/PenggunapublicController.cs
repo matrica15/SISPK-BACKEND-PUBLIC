@@ -58,7 +58,7 @@ namespace SISPK.Controllers.Setting
                 {
                     if (fields != "")
                     {
-                        search_clause += fields + "  LIKE '%" + search + "%'";
+                        search_clause += "LOWER(" + fields + ")  LIKE LOWER('%" + search + "%')";
                         if (i < order_field.Count())
                         {
                             search_clause += " OR ";
@@ -131,7 +131,7 @@ namespace SISPK.Controllers.Setting
                 {
                     if (fields != "")
                     {
-                        search_clause += fields + "  LIKE '%" + search + "%'";
+                        search_clause += "LOWER(" + fields + ")  LIKE LOWER('%" + search + "%')";
                         if (i < order_field.Count())
                         {
                             search_clause += " OR ";

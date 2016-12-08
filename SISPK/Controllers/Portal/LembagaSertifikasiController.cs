@@ -59,7 +59,7 @@ namespace SISPK.Controllers.Portal
                 {
                     if (fields != "")
                     {
-                        search_clause += fields + "  LIKE '%" + search + "%'";
+                        search_clause += "LOWER(" + fields + ")  LIKE LOWER('%" + search + "%')";
                         if (i < order_field.Count())
                         {
                             search_clause += " OR ";
@@ -80,6 +80,8 @@ namespace SISPK.Controllers.Portal
             var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_LPK " + inject_clause_count);
             var SelectedData = db.Database.SqlQuery<VIEW_LPK>(inject_clause_select);
 
+            //return Content(inject_clause_select);
+
             //var result = from list in SelectedData
             //             select new string[] 
             //{ 
@@ -92,6 +94,8 @@ namespace SISPK.Controllers.Portal
             //    Convert.ToString("<center><a href='/Pengajuan/Usulan/Detail/"+list.PROPOSAL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a>"+((list.PROPOSAL_STATUS==0 && list.PROPOSAL_APPROVAL_STATUS == 1)?"<a href='/Pengajuan/Usulan/Update/"+list.PROPOSAL_ID+"' class='btn purple btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Ubah'><i class='action fa fa-edit'></i></a><a href='javascript:void(0)' onclick='hapus_usulan("+list.PROPOSAL_ID+")' class='btn red btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Hapus'><i class='action glyphicon glyphicon-remove'></i></a>":"")+"<a href='javascript:void(0)' onclick='cetak_usulan("+list.PROPOSAL_ID+")'  class='btn green btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Cetak'><i class='action fa fa-print'></i></a></center>"),
 
             //};
+
+
             var result = from lpk in SelectedData
                          select new
                          {

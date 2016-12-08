@@ -1643,7 +1643,7 @@ namespace SISPK.Controllers.Perumusan
             var start = (param.iDisplayStart == 0) ? 0 : param.iDisplayStart;
 
 
-            string where_clause = "PROPOSAL_STATUS = 6 AND PROPOSAL_STATUS_PROSES = 1 OR PROPOSAL_STATUS_PROSES = 2  " + ((BIDANG_ID != 0) ? "AND KOMTEK_BIDANG_ID IN (" + BIDANG_ID + ",0)" : "");
+            string where_clause = "(PROPOSAL_STATUS = 6 AND PROPOSAL_STATUS_PROSES = 1 OR PROPOSAL_STATUS_PROSES = 2)  " + ((BIDANG_ID != 0) ? "AND KOMTEK_BIDANG_ID IN (" + BIDANG_ID + ",0)" : "");
 
             string search_clause = "";
             if (search != "")
@@ -1681,8 +1681,10 @@ namespace SISPK.Controllers.Perumusan
             var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_PROPOSAL " + inject_clause_count);
             var SelectedData = db.Database.SqlQuery<VIEW_PROPOSAL>(inject_clause_select);
 
+            //return Content(inject_clause_select);
+
             var result = from list in SelectedData
-                         select new string[] 
+                         select new string[]
             {
                 Convert.ToString("<center>"+list.PROPOSAL_CREATE_DATE_NAME+"</center>"),
                 Convert.ToString(list.PROPOSAL_PNPS_CODE),
@@ -1693,7 +1695,7 @@ namespace SISPK.Controllers.Perumusan
                 Convert.ToString("<center>"+list.PROPOSAL_TAHAPAN+"</center>"),
                 Convert.ToString("<center>"+list.PROPOSAL_STATUS_NAME+"</center>"),
                 Convert.ToString("<center><a href='/Perumusan/RSNI3/Detail/"+list.PROPOSAL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a>"+((list.PROPOSAL_STATUS == 6 && list.PROPOSAL_STATUS_PROSES == 1)?"<a href='/Perumusan/RSNI3/Pengesahan/"+list.PROPOSAL_ID+"' class='btn purple btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Pengesahan RSNI 3'><i class='action fa fa-check'></i></a>":"")+"<a href='javascript:void(0)' onclick='cetak_usulan("+list.PROPOSAL_ID+")' class='btn green btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Cetak'><i class='action fa fa-print'></i></a></center>"),
-                
+
             };
             return Json(new
             {

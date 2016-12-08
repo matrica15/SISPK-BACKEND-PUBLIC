@@ -197,7 +197,7 @@ namespace SISPK.Controllers.Notulen
                 {
                     if (fields != "")
                     {
-                        search_clause += fields + "  LIKE '%" + search + "%'";
+                        search_clause += "LOWER(" + fields + ")  LIKE LOWER('%" + search + "%')";
                         if (i < order_field.Count())
                         {
                             search_clause += " OR ";
@@ -205,7 +205,7 @@ namespace SISPK.Controllers.Notulen
                     }
                     i++;
                 }
-                search_clause += " OR PROPOSAL_CREATE_DATE_NAME LIKE '%" + search + "%')";
+                search_clause += " OR LOWER(PROPOSAL_CREATE_DATE_NAME) LIKE LOWER('%" + search + "%'))";
             }
 
             string inject_clause_count = "";

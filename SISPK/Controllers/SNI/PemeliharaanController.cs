@@ -275,7 +275,7 @@ namespace SISPK.Controllers.Pemeliharaan
                 {
                     if (fields != "")
                     {
-                        search_clause += fields + "  LIKE '%" + search + "%'";
+                        search_clause += "LOWER(" + fields + ")  LIKE LOWER('%" + search + "%')";
                         if (i < order_field.Count())
                         {
                             search_clause += " OR ";
@@ -283,7 +283,7 @@ namespace SISPK.Controllers.Pemeliharaan
                     }
                     i++;
                 }
-                search_clause += " OR SNI_JUDUL = '%" + search + "%')";
+                search_clause += " OR LOWER(SNI_JUDUL) LIKE LOWER('%" + search + "%'))";
             }
 
             string inject_clause_count = "";
@@ -357,7 +357,7 @@ namespace SISPK.Controllers.Pemeliharaan
                 {
                     if (fields != "")
                     {
-                        search_clause += fields + "  LIKE '%" + search + "%'";
+                        search_clause += "LOWER(" + fields + ")  LIKE LOWER('%" + search + "%')";
                         if (i < order_field.Count())
                         {
                             search_clause += " OR ";

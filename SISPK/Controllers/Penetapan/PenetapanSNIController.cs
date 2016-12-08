@@ -270,6 +270,7 @@ namespace SISPK.Controllers.Penetapan
             order_field.Add("SNI_SK_NOMOR");
             order_field.Add("SNI_SK_DATE_NAME");
             order_field.Add("JML_SNI");
+            order_field.Add("SNI_SK_KET");
 
             string order_key = (param.iSortCol_0 == "0") ? "0" : param.iSortCol_0;
             string order = (param.iSortCol_0 == "0") ? default_order : order_field[Convert.ToInt32(order_key)];
@@ -295,7 +296,7 @@ namespace SISPK.Controllers.Penetapan
                 {
                     if (fields != "")
                     {
-                        search_clause += fields + "  LIKE '%" + search + "%'";
+                        search_clause += "LOWER(" + fields + ")  LIKE LOWER('%" + search + "%')";
                         if (i < order_field.Count())
                         {
                             search_clause += " OR ";
@@ -831,7 +832,7 @@ namespace SISPK.Controllers.Penetapan
                 {
                     if (fields != "")
                     {
-                        search_clause += fields + "  LIKE '%" + search + "%'";
+                        search_clause += "LOWER(" + fields + ")  LIKE LOWER('%" + search + "%')";
                         if (i < order_field.Count())
                         {
                             search_clause += " OR ";
@@ -839,7 +840,7 @@ namespace SISPK.Controllers.Penetapan
                     }
                     i++;
                 }
-                search_clause += " OR PROPOSAL_CREATE_DATE_NAME LIKE '%" + search + "%')";
+                search_clause += " OR LOWER(PROPOSAL_CREATE_DATE_NAME) LIKE LOWER('%" + search + "%'))";
             }
 
             string inject_clause_count = "";
