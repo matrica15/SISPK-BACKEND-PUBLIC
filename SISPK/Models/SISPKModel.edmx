@@ -1014,7 +1014,7 @@ warning 6002: The table/view 'C##BSN_SISPK.TRX_POLLING_DETAILS' does not have a 
           <Property Name="POLLING_DETAIL_APPROVE_BY" Type="number" Precision="38" Scale="0" />
           <Property Name="POLLING_DETAIL_APPROVE_DATE" Type="date" />
           <Property Name="POLLING_DETAIL_STATUS" Type="number" Precision="38" Scale="0" />
-          <Property Name="POLLING_DETAIL_PASAL" Type="number" Precision="38" Scale="0" />
+          <Property Name="POLLING_DETAIL_PASAL" Type="varchar2" MaxLength="2000" />
           <Property Name="POLLING_DETAIL_INPUT_TYPE" Type="number" Precision="38" Scale="0" />
           <Property Name="POLLING_DETAIL_FILE_PATH" Type="varchar2" MaxLength="2000" />
         </EntityType>
@@ -2568,7 +2568,7 @@ warning 6002: The table/view 'C##BSN_SISPK.VIEW_POLLING_DETAIL' does not have a 
           <Property Name="POLLING_DETAIL_APPROVE_BY" Type="number" Precision="38" Scale="0" />
           <Property Name="POLLING_DETAIL_APPROVE_DATE" Type="date" />
           <Property Name="POLLING_DETAIL_STATUS" Type="number" Precision="38" Scale="0" />
-          <Property Name="POLLING_DETAIL_PASAL" Type="number" Precision="38" Scale="0" />
+          <Property Name="POLLING_DETAIL_PASAL" Type="varchar2" MaxLength="2000" />
           <Property Name="POLLING_DETAIL_FILE_PATH" Type="varchar2" MaxLength="2000" />
           <Property Name="POLLING_PROPOSAL_ID" Type="number" Precision="38" Scale="0" />
           <Property Name="POLLING_TYPE" Type="varchar2" MaxLength="255" />
@@ -8817,7 +8817,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
           <Property Name="POLLING_DETAIL_APPROVE_BY" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="POLLING_DETAIL_APPROVE_DATE" Type="DateTime" />
           <Property Name="POLLING_DETAIL_STATUS" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="POLLING_DETAIL_PASAL" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="POLLING_DETAIL_PASAL" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="POLLING_DETAIL_INPUT_TYPE" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="POLLING_DETAIL_FILE_PATH" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -10219,7 +10219,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
           <Property Name="POLLING_DETAIL_APPROVE_BY" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="POLLING_DETAIL_APPROVE_DATE" Type="DateTime" />
           <Property Name="POLLING_DETAIL_STATUS" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="POLLING_DETAIL_PASAL" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="POLLING_DETAIL_PASAL" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="POLLING_DETAIL_FILE_PATH" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="POLLING_PROPOSAL_ID" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="POLLING_TYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
