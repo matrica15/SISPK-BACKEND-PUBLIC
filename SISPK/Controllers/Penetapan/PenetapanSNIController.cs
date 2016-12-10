@@ -777,6 +777,7 @@ namespace SISPK.Controllers.Penetapan
 
                 var datarasni = db.Database.SqlQuery<VIEW_PROPOSAL_RASNI>(inject_clause_select);
                 var rasni = from cust in datarasni select new { id = cust.ID, text = cust.TEXT };
+                //return Content(inject_clause_select);
                 return Json(new { rasni, total_count = CountData, inject_clause_select }, JsonRequestBehavior.AllowGet);
             }
             else {
@@ -785,6 +786,7 @@ namespace SISPK.Controllers.Penetapan
 
                 var datarasni = db.Database.SqlQuery<VIEW_PROPOSAL_RASNI>(inject_clause_select);
                 var rasni = from cust in datarasni select new { id = cust.ID, text = cust.TEXT };
+                //return Content(inject_clause_select);
                 return Json(new { rasni, total_count = CountData, inject_clause_select }, JsonRequestBehavior.AllowGet);
             }
             

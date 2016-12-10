@@ -3330,6 +3330,7 @@ warning 6002: The table/view 'C##BSN_SISPK.VIEW_SNI' does not have a primary key
           <Property Name="SNI_MAINTENANCE_STS" Type="varchar2" MaxLength="4000" />
           <Property Name="TAHUN_SNI" Type="varchar2" MaxLength="4000" />
           <Property Name="UMUR_SNI" Type="number" Precision="38" Scale="0" />
+          <Property Name="SNI_CREATE_DATE" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'C##BSN_SISPK.VIEW_SNI_ACUAN_NORMATIF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -7027,7 +7028,8 @@ FROM "C##BSN_SISPK"."VIEW_SK_PER_SNI" "VIEW_SK_PER_SNI"</DefiningQuery>
               "VIEW_SNI"."IS_LIMIT_DOWNLOAD" AS "IS_LIMIT_DOWNLOAD",
               "VIEW_SNI"."SNI_MAINTENANCE_STS" AS "SNI_MAINTENANCE_STS",
               "VIEW_SNI"."TAHUN_SNI" AS "TAHUN_SNI",
-              "VIEW_SNI"."UMUR_SNI" AS "UMUR_SNI"
+              "VIEW_SNI"."UMUR_SNI" AS "UMUR_SNI",
+              "VIEW_SNI"."SNI_CREATE_DATE" AS "SNI_CREATE_DATE"
               FROM "C##BSN_SISPK"."VIEW_SNI" "VIEW_SNI"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VIEW_SNI_ACUAN_NORMATIF" EntityType="Self.VIEW_SNI_ACUAN_NORMATIF" store:Type="Views" store:Schema="C##BSN_SISPK">
@@ -10795,6 +10797,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
           <Property Name="SNI_MAINTENANCE_STS" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="TAHUN_SNI" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="UMUR_SNI" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SNI_CREATE_DATE" Type="DateTime" />
         </EntityType>
         <EntityType Name="VIEW_SNI_ACUAN_NORMATIF">
           <Key>
@@ -14691,6 +14694,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
                 <ScalarProperty Name="SNI_MAINTENANCE_STS" ColumnName="SNI_MAINTENANCE_STS" />
                 <ScalarProperty Name="TAHUN_SNI" ColumnName="TAHUN_SNI" />
                 <ScalarProperty Name="UMUR_SNI" ColumnName="UMUR_SNI" />
+                <ScalarProperty Name="SNI_CREATE_DATE" ColumnName="SNI_CREATE_DATE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

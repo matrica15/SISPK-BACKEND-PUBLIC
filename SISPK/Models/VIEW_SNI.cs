@@ -169,5 +169,6 @@ namespace SISPK.Models
         public string SNI_MAINTENANCE_STS { get; set; }
         public string TAHUN_SNI { get; set; }
         public Nullable<decimal> UMUR_SNI { get; set; }
+        public Nullable<System.DateTime> SNI_CREATE_DATE { get; set; }
     }
 }
