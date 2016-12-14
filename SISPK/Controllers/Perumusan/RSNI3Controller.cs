@@ -1643,7 +1643,7 @@ namespace SISPK.Controllers.Perumusan
             var start = (param.iDisplayStart == 0) ? 0 : param.iDisplayStart;
 
 
-            string where_clause = "(PROPOSAL_STATUS = 6 AND PROPOSAL_STATUS_PROSES = 1 OR PROPOSAL_STATUS_PROSES = 2)  " + ((BIDANG_ID != 0) ? "AND KOMTEK_BIDANG_ID IN (" + BIDANG_ID + ",0)" : "");
+            string where_clause = "PROPOSAL_STATUS = 6 AND (PROPOSAL_STATUS_PROSES = 1 OR PROPOSAL_STATUS_PROSES = 2)  " + ((BIDANG_ID != 0) ? "AND KOMTEK_BIDANG_ID IN (" + BIDANG_ID + ",0)" : "");
 
             string search_clause = "";
             if (search != "")
