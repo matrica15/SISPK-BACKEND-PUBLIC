@@ -1936,12 +1936,14 @@ namespace SISPK.Controllers.Pengajuan
             var start = (page == 1) ? 10 : (page * limit);
             var end = (page == 1) ? 0 : ((page - 1) * limit);
 
-            var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_SNI_SELECT WHERE LOWER(VIEW_SNI_SELECT.TEXT) LIKE '%" + q.ToLower() + "%' ORDER BY VIEW_SNI_SELECT.TEXT ASC").SingleOrDefault();
-            string inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER FROM (SELECT * FROM VIEW_SNI_SELECT WHERE LOWER(VIEW_SNI_SELECT.TEXT) LIKE '%" + q.ToLower() + "%' ORDER BY VIEW_SNI_SELECT.TEXT ASC) T1 WHERE ROWNUM <= " + Convert.ToString(start) + ") WHERE ROWNUMBER > " + Convert.ToString(end);
+            var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_SNI_SELECT WHERE SNI_TIDAK_BERLAKU = '0' AND LOWER(VIEW_SNI_SELECT.TEXT) LIKE '%" + q.ToLower() + "%' ORDER BY VIEW_SNI_SELECT.TEXT ASC").SingleOrDefault();
+            string inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER FROM (SELECT * FROM VIEW_SNI_SELECT WHERE SNI_TIDAK_BERLAKU = '0' AND LOWER(VIEW_SNI_SELECT.TEXT) LIKE '%" + q.ToLower() + "%' ORDER BY VIEW_SNI_SELECT.TEXT ASC) T1 WHERE ROWNUM <= " + Convert.ToString(start) + ") WHERE ROWNUMBER > " + Convert.ToString(end);
             var datasni = db.Database.SqlQuery<VIEW_SNI_SELECT>(inject_clause_select);
             var sni = from cust in datasni select new { id = cust.ID, text = cust.TEXT };
 
             return Json(new { sni, total_count = CountData, inject_clause_select }, JsonRequestBehavior.AllowGet);
+
+            //return Content(inject_clause_select);
 
         }
         [HttpGet]

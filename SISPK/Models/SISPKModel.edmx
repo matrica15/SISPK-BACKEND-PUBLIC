@@ -3706,6 +3706,7 @@ warning 6002: The table/view 'C##BSN_SISPK.VIEW_SNI_SELECT' does not have a prim
           </Key>
           <Property Name="TEXT" Type="varchar2" MaxLength="4000" />
           <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SNI_TIDAK_BERLAKU" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'C##BSN_SISPK.VIEW_SNI_SK' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -7381,10 +7382,12 @@ FROM "C##BSN_SISPK"."VIEW_SNI_FIVE_YEARS" "VIEW_SNI_FIVE_YEARS"</DefiningQuery>
 FROM "C##BSN_SISPK"."VIEW_SNI_REVISI_PORTAL" "VIEW_SNI_REVISI_PORTAL"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VIEW_SNI_SELECT" EntityType="Self.VIEW_SNI_SELECT" store:Type="Views" store:Schema="C##BSN_SISPK">
-            <DefiningQuery>SELECT 
-"VIEW_SNI_SELECT"."TEXT" AS "TEXT", 
-"VIEW_SNI_SELECT"."ID" AS "ID"
-FROM "C##BSN_SISPK"."VIEW_SNI_SELECT" "VIEW_SNI_SELECT"</DefiningQuery>
+            <DefiningQuery>
+              SELECT
+              "VIEW_SNI_SELECT"."TEXT" AS "TEXT",
+              "VIEW_SNI_SELECT"."ID" AS "ID",
+              "VIEW_SNI_SELECT"."SNI_TIDAK_BERLAKU" AS "SNI_TIDAK_BERLAKU"
+              FROM "C##BSN_SISPK"."VIEW_SNI_SELECT" "VIEW_SNI_SELECT"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VIEW_SNI_SK" EntityType="Self.VIEW_SNI_SK" store:Type="Views" store:Schema="C##BSN_SISPK">
             <DefiningQuery>SELECT 
@@ -11161,6 +11164,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
           </Key>
           <Property Name="TEXT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="SNI_TIDAK_BERLAKU" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="VIEW_SNI_SK">
           <Key>
@@ -15061,6 +15065,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
               <MappingFragment StoreEntitySet="VIEW_SNI_SELECT">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+                <ScalarProperty Name="SNI_TIDAK_BERLAKU" ColumnName="SNI_TIDAK_BERLAKU" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
