@@ -1604,11 +1604,11 @@ namespace SISPK.Controllers.Pengajuan
 
             if (id == 0)
             {
-                where_clause += "PROPOSAL_STATUS = 0 AND PROPOSAL_STATUS_PROSES = 1 AND PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID;
+                where_clause += "PROPOSAL_STATUS = 0 AND PROPOSAL_STATUS_PROSES = 1 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) AND PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID;
             }
             else if (id == 1)
             {
-                where_clause += "PROPOSAL_STATUS > 0 AND PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID;
+                where_clause += "PROPOSAL_STATUS > 0 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) AND PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID;
             }
             else if (id == 2)
             {
@@ -1873,7 +1873,7 @@ namespace SISPK.Controllers.Pengajuan
             string where_clause = "";
 
 
-            where_clause += "PROPOSAL_STATUS = 0 AND APPROVAL_TYPE = 0 AND PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID;
+            where_clause += "PROPOSAL_STATUS = 0 AND (PROPOSAL_IS_BATAL <> 1 OR PROPOSAL_IS_BATAL IS NULL) AND APPROVAL_TYPE = 0 AND PROPOSAL_KOMTEK_ID = " + USER_KOMTEK_ID;
 
             string search_clause = "";
             if (search != "")
