@@ -124,7 +124,7 @@ namespace SISPK.Controllers.Master
                     }
                     i++;
                 }
-                search_clause += " OR CREATE_DATE = '%" + search + "%')";
+                search_clause += ")";
             }
 
             string inject_clause_count = "";
@@ -137,12 +137,13 @@ namespace SISPK.Controllers.Master
             var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  TRX_SK_PENETAPAN " + inject_clause_count);
             var SelectedData = db.Database.SqlQuery<TRX_SK_PENETAPAN>(inject_clause_select);
 
+            //return Content(inject_clause_select);
 
             var result = from list in SelectedData
                          select new string[]
-            
+
          {
-            
+
             Convert.ToString("<center>"+list.PENETAPAN_NO_SK+"</center>"),
             Convert.ToString(list.JUDUL_SK),
             //Convert.ToString("<center>"+list.TANGGAL_SK+"</center>"),
