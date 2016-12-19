@@ -104,7 +104,7 @@ namespace SISPK.Controllers.Pembatalan
             Convert.ToString(list.PROPOSAL_JENIS_PERUMUSAN_NAME),
             Convert.ToString(list.PROPOSAL_TAHAPAN),
             Convert.ToString(list.PROPOSAL_KET_BATAL),
-            Convert.ToString("<center><a href='Pembatalan/Detail/" + list.PROPOSAL_ID + "' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a><a href='Pembatalan/Backstatus/" + list.PROPOSAL_ID + "' class='btn purple btn-sm action tooltips' data-container='body' style='"+ aksi +"' data-placement='top' data-original-title='Tidak Jadi dibatalkan'><i class='action fa fa-check'></i></a></center>"),
+            Convert.ToString("<center><a href='Pembatalan/Detail/" + list.PROPOSAL_ID + "' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a><a href='/Upload/Dokumen/PEMBATALAN/" + list.PROPOSAL_BATAL_ATTACHMENT + "' target='blank' class='btn green btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='View SK'><i class='action fa fa-download'></i></a><a href='Pembatalan/Backstatus/" + list.PROPOSAL_ID + "' class='btn purple btn-sm action tooltips' data-container='body' style='"+ aksi +"' data-placement='top' data-original-title='Tidak Jadi dibatalkan'><i class='action fa fa-check'></i></a></center>"),
                 //Convert.ToString("<center><a href='PenetapanSNI/Detail/"+list.SNI_SK_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a></center>"),
             };
             
