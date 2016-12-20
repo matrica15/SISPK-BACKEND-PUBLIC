@@ -160,6 +160,9 @@ namespace SISPK.Models
         public DbSet<VIEW_WILAYAH_KABUPATEN> VIEW_WILAYAH_KABUPATEN { get; set; }
         public DbSet<VIEW_WILAYAH_PROVINSI> VIEW_WILAYAH_PROVINSI { get; set; }
         public DbSet<VIEW_PROPOSAL_DASHBOARD> VIEW_PROPOSAL_DASHBOARD { get; set; }
+        public DbSet<TRX_UPDATE_SNI_REV_HIST> TRX_UPDATE_SNI_REV_HIST { get; set; }
+        public DbSet<TRX_AKTIF_SNI_REV> TRX_AKTIF_SNI_REV { get; set; }
+        public DbSet<TRX_LOG_JOB> TRX_LOG_JOB { get; set; }
     
         public virtual int PROC_SYS_SEQUENCE_FIXER()
         {

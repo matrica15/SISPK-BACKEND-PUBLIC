@@ -137,6 +137,10 @@
         <EntityTypeShape EntityType="SISPKModel.VIEW_WILAYAH_KABUPATEN" Width="1.5" PointX="10.75" PointY="40.75" />
         <EntityTypeShape EntityType="SISPKModel.VIEW_WILAYAH_PROVINSI" Width="1.5" PointX="12.75" PointY="40.75" />
         <EntityTypeShape EntityType="SISPKModel.VIEW_PROPOSAL_DASHBOARD" Width="1.5" PointX="41.375" PointY="16.75" />
+        <EntityTypeShape EntityType="SISPKModel.TRX_UPDATE_SNI_REV_HIST" Width="1.5" PointX="25.375" PointY="41.75" />
+        <EntityTypeShape EntityType="SISPKModel.TRX_AKTIF_SNI_REV" Width="1.5" PointX="27.375" PointY="41.75" />
+        <EntityTypeShape EntityType="SISPKModel.TRX_LOG_JOB" Width="1.5" PointX="35.375" PointY="41.75" />
+        <EntityTypeShape EntityType="SISPKModel.DN_VW_UPDATE_SNI" Width="1.5" PointX="43.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

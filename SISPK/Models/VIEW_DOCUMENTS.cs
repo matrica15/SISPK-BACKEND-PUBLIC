@@ -38,5 +38,7 @@ namespace SISPK.Models
         public Nullable<decimal> DOC_PROPOSAL_KOMTEK_ID { get; set; }
         public Nullable<decimal> DOC_SNI_KOMTEK_ID { get; set; }
         public string DOC_DATE { get; set; }
+        public string DOC_IS_XML { get; set; }
+        public string DOC_XML_DATA { get; set; }
     }
 }
