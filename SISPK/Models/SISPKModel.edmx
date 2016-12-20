@@ -760,7 +760,7 @@ warning 6002: The table/view 'C##BSN_SISPK.TRX_DOCUMENTS' does not have a primar
           <Property Name="DOC_LOG_CODE" Type="varchar2" MaxLength="32" />
           <Property Name="DOC_CREATE_TYPE" Type="number" Precision="38" Scale="0" />
           <Property Name="DOC_DELETABLE" Type="number" Precision="38" Scale="0" />
-          <Property Name="DOC_IS_XML" Type="varchar2" MaxLength="2000" />
+          <Property Name="DOC_IS_XML" Type="number" Precision="38" Scale="0" />
           <Property Name="DOC_XML_DATA" Type="clob" />
         </EntityType>
         <!--Errors Found During Generation:
