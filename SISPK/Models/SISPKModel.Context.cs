@@ -25,12 +25,12 @@ namespace SISPK.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<BACKUP_TP_DETAILS> BACKUP_TP_DETAILS { get; set; }
-        public DbSet<MASTER_KA_BACKUP> MASTER_KA_BACKUP { get; set; }
-        public DbSet<SYS_ACCESS_DETAIL_BK> SYS_ACCESS_DETAIL_BK { get; set; }
-        public DbSet<SYS_MENU_copy> SYS_MENU_copy { get; set; }
-        public DbSet<TRX_POLLING_DETAILS_copy> TRX_POLLING_DETAILS_copy { get; set; }
-        public DbSet<TRX_SNI_copy> TRX_SNI_copy { get; set; }
+        //public DbSet<BACKUP_TP_DETAILS> BACKUP_TP_DETAILS { get; set; }
+        //public DbSet<MASTER_KA_BACKUP> MASTER_KA_BACKUP { get; set; }
+        //public DbSet<SYS_ACCESS_DETAIL_BK> SYS_ACCESS_DETAIL_BK { get; set; }
+        //public DbSet<SYS_MENU_copy> SYS_MENU_copy { get; set; }
+        //public DbSet<TRX_POLLING_DETAILS_copy> TRX_POLLING_DETAILS_copy { get; set; }
+        //public DbSet<TRX_SNI_copy> TRX_SNI_copy { get; set; }
         public DbSet<DN_VW_UPDATE_SNI> DN_VW_UPDATE_SNI { get; set; }
         public DbSet<MASTER_ACUAN_NON_SNI> MASTER_ACUAN_NON_SNI { get; set; }
         public DbSet<MASTER_BIBLIOGRAFI> MASTER_BIBLIOGRAFI { get; set; }

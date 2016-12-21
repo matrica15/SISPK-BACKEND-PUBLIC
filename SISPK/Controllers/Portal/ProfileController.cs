@@ -19,9 +19,9 @@ namespace SISPK.Controllers.Portal
 
         public ActionResult Index()
         {
-            ViewData["profil"] = db.Database.SqlQuery<PORTAL_PROFILE>("SELECT * FROM PORTAL_PROFILE WHERE PROFILE_STATUS = '1' AND PROFILE_ID = '1' ").SingleOrDefault();
+            //ViewData["profil"] = db.Database.SqlQuery<PORTAL_PROFILE>("SELECT * FROM PORTAL_PROFILE WHERE PROFILE_STATUS = '1' AND PROFILE_ID = '1' ").SingleOrDefault();
 
-            //ViewData["profil"] = (from t in db.PORTAL_PROFILE where t.PROFILE_STATUS == 1 select t).SingleOrDefault();
+            ViewData["profil"] = (from t in db.PORTAL_PROFILE where t.PROFILE_STATUS == 1 select t).SingleOrDefault();
 
             //return Json(new
             //{
@@ -61,11 +61,6 @@ namespace SISPK.Controllers.Portal
 
         public ActionResult Cek_sni()
         {
-            //var id = Convert.ToInt32(SNI.SNI_ID);
-            //var kmt = db.Database.SqlQuery<VIEW_SNI>("SELECT * FROM VIEW_SNI WHERE SNI_ID = " + id).FirstOrDefault();
-            //var kd = kmt.KOMTEK_CODE;
-            //var nm = kmt.KOMTEK_NAME;
-            //return Json(new { idL = id, komtek_kd = kd, komtek_nm = nm }, JsonRequestBehavior.AllowGet);
 
             var kmt = db.Database.SqlQuery<TRX_AKTIF_SNI_REV>("SELECT * FROM TRX_AKTIF_SNI_REV WHERE ID = '1'  ").SingleOrDefault();
             var hasil = kmt.MASA_AKTIF_SNI_REV;
