@@ -71,9 +71,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Oracle.DataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+    <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\app\Administrator\product\12.1.0\client_3\odp.net\bin\4\Oracle.DataAccess.dll</HintPath>
+      <HintPath>..\..\..\app\app\oracle\product\11.2.0\client_1\odp.net\bin\4\Oracle.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -5888,6 +5888,26 @@
     <Content Include="Views\Sk_penetapan_pnps\Edit.cshtml" />
     <Content Include="Views\Pengesahan\Update.cshtml" />
     <Content Include="Views\Dashboard\Index - Copy.cshtml" />
+    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL82_.docx" />
+    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL83_.docx" />
+    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL84_.docx" />
+    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_101.docx" />
+    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_102.docx" />
+    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_71.docx" />
+    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_85_.docx" />
+    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_86_.docx" />
+    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_87_.docx" />
+    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_88_.docx" />
+    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_90.docx" />
+    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_91.docx" />
+    <Content Include="Upload\Dokumen\KOMTEK_SK\Komtek_11-22_176.pdf" />
+    <Content Include="Upload\Dokumen\KOMTEK_SK\Komtek_121231_180.pdf" />
+    <Content Include="Upload\Dokumen\KOMTEK_SK\Komtek_123_160.pdf" />
+    <Content Include="Upload\Dokumen\KOMTEK_SK\Komtek_313123_181.pdf" />
+    <Content Include="Upload\Dokumen\PEMBATALAN\Attachment_Batal_24_11_2016_05_10.pdf" />
+    <Content Include="Upload\Upload\MANUAL_FRONT_END.pdf" />
+    <Content Include="Upload\Upload\MANUAL_KOMTEK.pdf" />
+    <Content Include="Upload\Upload\MANUAL_PPS.pdf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -6018,16 +6038,33 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
-    <Folder Include="Upload\Dokumen\HAK_PATEN\" />
+    <Folder Include="Upload\Dokumen\FORM_KAJI_ULANG\" />
     <Folder Include="Upload\Dokumen\KOMTEK_CV\" />
-    <Folder Include="Upload\Dokumen\KOMTEK_SK\" />
     <Folder Include="Upload\Dokumen\LAINNYA\Dokumen\" />
     <Folder Include="Upload\Dokumen\LAINNYA\LPK\" />
-    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\JAJAK_PENDAPAT\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\MTPS\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\PNPS\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\RASNI\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\RSNI1\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\RSNI2\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\RSNI3\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\RSNI4\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\RSNI5\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\RSNI6\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\RSNI7\" />
+    <Folder Include="Upload\Dokumen\RANCANGAN_SNI\RSNI8\" />
     <Folder Include="Upload\Dokumen\REFERENSI\" />
     <Folder Include="Upload\Dokumen\SK_PENETAPAN_PNPS\" />
+    <Folder Include="Upload\Dokumen\SK_PNPS\" />
     <Folder Include="Upload\Dokumen\SK_REGULASI\" />
-    <Folder Include="Upload\Upload\" />
+    <Folder Include="Upload\Upload\Dokumen\" />
+    <Folder Include="Upload\Upload\File\" />
+    <Folder Include="Upload\Upload\IMAGE_SLIDER\" />
+    <Folder Include="Upload\Upload\News\" />
+    <Folder Include="Upload\Upload\Referensi\" />
+    <Folder Include="Upload\Upload\Temp\" />
+    <Folder Include="Upload\Upload\Usulan\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
