@@ -289,8 +289,14 @@
     <Compile Include="Helpers\ReplaceHelper.cs" />
     <Compile Include="Helpers\SendMailHelper.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\BACKUP_TP_DETAILS.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\clsOracle.cs" />
     <Compile Include="Models\DataTables.cs" />
+    <Compile Include="Models\DN_VW_UPDATE_SNI.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HandleResourceLoading.cs" />
     <Compile Include="Models\MASTER_ACUAN_NON_SNI.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
@@ -314,6 +320,9 @@
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MASTER_INSTANSI.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MASTER_KA_BACKUP.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MASTER_KOMITE_TEKNIS.cs">
@@ -379,6 +388,9 @@
     <Compile Include="Models\SYS_ACCESS_DETAIL.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SYS_ACCESS_DETAIL_BK.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SYS_CONFIG.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
@@ -404,6 +416,9 @@
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SYS_MENU.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SYS_MENU_copy.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SYS_NOTIF.cs">
@@ -445,9 +460,6 @@
     <Compile Include="Models\TRX_MAINTENANCES.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TRX_MAINTENANCES_copy.cs">
-      <DependentUpon>SISPKModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TRX_MAINTENANCE_DETAILS.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
@@ -458,6 +470,9 @@
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TRX_POLLING_DETAILS.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TRX_POLLING_DETAILS_copy.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TRX_PROPOSAL.cs">
@@ -493,6 +508,9 @@
     <Compile Include="Models\TRX_SNI.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TRX_SNI_copy.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TRX_SNI_DOC.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
@@ -503,9 +521,6 @@
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TRX_SURAT_TUGAS.cs">
-      <DependentUpon>SISPKModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TRX_TEST.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TRX_UPDATE_SNI_REV_HIST.cs">

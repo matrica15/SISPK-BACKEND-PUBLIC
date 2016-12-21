@@ -164,11 +164,11 @@ namespace SISPK.Models
         public string DSK_DOC_FILETYPE { get; set; }
         public string DSK_DOC_LINK { get; set; }
         public Nullable<decimal> DSK_DOC_EDITABLE { get; set; }
+        public string SNI_MAINTENANCE_STS { get; set; }
+        public Nullable<System.DateTime> SNI_CREATE_DATE { get; set; }
         public string PROPOSAL_ICS_DETAIL_NAME { get; set; }
         public Nullable<decimal> IS_LIMIT_DOWNLOAD { get; set; }
-        public string SNI_MAINTENANCE_STS { get; set; }
         public string TAHUN_SNI { get; set; }
         public Nullable<decimal> UMUR_SNI { get; set; }
-        public Nullable<System.DateTime> SNI_CREATE_DATE { get; set; }
     }
 }

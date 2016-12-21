@@ -16,6 +16,6 @@ namespace SISPK.Models
     {
         public string TEXT { get; set; }
         public decimal ID { get; set; }
-        public decimal SNI_TIDAK_BERLAKU { get; set; }
+        public Nullable<decimal> SNI_TIDAK_BERLAKU { get; set; }
     }
 }
