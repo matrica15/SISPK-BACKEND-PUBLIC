@@ -17,7 +17,7 @@ namespace SISPK.Models
         public long LOG_ID { get; set; }
         public string LOG_CODE { get; set; }
         public string LOG_USER { get; set; }
-        public Nullable<short> LOG_USER_TYPE { get; set; }
+        public Nullable<long> LOG_USER_TYPE { get; set; }
         public Nullable<long> LOG_MENU_ID { get; set; }
         public Nullable<short> LOG_ACTION { get; set; }
         public string LOG_OBJECT { get; set; }

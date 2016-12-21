@@ -32,13 +32,13 @@ namespace SISPK.Models
         public string DOC_NAME_LOWER { get; set; }
         public string DOC_DESCRIPTION { get; set; }
         public Nullable<decimal> DOC_STATUS { get; set; }
+        public Nullable<decimal> DOC_IS_XML { get; set; }
+        public string DOC_XML_DATA { get; set; }
         public decimal DOC_CREATE_USER_ID { get; set; }
         public string DOC_CREATE_USER_NAME { get; set; }
         public string DOC_CREATE_NAME { get; set; }
         public Nullable<decimal> DOC_PROPOSAL_KOMTEK_ID { get; set; }
         public Nullable<decimal> DOC_SNI_KOMTEK_ID { get; set; }
         public string DOC_DATE { get; set; }
-        public string DOC_IS_XML { get; set; }
-        public string DOC_XML_DATA { get; set; }
     }
 }

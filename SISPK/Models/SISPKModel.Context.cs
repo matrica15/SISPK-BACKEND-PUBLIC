@@ -12,9 +12,6 @@ namespace SISPK.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Objects;
-    using System.Data.Objects.DataClasses;
-    using System.Linq;
     
     public partial class SISPKEntities : DbContext
     {
@@ -28,8 +25,13 @@ namespace SISPK.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<TRX_SK_PENETAPAN> TRX_SK_PENETAPAN { get; set; }
-        public DbSet<TRX_TEST> TRX_TEST { get; set; }
+        public DbSet<BACKUP_TP_DETAILS> BACKUP_TP_DETAILS { get; set; }
+        public DbSet<MASTER_KA_BACKUP> MASTER_KA_BACKUP { get; set; }
+        public DbSet<SYS_ACCESS_DETAIL_BK> SYS_ACCESS_DETAIL_BK { get; set; }
+        public DbSet<SYS_MENU_copy> SYS_MENU_copy { get; set; }
+        public DbSet<TRX_POLLING_DETAILS_copy> TRX_POLLING_DETAILS_copy { get; set; }
+        public DbSet<TRX_SNI_copy> TRX_SNI_copy { get; set; }
+        public DbSet<DN_VW_UPDATE_SNI> DN_VW_UPDATE_SNI { get; set; }
         public DbSet<MASTER_ACUAN_NON_SNI> MASTER_ACUAN_NON_SNI { get; set; }
         public DbSet<MASTER_BIBLIOGRAFI> MASTER_BIBLIOGRAFI { get; set; }
         public DbSet<MASTER_BIDANG> MASTER_BIDANG { get; set; }
@@ -68,15 +70,16 @@ namespace SISPK.Models
         public DbSet<SYS_USER_PUBLIC> SYS_USER_PUBLIC { get; set; }
         public DbSet<T_MASTER_KOMITE_TEKNIS> T_MASTER_KOMITE_TEKNIS { get; set; }
         public DbSet<T_MASTER_KOMTEK_ICS> T_MASTER_KOMTEK_ICS { get; set; }
+        public DbSet<TRX_AKTIF_SNI_REV> TRX_AKTIF_SNI_REV { get; set; }
         public DbSet<TRX_DOC_RELATEDS> TRX_DOC_RELATEDS { get; set; }
         public DbSet<TRX_DOCUMENTS> TRX_DOCUMENTS { get; set; }
+        public DbSet<TRX_LOG_JOB> TRX_LOG_JOB { get; set; }
         public DbSet<TRX_LPK> TRX_LPK { get; set; }
         public DbSet<TRX_LPK_DETAIL> TRX_LPK_DETAIL { get; set; }
         public DbSet<TRX_LPK_DETAIL_SNI> TRX_LPK_DETAIL_SNI { get; set; }
         public DbSet<TRX_LPK_SCOPE> TRX_LPK_SCOPE { get; set; }
         public DbSet<TRX_MAINTENANCE_DETAILS> TRX_MAINTENANCE_DETAILS { get; set; }
         public DbSet<TRX_MAINTENANCES> TRX_MAINTENANCES { get; set; }
-        public DbSet<TRX_MAINTENANCES_copy> TRX_MAINTENANCES_copy { get; set; }
         public DbSet<TRX_MONITORING> TRX_MONITORING { get; set; }
         public DbSet<TRX_POLLING> TRX_POLLING { get; set; }
         public DbSet<TRX_POLLING_DETAILS> TRX_POLLING_DETAILS { get; set; }
@@ -89,11 +92,13 @@ namespace SISPK.Models
         public DbSet<TRX_PROPOSAL_REV> TRX_PROPOSAL_REV { get; set; }
         public DbSet<TRX_REGULASI_TEKNIS> TRX_REGULASI_TEKNIS { get; set; }
         public DbSet<TRX_REGULASI_TEKNIS_DETAIL> TRX_REGULASI_TEKNIS_DETAIL { get; set; }
+        public DbSet<TRX_SK_PENETAPAN> TRX_SK_PENETAPAN { get; set; }
         public DbSet<TRX_SNI> TRX_SNI { get; set; }
         public DbSet<TRX_SNI_DOC> TRX_SNI_DOC { get; set; }
         public DbSet<TRX_SNI_SK> TRX_SNI_SK { get; set; }
         public DbSet<TRX_SNI_VALUATIONS> TRX_SNI_VALUATIONS { get; set; }
         public DbSet<TRX_SURAT_TUGAS> TRX_SURAT_TUGAS { get; set; }
+        public DbSet<TRX_UPDATE_SNI_REV_HIST> TRX_UPDATE_SNI_REV_HIST { get; set; }
         public DbSet<SYS_DOC_ACCESS_DETAIL_SELECT> SYS_DOC_ACCESS_DETAIL_SELECT { get; set; }
         public DbSet<VIEW_ACCESS> VIEW_ACCESS { get; set; }
         public DbSet<VIEW_ACUAN_NON_SNI_SELECT> VIEW_ACUAN_NON_SNI_SELECT { get; set; }
@@ -129,6 +134,7 @@ namespace SISPK.Models
         public DbSet<VIEW_POLLING_DETAIL> VIEW_POLLING_DETAIL { get; set; }
         public DbSet<VIEW_POLLING_SINGLE> VIEW_POLLING_SINGLE { get; set; }
         public DbSet<VIEW_PROPOSAL> VIEW_PROPOSAL { get; set; }
+        public DbSet<VIEW_PROPOSAL_DASHBOARD> VIEW_PROPOSAL_DASHBOARD { get; set; }
         public DbSet<VIEW_PROPOSAL_ICS> VIEW_PROPOSAL_ICS { get; set; }
         public DbSet<VIEW_PROPOSAL_RAPAT> VIEW_PROPOSAL_RAPAT { get; set; }
         public DbSet<VIEW_PROPOSAL_RASNI> VIEW_PROPOSAL_RASNI { get; set; }
@@ -159,14 +165,5 @@ namespace SISPK.Models
         public DbSet<VIEW_USERS_PUBLIC> VIEW_USERS_PUBLIC { get; set; }
         public DbSet<VIEW_WILAYAH_KABUPATEN> VIEW_WILAYAH_KABUPATEN { get; set; }
         public DbSet<VIEW_WILAYAH_PROVINSI> VIEW_WILAYAH_PROVINSI { get; set; }
-        public DbSet<VIEW_PROPOSAL_DASHBOARD> VIEW_PROPOSAL_DASHBOARD { get; set; }
-        public DbSet<TRX_UPDATE_SNI_REV_HIST> TRX_UPDATE_SNI_REV_HIST { get; set; }
-        public DbSet<TRX_AKTIF_SNI_REV> TRX_AKTIF_SNI_REV { get; set; }
-        public DbSet<TRX_LOG_JOB> TRX_LOG_JOB { get; set; }
-    
-        public virtual int PROC_SYS_SEQUENCE_FIXER()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PROC_SYS_SEQUENCE_FIXER");
-        }
     }
 }
