@@ -24,6 +24,8 @@ namespace SISPK.Controllers.Portal
         public ActionResult Index()
         {
             ViewData["slider"] = (from t in db.PORTAL_SLIDER where t.SLIDER_STATUS == 1 select t).ToList();
+
+            //ViewData["slider"] = db.Database.SqlQuery<PORTAL_SLIDER>("SELECT * FROM PORTAL_SLIDER WHERE SLIDER_STATUS = '1' ").ToList();
             return View();
         }
 

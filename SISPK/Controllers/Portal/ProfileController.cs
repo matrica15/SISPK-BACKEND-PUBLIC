@@ -6,7 +6,8 @@ using System.Web.Mvc;
 using SISPK.Models;
 using SISPK.Filters;
 using SISPK.Helpers;
-using System.Security.Cryptography;
+using System.IO;
+using Aspose.Words;
 
 namespace SISPK.Controllers.Portal
 {
@@ -18,6 +19,8 @@ namespace SISPK.Controllers.Portal
 
         public ActionResult Index()
         {
+            //ViewData["profil"] = db.Database.SqlQuery<PORTAL_PROFILE>("SELECT * FROM PORTAL_PROFILE WHERE PROFILE_STATUS = '1' AND PROFILE_ID = '1' ").SingleOrDefault();
+
             ViewData["profil"] = (from t in db.PORTAL_PROFILE where t.PROFILE_STATUS == 1 select t).SingleOrDefault();
 
             //return Json(new
@@ -25,7 +28,9 @@ namespace SISPK.Controllers.Portal
 
             //    aaData = ViewBag.aa.PROFILE_TENTANG_KAMI
             //}, JsonRequestBehavior.AllowGet);
+
             return View();
+           
 
         }
 
@@ -52,6 +57,14 @@ namespace SISPK.Controllers.Portal
             TempData["Notifikasi"] = 1;
             TempData["NotifikasiText"] = "Data Berhasil Disimpan";
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Cek_sni()
+        {
+
+            var kmt = db.Database.SqlQuery<TRX_AKTIF_SNI_REV>("SELECT * FROM TRX_AKTIF_SNI_REV WHERE ID = '1'  ").SingleOrDefault();
+            var hasil = kmt.MASA_AKTIF_SNI_REV;
+            return Content(hasil);
         }
 
     }

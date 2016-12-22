@@ -14,7 +14,7 @@ namespace SISPK.Models
     
     public partial class VIEW_PROPOSAL
     {
-        public decimal? PROPOSAL_ID { get; set; }
+        public decimal PROPOSAL_ID { get; set; }
         public Nullable<decimal> PROPOSAL_TYPE { get; set; }
         public string PROPOSAL_TYPE_NAME { get; set; }
         public string PROPOSAL_TAHAPAN { get; set; }
@@ -147,7 +147,7 @@ namespace SISPK.Models
         public Nullable<decimal> POLLING_JML_PARTISIPAN { get; set; }
         public string PROPOSAL_HAK_PATEN_LOCATION { get; set; }
         public string PROPOSAL_HAK_PATEN_NAME { get; set; }
-        public string KLASIFIKASI_JNS_SNI { get; set; }
         public string PROPOSAL_KET_BATAL { get; set; }
+        public string KLASIFIKASI_JNS_SNI { get; set; }
     }
 }

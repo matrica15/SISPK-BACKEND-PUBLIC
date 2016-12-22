@@ -12,15 +12,9 @@ namespace SISPK.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SYS_LOGS
+    public partial class TRX_AKTIF_SNI_REV
     {
-        public long LOG_ID { get; set; }
-        public string LOG_CODE { get; set; }
-        public string LOG_USER { get; set; }
-        public Nullable<long> LOG_USER_TYPE { get; set; }
-        public Nullable<long> LOG_MENU_ID { get; set; }
-        public Nullable<short> LOG_ACTION { get; set; }
-        public string LOG_OBJECT { get; set; }
-        public Nullable<System.DateTime> LOG_DATE { get; set; }
+        public decimal ID { get; set; }
+        public string MASA_AKTIF_SNI_REV { get; set; }
     }
 }

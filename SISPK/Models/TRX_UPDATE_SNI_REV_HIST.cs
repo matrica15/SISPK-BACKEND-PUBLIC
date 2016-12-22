@@ -12,10 +12,11 @@ namespace SISPK.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TRX_TEST
+    public partial class TRX_UPDATE_SNI_REV_HIST
     {
-        public decimal TEST_TABLE { get; set; }
-        public string TEST_NAME { get; set; }
-        public Nullable<decimal> TEST_STATUS { get; set; }
+        public decimal ID { get; set; }
+        public string ID_SNI_REV { get; set; }
+        public string KET { get; set; }
+        public Nullable<System.DateTime> UPDATE_TIME { get; set; }
     }
 }

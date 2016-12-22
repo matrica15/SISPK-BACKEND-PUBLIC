@@ -165,8 +165,10 @@ namespace SISPK.Controllers.Master
             ViewData["komtek_ics"] = (from t in db.VIEW_KOMTEK_ICS where t.KOMTEK_ICS_KOMTEK_ID == id && t.KOMTEK_ICS_STATUS == 1 select t).ToList();
             ViewData["sk_file"] = (from t in db.TRX_DOCUMENTS where t.DOC_RELATED_ID == id && t.DOC_FOLDER_ID == 22 && t.DOC_STATUS == 1 select t).SingleOrDefault();
 
-            //var DataAnggota = (from ics in db.VIEW_ANGGOTA where ics.KOMTEK_ANGGOTA_KOMTEK_ID == id select ics).ToList();
-            //ViewData["DataAnggota"] = DataAnggota;
+            //ViewData["list_anggota"] = db.Database.SqlQuery<VIEW_ANGGOTA>("SELECT * FROM VIEW_ANGGOTA WHERE KOMTEK_ANGGOTA_KOMTEK_ID = "+ id + " AND KOMTEK_ANGGOTA_STATUS = '1' AND JABATAN <> 'Sekretariat' ORDER BY KOMTEK_ANGGOTA_JABATAN ASC").ToList();
+            //ViewData["komtek_item"] = db.Database.SqlQuery<VIEW_KOMTEK>("SELECT * FROM VIEW_KOMTEK WHERE KOMTEK_ID ="+id).SingleOrDefault();
+            //ViewData["komtek_ics"] = db.Database.SqlQuery<VIEW_KOMTEK_ICS>("SELECT * FROM VIEW_KOMTEK_ICS WHERE KOMTEK_ICS_KOMTEK_ID = " +id+" AND KOMTEK_ICS_STATUS = '1'").ToList();
+            //ViewData["sk_file"] = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT * FROM TRX_DOCUMENTS WHERE DOC_RELATED_ID = "+id+" AND DOC_FOLDER_ID = '22' AND DOC_STATUS = '1'").SingleOrDefault();
 
             var komposis_anggota = db.Database.SqlQuery<SISPK.Models.DataTables.KomposisiKomtek>("SELECT CAST(VA.KOMTEK_ANGGOTA_STAKEHOLDER AS DECIMAL) AS KOMTEK_ANGGOTA_STAKEHOLDER,VA.STAKEHOLDER,CAST(VA.KOMTEK_ANGGOTA_KOMTEK_ID AS DECIMAL) AS KOMTEK_ANGGOTA_KOMTEK_ID, CAST(COUNT (VA.KOMTEK_ANGGOTA_STAKEHOLDER) AS DECIMAL) AS JML, CAST(ROUND((COUNT (VA.KOMTEK_ANGGOTA_STAKEHOLDER)/(SELECT COUNT(VAS.KOMTEK_ANGGOTA_STAKEHOLDER) FROM VIEW_ANGGOTA VAS WHERE VAS.KOMTEK_ANGGOTA_STATUS = 1 AND VAS.KOMTEK_ANGGOTA_KOMTEK_ID = " + id + " AND VAS.JABATAN != 'Sekretariat')* 100),2) AS DECIMAL) AS PERSENTASE FROM VIEW_ANGGOTA VA WHERE VA.KOMTEK_ANGGOTA_STATUS = 1 AND VA.KOMTEK_ANGGOTA_KOMTEK_ID = " + id + " AND VA.JABATAN != 'Sekretariat' AND VA.KOMTEK_ANGGOTA_STAKEHOLDER IS NOT NULL GROUP BY VA.KOMTEK_ANGGOTA_STAKEHOLDER, VA.STAKEHOLDER, VA.KOMTEK_ANGGOTA_KOMTEK_ID").ToList();
             ViewData["Komp_Ang"] = komposis_anggota;
@@ -189,6 +191,16 @@ namespace SISPK.Controllers.Master
             ViewData["komtek_id"] = id;
             ViewData["user_akses_id"] = Session["USER_ACCESS_ID"];
             ViewData["komtek_kode"] = db.VIEW_KOMTEK.SingleOrDefault(t => t.KOMTEK_ID == id);
+
+            //ViewData["listJabatan"] = db.Database.SqlQuery<MASTER_REFERENCES>("SELECT * FROM MASTER_REFERENCES WHERE REF_TYPE = '4' AND REF_STATUS = '1'").ToList();
+            //ViewData["listEducation"] = db.Database.SqlQuery<MASTER_REFERENCES>("SELECT * FROM MASTER_REFERENCES WHERE REF_TYPE = '3' AND REF_STATUS = '1'").ToList();
+            //ViewData["liststakeholder"] = db.Database.SqlQuery<MASTER_REFERENCES>("SELECT * FROM MASTER_REFERENCES WHERE REF_TYPE = '5' AND REF_STATUS = '1'").ToList();
+            //ViewData["listJabatanAktif"] = db.Database.SqlQuery<MASTER_KOMTEK_ANGGOTA>("SELECT * FROM MASTER_KOMTEK_ANGGOTA WHERE KOMTEK_ANGGOTA_KOMTEK_ID = "+id+" AND KOMTEK_ANGGOTA_STATUS = '1'").ToList();
+            //ViewData["listinstansi"] = db.Database.SqlQuery<MASTER_INSTANSI>("SELECT * FROM MASTER_INSTANSI WHERE INSTANSI_STATUS = '1' ORDER BY INSTANSI_CODE ASC").ToList();
+            //ViewData["komtek_id"] = id;
+            //ViewData["user_akses_id"] = Session["USER_ACCESS_ID"];
+            //ViewData["komtek_kode"] = db.Database.SqlQuery<VIEW_KOMTEK>("SELECT * FROM VIEW_KOMTEK WHERE KOMTEK_ID = "+id).SingleOrDefault();
+
             return View();
         }
 
@@ -257,6 +269,10 @@ namespace SISPK.Controllers.Master
             var result = new string(Enumerable.Repeat(chars, 6).Select(s => s[random.Next(s.Length)]).ToArray());
             int iduser = MixHelper.GetSequence("SYS_USER");
             var komtek_name = (from t in db.MASTER_KOMITE_TEKNIS where t.KOMTEK_ID == mka.KOMTEK_ANGGOTA_KOMTEK_ID select t).SingleOrDefault();
+            //var komtek_name = db.Database.SqlQuery<MASTER_KOMITE_TEKNIS>("SELECT * FROM MASTER_KOMITE_TEKNIS WHERE KOMTEK_ID = "+ mka.KOMTEK_ANGGOTA_KOMTEK_ID).SingleOrDefault();
+
+
+
             //var KodeActivasi = GenPassword(iduser);
             var password = "kom" + kode + result.ToString();
             var fnameu = "USER_ID,USER_NAME,USER_PASSWORD,USER_ACCESS_ID,USER_TYPE_ID,USER_REF_ID,USER_CREATE_BY,USER_CREATE_DATE,USER_LOG_CODE,USER_STATUS";
@@ -274,9 +290,12 @@ namespace SISPK.Controllers.Master
             db.Database.ExecuteSqlCommand("INSERT INTO SYS_USER (" + fnameu + ") VALUES (" + fvalueu.Replace("''", "NULL") + ")");
 
             //var komtek_name = db.Database.SqlQuery<int>("SELECT KOMTEK_NAME FROM MASTER_KOMITE_TEKNIS WHERE KOMTEK_ID ="+).SingleOrDefault();
-            
+
             //Send Account Activation to Email
+
             var email = (from t in db.SYS_EMAIL where t.EMAIL_IS_USE == 1 select t).SingleOrDefault();
+            //var email = db.Database.SqlQuery<SYS_EMAIL>("SELECT * FROM SYS_EMAIL WHERE EMAIL_IS_USE = '1' ").SingleOrDefault();
+
             SendMailHelper.MailUsername = email.EMAIL_NAME;      //"aleh.mail@gmail.com";
             SendMailHelper.MailPassword = email.EMAIL_PASSWORD;  //"r4h45143uy";
 
@@ -308,7 +327,9 @@ namespace SISPK.Controllers.Master
         }
 
         public ActionResult ReadAnggota(int id = 0) {
-            ViewData["anggota_item"] = (from t in db.VIEW_ANGGOTA where t.KOMTEK_ANGGOTA_ID == id select t).SingleOrDefault();            
+            ViewData["anggota_item"] = (from t in db.VIEW_ANGGOTA where t.KOMTEK_ANGGOTA_ID == id select t).SingleOrDefault();
+            //ViewData["anggota_item"] = db.Database.SqlQuery<VIEW_ANGGOTA>("SELECT * FROM VIEW_ANGGOTA WHERE KOMTEK_ANGGOTA_ID = " + id).SingleOrDefault();
+
             return View();
         }
 
@@ -322,12 +343,23 @@ namespace SISPK.Controllers.Master
             ViewData["user_akses_id"] = Session["USER_ACCESS_ID"];
             ViewData["anggota_item"] = (from t in db.VIEW_ANGGOTA where t.KOMTEK_ANGGOTA_ID == id select t).SingleOrDefault();
             VIEW_ANGGOTA anggota_item = db.VIEW_ANGGOTA.SingleOrDefault(t => t.KOMTEK_ANGGOTA_ID == id);
+
+            //ViewData["listJabatan"] = db.Database.SqlQuery<MASTER_REFERENCES>("SELECT * FROM MASTER_REFERENCES WHERE REF_TYPE = '4' AND REF_STATUS = '1'").ToList();
+            //ViewData["listEducation"] = db.Database.SqlQuery<MASTER_REFERENCES>("SELECT * FROM MASTER_REFERENCES WHERE REF_TYPE = '3' AND REF_STATUS = '1'").ToList();
+            //ViewData["liststakeholder"] = db.Database.SqlQuery<MASTER_REFERENCES>("SELECT * FROM MASTER_REFERENCES WHERE REF_TYPE = '5' AND REF_STATUS = '1'").ToList();
+            //ViewData["listinstansi"] = db.Database.SqlQuery<MASTER_INSTANSI>("SELECT * FROM MASTER_INSTANSI WHERE INSTANSI_STATUS = '1' ORDER BY INSTANSI_CODE ASC").ToList();
+            //ViewData["anggota_id"] = id;
+            //ViewData["user_akses_id"] = Session["USER_ACCESS_ID"];
+            //ViewData["anggota_item"] = db.Database.SqlQuery<VIEW_ANGGOTA>("SELECT * FROM VIEW_ANGGOTA WHERE KOMTEK_ANGGOTA_ID = " + id).SingleOrDefault();
+            //var anggota_item = db.Database.SqlQuery<VIEW_ANGGOTA>("SELECT * FROM VIEW_ANGGOTA WHERE KOMTEK_ANGGOTA_ID = " + id).SingleOrDefault();
+
             //return Json(new { data = komtek_item }, JsonRequestBehavior.AllowGet);
             if (anggota_item == null)
             {
                 return HttpNotFound();
             }
             ViewData["listJabatanAktif"] = (from t in db.MASTER_KOMTEK_ANGGOTA where t.KOMTEK_ANGGOTA_KOMTEK_ID == anggota_item.KOMTEK_ANGGOTA_KOMTEK_ID && t.KOMTEK_ANGGOTA_STATUS == 1 select t).ToList();
+            //ViewData["listJabatanAktif"] = db.Database.SqlQuery<MASTER_KOMTEK_ANGGOTA>("SELECT * FROM MASTER_KOMTEK_ANGGOTA WHERE KOMTEK_ANGGOTA_KOMTEK_ID = " + anggota_item.KOMTEK_ANGGOTA_KOMTEK_ID + " AND KOMTEK_ANGGOTA_STATUS = '1' ").ToList();
             return View();
         }
 
@@ -444,7 +476,9 @@ namespace SISPK.Controllers.Master
             var logcode = MixHelper.GetLogCode();
             var datenow = MixHelper.ConvertDateNow();
             var status = 0;
-            VIEW_ANGGOTA mka = db.VIEW_ANGGOTA.SingleOrDefault(t => t.KOMTEK_ANGGOTA_ID == id);
+            //VIEW_ANGGOTA mka = db.VIEW_ANGGOTA.SingleOrDefault(t => t.KOMTEK_ANGGOTA_ID == id);
+            var mka = db.Database.SqlQuery<VIEW_ANGGOTA>("SELECT * FROM VIEW_ANGGOTA WHERE KOMTEK_ANGGOTA_ID = " + id).SingleOrDefault();
+
             var update = "KOMTEK_ANGGOTA_STATUS = '" + status + "'," +
                             "KOMTEK_ANGGOTA_UPDATE_BY = '" + UserId + "'," +
                             "KOMTEK_ANGGOTA_UPDATE_DATE = " + datenow;
@@ -477,6 +511,8 @@ namespace SISPK.Controllers.Master
             var datenow = MixHelper.ConvertDateNow();
             var status = 1;
             VIEW_ANGGOTA mka = db.VIEW_ANGGOTA.SingleOrDefault(t => t.KOMTEK_ANGGOTA_ID == id);
+            //var mka = db.Database.SqlQuery<VIEW_ANGGOTA>("SELECT * FROM VIEW_ANGGOTA WHERE KOMTEK_ANGGOTA_ID = " + id).SingleOrDefault();
+
             var update = "KOMTEK_ANGGOTA_STATUS = '" + status + "'," +
                             "KOMTEK_ANGGOTA_UPDATE_BY = '" + UserId + "'," +
                             "KOMTEK_ANGGOTA_UPDATE_DATE = " + datenow;
@@ -693,6 +729,7 @@ namespace SISPK.Controllers.Master
         public ActionResult Nonaktif(int id = 0)
         {
             VIEW_KOMTEK km = db.VIEW_KOMTEK.SingleOrDefault(t => t.KOMTEK_ID == id);
+            //var km = db.Database.SqlQuery<VIEW_KOMTEK>("SELECT * FROM VIEW_KOMTEK WHERE KOMTEK_ID = " + id).SingleOrDefault();
             var count_parent = db.Database.ExecuteSqlCommand("SELECT COUNT(KM.KOMTEK_PARENT_CODE) FROM VIEW_KOMTEK KM WHERE KM.KOMTEK_ID = 1 AND KM.KOMTEK_PARENT_CODE !=0");
             if (count_parent == 0)
             {
@@ -710,6 +747,7 @@ namespace SISPK.Controllers.Master
         public ActionResult Aktif(int id = 0)
         {
             VIEW_KOMTEK km = db.VIEW_KOMTEK.SingleOrDefault(t => t.KOMTEK_ID == id);
+            //var km = db.Database.SqlQuery<VIEW_KOMTEK>("SELECT * FROM VIEW_KOMTEK WHERE KOMTEK_ID = " + id).SingleOrDefault();
             var count_parent = db.Database.ExecuteSqlCommand("SELECT COUNT(KM.KOMTEK_PARENT_CODE) FROM VIEW_KOMTEK KM WHERE KM.KOMTEK_ID = 1 AND KM.KOMTEK_PARENT_CODE !=0");
             if (count_parent == 0)
             {
@@ -721,7 +759,7 @@ namespace SISPK.Controllers.Master
                 db.Database.ExecuteSqlCommand("UPDATE MASTER_KOMITE_TEKNIS SET KOMTEK_STATUS = 1 WHERE KOMTEK_PARENT_CODE = '" + km.KOMTEK_CODE + "'");
             }
             TempData["Notifikasi"] = 1;
-            TempData["NotifikasiText"] = "Data Berhasil Di Non Aktifkan";
+            TempData["NotifikasiText"] = "Data Berhasil Diaktifkan";
             return RedirectToAction("Index");
         }
 
@@ -818,10 +856,13 @@ namespace SISPK.Controllers.Master
             var user = (from a in db.SYS_USER where a.USER_ID == id select a).SingleOrDefault();
             var anggota = (from b in db.VIEW_ANGGOTA where b.KOMTEK_ANGGOTA_KODE == id select b).SingleOrDefault();
 
+            //var user = db.Database.SqlQuery<SYS_USER>("SELECT * FROM SYS_USER WHERE USER_ID = " + id).SingleOrDefault();
+            //var anggota = db.Database.SqlQuery<VIEW_ANGGOTA>("SELECT * FROM VIEW_ANGGOTA WHERE KOMTEK_ANGGOTA_KODE = " + id).SingleOrDefault();
+
             //return Json(new { a = id }, JsonRequestBehavior.AllowGet);
             //Send Account Activation to Email
 
-            var email = (from t in db.SYS_EMAIL where t.EMAIL_IS_USE == 1 select t).SingleOrDefault();
+            var email = db.Database.SqlQuery<SYS_EMAIL>("SELECT * FROM SYS_EMAIL WHERE EMAIL_IS_USE = '1' ").SingleOrDefault();
             SendMailHelper.MailUsername = email.EMAIL_NAME;      //"aleh.mail@gmail.com";
             SendMailHelper.MailPassword = email.EMAIL_PASSWORD;  //"r4h45143uy";
 
