@@ -246,6 +246,7 @@
     <Compile Include="Controllers\Master\SniStyleController.cs" />
     <Compile Include="Controllers\Master\SubkomtekController.cs" />
     <Compile Include="Controllers\Master\TasController.cs" />
+    <Compile Include="Controllers\Master\TimeRevController.cs" />
     <Compile Include="Controllers\Master\UsulankomtekController.cs" />
     <Compile Include="Controllers\Notulen\ListNotulenController.cs" />
     <Compile Include="Controllers\Pembatalan\PembatalanController.cs" />
@@ -5905,6 +5906,7 @@
     <Content Include="Upload\Upload\MANUAL_FRONT_END.pdf" />
     <Content Include="Upload\Upload\MANUAL_KOMTEK.pdf" />
     <Content Include="Upload\Upload\MANUAL_PPS.pdf" />
+    <Content Include="Views\TimeRev\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

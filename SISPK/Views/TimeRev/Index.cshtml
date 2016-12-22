@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = "Jangka Waktu Aktif Sni Revisi";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Data Masa Aktif SNI Revisi
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="Create" method="post">
+                    <div class="form-body">
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Masa Aktif SNI Setelah Direvisi</label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <h4 id="masa_aktif"></h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Masa Aktif<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih masa aktif untuk sni yang direvisi" id="MASA_AKTIF_SNI_REV" name="MASA_AKTIF_SNI_REV" @*onchange="update_aktif_sni_revisi()"*@>
+                                    <option></option>
+                                    <option value="6">6 Bulan</option>
+                                    <option value="12">1 Tahun</option>
+                                    <option value="18">1,5 Tahun</option>
+                                    <option value="36">3 Tahun</option>
+                                    <option value="60">5 Tahun</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                            <label class="control-label col-md-3">Nama Bidang <span style="color: red;">*</span></label>
+                            <div class="col-md-8">
+                                <div class="input-icon right">
+                                    <input type="text" id="BIDANG_NAME" name="BIDANG_NAME" class="form-control wajib">
+                                </div>
+                            </div>
+                        </div>*@
+
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn green" type="button" onclick="konfirmasi()"><i class="fa fa-check"></i>Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+    <!-- END PORTLET-->
+</div>
+
+<div class="modal fade" id="modalCek" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3><strong>Masa aktif tidak boleh kosong !!!</strong></h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-danger">Tutup</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="modalKonfirmasi" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Anda Yakin dengan data ini ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" onclick="update_aktif_sni_revisi()" class="btn blue">Yakin</button>
+                <button type="button" data-dismiss="modal" class="btn btn-danger">Batal</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="sukses_update" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p id="pesan_update"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-danger" onclick="reload_masa_aktif()">Tutup</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            url: '@Url.Action("Cek_timeRev")',
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {  /*Return from PHP side*/
+                //$('#idt').val(data.hasil);
+                //alert(data.hasil);
+                if (data.hasil == '6') {
+                    var waktu = '6 Bulan';
+                } else if(data.hasil=='12'){
+                    var waktu = '1 Tahun';
+                } else if (data.hasil == '18') {
+                    var waktu = '1,5 Tahun';
+                } else if (data.hasil == '36') {
+                    var waktu = '3 Tahun';
+                } else if (data.hasil == '60') {
+                    var waktu = '5 Tahun';
+                }
+
+                $('#masa_aktif').html(waktu);
+            }
+        })
+
+    });
+
+    function reload_masa_aktif(){
+        $.ajax({
+            url: '@Url.Action("Cek_timeRev")',
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {  /*Return from PHP side*/
+                //$('#idt').val(data.hasil);
+                //alert(data.hasil);
+                if (data.hasil == '6') {
+                    var waktu = '6 Bulan';
+                } else if (data.hasil == '12') {
+                    var waktu = '1 Tahun';
+                } else if (data.hasil == '18') {
+                    var waktu = '1,5 Tahun';
+                } else if (data.hasil == '36') {
+                    var waktu = '3 Tahun';
+                } else if (data.hasil == '60') {
+                    var waktu = '5 Tahun';
+                }
+
+                $('#masa_aktif').html(waktu);
+            }
+        })
+    }
+
+    function konfirmasi() {
+        var ms_aktif = $('#MASA_AKTIF_SNI_REV').val();
+        if (ms_aktif == '') {
+            $('#modalCek').modal('show');
+        } else {
+            $('#modalKonfirmasi').modal('show');
+        }
+    }
+
+    function update_aktif_sni_revisi() {
+        var MASA_AKTIF_SNI_REV = $('#MASA_AKTIF_SNI_REV').val();
+        $.ajax({
+            url: '@Url.Action("Update_ms_aktif")',
+            type: "POST",
+            data: { MASA_AKTIF_SNI_REV: MASA_AKTIF_SNI_REV },
+            dataType: 'json',
+            success: function (data) {  /*Return from PHP side*/
+
+                if (data.hasil == '6') {
+                    var waktu = '6 Bulan';
+                } else if (data.hasil == '12') {
+                    var waktu = '1 Tahun';
+                } else if (data.hasil == '18') {
+                    var waktu = '1,5 Tahun';
+                } else if (data.hasil == '36') {
+                    var waktu = '3 Tahun';
+                } else if (data.hasil == '60') {
+                    var waktu = '5 Tahun';
+                }
+                $('#pesan_update').html('Berhasil update masa aktif menjadi ' + waktu);
+                $('#sukses_update').modal('show');
+
+            }
+        })
+    }
+
+</script>
