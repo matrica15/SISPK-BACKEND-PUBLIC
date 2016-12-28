@@ -698,7 +698,7 @@ namespace SISPK.Controllers.Laporan
                         worksheet.Cells["B" + cell].Value = list.PROPOSAL_CREATE_DATE_NAME;
                         worksheet.Cells["C" + cell].Value = list.KOMTEK_CODE + " : " + list.KOMTEK_NAME;
                         worksheet.Cells["D" + cell].Value = list.PROPOSAL_JUDUL_PNPS;
-                        worksheet.Cells["E" + cell].Value = list.POLLING_START_DATE_A + " s/d " +list.POLLING_END_DATE_A;
+                        worksheet.Cells["E" + cell].Value = list.POLLING_START_DATE_A + " s/d " +list.POLLING_END_DATE_A ;
                         worksheet.Cells["F" + cell].Value = list.POLLING_MONITORING_NAME;
                         worksheet.Cells["G" + cell].Value = list.POLLING_JML_PARTISIPAN;
                         worksheet.Cells["H" + cell].Value = list.PROPOSAL_TAHAPAN;

@@ -116,7 +116,6 @@
         <EntityTypeShape EntityType="SISPKModel.VIEW_POLLING_DETAIL" Width="1.5" PointX="34.75" PointY="0.75" />
         <EntityTypeShape EntityType="SISPKModel.VIEW_POLLING_SINGLE" Width="1.5" PointX="34.75" PointY="6.75" />
         <EntityTypeShape EntityType="SISPKModel.VIEW_PROPOSAL" Width="1.5" PointX="8.75" PointY="34.75" />
-        <EntityTypeShape EntityType="SISPKModel.VIEW_PROPOSAL_DASHBOARD" Width="1.5" PointX="34.75" PointY="13.75" />
         <EntityTypeShape EntityType="SISPKModel.VIEW_PROPOSAL_ICS" Width="1.5" PointX="24.75" PointY="34.75" />
         <EntityTypeShape EntityType="SISPKModel.VIEW_PROPOSAL_RAPAT" Width="1.5" PointX="36.75" PointY="0.75" />
         <EntityTypeShape EntityType="SISPKModel.VIEW_PROPOSAL_RASNI" Width="1.5" PointX="36.75" PointY="4.75" />

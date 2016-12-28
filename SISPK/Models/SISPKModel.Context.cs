@@ -25,12 +25,12 @@ namespace SISPK.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        //public DbSet<BACKUP_TP_DETAILS> BACKUP_TP_DETAILS { get; set; }
-        //public DbSet<MASTER_KA_BACKUP> MASTER_KA_BACKUP { get; set; }
-        //public DbSet<SYS_ACCESS_DETAIL_BK> SYS_ACCESS_DETAIL_BK { get; set; }
-        //public DbSet<SYS_MENU_copy> SYS_MENU_copy { get; set; }
-        //public DbSet<TRX_POLLING_DETAILS_copy> TRX_POLLING_DETAILS_copy { get; set; }
-        //public DbSet<TRX_SNI_copy> TRX_SNI_copy { get; set; }
+        public DbSet<BACKUP_TP_DETAILS> BACKUP_TP_DETAILS { get; set; }
+        public DbSet<MASTER_KA_BACKUP> MASTER_KA_BACKUP { get; set; }
+        public DbSet<SYS_ACCESS_DETAIL_BK> SYS_ACCESS_DETAIL_BK { get; set; }
+        public DbSet<SYS_MENU_copy> SYS_MENU_copy { get; set; }
+        public DbSet<TRX_POLLING_DETAILS_copy> TRX_POLLING_DETAILS_copy { get; set; }
+        public DbSet<TRX_SNI_copy> TRX_SNI_copy { get; set; }
         public DbSet<DN_VW_UPDATE_SNI> DN_VW_UPDATE_SNI { get; set; }
         public DbSet<MASTER_ACUAN_NON_SNI> MASTER_ACUAN_NON_SNI { get; set; }
         public DbSet<MASTER_BIBLIOGRAFI> MASTER_BIBLIOGRAFI { get; set; }
@@ -134,7 +134,6 @@ namespace SISPK.Models
         public DbSet<VIEW_POLLING_DETAIL> VIEW_POLLING_DETAIL { get; set; }
         public DbSet<VIEW_POLLING_SINGLE> VIEW_POLLING_SINGLE { get; set; }
         public DbSet<VIEW_PROPOSAL> VIEW_PROPOSAL { get; set; }
-        public DbSet<VIEW_PROPOSAL_DASHBOARD> VIEW_PROPOSAL_DASHBOARD { get; set; }
         public DbSet<VIEW_PROPOSAL_ICS> VIEW_PROPOSAL_ICS { get; set; }
         public DbSet<VIEW_PROPOSAL_RAPAT> VIEW_PROPOSAL_RAPAT { get; set; }
         public DbSet<VIEW_PROPOSAL_RASNI> VIEW_PROPOSAL_RASNI { get; set; }
