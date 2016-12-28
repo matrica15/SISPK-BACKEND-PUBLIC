@@ -1766,6 +1766,8 @@ namespace SISPK.Controllers.Pengajuan
                 iTotalDisplayRecords = CountData,
                 aaData = result.ToArray(),
             }, JsonRequestBehavior.AllowGet);
+
+            //return Content(inject_clause_select);
         }
         public ActionResult DataUsulanPPSDitolak(DataTables param)
         {
@@ -2417,6 +2419,11 @@ namespace SISPK.Controllers.Pengajuan
             //return RedirectToAction("Index");
             return true;
         }
+
+        //public ActionResult ctk_usulan_baru()
+        //{
+        //    return View();
+        //}
 
     }
 }

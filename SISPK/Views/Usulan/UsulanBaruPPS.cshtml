@@ -41,7 +41,11 @@
                                 </thead>
                                  <tfoot>
                                     <tr>
-                                        <td colspan="9" class="text-right"><a href="javascript:void(0)" class="btn blue btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-file-text-o"></i>Lihat Data </a><a href="javascript:void(0)" class="btn purple btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Persetujuan"><i class="action fa fa-check"></i>Persetujuan </a><a href="javascript:;" class="btn green btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Cetak"><i class="action fa fa-print"></i>Cetak Data </a></td>
+                                        <td colspan="9" class="text-right">
+                                            <a href="javascript:void(0)" class="btn blue btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-file-text-o"></i>Lihat Data </a>
+                                            <a href="#" class="btn purple btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Persetujuan"><i class="action fa fa-check"></i>Persetujuan </a>
+                                            <a href="/Laporan/Excel/Cetak_usulan_baru/" class="btn green btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Cetak"><i class="action fa fa-print"></i>Cetak Data </a>
+                                        </td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -235,7 +239,7 @@
                 var tableWrapper = $('.dataTables_wrapper');
                 tableWrapper.find('.dataTables_length select').select2();
             }
-            
+
         });
         var oTable1 = table1.dataTable({
             "processing": true,
@@ -298,6 +302,47 @@
                 }
             }
         });
+    }
+
+    function cetak_usulan_baru() {
+        //document.getElementById("").action = '@Url.Action("ctk_usulan_baru")';
+        //alert('test');
+
+        $.ajax({
+            url: '@Url.Action("ctk_usulan_baru")'
+        });
+    }
+
+
+    function sni() {
+        @*var SNI_ID = $('#MAINTENANCE_DETAIL_SNI_ID').val();
+        //alert(SNI_ID);
+        $.ajax({
+            url : '@Url.Action("Cek_sni")' ,
+            type: "POST",
+            data: { 'SNI_ID': SNI_ID },
+            dataType: 'json',
+            success: function (d) {
+
+                //alert('sukses');
+                //alert(d.idL);
+                //alert(d.komtek_kd+"."+d.komtek_nm);
+                if(d.komtek_kd != null){
+                    $('#MAINTENANCE_KOMTEK1').html(d.komtek_kd + "." + d.komtek_nm);
+                    $('#MAINTENANCE_KOMTEK').val(d.komtek_kd);
+                }else{
+                    $('#MAINTENANCE_KOMTEK1').html("-");
+                    $('#MAINTENANCE_KOMTEK').val("-");
+                }
+
+                return false;
+
+            },
+            error: function () {
+                //alert('gagal');
+            }
+
+        });*@
     }
 
 </script>

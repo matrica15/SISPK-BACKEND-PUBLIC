@@ -237,7 +237,7 @@ namespace SISPK.Controllers.Laporan
         public ActionResult TemplateHakPAten(string Type = "docx")
         {
             string dataDir = Server.MapPath("~/Format/Laporan/");
-            Stream stream = System.IO.File.OpenRead(dataDir + "TEMPLATE_HAK_PATEN.docx");
+            Stream stream = System.IO.File.OpenRead(dataDir + "FORM_KESEDIAAN_PENCANTUMAN_PATEN_DALAM_SNI.docx");
             Aspose.Words.Document doc = new Aspose.Words.Document(stream);
             stream.Close();
 
@@ -252,7 +252,7 @@ namespace SISPK.Controllers.Laporan
 
             Response.ContentType = mime;
 
-            Response.AddHeader("content-disposition", "attachment;  filename=TEMPLATE_HAK_PATEN." + Type);
+            Response.AddHeader("content-disposition", "attachment;  filename=FORM_KESEDIAAN_PENCANTUMAN_PATEN_DALAM_SNI." + Type);
             Response.BinaryWrite(byteInfo);
             Response.End();
 

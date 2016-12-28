@@ -224,6 +224,7 @@
     <Compile Include="Controllers\Apps\DirectoryEntry.cs" />
     <Compile Include="Controllers\Apps\DirectorySearcher.cs" />
     <Compile Include="Controllers\Apps\ErrorController.cs" />
+    <Compile Include="Controllers\Cetak_excel\Ctk_ExcelController.cs" />
     <Compile Include="Controllers\Document\DocumentCategoryController.cs" />
     <Compile Include="Controllers\Document\DocumentListController.cs" />
     <Compile Include="Controllers\Document\DocumentTypeController.cs" />
@@ -5907,6 +5908,8 @@
     <Content Include="Upload\Upload\MANUAL_KOMTEK.pdf" />
     <Content Include="Upload\Upload\MANUAL_PPS.pdf" />
     <Content Include="Views\TimeRev\Index.cshtml" />
+    <Content Include="Views\Ctk_Excel\ctk_usulan_baru.cshtml" />
+    <Content Include="Format\Laporan\FORM_KESEDIAAN_PENCANTUMAN_PATEN_DALAM_SNI.docx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
