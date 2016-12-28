@@ -2928,132 +2928,10 @@ warning 6002: The table/view 'C##BSN_SISPK.VIEW_PROPOSAL' does not have a primar
           <Property Name="PROPOSAL_HAK_PATEN_NAME" Type="varchar2" MaxLength="255" />
           <Property Name="PROPOSAL_KET_BATAL" Type="varchar2" MaxLength="4000" />
           <Property Name="KLASIFIKASI_JNS_SNI" Type="varchar2" MaxLength="100" />
+          <Property Name="POLLING_START_DATE_A" Type="varchar2" MaxLength="33" />
+          <Property Name="POLLING_END_DATE_A" Type="varchar2" MaxLength="33" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TYPE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TYPE_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TAHAPAN' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_YEAR' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_KOMTEK_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_KONSEPTOR' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_INSTITUSI' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TIM_NAMA' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TIM_ALAMAT' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TIM_PHONE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TIM_EMAIL' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TIM_FAX' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_PNPS_CODE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_NO_SNI_PROPOSAL' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_JUDUL_SNI_PROPOSAL' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_JUDUL_PNPS' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_JUDUL_PNPS_ENG' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_RUANG_LINGKUP' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_RUANG_LINGKUP_ENG' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_JENIS_PERUMUSAN' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_JENIS_PERUMUSAN_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_JALUR' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_METODE_ADOPSI' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_METODE_ADOPSI_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_NO_STD_ADOPSI_IDENTIK' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_NOMOR_ADOPSI_IDENTIK' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TAHUN_ADOPSI_IDENTIK' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_JUDUL_ADOPSI_IDENTIK' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TERJEMAHAN_SNI_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_IS_ADOPSI_MOD' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_NO_STANDAR_MODIFIKASI' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_NOMOR_MODIFIKASI' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TAHUN_MODIFIKASI' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_JUDUL_MODIFIKASI' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_IS_URGENT' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_IS_URGENT_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_REVISI_SNI_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_REVISI_PASAL' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_IS_HAK_PATEN' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_IS_HAK_PATEN_DESC' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_INFORMASI' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TUJUAN' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_PROGRAM_PEMERINTAH' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_PIHAK_BERKEPENTINGAN' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_LAMPIRAN_FILE_PATH' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_CREATE_BY' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_CREATE_DATE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_CREATE_DATE_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_UPDATE_BY' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_UPDATE_DATE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_STATUS' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_STATUS_PROSES' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_IS_ASSIGN_KOMTEK' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_IS_POLLING' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_POLLING_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_APPROVAL_STATUS' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_LOG_CODE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_IS_BATAL' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_PARENT_CODE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_CODE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_BIDANG_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_INSTANSI_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_SEKRETARIAT' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_ADDRESS' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_PHONE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_FAX' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_EMAIL' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_SK_PENETAPAN' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_TANGGAL_PEMBENTUKAN' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'KOMTEK_DESCRIPTION' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'INSTANSI_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'INSTANSI_CODE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'INSTANSI_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'BIDANG_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'BIDANG_CODE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'BIDANG_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'BIDANG_SHORT_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TERJEMAHAN_NOMOR' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_TERJEMAHAN_JUDUL' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_REVISI_NOMOR' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_REVISI_JUDUL' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_IS_ST_KOMTEK' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'ST_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'ST_PROPOSAL_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'ST_NO_SURAT' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'ST_LAMPIRAN' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'ST_DATE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'ST_PROPOSAL_STATUS' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'ST_VERSI' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'ST_STATUS' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'APPROVAL_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'APPROVAL_TYPE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'APPROVAL_TYPE_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'APPROVAL_REASON' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'APPROVAL_DATE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'APPROVAL_BY' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'USER_FULL_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'APPROVAL_STATUS_SESSION' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_IS_CREATE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_MONITORING_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_MONITORING_TYPE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_MONITORING_JML_HARI' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_FULL_DATE_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_PROPOSAL_ID' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_TYPE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_START_DATE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_END_DATE' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_VERSION' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_REASON' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_IS_KUORUM' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'POLLING_JML_PARTISIPAN' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_ICS_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_NO_STD_ADO_ID_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_NO_STD_MOD_ID_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROPOSAL_STATUS_NAME' was excluded.
-warning 6005: The data type 'undefined' is currently not supported for the target Entity Framework version; the column 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' in the table 'PROGRESS' was excluded.
-warning 6013: The table/view 'C##BSN_SISPK.VIEW_PROPOSAL_BACKUP' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="VIEW_PROPOSAL_BACKUP" />-->
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'C##BSN_SISPK.VIEW_PROPOSAL_DASHBOARD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        
         <EntityType Name="VIEW_PROPOSAL_DASHBOARD">
           <Key>
             <PropertyRef Name="PROPOSAL_ID" />
@@ -6956,7 +6834,9 @@ FROM "C##BSN_SISPK"."VIEW_POLLING_SINGLE" "VIEW_POLLING_SINGLE"</DefiningQuery>
 "VIEW_PROPOSAL"."PROPOSAL_HAK_PATEN_LOCATION" AS "PROPOSAL_HAK_PATEN_LOCATION", 
 "VIEW_PROPOSAL"."PROPOSAL_HAK_PATEN_NAME" AS "PROPOSAL_HAK_PATEN_NAME", 
 "VIEW_PROPOSAL"."PROPOSAL_KET_BATAL" AS "PROPOSAL_KET_BATAL", 
-"VIEW_PROPOSAL"."KLASIFIKASI_JNS_SNI" AS "KLASIFIKASI_JNS_SNI"
+"VIEW_PROPOSAL"."KLASIFIKASI_JNS_SNI" AS "KLASIFIKASI_JNS_SNI",
+"VIEW_PROPOSAL"."POLLING_START_DATE_A" AS "POLLING_START_DATE_A", 
+"VIEW_PROPOSAL"."POLLING_END_DATE_A" AS "POLLING_END_DATE_A"
 FROM "C##BSN_SISPK"."VIEW_PROPOSAL" "VIEW_PROPOSAL"</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VIEW_PROPOSAL_DASHBOARD" EntityType="Self.VIEW_PROPOSAL_DASHBOARD" store:Type="Views" store:Schema="C##BSN_SISPK">
@@ -11037,6 +10917,8 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
           <Property Name="PROPOSAL_HAK_PATEN_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="PROPOSAL_KET_BATAL" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="KLASIFIKASI_JNS_SNI" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="POLLING_START_DATE_A" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
+          <Property Name="POLLING_END_DATE_A" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="VIEW_PROPOSAL_DASHBOARD">
           <Key>
@@ -15093,6 +14975,8 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
                 <ScalarProperty Name="PROPOSAL_TYPE_NAME" ColumnName="PROPOSAL_TYPE_NAME" />
                 <ScalarProperty Name="PROPOSAL_TYPE" ColumnName="PROPOSAL_TYPE" />
                 <ScalarProperty Name="PROPOSAL_ID" ColumnName="PROPOSAL_ID" />
+                <ScalarProperty Name="POLLING_START_DATE_A" ColumnName="POLLING_START_DATE_A" />
+                <ScalarProperty Name="POLLING_END_DATE_A" ColumnName="POLLING_END_DATE_A" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

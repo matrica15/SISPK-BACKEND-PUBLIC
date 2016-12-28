@@ -240,15 +240,15 @@ namespace SISPK.Controllers.Laporan
             }
         }
 
-            public ActionResult Cetak_usulan_baru()
+        public ActionResult Cetak_usulan_baru()
         {
-            
+
 
             using (ExcelPackage pck = new ExcelPackage())
             {
                 //var judul = "";
                 var listdata = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM ( SELECT T1.*, ROWNUM ROWNUMBER FROM( SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_STATUS = 0 AND APPROVAL_TYPE = -1 ORDER BY PROPOSAL_CREATE_DATE DESC ) T1 ) WHERE ROWNUMBER > 0").ToList();
-                
+
                 //int listdata = 1;
 
                 ExcelWorksheet worksheet = pck.Workbook.Worksheets.Add("Usulan Baru");
@@ -273,14 +273,14 @@ namespace SISPK.Controllers.Laporan
                 worksheet.Column(8).Width = 10;
                 worksheet.Column(9).Width = 30;
 
-                
+
 
                 worksheet.Cells["A2"].Value = "DAFTAR PENGAJUAN USULAN";
                 worksheet.Cells["A3"].Value = "Usulan Baru";
 
-                
 
-                
+
+
 
                 ////worksheet.Cells["A10:A11"].Merge = true;
                 //worksheet.Cells["A4"].Value = "No";
@@ -356,6 +356,372 @@ namespace SISPK.Controllers.Laporan
 
                 Response.ContentType = "application/vnd.ms-excel";
                 Response.AddHeader("content-disposition", "attachment;  filename=DAFTAR_USULAN_BARU.xls");
+                Response.BinaryWrite(pck.GetAsByteArray());
+                Response.End();
+                return View();
+            }
+        }
+
+        public ActionResult Cetak_usulan_diterima()
+        {
+
+
+            using (ExcelPackage pck = new ExcelPackage())
+            {
+                //var judul = "";
+                var listdata = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM ( SELECT T1.*, ROWNUM ROWNUMBER FROM( SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_STATUS > 0 ORDER BY PROPOSAL_CREATE_DATE DESC ) T1 ) WHERE ROWNUMBER > 0").ToList();
+
+                //int listdata = 1;
+
+                ExcelWorksheet worksheet = pck.Workbook.Worksheets.Add("Usulan Diterima");
+                worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
+                worksheet.PrinterSettings.PaperSize = ePaperSize.Folio;
+                worksheet.PrinterSettings.FitToPage = true;
+                worksheet.PrinterSettings.FitToWidth = 1;
+                worksheet.PrinterSettings.FitToHeight = 0;
+                worksheet.PrinterSettings.RightMargin = 0.3937M;
+                worksheet.PrinterSettings.RepeatRows = new ExcelAddress("4:5");
+
+                worksheet.Cells.Style.Numberformat.Format = "General";
+                //worksheet.HeaderFooter.OddFooter.RightAlignedText = string.Format("SNI - " + judul + " : Halaman {0}", ExcelHeaderFooter.PageNumber, ExcelHeaderFooter.NumberOfPages);
+
+                worksheet.Column(10).Width = 5;
+                worksheet.Column(2).Width = 15;
+                worksheet.Column(3).Width = 20;
+                worksheet.Column(4).Width = 20;
+                worksheet.Column(5).Width = 30;
+                worksheet.Column(6).Width = 50;
+                worksheet.Column(7).Width = 10;
+                worksheet.Column(8).Width = 10;
+                worksheet.Column(9).Width = 30;
+
+
+
+                worksheet.Cells["A2"].Value = "DAFTAR PENGAJUAN USULAN";
+                worksheet.Cells["A3"].Value = "Usulan Diterima";
+
+
+
+
+
+                ////worksheet.Cells["A10:A11"].Merge = true;
+                //worksheet.Cells["A4"].Value = "No";
+                ////worksheet.Cells["B10:B11"].Merge = true;
+                //worksheet.Cells["B4"].Value = "Tanggal Usulan";
+                ////worksheet.Cells["C10:C11"].Merge = true;
+                //worksheet.Cells["C4"].Value = "Jenis Pengusul";
+                ////worksheet.Cells["D10:G10"].Merge = true;
+                //worksheet.Cells["D4"].Value = "Jenis Perumusan";
+                //worksheet.Cells["E4"].Value = "Komtek";
+                //worksheet.Cells["F4"].Value = "Judul";
+                //worksheet.Cells["G4"].Value = "Mendesak";
+                //worksheet.Cells["H4"].Value = "Tahapan";
+                //worksheet.Cells["I4"].Value = "Status";
+
+                using (ExcelRange rng = worksheet.Cells["A5:I5"])
+                {
+                    rng.Style.Font.Bold = true;
+                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    rng.Style.Fill.BackgroundColor.SetColor(Color.Red);
+                    rng.Style.Font.Color.SetColor(Color.White);
+                    rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    rng.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    rng.Style.WrapText = true;
+                    var border = rng.Style.Border;
+                    border.Bottom.Style = border.Top.Style = border.Left.Style = border.Right.Style = ExcelBorderStyle.Thin;
+                }
+
+                worksheet.Cells["A5"].Value = "No";
+                worksheet.Cells["B5"].Value = "Tanggal Usulan";
+                worksheet.Cells["C5"].Value = "Jenis Pengusul";
+                worksheet.Cells["D5"].Value = "Jenis Perumusan";
+                worksheet.Cells["E5"].Value = "Komtek";
+                worksheet.Cells["F5"].Value = "Judul";
+                worksheet.Cells["G5"].Value = "Mendesak";
+                worksheet.Cells["H5"].Value = "Tahapan";
+                worksheet.Cells["I5"].Value = "Status";
+
+
+                worksheet.View.FreezePanes(6, 1);
+
+                int cell = 6;
+                int no = 1;
+                if (listdata.Count() > 0)
+                {
+                    foreach (var list in listdata)
+                    {
+                        worksheet.Cells["A" + cell].Value = no++;
+                        worksheet.Cells["B" + cell].Value = list.PROPOSAL_CREATE_DATE_NAME;
+                        worksheet.Cells["C" + cell].Value = list.PROPOSAL_TYPE_NAME;
+                        worksheet.Cells["D" + cell].Value = list.PROPOSAL_JENIS_PERUMUSAN_NAME;
+                        worksheet.Cells["E" + cell].Value = (list.KOMTEK_CODE == null) ? "-" : list.KOMTEK_CODE + "." + list.KOMTEK_NAME;
+                        worksheet.Cells["F" + cell].Value = list.PROPOSAL_JUDUL_PNPS;
+                        worksheet.Cells["G" + cell].Value = list.PROPOSAL_IS_URGENT_NAME;
+                        worksheet.Cells["H" + cell].Value = list.PROPOSAL_TAHAPAN;
+                        worksheet.Cells["I" + cell].Value = list.PROPOSAL_STATUS_NAME;
+
+                        cell++;
+                    }
+                }
+                else
+                {
+                    cell = 7;
+                }
+                using (ExcelRange rng = worksheet.Cells["A5:I" + (cell - 1)])
+                {
+                    rng.Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                    rng.Style.WrapText = true;
+                    var border = rng.Style.Border;
+                    border.Bottom.Style = border.Top.Style = border.Left.Style = border.Right.Style = ExcelBorderStyle.Thin;
+                }
+
+
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.AddHeader("content-disposition", "attachment;  filename=DAFTAR_USULAN_DITERIMA.xls");
+                Response.BinaryWrite(pck.GetAsByteArray());
+                Response.End();
+                return View();
+            }
+        }
+
+        public ActionResult Cetak_usulan_ditolak()
+        {
+
+
+            using (ExcelPackage pck = new ExcelPackage())
+            {
+                //var judul = "";
+                var listdata = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM( SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_STATUS = 0 AND APPROVAL_TYPE = 0 ORDER BY PROPOSAL_CREATE_DATE DESC )").ToList();
+
+                //int listdata = 1;
+
+                ExcelWorksheet worksheet = pck.Workbook.Worksheets.Add("Usulan Ditolak");
+                worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
+                worksheet.PrinterSettings.PaperSize = ePaperSize.Folio;
+                worksheet.PrinterSettings.FitToPage = true;
+                worksheet.PrinterSettings.FitToWidth = 1;
+                worksheet.PrinterSettings.FitToHeight = 0;
+                worksheet.PrinterSettings.RightMargin = 0.3937M;
+                worksheet.PrinterSettings.RepeatRows = new ExcelAddress("4:5");
+
+                worksheet.Cells.Style.Numberformat.Format = "General";
+                //worksheet.HeaderFooter.OddFooter.RightAlignedText = string.Format("SNI - " + judul + " : Halaman {0}", ExcelHeaderFooter.PageNumber, ExcelHeaderFooter.NumberOfPages);
+
+                worksheet.Column(10).Width = 5;
+                worksheet.Column(2).Width = 15;
+                worksheet.Column(3).Width = 20;
+                worksheet.Column(4).Width = 20;
+                worksheet.Column(5).Width = 30;
+                worksheet.Column(6).Width = 50;
+                worksheet.Column(7).Width = 10;
+                worksheet.Column(8).Width = 10;
+                worksheet.Column(9).Width = 30;
+
+
+
+                worksheet.Cells["A2"].Value = "DAFTAR PENGAJUAN USULAN";
+                worksheet.Cells["A3"].Value = "Usulan Ditolak";
+
+
+
+
+
+                ////worksheet.Cells["A10:A11"].Merge = true;
+                //worksheet.Cells["A4"].Value = "No";
+                ////worksheet.Cells["B10:B11"].Merge = true;
+                //worksheet.Cells["B4"].Value = "Tanggal Usulan";
+                ////worksheet.Cells["C10:C11"].Merge = true;
+                //worksheet.Cells["C4"].Value = "Jenis Pengusul";
+                ////worksheet.Cells["D10:G10"].Merge = true;
+                //worksheet.Cells["D4"].Value = "Jenis Perumusan";
+                //worksheet.Cells["E4"].Value = "Komtek";
+                //worksheet.Cells["F4"].Value = "Judul";
+                //worksheet.Cells["G4"].Value = "Mendesak";
+                //worksheet.Cells["H4"].Value = "Tahapan";
+                //worksheet.Cells["I4"].Value = "Status";
+
+                using (ExcelRange rng = worksheet.Cells["A5:I5"])
+                {
+                    rng.Style.Font.Bold = true;
+                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    rng.Style.Fill.BackgroundColor.SetColor(Color.Red);
+                    rng.Style.Font.Color.SetColor(Color.White);
+                    rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    rng.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    rng.Style.WrapText = true;
+                    var border = rng.Style.Border;
+                    border.Bottom.Style = border.Top.Style = border.Left.Style = border.Right.Style = ExcelBorderStyle.Thin;
+                }
+
+                worksheet.Cells["A5"].Value = "No";
+                worksheet.Cells["B5"].Value = "Tanggal Usulan";
+                worksheet.Cells["C5"].Value = "Jenis Pengusul";
+                worksheet.Cells["D5"].Value = "Jenis Perumusan";
+                worksheet.Cells["E5"].Value = "Komtek";
+                worksheet.Cells["F5"].Value = "Judul";
+                worksheet.Cells["G5"].Value = "Mendesak";
+                worksheet.Cells["H5"].Value = "Tahapan";
+                worksheet.Cells["I5"].Value = "Status";
+
+
+                worksheet.View.FreezePanes(6, 1);
+
+                int cell = 6;
+                int no = 1;
+                if (listdata.Count() > 0)
+                {
+                    foreach (var list in listdata)
+                    {
+                        worksheet.Cells["A" + cell].Value = no++;
+                        worksheet.Cells["B" + cell].Value = list.PROPOSAL_CREATE_DATE_NAME;
+                        worksheet.Cells["C" + cell].Value = list.PROPOSAL_TYPE_NAME;
+                        worksheet.Cells["D" + cell].Value = list.PROPOSAL_JENIS_PERUMUSAN_NAME;
+                        worksheet.Cells["E" + cell].Value = (list.KOMTEK_CODE == null) ? "-" : list.KOMTEK_CODE + "." + list.KOMTEK_NAME;
+                        worksheet.Cells["F" + cell].Value = list.PROPOSAL_JUDUL_PNPS;
+                        worksheet.Cells["G" + cell].Value = list.PROPOSAL_IS_URGENT_NAME;
+                        worksheet.Cells["H" + cell].Value = list.PROPOSAL_TAHAPAN;
+                        worksheet.Cells["I" + cell].Value = list.PROPOSAL_STATUS_NAME;
+
+                        cell++;
+                    }
+                }
+                else
+                {
+                    cell = 7;
+                }
+                using (ExcelRange rng = worksheet.Cells["A5:I" + (cell - 1)])
+                {
+                    rng.Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                    rng.Style.WrapText = true;
+                    var border = rng.Style.Border;
+                    border.Bottom.Style = border.Top.Style = border.Left.Style = border.Right.Style = ExcelBorderStyle.Thin;
+                }
+
+
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.AddHeader("content-disposition", "attachment;  filename=DAFTAR_USULAN_DITOLAK.xls");
+                Response.BinaryWrite(pck.GetAsByteArray());
+                Response.End();
+                return View();
+            }
+        }
+
+        public ActionResult Cetak_publikasi_usulan_pnps()
+        {
+
+
+            using (ExcelPackage pck = new ExcelPackage())
+            {
+                //var judul = "";
+                var listdata = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_STATUS = 2 AND PROPOSAL_STATUS_PROSES = 1 ORDER BY PROPOSAL_CREATE_DATE DESC").ToList();
+
+                //int listdata = 1;
+
+                ExcelWorksheet worksheet = pck.Workbook.Worksheets.Add("Publikasi Usulan PNPS");
+                worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
+                worksheet.PrinterSettings.PaperSize = ePaperSize.Folio;
+                worksheet.PrinterSettings.FitToPage = true;
+                worksheet.PrinterSettings.FitToWidth = 1;
+                worksheet.PrinterSettings.FitToHeight = 0;
+                worksheet.PrinterSettings.RightMargin = 0.3937M;
+                worksheet.PrinterSettings.RepeatRows = new ExcelAddress("4:5");
+
+                worksheet.Cells.Style.Numberformat.Format = "General";
+                //worksheet.HeaderFooter.OddFooter.RightAlignedText = string.Format("SNI - " + judul + " : Halaman {0}", ExcelHeaderFooter.PageNumber, ExcelHeaderFooter.NumberOfPages);
+
+                worksheet.Column(10).Width = 5;
+                worksheet.Column(2).Width = 15;
+                worksheet.Column(3).Width = 20;
+                worksheet.Column(4).Width = 20;
+                worksheet.Column(5).Width = 30;
+                worksheet.Column(6).Width = 50;
+                worksheet.Column(7).Width = 10;
+                worksheet.Column(8).Width = 10;
+                worksheet.Column(9).Width = 30;
+
+
+
+                worksheet.Cells["A2"].Value = "DAFTAR PUBLIKASI USULAN PNPS";
+                //worksheet.Cells["A3"].Value = "Usulan Ditolak";
+
+
+
+
+
+                ////worksheet.Cells["A10:A11"].Merge = true;
+                //worksheet.Cells["A4"].Value = "No";
+                ////worksheet.Cells["B10:B11"].Merge = true;
+                //worksheet.Cells["B4"].Value = "Tanggal Usulan";
+                ////worksheet.Cells["C10:C11"].Merge = true;
+                //worksheet.Cells["C4"].Value = "Jenis Pengusul";
+                ////worksheet.Cells["D10:G10"].Merge = true;
+                //worksheet.Cells["D4"].Value = "Jenis Perumusan";
+                //worksheet.Cells["E4"].Value = "Komtek";
+                //worksheet.Cells["F4"].Value = "Judul";
+                //worksheet.Cells["G4"].Value = "Mendesak";
+                //worksheet.Cells["H4"].Value = "Tahapan";
+                //worksheet.Cells["I4"].Value = "Status";
+
+                using (ExcelRange rng = worksheet.Cells["A5:I5"])
+                {
+                    rng.Style.Font.Bold = true;
+                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    rng.Style.Fill.BackgroundColor.SetColor(Color.Red);
+                    rng.Style.Font.Color.SetColor(Color.White);
+                    rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    rng.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    rng.Style.WrapText = true;
+                    var border = rng.Style.Border;
+                    border.Bottom.Style = border.Top.Style = border.Left.Style = border.Right.Style = ExcelBorderStyle.Thin;
+                }
+
+                worksheet.Cells["A5"].Value = "No";
+                worksheet.Cells["B5"].Value = "Tanggal Usulan";
+                worksheet.Cells["C5"].Value = "Komtek";
+                worksheet.Cells["D5"].Value = "Judul";
+                worksheet.Cells["E5"].Value = "Tanggal Publikasi";
+                worksheet.Cells["F5"].Value = "Publikasi Monitoring";
+                worksheet.Cells["G5"].Value = "Jumlah Tanggapan";
+                worksheet.Cells["H5"].Value = "Tahapan";
+                worksheet.Cells["I5"].Value = "Status";
+
+
+                worksheet.View.FreezePanes(6, 1);
+
+                int cell = 6;
+                int no = 1;
+                if (listdata.Count() > 0)
+                {
+                    foreach (var list in listdata)
+                    {
+                        worksheet.Cells["A" + cell].Value = no++;
+                        worksheet.Cells["B" + cell].Value = list.PROPOSAL_CREATE_DATE_NAME;
+                        worksheet.Cells["C" + cell].Value = list.KOMTEK_CODE + " : " + list.KOMTEK_NAME;
+                        worksheet.Cells["D" + cell].Value = list.PROPOSAL_JUDUL_PNPS;
+                        worksheet.Cells["E" + cell].Value = list.POLLING_START_DATE_A + " s/d " +list.POLLING_END_DATE_A;
+                        worksheet.Cells["F" + cell].Value = list.POLLING_MONITORING_NAME;
+                        worksheet.Cells["G" + cell].Value = list.POLLING_JML_PARTISIPAN;
+                        worksheet.Cells["H" + cell].Value = list.PROPOSAL_TAHAPAN;
+                        worksheet.Cells["I" + cell].Value = list.PROPOSAL_STATUS_NAME;
+
+                        cell++;
+                    }
+                }
+                else
+                {
+                    cell = 7;
+                }
+                using (ExcelRange rng = worksheet.Cells["A5:I" + (cell - 1)])
+                {
+                    rng.Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                    rng.Style.WrapText = true;
+                    var border = rng.Style.Border;
+                    border.Bottom.Style = border.Top.Style = border.Left.Style = border.Right.Style = ExcelBorderStyle.Thin;
+                }
+
+
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.AddHeader("content-disposition", "attachment;  filename=DAFTAR_PUBLIKASI_USULAN_PNPS.xls");
                 Response.BinaryWrite(pck.GetAsByteArray());
                 Response.End();
                 return View();

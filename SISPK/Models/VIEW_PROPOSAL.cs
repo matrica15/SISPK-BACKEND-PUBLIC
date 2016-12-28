@@ -149,5 +149,7 @@ namespace SISPK.Models
         public string PROPOSAL_HAK_PATEN_NAME { get; set; }
         public string PROPOSAL_KET_BATAL { get; set; }
         public string KLASIFIKASI_JNS_SNI { get; set; }
+        public string POLLING_START_DATE_A { get; set; }
+        public string POLLING_END_DATE_A { get; set; }
     }
 }

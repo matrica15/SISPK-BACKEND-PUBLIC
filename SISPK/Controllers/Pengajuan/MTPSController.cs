@@ -263,6 +263,8 @@ namespace SISPK.Controllers.Pengajuan
                 iTotalDisplayRecords = CountData,
                 aaData = result.ToArray()
             }, JsonRequestBehavior.AllowGet);
+
+            //return Content(inject_clause_select);
         }
 
         public ActionResult Comment(int id = 0)
