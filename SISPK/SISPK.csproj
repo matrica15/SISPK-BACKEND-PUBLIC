@@ -71,9 +71,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+    <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\app\app\oracle\product\11.2.0\client_1\odp.net\bin\4\Oracle.DataAccess.dll</HintPath>
+      <HintPath>C:\oraclexe\app\oracle\product\11.2.0\client\odp.net\bin\4\Oracle.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -5902,26 +5902,6 @@
     <Content Include="Views\Sk_penetapan_pnps\Edit.cshtml" />
     <Content Include="Views\Pengesahan\Update.cshtml" />
     <Content Include="Views\Dashboard\Index - Copy.cshtml" />
-    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL82_.docx" />
-    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL83_.docx" />
-    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL84_.docx" />
-    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_101.docx" />
-    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_102.docx" />
-    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_71.docx" />
-    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_85_.docx" />
-    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_86_.docx" />
-    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_87_.docx" />
-    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_88_.docx" />
-    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_90.docx" />
-    <Content Include="Upload\Dokumen\HAK_PATEN\HAK_PATEN_ID_PROPOSAL_91.docx" />
-    <Content Include="Upload\Dokumen\KOMTEK_SK\Komtek_11-22_176.pdf" />
-    <Content Include="Upload\Dokumen\KOMTEK_SK\Komtek_121231_180.pdf" />
-    <Content Include="Upload\Dokumen\KOMTEK_SK\Komtek_123_160.pdf" />
-    <Content Include="Upload\Dokumen\KOMTEK_SK\Komtek_313123_181.pdf" />
-    <Content Include="Upload\Dokumen\PEMBATALAN\Attachment_Batal_24_11_2016_05_10.pdf" />
-    <Content Include="Upload\Upload\MANUAL_FRONT_END.pdf" />
-    <Content Include="Upload\Upload\MANUAL_KOMTEK.pdf" />
-    <Content Include="Upload\Upload\MANUAL_PPS.pdf" />
     <Content Include="Views\TimeRev\Index.cshtml" />
     <Content Include="Views\Ctk_Excel\ctk_usulan_baru.cshtml" />
     <Content Include="Format\Laporan\FORM_KESEDIAAN_PENCANTUMAN_PATEN_DALAM_SNI.docx" />
@@ -6056,7 +6036,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
     <Folder Include="Upload\Dokumen\FORM_KAJI_ULANG\" />
+    <Folder Include="Upload\Dokumen\HAK_PATEN\" />
     <Folder Include="Upload\Dokumen\KOMTEK_CV\" />
+    <Folder Include="Upload\Dokumen\KOMTEK_SK\" />
     <Folder Include="Upload\Dokumen\LAINNYA\Dokumen\" />
     <Folder Include="Upload\Dokumen\LAINNYA\LPK\" />
     <Folder Include="Upload\Dokumen\RANCANGAN_SNI\JAJAK_PENDAPAT\" />
