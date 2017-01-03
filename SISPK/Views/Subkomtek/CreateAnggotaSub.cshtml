@@ -19,7 +19,7 @@
             </div>
             <div class="portlet-body form">
                 <!-- BEGIN FORM-->
-                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="CreateAnggotaSub" method="post">
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="CreateAnggotaSub" method="post" enctype="multipart/form-data">
                     <div class="form-body"> 
                         
                         @*
@@ -235,7 +235,17 @@
                                     <input type="text" id="KOMTEK_ANGGOTA_EXPERTISE" name="KOMTEK_ANGGOTA_EXPERTISE" class="form-control wajib1">
                                 </div>
                             </div>
-                        </div>                        
+                        </div>     
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Upload CV<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="file" name="KOMTEK_CV" id="KOMTEK_CV" onchange="ValidasiInput(this)" class="form-control col-md-3 wajib" data-ext=".pdf" accept=".pdf,application/pdf" style="padding: 0px; font-size: 12px; border-radius: 0px;">
+                                </div>
+                                <span style="font-size:10px;color:red">file yang dapat di upload hanya PDF</span>
+                            </div>
+                        </div>                   
                                                                        
                         <div class="form-actions">
                             <div class="row">
@@ -253,3 +263,39 @@
         <!-- END PORTLET-->
     </div>
 </div>
+
+
+<script>
+    jQuery('.numbersOnly').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+
+    function ValidasiInput(ini) {
+        var _validFileExtensions = $(ini).attr('data-ext').split(",");
+        var arrInputs = $(ini);
+        for (var i = 0; i < arrInputs.length; i++) {
+            var oInput = arrInputs[i];
+            if (oInput.type == "file") {
+                var sFileName = oInput.value;
+                if (sFileName.length > 0) {
+                    var blnValid = false;
+                    for (var j = 0; j < _validFileExtensions.length; j++) {
+                        var sCurExtension = _validFileExtensions[j];
+                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                            blnValid = true;
+                            break;
+                        }
+                    }
+
+                    if (!blnValid) {
+                        alert("Maaf, " + sFileName + " tidak dapat di Upload, Extensi yang dapat di Upload adalah : " + _validFileExtensions.join(", "));
+                        $(ini).val('');
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+</script>
