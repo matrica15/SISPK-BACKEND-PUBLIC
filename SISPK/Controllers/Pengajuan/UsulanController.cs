@@ -2004,7 +2004,7 @@ namespace SISPK.Controllers.Pengajuan
 
             var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_ACUAN_NON_SNI_SELECT WHERE LOWER(VIEW_ACUAN_NON_SNI_SELECT.TEXT) LIKE '%" + q.ToLower() + "%' ORDER BY VIEW_ACUAN_NON_SNI_SELECT.ID ASC").SingleOrDefault();
             string inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER FROM (SELECT * FROM VIEW_ACUAN_NON_SNI_SELECT WHERE LOWER(VIEW_ACUAN_NON_SNI_SELECT.TEXT) LIKE '%" + q.ToLower() + "%' ORDER BY VIEW_ACUAN_NON_SNI_SELECT.ID ASC) T1 WHERE ROWNUM <= " + Convert.ToString(start) + ") WHERE ROWNUMBER > " + Convert.ToString(end);
-            var datasni = db.Database.SqlQuery<VIEW_SNI_SELECT>(inject_clause_select);
+            var datasni = db.Database.SqlQuery<VIEW_ACUAN_NON_SNI_SELECT>(inject_clause_select);
             var sni = from cust in datasni select new { id = cust.TEXT, text = cust.TEXT };
 
             return Json(new { sni, total_count = CountData, inject_clause_select }, JsonRequestBehavior.AllowGet);
