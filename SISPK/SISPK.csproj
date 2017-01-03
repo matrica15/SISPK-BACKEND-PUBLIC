@@ -265,6 +265,8 @@
     <Compile Include="Controllers\Perumusan\RSNI4Controller.cs" />
     <Compile Include="Controllers\Perumusan\RSNI5Controller.cs" />
     <Compile Include="Controllers\Perumusan\RSNI6Controller.cs" />
+    <Compile Include="Controllers\Perumusan\UsulanPenetapan.cs" />
+    <Compile Include="Controllers\Perumusan\Verifikasi.cs" />
     <Compile Include="Controllers\Portal\LembagaInspeksiController.cs" />
     <Compile Include="Controllers\Portal\LembagaSertifikasiController.cs" />
     <Compile Include="Controllers\Portal\NewsController.cs" />
@@ -5324,7 +5326,7 @@
     <Content Include="Views\RASNI\DaftarPengesahanRASNI.cshtml" />
     <Content Include="Views\RASNI\Create.cshtml" />
     <Content Include="Format\Laporan\FORMAT_LEMBAR_KENDALI.docx" />
-    <Content Include="Views\RASNI\Pengesahan.cshtml" />
+    <Content Include="Views\RASNI\Pengesahan_backup.cshtml" />
     <Content Include="Views\SNIList\Index.cshtml" />
     <Content Include="Views\RSNI6\DaftarPenyusunanRSNI6.cshtml" />
     <Content Include="Views\RSNI6\DaftarPengesahanRSNI6.cshtml" />
@@ -5905,6 +5907,7 @@
     <Content Include="Views\TimeRev\Index.cshtml" />
     <Content Include="Views\Ctk_Excel\ctk_usulan_baru.cshtml" />
     <Content Include="Format\Laporan\FORM_KESEDIAAN_PENCANTUMAN_PATEN_DALAM_SNI.docx" />
+    <Content Include="Views\RASNI\Pengesahan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -6064,6 +6067,8 @@
     <Folder Include="Upload\Upload\Referensi\" />
     <Folder Include="Upload\Upload\Temp\" />
     <Folder Include="Upload\Upload\Usulan\" />
+    <Folder Include="Views\UsulanPenetapan\" />
+    <Folder Include="Views\Verifikasi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

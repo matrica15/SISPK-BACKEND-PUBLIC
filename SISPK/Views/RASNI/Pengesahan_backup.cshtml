@@ -69,45 +69,26 @@
                                 <a href="javascript:void(0)" onclick="detail_komtek(@Detail.KOMTEK_ID)" style="color: blue; text-decoration: none;">@Detail.KOMTEK_CODE @Detail.KOMTEK_NAME</a>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Pilih ICS</label>
-                            <div class="col-md-9">
-                                <div style="text-align: left" class="input-group col-md-12">
-                                    <select class="form-control PROPOSAL_ICS_REF_ICS_ID select2me wajib" data-placeholder="Pilih ICS" id="PROPOSAL_ICS_REF_ICS_ID" name="PROPOSAL_ICS_REF_ICS_ID" multiple="multiple">
-                                        @if (ViewBag.ICS.Count > 0)
-                                        {
-                                            foreach (var an in ViewBag.ICS)
+                        @if (ViewBag.ICS.Count > 0)
+                        {
+                            <div class="form-group">
+                                <label class="control-label col-md-3">ICS</label>
+                                <div class="col-md-9" style="padding-top: 20px; padding-bottom: 0px">
+                                    <div class="detailtext">
+                                        <ol style="padding-left: 15px;">
+                                            @foreach (var an in ViewBag.ICS)
                                             {
-                                                <option value="@an.ICS_ID" selected="selected">@an.ICS_CODE @((an.ICS_NAME_IND == null) ? an.ICS_NAME : an.ICS_NAME_IND)</option>
+                                                <li>@an.ICS_CODE @((an.ICS_NAME_IND == null) ? an.ICS_NAME : an.ICS_NAME_IND)</li>
                                             }
-                                        }
-                                    </select>
-                                </div>
-                                <div class="help-block">
-                                    ICS dapat dipilih lebih dari satu
+                                        </ol>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                         <div class="form-group">
-                            <label class="control-label col-md-3">Judul RSNI</label>
+                            <label class="control-label col-md-3">Judul PNPS</label>
                             <div class="col-md-9 control-label detailtext">
-                                @((Detail.PROPOSAL_JUDUL_SNI_PROPOSAL != null)? Detail.PROPOSAL_JUDUL_SNI_PROPOSAL : Detail.PROPOSAL_JUDUL_PNPS)
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Judul RASNI<span style="color: red;">*</span></label>
-                            <div class="col-md-9">
-                                <div class="input-icon right">
-                                    <textarea class="form-control wajib" id="PROPOSAL_JUDUL_SNI_PROPOSAL" name="PROPOSAL_JUDUL_SNI_PROPOSAL" rows="4">@((Detail.PROPOSAL_JUDUL_SNI_PROPOSAL != null) ? Detail.PROPOSAL_JUDUL_SNI_PROPOSAL : Detail.PROPOSAL_JUDUL_PNPS)</textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Nomor RASNI <span style="color: red;">*</span></label>
-                            <div class="col-md-5">
-                                <div class="input-icon right">
-                                    <input type="text" class="form-control wajib" id="PROPOSAL_NO_SNI_PROPOSAL" name="PROPOSAL_NO_SNI_PROPOSAL" value="@((Detail.PROPOSAL_NO_SNI_PROPOSAL == null)? ViewBag.LastNumber : Detail.PROPOSAL_NO_SNI_PROPOSAL)">
-                                </div>
+                                @Detail.PROPOSAL_JUDUL_PNPS
                             </div>
                         </div>
                         <div class="form-group">
@@ -123,18 +104,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Data Pendukung</label>
-                            <div class="col-md-7 control-label detailtext">
-                                <ol style="padding-left: 15px;">
-                                    @if (ViewBag.DefaultDokumen != null)
-                                    {
-                                        <li><a href="@ViewBag.DefaultDokumen.DOC_FILE_PATH@ViewBag.DefaultDokumen.DOC_FILE_NAME.@ViewBag.DefaultDokumen.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Data @ViewBag.DefaultDokumen.DOC_RELATED_TYPE_NAME</a></li>
-                                    }
-                                    else
-                                    {
-                                        <strong>-</strong> 
-                                    }
-                                </ol>
+                                <label class="control-label col-md-3">Data Pendukung</label>
+                                <div class="col-md-7 control-label detailtext">
+                                    <ol style="padding-left: 15px;">
+                                        @if (ViewBag.DefaultDokumen != null)
+                                        {
+                                            <li><a href="@ViewBag.DefaultDokumen.DOC_FILE_PATH@ViewBag.DefaultDokumen.DOC_FILE_NAME.@ViewBag.DefaultDokumen.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Data @ViewBag.DefaultDokumen.DOC_RELATED_TYPE_NAME</a></li>
+                                        }
+                                    </ol>
+                                </div>
+                            </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Rapat</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="text" class="form-control wajib date date-picker" id="TGL_RAPAT" name="TGL_RAPAT" data-date-format="yyyy-mm-dd" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -143,13 +127,93 @@
                                 <input type="file" name="DATA_RSNI" id="DATA_RSNI" onchange="ValidasiInput(this)" class="form-control col-md-3" style="padding: 0px; font-size: 12px; border-radius: 0px;" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Berita Acara</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="file" name="BERITA_ACARA" id="BERITA_ACARA" onchange="ValidasiInput(this)" data-ext=".pdf" accept=".pdf,application/pdf" class="form-control col-md-3 wajib" style="padding: 0px; font-size: 12px; border-radius: 0px;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Daftar Hadir</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="file" name="DAFTAR_HADIR" id="DAFTAR_HADIR" onchange="ValidasiInput(this)" data-ext=".pdf" accept=".pdf,application/pdf" class="form-control col-md-3 wajib" style="padding: 0px; font-size: 12px; border-radius: 0px;">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Memo Kapus</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="text" name="MEMO_KAPUS_DATE" id="MEMO_KAPUS_DATE" class="form-control col-md-3 wajib date-picker" data-date-format="yyyy-mm-dd">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Upload Memo Kapus</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="file" name="MEMO_KAPUS" id="MEMO_KAPUS" onchange="ValidasiInput(this)" data-ext=".pdf" accept=".pdf,application/pdf" class="form-control col-md-3 wajib" style="padding: 0px; font-size: 12px; border-radius: 0px;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Tanggal Memo Deputi</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="text" name="MEMO_DEPUTI_DATE" id="MEMO_DEPUTI_DATE" class="form-control col-md-3 wajib date-picker" data-date-format="yyyy-mm-dd">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Upload Memo Deputi</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="file" name="MEMO_DEPUTI" id="MEMO_DEPUTI" onchange="ValidasiInput(this)" data-ext=".pdf" accept=".pdf,application/pdf" class="form-control col-md-3 wajib" style="padding: 0px; font-size: 12px; border-radius: 0px;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Upload Lembar Kendali</label>
+                            <div class="col-md-3 control-label detailtext">
+                                <input type="file" name="LEMBAR_KENDALI" id="LEMBAR_KENDALI" onchange="ValidasiInput(this)" data-ext=".pdf" accept=".pdf,application/pdf" class="form-control col-md-3 wajib" style="padding: 0px; font-size: 12px; border-radius: 0px;">
+                            </div>
+                            @*<div class="col-md-6 control-label detailtext" style="border-left: none;">
+                                <a href="/Laporan/Export/FORMAT_LEMBAR_KENDALI?Type=docx&PROPOSAL_ID=@Detail.PROPOSAL_ID" target="_blank" style="color: blue; text-decoration: none;">Download Template Lembar Kendali</a>
+                            </div>*@
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3">Nomor RASNI <span style="color: red;">*</span></label>
+                            <div class="col-md-5">
+                                <div class="input-icon right">
+                                    <input type="text" class="form-control wajib" id="PROPOSAL_NO_SNI_PROPOSAL" name="PROPOSAL_NO_SNI_PROPOSAL" value="SNI @ViewBag.LastNumber">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Judul<span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    <textarea class="form-control wajib" id="PROPOSAL_JUDUL_SNI_PROPOSAL" name="PROPOSAL_JUDUL_SNI_PROPOSAL" rows="4">@Detail.PROPOSAL_JUDUL_PNPS</textarea>                                 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Abstrak<span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    <textarea class="form-control wajib" id="PROPOSAL_ABSTRAK" name="PROPOSAL_ABSTRAK" rows="6">@Detail.PROPOSAL_ABSTRAK</textarea>                                 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ruang Lingkup <span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    <textarea class="form-control wajib" id="PROPOSAL_RUANG_LINGKUP" name="PROPOSAL_RUANG_LINGKUP" rows="8">@Detail.PROPOSAL_RUANG_LINGKUP</textarea>                                 
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-9">
                                 <input type="hidden" class="form-control wajib" name="APPROVAL_TYPE" id="APPROVAL_TYPE_1" value="1">
-                                <button class="btn blue btn_approval" name="ButtonSimpan" id="ButtonSimpan1" type="submit" value="0">Lanjut Verifikasi</button>
+                                <button class="btn blue btn_approval" name="ButtonSimpan" id="ButtonSimpan1" type="submit" value="0">Lanjut Ke Penetapan SNI</button>
                                 <a class="btn red" href="@Url.Action("Index")">Kembali</a>
                             </div>
                         </div>
@@ -751,61 +815,7 @@
 
     }
 
-    function find_ics(ini) {
-        var res = $(ini).val();
-        var id = $('#PROPOSAL_ID').val();
-        var KOMTEK_ID = $('#PROPOSAL_KOMTEK_ID').val();
-        if (KOMTEK_ID != "") {
-            $('.dtkomtek').slideDown('fast', function () {
-                $('.dtkomtek').attr('onclick', 'detail_komtek(' + KOMTEK_ID + ')');
-            });
-        } else {
-            $('.dtkomtek').slideUp('fast', function () {
-                $('.dtkomtek').removeAttr('onclick');
-            });
-        }
-        $("#PROPOSAL_ICS_REF_ICS_ID").select2('destroy');
-        $("#PROPOSAL_ICS_REF_ICS_ID").val('');
-        var formData = { KOMTEK_ID: res, id : id  };
-        $.ajax({
-            type: 'POST',
-            url: "/Pengajuan/PenetapanKomtek/FindICSrasni",
-            contentType: "application/json",
-            dataType: 'json',
-            data: JSON.stringify(formData)
-        }).done(function (data) {
-            var ics = data.ics;
-            var ics_pil = data.ICS_Pil;
-            var stat_pil = 0;
-            var opsi = "<option value=''></option>";
-            if (ics != null) {
-                for (var i = 0; i < ics.length; i++) {
-                    stat_pil = 0;
-                    for (var j = 0; j < ics_pil.length; j++) {
-                        if(ics[i].KOMTEK_ICS_ICS_ID == ics_pil[j].ICS_ID) {
-                            stat_pil = 1;
-                            break;
-                        } 
-                    }
-                    if(stat_pil == 1){
-                        opsi += "<option value='" + ics[i].KOMTEK_ICS_ICS_ID + "' selected='selected'>" + ics[i].ICS_CODE + " " + ((ics[i].ICS_NAME_IND == null) ? ics[i].ICS_NAME : ics[i].ICS_NAME_IND) + "</option>";
-                    } else {
-                        opsi += "<option value='" + ics[i].KOMTEK_ICS_ICS_ID + "'>" + ics[i].ICS_CODE + " " + ((ics[i].ICS_NAME_IND == null) ? ics[i].ICS_NAME : ics[i].ICS_NAME_IND) + "</option>";
-                    }
-                    //opsi += "<option value='" + ics[i].KOMTEK_ICS_ICS_ID + "' selected='selected'>" + ics[i].ICS_CODE + " " + ((ics[i].ICS_NAME_IND == null) ? ics[i].ICS_NAME : ics[i].ICS_NAME_IND) + "</option>";
-                }
-                $('#PROPOSAL_ICS_REF_ICS_ID').html(opsi);
-                $("#PROPOSAL_ICS_REF_ICS_ID").select2({
-                    allowClear: false
-                });
-            }
-            //$.when(tutuploading()).then(window.location = "/Pengajuan/Usulan");
-        });
-    }
-
     jQuery(document).ready(function () {
-
-        find_ics($('#PROPOSAL_KOMTEK_ID'));
 
         bukaloading();
         //CKEDITOR.disableAutoInline = true;
