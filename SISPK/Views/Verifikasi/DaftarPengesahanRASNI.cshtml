@@ -1,0 +1,119 @@
+﻿<div class="row">
+    <div class="col-md-12 ">
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Daftar Pengesahan RASNI
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped table-bordered table-hover" id="usulanbaru">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Tanggal<br />
+                                Usulan</th>
+                            <th class="text-center">Kode<br />PNPS</th>
+                            <th class="text-center">Kode<br />Komtek</th>
+                            <th class="text-center">Jenis<br />
+                                Perumusan</th>
+                            <th class="text-center">Judul</th>
+                            <th class="text-center">Mendesak</th>
+                            <th class="text-center">Tahapan</th>
+                            <th width="5%" class="text-center">Status</th>
+                            <th width="80px" class="text-center test">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="9" class="text-right"><a href="javascript:void(0)" class="btn blue btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Lihat"><i class="action fa fa-file-text-o"></i>Lihat Data </a><a href="javascript:void(0)" class="btn purple btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Pengesahan RASNI"><i class="action fa fa-check"></i>Pengesahan RASNI </a><a href="javascript:;" class="btn green btn-sm action tooltips" data-container="body" data-placement="top" data-original-title="Cetak"><i class="action fa fa-print"></i>Cetak Data </a></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var table1 = $('#usulanbaru');
+        var oTable = table1.dataTable({
+            "processing": true,
+            "serverSide": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Perumusan/Verifikasi/DataRASNIPPS",
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "Data tidak tersedia",
+                "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                "infoEmpty": "Menampilkan 0 Data",
+                "infoFiltered": "",
+                "lengthMenu": "Menampilkan _MENU_ Data",
+                "search": "Pencarian:",
+                "zeroRecords": "Pencarian Tidak Ditemukan",
+                "sProcessing": "Proses Pengambilan Data",
+            },
+            "fnDrawCallback": function () {
+                jsDefSetting();
+            },
+            "columnDefs": [{
+                "orderable": false,
+                "targets": [8]
+            }],
+            "order": [
+                [0, 'desc']
+            ],
+            "lengthMenu": [
+                [5, 15, 20, 100],
+                [5, 15, 20, 100]
+            ],
+            "pageLength": 5,
+        });
+        var tableWrapper = $('.dataTables_wrapper');
+        tableWrapper.find('.dataTables_length select').select2();
+    });
+    function hapus_usulan(id) {
+        var usulan = $('.judul_' + id).html();
+        bootbox.dialog({
+            message: "Anda yakin menghapus usulan dibawah ini ?<br> " + usulan,
+            title: "Konfirmasi Pengahapusan Usulan",
+            buttons: {
+                success: {
+                    label: "Yakin",
+                    className: "green",
+                    callback: function () {
+                        window.location = "/Pengajuan/Usulan/Hapus/" + id;
+                    }
+                },
+                danger: {
+                    label: "Batal",
+                    className: "red",
+                    callback: function () {
+                        //alert("uh oh, look out!");
+                    }
+                }
+            }
+        });
+    }
+    function cetak_usulan(id) {
+        var usulan = $('.judul_' + id).html();
+        var msg = "";
+        msg = "<p class='text-center'><b>" + usulan + "</b></p><br/><div class='jenis_report text-center'><a class='btn blue btn-sm' onclick='pilihtipe(1)'>FORMULIR USULAN PNPS</a><a class='btn blue btn-sm' onclick='pilihtipe(2)'>HASIL PENYUSUNAN RASNI</a></div><div class='tipe_report1 text-center tiper' style='display:none;'><br><a class='btn blue btn-sm' target='_blank' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=docx&PROPOSAL_ID=" + id + "'><i class='fa fa-file-word-o'></i> WORD</a><a target='_blank' class='btn btn-danger btn-sm' href='/Laporan/Export/FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI?Type=pdf&PROPOSAL_ID=" + id + "'><i class='fa fa-file-pdf-o'></i> PDF</a></div><div class='tipe_report2 text-center tiper' style='display:none;'><br><a target='_blank' class='btn blue btn-sm' href='/Laporan/Export/GETDATARSNI1?Type=docx&PROPOSAL_ID=" + id + "&RSNI_TYPE=7'><i class='fa fa-file-word-o'></i> WORD</a><a target='_blank' class='btn btn-danger btn-sm' href='/Laporan/Export/GETDATARSNI1?Type=pdf&PROPOSAL_ID=" + id + "&RSNI_TYPE=7'><i class='fa fa-file-pdf-o'></i> PDF</a></div>";
+
+        bootbox.dialog({
+            message: msg,
+            title: "Download Data",
+            buttons: {
+                danger: {
+                    label: "Batal",
+                    className: "red",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+</script>
