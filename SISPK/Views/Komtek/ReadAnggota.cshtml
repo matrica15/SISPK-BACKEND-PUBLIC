@@ -118,7 +118,8 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">CV</label> 
                             <div class="col-md-6 control-label detailtext" style="border-left: none;">
-                                <a href="@(Model.KOMTEK_ANGGOTA_CV)" target="_blank" style="color: blue; text-decoration: none;">Download CV</a>
+                                @*<a href="@(Model.KOMTEK_ANGGOTA_CV)" target="_blank" style="color: blue; text-decoration: none;">Download CV</a>*@
+                                @((Model.KOMTEK_ANGGOTA_CV == null) ? "-" : Html.Raw("<a href='" + Model.KOMTEK_ANGGOTA_CV + "' target='_blank'> Download CV </a>"))
                             </div> 
                         </div>
                  

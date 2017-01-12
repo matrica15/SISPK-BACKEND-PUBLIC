@@ -15,7 +15,7 @@
             </div>
             <div class="portlet-body form">
                 <!-- BEGIN FORM-->
-                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="EditAnggota" method="post">
+                <form class="form-horizontal form-bordered ng-pristine ng-valid" id="sispk_form" action="EditAnggota" method="post" enctype="multipart/form-data">
                     <div class="form-body">                      
                         <div class="form-group">
                             <label class="control-label col-md-3">Nama Anggota<span class="required">*</span></label>
@@ -184,6 +184,16 @@
                                     <input type="text" id="KOMTEK_ANGGOTA_EXPERTISE" name="KOMTEK_ANGGOTA_EXPERTISE" class="form-control wajib1" value="@Model.KOMTEK_ANGGOTA_EXPERTISE">
                                     <input type="hidden" id="KOMTEK_ANGGOTA_KODE" name="KOMTEK_ANGGOTA_KODE" class="form-control" value="@Model.KOMTEK_ANGGOTA_KODE">
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Upload CV </label>
+                            <div class="col-md-4">
+                                <div class="input-icon right">
+                                    <input type="file" name="KOMTEK_CV" id="KOMTEK_CV" class="form-control col-md-3" data-ext=".pdf" accept=".pdf,application/pdf" style="padding: 0px; font-size: 12px; border-radius: 0px;">
+                                </div>
+                                <span style="font-size:10px;color:red">file yang dapat di upload hanya PDF</span>
                             </div>
                         </div>
                         
