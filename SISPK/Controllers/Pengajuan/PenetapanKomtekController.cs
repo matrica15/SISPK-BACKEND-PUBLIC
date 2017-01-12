@@ -234,6 +234,16 @@ namespace SISPK.Controllers.Pengajuan
             return Json(new { ics }, JsonRequestBehavior.AllowGet);
 
         }
+
+        [HttpPost]
+        public ActionResult FindICSrasni(int KOMTEK_ID = 0, int id = 0)
+        {
+            var ICS_Pil = (from an in db.VIEW_PROPOSAL_ICS where an.PROPOSAL_ICS_REF_PROPOSAL_ID == id orderby an.ICS_CODE ascending select an).ToList();
+            var ics = db.Database.SqlQuery<VIEW_KOMTEK_ICS>("SELECT * FROM VIEW_KOMTEK_ICS WHERE KOMTEK_ICS_KOMTEK_ID = " + KOMTEK_ID).ToList();
+            return Json(new { ics, ICS_Pil }, JsonRequestBehavior.AllowGet);
+
+        }
+
         [AllowAnonymous]
         [HttpPost]
         public ActionResult FindKomtek(int KOMTEK_ID = 0)

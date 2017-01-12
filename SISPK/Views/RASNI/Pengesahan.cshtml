@@ -111,11 +111,19 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-md-3">Ruang Lingkup<span style="color: red;">*</span></label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    <textarea class="form-control wajib" id="PROPOSAL_RUANG_LINGKUP" name="PROPOSAL_RUANG_LINGKUP" rows="4">@((Detail.PROPOSAL_RUANG_LINGKUP != null) ? Detail.PROPOSAL_RUANG_LINGKUP : "")</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="form-group">
                             <label class="control-label col-md-3">Ruang Lingkup</label>
                             <div class="col-md-9 control-label detailtext">
                                 @Detail.PROPOSAL_RUANG_LINGKUP
                             </div>
-                        </div>
+                        </div>*@
                         <div class="form-group">
                             <label class="control-label col-md-3">Referensi</label>
                             <div class="col-md-7 control-label detailtext">

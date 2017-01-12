@@ -1,10 +1,5 @@
 ﻿@{
     var Detail = ViewBag.DataProposal;
-    var Lampiran = ViewBag.Lampiran;
-    var Bukti = ViewBag.Bukti;
-    var Surat = ViewBag.Surat;
-    var Outline = ViewBag.Outline;
-    var nomor = 0;
 }
 <style>
     .select2-selection--single {
@@ -41,14 +36,13 @@
         color: inherit;
     }
 </style>
-
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN PORTLET-->
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>Form Pengesahan Jajak Pendapat
+                    <i class="fa fa-gift"></i>Detail RASNI
                 </div>
             </div>
             <div class="portlet-body form">
@@ -106,61 +100,41 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Data Pendukung</label>
+                            <label class="control-label col-md-3">Status</label>
                             <div class="col-md-7 control-label detailtext">
-                                <ol style="padding-left: 15px;">
-                                    <li><a href="/Laporan/Export/JajakPendapat?POLLING_ID=@Detail.POLLING_ID&PROPOSAL_ID=@Detail.PROPOSAL_ID" target="_blank" style="color: blue; text-decoration: none;">Daftar Tanggapan Jajak Pendapat</a></li>
-                                </ol>
+                                @Detail.PROPOSAL_STATUS_NAME
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Tanggal Jajak Pendapat</label>
-                            <div class="col-md-7 control-label detailtext">
-                                @Detail.PROPOSAL_FULL_DATE_NAME.Replace("<br>", " ")
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Monitoring Jajak Pendapat</label>
-                            <div class="col-md-7 control-label detailtext">
-                                @Detail.POLLING_MONITORING_NAME
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Jumlah Tanggapan</label>
-                            <div class="col-md-7 control-label detailtext">
-                                @Detail.POLLING_JML_PARTISIPAN Tanggapan
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Perlu Rapat Koordinasi</label>
-                            <div class="col-md-9">
-                                <div class="input-icon right">
-                                    <div class="radio-list">
-                                        <label class="text-danger">
-                                            <input type="radio" class="form-control wajib" name="APPROVAL_TYPE" id="APPROVAL_TYPE_1" value="1">
-                                            Ya (RSNI4)
-                                        </label>
-                                        <label class="text-success">
-                                            <input type="radio" class="form-control wajib" name="APPROVAL_TYPE" id="APPROVAL_TYPE_2" value="0">
-                                            Tidak (RASNI)
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="aksi_tidak_disetujui" style="display: none;">
+                        @if (ViewBag.DetailRatek != null)
+                        { 
+                            
                             <div class="form-group">
-                                <label class="control-label col-md-3">Alasan Pembatalan</label>
-                                <div class="col-md-9 control-label detailtext">
-                                    <textarea class="form-control" id="APPROVAL_REASON" name="APPROVAL_REASON"></textarea>
+                                <label class="control-label col-md-3">Tanggal RASNI</label>
+                                <div class="col-md-7 control-label detailtext">
+                                    @Convert.ToDateTime(ViewBag.DetailRatek.PROPOSAL_RAPAT_DATE).ToString("dd MMM yyyy")
                                 </div>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Nomor RASNI</label>
+                                <div class="col-md-7 control-label detailtext">
+                                    @ViewBag.DetailRatek.PROPOSAL_RAPAT_NOMOR
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Data Pendukung</label>
+                                <div class="col-md-7 control-label detailtext">
+                                    <ol style="padding-left: 15px;">
+                                        <li><a href="@ViewBag.DefaultDokumen.DOC_FILE_PATH@ViewBag.DefaultDokumen.DOC_FILE_NAME.@ViewBag.DefaultDokumen.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Data RASNI</a></li>
+                                        <li><a href="@ViewBag.Berita.DOC_FILE_PATH@ViewBag.Berita.DOC_FILE_NAME.@ViewBag.Berita.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Berita Acara</a></li>
+                                        <li><a href="@ViewBag.DaftarHadir.DOC_FILE_PATH@ViewBag.DaftarHadir.DOC_FILE_NAME.@ViewBag.DaftarHadir.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Daftar Hadir</a></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        }
                     </div>
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-9">
-                                <button class="btn blue btn_approval" name="ButtonSimpan" id="ButtonSimpan1" type="submit" value="0">Simpan</button>
                                 <a class="btn red" href="@Url.Action("Index")">Kembali</a>
                             </div>
                         </div>
@@ -174,71 +148,7 @@
 </div>
 
 
-<div class="row">
-    <div class="col-md-12">
-        <!-- BEGIN PORTLET-->
-        <div class="portlet box green">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-comment"></i>Daftar Tanggapan
-                </div>
-            </div>
-            <div class="portlet-body form">
-                <!-- BEGIN FORM-->
-                <div class="form-horizontal form-bordered">
-                    <div class="form-body">
-                        <div class="form-group">
-                            <div class="col-md-12" style="border-left: none;">
-                                @if (ViewBag.DetailPolling.Count > 0)
-                                {
-                                    foreach (var i in ViewBag.DetailPolling)
-                                    {
-                                        nomor++;
-                                    <article class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="panel panel-default arrow left">
-                                                <div class="panel-body @((nomor % 2 == 0) ? "genap" : "ganjil")">
-                                                    <header>
-                                                        <div class='text-left col-sm-6' style="padding-left: 0px;">
-                                                            <div class="comment-user"><i class="fa fa-user"></i>@i.USER_PUBLIC_NAMA_LENGKAP</div>
-                                                            <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i>@i.POLLING_FULL_DATE_NAME</time>
-                                                            <div class="comment-user"><i class="fa fa-check-square-o"></i>@i.PILIHAN</div>
-                                                        </div>
-                                                        <div class='text-right col-sm-6' style="padding-right: 0px;">
-                                                            <a class="icon-btn" href="javascript:;" style='font-weight: bold; font-size: 16px; height: 50px; padding: 5px 0 0;'>@i.POLLING_DETAIL_PASAL<div>PASAL</div>
-                                                            </a>
-                                                        </div>
-                                                    </header>
 
-                                                    <div class='clearfix'></div>
-                                                    <div class="comment-post" style='padding-top: 10px;'>
-                                                        @Html.Raw(i.POLLING_DETAIL_REASON)
-                                                        @if (i.POLLING_DETAIL_FILE_PATH != "" && i.POLLING_DETAIL_FILE_PATH != null)
-                                                        {
-                                                            <label class="form-control-static"><a class="" href="@(i.POLLING_DETAIL_FILE_PATH)" target="_blank" style="color:green;">Lampiran Komentar</a></label><br>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    }
-
-                                }
-                                else
-                                {
-                                    <span>Tanggapan Belum Tersedia</span>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END FORM-->
-            </div>
-        </div>
-        <!-- END PORTLET-->
-    </div>
-</div>
 
 <!--Detail DATA-->
 <div class="modal fade bs-modal-lg" id="detail" tabindex="-1" role="dialog" aria-hidden="true">
@@ -252,7 +162,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <!-- BEGIN PORTLET-->
-                        <div class="portlet box green" style="margin-bottom: 0px;">
+                        <div class="portlet box green">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-gift"></i>Detail Data Pengajuan Usulan
@@ -504,14 +414,6 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-3">Lampiran Informasi detail hasil penelitian atau kajian terhadap SNI</label>
-                                                <div class="col-md-9 control-label detailtext">
-
-                                                    @((Lampiran == null) ? "-" : Html.Raw("<a href='" + Lampiran.DOC_FILE_PATH + "" + Lampiran.DOC_FILE_NAME + "." + Lampiran.DOC_FILETYPE + "' target='_blank'>" + Lampiran.DOC_NAME + "</a>"))
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
                                                 <label class="control-label col-md-3">Tujuan dan alasan spesifik mengenai perumusan yang akan dilakukan</label>
                                                 <div class="col-md-9 control-label detailtext">
                                                     @((Detail.PROPOSAL_TUJUAN == null) ? "-" : Html.Raw(Detail.PROPOSAL_TUJUAN))
@@ -549,30 +451,6 @@
                                                     }
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Manfaat yang akan didapatkan dengan menerapkan SNI yang diusulkan</label>
-                                                <div class="col-md-9 control-label detailtext">
-                                                    @((Detail.PROPOSAL_MANFAAT_PENERAPAN == null) ? "-" : Html.Raw(Detail.PROPOSAL_MANFAAT_PENERAPAN))
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Apakah terdapat organisasi yang mendukung usulan perumusan standar ini?</label>
-                                                <div class="col-md-9 control-label detailtext">
-                                                    @((Detail.PROPOSAL_IS_ORG_MENDUKUNG == 1) ? "Ya" : "Tidak")
-                                                </div>
-                                            </div>
-                                            @if (Detail.PROPOSAL_IS_ORG_MENDUKUNG == 1)
-                                            { 
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Lampirkan bukti dukungan terhadap usulan perumusan standar ini (misalnya surat).</label>
-                                                    <div class="col-md-9 control-label detailtext">
-                                                        @((Bukti == null) ? "-" : Html.Raw("<a href='" + Bukti.DOC_FILE_PATH + "" + Bukti.DOC_FILE_NAME + "." + Bukti.DOC_FILETYPE + "' target='_blank'>" + Bukti.DOC_NAME + "</a>"))
-                                                    </div>
-                                                </div>
-                                            }
-
-
-
                                             <div class="form-group">
                                                 <label class="control-label col-md-3">SNI Acuan Normatif</label>
                                                 <div class="col-md-9" style="padding-top: 20px">
@@ -631,18 +509,6 @@
                                                             <span>-</span>
                                                         }
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Surat Pengajuan PNPS</label>
-                                                <div class="col-md-9 control-label detailtext">
-                                                    @((Surat == null) ? "-" : Html.Raw("<a href='" + Surat.DOC_FILE_PATH + "" + Surat.DOC_FILE_NAME + "." + Surat.DOC_FILETYPE + "' target='_blank'>" + Surat.DOC_NAME + "</a>"))
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Outline RSNI</label>
-                                                <div class="col-md-9 control-label detailtext">
-                                                    @((Outline == null) ? "-" : Html.Raw("<a href='" + Outline.DOC_FILE_PATH + "" + Outline.DOC_FILE_NAME + "." + Outline.DOC_FILETYPE + "' target='_blank'>" + Outline.DOC_NAME + "</a>"))
                                                 </div>
                                             </div>
                                         </div>
@@ -864,26 +730,21 @@
             $('body').toggleClass('page-quick-sidebar-open');
         });
         //tutupmenu();
-
+        tutuploading();
         $('[name="APPROVAL_TYPE"]').click(function () {
             var res = $(this).val();
-            if (res == 3) {
-                $('.aksi_tidak_disetujui').slideDown("fast", function () {
-                    $('[name="APPROVAL_TYPE"]').addClass('wajib');
-                    $('#APPROVAL_REASON').addClass('wajib');
-                });
-            } else {
+            if (res == 1) {
                 $('.aksi_tidak_disetujui').slideUp("fast", function () {
                     $('[name="APPROVAL_TYPE"]').removeClass('wajib');
                     $('#APPROVAL_REASON').removeClass('wajib');
                 });
+            } else {
+                $('.aksi_tidak_disetujui').slideDown("fast", function () {
+                    $('[name="APPROVAL_TYPE"]').addClass('wajib');
+                    $('#APPROVAL_REASON').addClass('wajib');
+                });
             }
         });
-        $('.date-picker').datepicker({
-            orientation: "center",
-            autoclose: true
-        });
-        tutuploading();
     });
 
 </script>

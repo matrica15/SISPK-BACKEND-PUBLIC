@@ -554,6 +554,200 @@ namespace SISPK.Controllers.Laporan
             Response.End();
             return new FileStreamResult(dstStream, mime);
         }
+
+        public ActionResult HISTORY_LAPORAN_USULAN(string Type = "docx", int PROPOSAL_ID = 0)
+        {
+            var Data = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();
+            var Dt_Monitor = db.Database.SqlQuery<TRX_MONITORING>("SELECT * FROM TRX_MONITORING WHERE MONITORING_PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();
+
+            if (Data != null)
+            {
+                string dataDir = Server.MapPath("~/Format/Laporan/");
+                Stream stream = System.IO.File.OpenRead(dataDir + "TEMPLATE_HISTORY_USULAN.docx");
+
+                Aspose.Words.Document doc = new Aspose.Words.Document(stream);
+                stream.Close();
+                ReplaceHelper helper = new ReplaceHelper(doc);
+
+
+                var dt = Convert.ToDateTime(Data.PROPOSAL_CREATE_DATE);
+                string time = dt.ToString("hh:mm tt");
+                string PROPOSAL_CREATE_DATE = Convert.ToDateTime(Data.PROPOSAL_CREATE_DATE).ToString("dd-MM-yyyy");
+
+                helper.Replace("{Kode_PNPS}", ((Data.PROPOSAL_CODE == null) ? "" : Data.PROPOSAL_CODE));
+                helper.Replace("{No_SNI_Proposal}", ((Data.PROPOSAL_NO_SNI_PROPOSAL == null) ? "" : Data.PROPOSAL_NO_SNI_PROPOSAL));
+                helper.Replace("{Kode_Komtek}", ((Data.KOMTEK_CODE == null) ? "" : Data.KOMTEK_CODE));
+                helper.Replace("{Jenis_Perumusan}", ((Data.PROPOSAL_JENIS_PERUMUSAN_NAME == null) ? "-" : Data.PROPOSAL_JENIS_PERUMUSAN_NAME));
+                if (Data.PROPOSAL_JENIS_PERUMUSAN == 2)//Revisi
+                {
+                    var RevisiList = db.Database.SqlQuery<VIEW_SNI_SELECT>("SELECT BB.* FROM TRX_PROPOSAL_REV AA INNER JOIN VIEW_SNI_SELECT BB ON AA.PROPOSAL_REV_MERIVISI_ID = BB.ID WHERE AA.PROPOSAL_REV_PROPOSAL_ID = '" + PROPOSAL_ID + "' ORDER BY AA.PROPOSAL_REV_ID ASC").ToList();
+                    string PROPOSAL_REVISI_NOMOR_JUDUL = "";
+                    if (RevisiList.Count > 0)
+                    {
+                        foreach (var ad in RevisiList)
+                        {
+                            PROPOSAL_REVISI_NOMOR_JUDUL += ad.TEXT + ", ";
+                        }
+                    }
+
+                    if (PROPOSAL_REVISI_NOMOR_JUDUL != "")
+                    {
+                        helper.Replace("{No_SNI}", PROPOSAL_REVISI_NOMOR_JUDUL);
+                    }
+                }
+                else if (Data.PROPOSAL_JENIS_PERUMUSAN == 3)//Ralat
+                {
+                    helper.Replace("{No_SNI}", ((Data.PROPOSAL_RALAT_NOMOR == null) ? "-" : Data.PROPOSAL_RALAT_NOMOR));
+                }
+                else if (Data.PROPOSAL_JENIS_PERUMUSAN == 4)//Amandemen
+                {
+                    helper.Replace("{No_SNI}", ((Data.PROPOSAL_AMD_NOMOR == null) ? "-" : Data.PROPOSAL_AMD_NOMOR));
+                }
+                else if (Data.PROPOSAL_JENIS_PERUMUSAN == 5)//Terjemahan
+                {
+                    helper.Replace("{No_SNI}", ((Data.PROPOSAL_TERJEMAHAN_NOMOR == null) ? "-" : Data.PROPOSAL_TERJEMAHAN_NOMOR));
+                }
+                else
+                {
+                    helper.Replace("{No_SNI}", "");
+                }
+                
+                helper.Replace("{Jalur_Perumusan}", ((Data.PROPOSAL_JALUR_NAME == null) ? "-" : Data.PROPOSAL_JALUR_NAME +" "+ Data.PROPOSAL_JENIS_ADOPSI_NAME));
+
+                var AdopsiList = (from an in db.TRX_PROPOSAL_ADOPSI where an.PROPOSAL_ADOPSI_PROPOSAL_ID == PROPOSAL_ID orderby an.PROPOSAL_ADOPSI_NOMOR_JUDUL ascending select an).ToList();
+                string PROPOSAL_ADOPSI_NOMOR_JUDUL = "";
+                if (AdopsiList.Count > 0)
+                {
+                    foreach (var ad in AdopsiList)
+                    {
+                        PROPOSAL_ADOPSI_NOMOR_JUDUL += ad.PROPOSAL_ADOPSI_NOMOR_JUDUL + ", ";
+                    }
+                }
+
+                helper.Replace("{No_Standar}", ((PROPOSAL_ADOPSI_NOMOR_JUDUL == "") ? "-" : PROPOSAL_ADOPSI_NOMOR_JUDUL));
+                helper.Replace("{Judul_PNPS}", ((Data.PROPOSAL_JUDUL_PNPS == null) ? "" : Data.PROPOSAL_JUDUL_PNPS));
+                helper.Replace("{Judul_RASNI}", ((Data.PROPOSAL_JUDUL_SNI_PROPOSAL == null) ? "" : Data.PROPOSAL_JUDUL_SNI_PROPOSAL));
+                if(Dt_Monitor.MONITORING_TGL_APP_PUB_PNPS == null)
+                {
+                    helper.Replace("{Tgl_Penetapan_PNPS}", "-");
+                } else
+                {
+                    string MONITORING_TGL_APP_PUB_PNPS = Convert.ToDateTime(Dt_Monitor.MONITORING_TGL_APP_PUB_PNPS).ToString("dd-MM-yyyy");
+                    helper.Replace("{Tgl_Penetapan_PNPS}", MONITORING_TGL_APP_PUB_PNPS);
+                }
+                
+
+                var ListTgl = db.Database.SqlQuery<TRX_PROPOSAL_APPROVAL>("SELECT AA.* FROM TRX_PROPOSAL_APPROVAL AA WHERE AA.APPROVAL_PROPOSAL_ID = '" + PROPOSAL_ID + "' ORDER BY AA.APPROVAL_ID ASC").ToList();
+                //if (ListTgl.Count > 0)
+                //{
+                //    foreach (var ad in ListTgl)
+                //    {
+                //        //PROPOSAL_ADOPSI_NOMOR_JUDUL += ad.PROPOSAL_ADOPSI_NOMOR_JUDUL + ", ";
+                //        var dt_Tgl = Convert.ToDateTime(ad.APPROVAL_DATE);
+                //        string time_Tgl = dt.ToString("hh:mm tt");
+                //        string PROPOSAL_CREATE_DATE_Tgl = Convert.ToDateTime(ad.APPROVAL_DATE).ToString("dd-MM-yyyy");
+                //        switch (Convert.ToInt32(ad.APPROVAL_STATUS_PROPOSAL))
+                //        {
+                //            case 3:
+                //                helper.Replace("{Tgl_Penetapan_PNPS}", PROPOSAL_CREATE_DATE_Tgl);
+                //                break;
+                //            default:
+                //                break;
+                //        }
+                //    }
+                //}
+
+                var ListTglPolling = db.Database.SqlQuery<VIEW_POLLING>("SELECT AA.* FROM VIEW_POLLING AA WHERE AA.POLLING_PROPOSAL_ID = '" + PROPOSAL_ID + "' ORDER BY AA.POLLING_ID ASC").ToList();
+                if (ListTglPolling.Count > 0)
+                {
+                    foreach (var pol in ListTglPolling)
+                    {
+                        //PROPOSAL_ADOPSI_NOMOR_JUDUL += ad.PROPOSAL_ADOPSI_NOMOR_JUDUL + ", ";
+                        string Polling_Tgl_Mulai = Convert.ToDateTime(pol.POLLING_START_DATE).ToString("dd-MM-yyyy");
+                        string Polling_Tgl_Akhir = Convert.ToDateTime(pol.POLLING_END_DATE).ToString("dd-MM-yyyy");
+                        switch (Convert.ToInt32(pol.POLLING_TYPE))
+                        {
+                            case 7:
+                                helper.Replace("{Tgl_JP_Mulai}", Polling_Tgl_Mulai +" s/d "+ Polling_Tgl_Akhir);
+                                //helper.Replace("{Tgl_JP_Akhir}", Polling_Tgl_Akhir);
+                                break;
+                            case 12:
+                                helper.Replace("{Tgl_JPU_Mulai}", Polling_Tgl_Mulai + " s/d " + Polling_Tgl_Akhir);
+                                //helper.Replace("{Tgl_JPU_Akhir}", Polling_Tgl_Akhir);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                helper.Replace("{Tgl_JP_Mulai}", "Tidak Dilakukan");
+                //helper.Replace("{Tgl_JP_Akhir}", "-");
+                helper.Replace("{Tgl_JPU_Mulai}", "Tidak Dilakukan");
+                //helper.Replace("{Tgl_JPU_Akhir}", "-");
+
+                //Tanggal Rapat
+                var DetailHistoryRatek = db.Database.SqlQuery<VIEW_PROPOSAL_RAPAT>("SELECT * FROM VIEW_PROPOSAL_RAPAT WHERE PROPOSAL_RAPAT_PROPOSAL_ID = " + PROPOSAL_ID + " AND PROPOSAL_RAPAT_PROPOSAL_STATUS IN (5,6) ").ToList();
+                string Tgl_Rapat_Teknis = "";
+                int No_Rapat_Teknis = 0;
+                string Tgl_Rapat_Konsensus = "";
+                int No_Rapat_Konsensus = 0;
+                foreach (var i in DetailHistoryRatek)
+                {
+                    if (i.PROPOSAL_RAPAT_PROPOSAL_STATUS == 5)//jika Rapat Teknis
+                    {
+                        No_Rapat_Teknis++;
+                        Tgl_Rapat_Teknis += No_Rapat_Teknis +". Rapat Teknis ke " + i.PROPOSAL_RAPAT_VERSION + ", Tanggal" + Convert.ToDateTime(i.PROPOSAL_RAPAT_DATE).ToString("dd MMM yyyy")+", Hasil"+ i.PROPOSAL_RAPAT_STATUS_APPROVAL + System.Environment.NewLine;
+                    }
+                    else //jika Rapat Konsensus
+                    {
+                        No_Rapat_Konsensus++;
+                        Tgl_Rapat_Konsensus += No_Rapat_Konsensus + ". Rapat Konsensus ke " + i.PROPOSAL_RAPAT_VERSION + ", Tanggal" + Convert.ToDateTime(i.PROPOSAL_RAPAT_DATE).ToString("dd MMM yyyy") + ", Hasil" + i.PROPOSAL_RAPAT_STATUS_APPROVAL + System.Environment.NewLine;
+                    }
+
+                }
+                
+                if (Tgl_Rapat_Teknis != "")
+                {
+                    helper.Replace("{Tgl_RASNI}", Tgl_Rapat_Teknis);
+                }
+                if (Tgl_Rapat_Konsensus != "")
+                {
+                    helper.Replace("{Tgl_Rapat_Konsensus}", Tgl_Rapat_Konsensus);
+                }
+
+                var Outline = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + PROPOSAL_ID + " AND DOC_RELATED_TYPE = 36").FirstOrDefault();
+                
+                MemoryStream dstStream = new MemoryStream();
+
+                var mime = "";
+                if (Type == "pdf")
+                {
+                    doc.Save(dstStream, SaveFormat.Pdf);
+                    mime = "application/pdf";
+                }
+                else
+                {
+                    doc.Save(dstStream, SaveFormat.Docx);
+                    mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                }
+
+                byte[] byteInfo = dstStream.ToArray();
+                dstStream.Write(byteInfo, 0, byteInfo.Length);
+                dstStream.Position = 0;
+
+                Response.ContentType = mime;
+                Response.AddHeader("content-disposition", "attachment;  filename=TEMPLATE_HISTORY_USULAN." + Type);
+                Response.BinaryWrite(byteInfo);
+                Response.End();
+                return new FileStreamResult(dstStream, mime);
+            }
+            else
+            {
+                return Json(new { result = Data }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         public ActionResult FORMULIR_PENGAJUAN_USULAN_PERUMUSAN_SNI(string Type = "docx", int PROPOSAL_ID = 0)
         {
             var Data = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();

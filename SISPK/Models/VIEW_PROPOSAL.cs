@@ -151,5 +151,6 @@ namespace SISPK.Models
         public string KLASIFIKASI_JNS_SNI { get; set; }
         public string POLLING_START_DATE_A { get; set; }
         public string POLLING_END_DATE_A { get; set; }
+        public string MONITORING_NO_MEMO_DEPUTI { get; set; }
     }
 }

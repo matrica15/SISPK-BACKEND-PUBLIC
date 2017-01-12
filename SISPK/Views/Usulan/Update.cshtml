@@ -182,7 +182,7 @@
                             <label class="control-label col-md-3">Jenis Adopsi<span class="required">*</span></label>
                             <div class="col-md-4">
                                 <div style="text-align: left" class="input-group col-md-12">
-                                    <select class="form-control select2me wajib" data-placeholder="Pilih Jenis Adopsi" id="PROPOSAL_JENIS_ADOPSI_terjemahan" name="PROPOSAL_JENIS_ADOPSI" onchange="pilih_jenis_adopsi_terjemahan(this)">
+                                    <select class="form-control select2me wajib" data-placeholder="Pilih Jenis Adopsi" id="PROPOSAL_JENIS_ADOPSI_terjemahan" name="PROPOSAL_JENIS_ADOPSI_TERJEMAHAN" onchange="pilih_jenis_adopsi_terjemahan(this)">
                                         <option></option>
                                         <option value="1" @((Detail.PROPOSAL_JENIS_ADOPSI == 1) ? "selected" : "")>Identik</option>
                                         <option value="2" disabled>Modifikasi</option>
@@ -194,7 +194,7 @@
                             <label class="control-label col-md-3">Metode Adopsi</label>
                             <div class="col-md-5">
                                 <div style="text-align: left" class="input-group col-md-12">
-                                    <select class="form-control select2me test" data-placeholder="Pilih Metode Adopsi" id="PROPOSAL_METODE_ADOPSI_terjemahan" name="PROPOSAL_METODE_ADOPSI">
+                                    <select class="form-control select2me test" data-placeholder="Pilih Metode Adopsi" id="PROPOSAL_METODE_ADOPSI_terjemahan" name="PROPOSAL_METODE_ADOPSI_TERJEMAHAN">
                                         <option></option>
                                         <option value="1"  disabled>Publikasi ulang - cetak ulang (Republication Reprint)</option>
                                         <option value="2" @((Detail.PROPOSAL_METODE_ADOPSI == 2) ? "selected" : "")>Terjemahan 1 Bahasa (Indonesia)</option>
@@ -1042,7 +1042,7 @@
                         }
                     };
                 },
-                cache: true
+                cache: true,
             },
         });
         $("#BIBLIOGRAFI").select2({
@@ -1068,7 +1068,7 @@
                         }
                     };
                 },
-                cache: true
+                cache: true,
             },
         });
         $("#PROPOSAL_RETEK_ID").select2({
@@ -1094,7 +1094,7 @@
                         }
                     };
                 },
-                cache: true
+                cache: true,
             },
         });
         $("#PROPOSAL_LPK_ID").select2({
@@ -1120,7 +1120,7 @@
                         }
                     };
                 },
-                cache: true
+                cache: true,
             },
         });
         setorg();

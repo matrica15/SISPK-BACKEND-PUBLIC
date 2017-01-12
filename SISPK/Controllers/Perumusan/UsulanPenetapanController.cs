@@ -159,7 +159,7 @@ namespace SISPK.Controllers.Perumusan
             return View();
         }
         [HttpPost]
-        public ActionResult Pengesahan(TRX_PROPOSAL tp, int PROPOSAL_ID = 0, int PROPOSAL_KOMTEK_ID = 0, string PROPOSAL_PNPS_CODE = "", int APPROVAL_TYPE = 0, int APPROVAL_STATUS = 1, string APPROVAL_REASON = "", string TGL_MEMO_KAPUS = "", string TGL_MEMO_DEPUTI = "")
+        public ActionResult Pengesahan(TRX_PROPOSAL tp, int PROPOSAL_ID = 0, int PROPOSAL_KOMTEK_ID = 0, string PROPOSAL_PNPS_CODE = "", int APPROVAL_TYPE = 0, int APPROVAL_STATUS = 1, string APPROVAL_REASON = "", string MEMO_KAPUS_DATE = "", string MEMO_DEPUTI_DATE = "", string MEMO_KAPUS_NOMOR = "", string MEMO_DEPUTI_NOMOR = "")
         {
             var USER_ID = Convert.ToInt32(Session["USER_ID"]);
             var DATENOW = MixHelper.ConvertDateNow();
@@ -171,8 +171,8 @@ namespace SISPK.Controllers.Perumusan
             int LASTID_PROPOSAL_RAPAT = MixHelper.GetSequence("TRX_DOCUMENTS");
             var LOGCODE_PROPOSAL_RAPAT = MixHelper.GetLogCode();
             //String TGL_RAPAT_CONVERT = "TO_DATE('" + TGL_RAPAT + "', 'yyyy-mm-dd hh24:mi:ss')";
-            String TGL_MEMO_KAPUS_CONVERT = "TO_DATE('" + TGL_MEMO_KAPUS + "', 'yyyy-mm-dd hh24:mi:ss')";
-            String TGL_MEMO_DEPUTI_CONVERT = "TO_DATE('" + TGL_MEMO_DEPUTI + "', 'yyyy-mm-dd hh24:mi:ss')";
+            String TGL_MEMO_KAPUS_CONVERT = "TO_DATE('" + MEMO_KAPUS_DATE + "', 'yyyy-mm-dd hh24:mi:ss')";
+            String TGL_MEMO_DEPUTI_CONVERT = "TO_DATE('" + MEMO_DEPUTI_DATE + "', 'yyyy-mm-dd hh24:mi:ss')";
             //var FNAME_PROPOSAL_RAPAT = "PROPOSAL_RAPAT_ID,PROPOSAL_RAPAT_PROPOSAL_ID,PROPOSAL_RAPAT_NOMOR,PROPOSAL_RAPAT_DATE,PROPOSAL_RAPAT_VERSION,PROPOSAL_RAPAT_APPROVAL_ID,PROPOSAL_RAPAT_PROPOSAL_STATUS";
             //var FVALUE_PROPOSAL_RAPAT = "'" + LASTID_PROPOSAL_RAPAT + "', " +
             //                            "'" + PROPOSAL_ID + "', " +
@@ -182,7 +182,8 @@ namespace SISPK.Controllers.Perumusan
             //                            "'" + PROPOSAL_RAPAT_ID + "', " +
             //                            "'10'";
             //db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_RAPAT (" + FNAME_PROPOSAL_RAPAT + ") VALUES (" + FVALUE_PROPOSAL_RAPAT.Replace("''", "NULL") + ")");
-            db.Database.ExecuteSqlCommand("UPDATE TRX_MONITORING SET MONITORING_TGL_RASNI = SYSDATE,MONITORING_TGL_MEMO_KAPUS= " + TGL_MEMO_KAPUS_CONVERT + ",MONITORING_TGL_MEMO_DEPUTI = " + TGL_MEMO_DEPUTI_CONVERT + " WHERE MONITORING_PROPOSAL_ID = " + PROPOSAL_ID);
+            string test = "UPDATE TRX_MONITORING SET MONITORING_TGL_RASNI = SYSDATE,MONITORING_TGL_MEMO_KAPUS= " + TGL_MEMO_KAPUS_CONVERT + ",MONITORING_TGL_MEMO_DEPUTI = " + TGL_MEMO_DEPUTI_CONVERT + ",MONITORING_NO_MEMO_KAPUS= " + MEMO_KAPUS_NOMOR + ",MONITORING_NO_MEMO_DEPUTI = " + MEMO_DEPUTI_NOMOR + " WHERE MONITORING_PROPOSAL_ID = " + PROPOSAL_ID;
+            db.Database.ExecuteSqlCommand("UPDATE TRX_MONITORING SET MONITORING_TGL_RASNI = SYSDATE,MONITORING_TGL_MEMO_KAPUS= " + TGL_MEMO_KAPUS_CONVERT + ",MONITORING_TGL_MEMO_DEPUTI = " + TGL_MEMO_DEPUTI_CONVERT + ",MONITORING_NO_MEMO_KAPUS= '" + MEMO_KAPUS_NOMOR + "',MONITORING_NO_MEMO_DEPUTI = '" + MEMO_DEPUTI_NOMOR + "' WHERE MONITORING_PROPOSAL_ID = " + PROPOSAL_ID);
 
             //------------------------------------
             HttpPostedFileBase FILE_MEMO_KAPUS = Request.Files["MEMO_KAPUS"];
@@ -374,6 +375,70 @@ namespace SISPK.Controllers.Perumusan
                     db.Database.ExecuteSqlCommand("INSERT INTO TRX_DOCUMENTS (" + FNAME_LEMBAR_KENDALI + ") VALUES (" + FVALUE_LEMBAR_KENDALI.Replace("''", "NULL") + ")");
                     String objekTanggapan = FVALUE_LEMBAR_KENDALI.Replace("'", "-");
                     MixHelper.InsertLog(LOGCODE_LEMBAR_KENDALI, objekTanggapan, 1);
+                }
+            }
+
+            HttpPostedFileBase FILE_LAMPIRAN_SK = Request.Files["LAMPIRAN_SK"];
+            if (FILE_LAMPIRAN_SK.ContentLength > 0)
+            {
+                Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RASNI/" + PROPOSAL_PNPS_CODE_FIXER));
+                string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RASNI/" + PROPOSAL_PNPS_CODE_FIXER + "/");
+                Stream STREAM_DOC_LAMPIRAN_SK = FILE_LAMPIRAN_SK.InputStream;
+
+                string EXT_LAMPIRAN_SK = Path.GetExtension(FILE_LAMPIRAN_SK.FileName);
+                if (EXT_LAMPIRAN_SK.ToLower() == ".docx" || EXT_LAMPIRAN_SK.ToLower() == ".doc")
+                {
+                    Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_LAMPIRAN_SK);
+                    string filePathdoc = path + "LAMPIRAN_SK_RASNI_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
+                    string filePathpdf = path + "LAMPIRAN_SK_RASNI_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
+                    string filePathxml = path + "LAMPIRAN_SK_RASNI_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
+                    doc.Save(@"" + filePathdoc, Aspose.Words.SaveFormat.Docx);
+                    doc.Save(@"" + filePathpdf, Aspose.Words.SaveFormat.Pdf);
+                    doc.Save(@"" + filePathxml);
+                    int LASTID_LAMPIRAN_SK = MixHelper.GetSequence("TRX_DOCUMENTS");
+                    var LOGCODE_LAMPIRAN_SK = MixHelper.GetLogCode();
+                    var FNAME_LAMPIRAN_SK = "DOC_ID,DOC_FOLDER_ID,DOC_RELATED_TYPE,DOC_RELATED_ID,DOC_NAME,DOC_DESCRIPTION,DOC_FILE_PATH,DOC_FILE_NAME,DOC_FILETYPE,DOC_EDITABLE,DOC_CREATE_BY,DOC_CREATE_DATE,DOC_STATUS,DOC_LOG_CODE";
+                    var FVALUE_LAMPIRAN_SK = "'" + LASTID_LAMPIRAN_SK + "', " +
+                                "'18', " +
+                                "'88', " +
+                                "'" + PROPOSAL_ID + "', " +
+                                "'" + "(" + PROPOSAL_PNPS_CODE_FIXER + ") Lampiran SK RASNI', " +
+                                "'Lampiran SK RASNI " + PROPOSAL_PNPS_CODE_FIXER + "', " +
+                                "'" + "/Upload/Dokumen/RANCANGAN_SNI/RASNI/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
+                                "'" + "LAMPIRAN_SK_RASNI_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
+                                "'" + EXT_LAMPIRAN_SK.ToLower().Replace(".", "") + "', " +
+                                "'0', " +
+                                "'" + USER_ID + "', " +
+                                DATENOW + "," +
+                                "'1', " +
+                                "'" + LOGCODE_LAMPIRAN_SK + "'";
+                    db.Database.ExecuteSqlCommand("INSERT INTO TRX_DOCUMENTS (" + FNAME_LAMPIRAN_SK + ") VALUES (" + FVALUE_LAMPIRAN_SK.Replace("''", "NULL") + ")");
+                    String objekTanggapan = FVALUE_LAMPIRAN_SK.Replace("'", "-");
+                    MixHelper.InsertLog(LOGCODE_LAMPIRAN_SK, objekTanggapan, 1);
+                }
+                else
+                {
+                    FILE_LAMPIRAN_SK.SaveAs(path + "LAMPIRAN_SK_RASNI_" + PROPOSAL_PNPS_CODE_FIXER + EXT_LAMPIRAN_SK.ToLower());
+                    int LASTID_LAMPIRAN_SK = MixHelper.GetSequence("TRX_DOCUMENTS");
+                    var LOGCODE_LAMPIRAN_SK = MixHelper.GetLogCode();
+                    var FNAME_LAMPIRAN_SK = "DOC_ID,DOC_FOLDER_ID,DOC_RELATED_TYPE,DOC_RELATED_ID,DOC_NAME,DOC_DESCRIPTION,DOC_FILE_PATH,DOC_FILE_NAME,DOC_FILETYPE,DOC_EDITABLE,DOC_CREATE_BY,DOC_CREATE_DATE,DOC_STATUS,DOC_LOG_CODE";
+                    var FVALUE_LAMPIRAN_SK = "'" + LASTID_LAMPIRAN_SK + "', " +
+                                "'18', " +
+                                "'88', " +
+                                "'" + PROPOSAL_ID + "', " +
+                                "'" + "(" + PROPOSAL_PNPS_CODE_FIXER + ") Lampiran SK RASNI', " +
+                                "'Lampiran SK RASNI " + PROPOSAL_PNPS_CODE_FIXER + "', " +
+                                "'" + "/Upload/Dokumen/RANCANGAN_SNI/RASNI/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
+                                "'" + "LAMPIRAN_SK_RASNI_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
+                                "'" + EXT_LAMPIRAN_SK.ToLower().Replace(".", "") + "', " +
+                                "'0', " +
+                                "'" + USER_ID + "', " +
+                                DATENOW + "," +
+                                "'1', " +
+                                "'" + LOGCODE_LAMPIRAN_SK + "'";
+                    db.Database.ExecuteSqlCommand("INSERT INTO TRX_DOCUMENTS (" + FNAME_LAMPIRAN_SK + ") VALUES (" + FVALUE_LAMPIRAN_SK.Replace("''", "NULL") + ")");
+                    String objekTanggapan = FVALUE_LAMPIRAN_SK.Replace("'", "-");
+                    MixHelper.InsertLog(LOGCODE_LAMPIRAN_SK, objekTanggapan, 1);
                 }
             }
             //HttpPostedFileBase FILE_DAFTAR_HADIR = Request.Files["DAFTAR_HADIR"];

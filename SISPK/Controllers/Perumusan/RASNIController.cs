@@ -15,6 +15,7 @@ namespace SISPK.Controllers.Perumusan
     public class RASNIController : Controller
     {
         private SISPKEntities db = new SISPKEntities();
+        private GenarateNomor GN = new GenarateNomor();
         public ActionResult Index()
         {
             var IS_KOMTEK = Convert.ToInt32(Session["IS_KOMTEK"]);
@@ -117,7 +118,7 @@ namespace SISPK.Controllers.Perumusan
 
             var DataKomtek = (from komtek in db.MASTER_KOMITE_TEKNIS where komtek.KOMTEK_STATUS == 1 && komtek.KOMTEK_ID == DataProposal.KOMTEK_ID select komtek).SingleOrDefault();
             var IsKetua = db.Database.SqlQuery<string>("SELECT JABATAN FROM VIEW_ANGGOTA WHERE KOMTEK_ANGGOTA_KOMTEK_ID = " + DataProposal.KOMTEK_ID + " AND USER_ID = " + USER_ID).SingleOrDefault();
-            var LastNumber = db.Database.SqlQuery<string>("WITH AA AS(SELECT CAST(SUBSTR(regexp_replace(SNI_NOMOR, '[^0-9]', ''), 1, LENGTH(regexp_replace(SNI_NOMOR, '[^0-9]', '')) - 4) AS NUMBER) LAST_NOMOR FROM VIEW_SNI ) SELECT CAST(MAX(LAST_NOMOR)+1 AS VARCHAR(255)) LAST_NOMOR FROM AA").SingleOrDefault();
+            var LastNumber = GN.GenerateNomor(DataProposal);
             ViewData["Komtek"] = DataKomtek;
             ViewData["LastNumber"] = LastNumber;
             ViewData["DataProposal"] = DataProposal;
@@ -248,7 +249,7 @@ namespace SISPK.Controllers.Perumusan
                     db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_ICS_REF (PROPOSAL_ICS_REF_ID,PROPOSAL_ICS_REF_PROPOSAL_ID,PROPOSAL_ICS_REF_ICS_ID)VALUES(" + PROPOSAL_ICS_REF_ID + "," + PROPOSAL_ID + "," + i + ")");
                 }
             }
-            db.Database.ExecuteSqlCommand("UPDATE TRX_PROPOSAL SET PROPOSAL_NO_SNI_PROPOSAL = '" + tp.PROPOSAL_NO_SNI_PROPOSAL + "', PROPOSAL_JUDUL_SNI_PROPOSAL = '" + tp.PROPOSAL_JUDUL_SNI_PROPOSAL + "' , PROPOSAL_STATUS = 14, PROPOSAL_STATUS_PROSES = 1, PROPOSAL_IS_POLLING = NULL, PROPOSAL_POLLING_ID = NULL, PROPOSAL_UPDATE_DATE = " + DATENOW + ", PROPOSAL_UPDATE_BY = " + USER_ID + " WHERE PROPOSAL_ID = " + PROPOSAL_ID);
+            db.Database.ExecuteSqlCommand("UPDATE TRX_PROPOSAL SET PROPOSAL_RUANG_LINGKUP = '" + tp.PROPOSAL_RUANG_LINGKUP + "', PROPOSAL_NO_SNI_PROPOSAL = '" + tp.PROPOSAL_NO_SNI_PROPOSAL + "', PROPOSAL_JUDUL_SNI_PROPOSAL = '" + tp.PROPOSAL_JUDUL_SNI_PROPOSAL + "' , PROPOSAL_STATUS = 14, PROPOSAL_STATUS_PROSES = 1, PROPOSAL_IS_POLLING = NULL, PROPOSAL_POLLING_ID = NULL, PROPOSAL_UPDATE_DATE = " + DATENOW + ", PROPOSAL_UPDATE_BY = " + USER_ID + " WHERE PROPOSAL_ID = " + PROPOSAL_ID);
             var PROPOSAL_LOG_CODE = db.Database.SqlQuery<string>("SELECT PROPOSAL_LOG_CODE FROM TRX_PROPOSAL WHERE PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();
             String objek1 = "UPDATE TRX_PROPOSAL SET PROPOSAL_STATUS = 14, PROPOSAL_STATUS_PROSES = 1, PROPOSAL_IS_POLLING = NULL, PROPOSAL_POLLING_ID = NULL, PROPOSAL_UPDATE_DATE = " + DATENOW + ", PROPOSAL_UPDATE_BY = " + USER_ID + " WHERE PROPOSAL_ID = " + PROPOSAL_ID;
             MixHelper.InsertLog(PROPOSAL_LOG_CODE, objek1.Replace("'", "-"), 2);

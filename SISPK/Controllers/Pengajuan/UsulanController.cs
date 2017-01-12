@@ -105,12 +105,17 @@ namespace SISPK.Controllers.Pengajuan
             return Json(new { jam = (DateTime.Now).ToString(), jam2 = DateTime.Now.ToString("yyyyMMddHHmmss") }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult Create(TRX_PROPOSAL INPUT, int[] PROPOSAL_REV_MERIVISI_ID, string[] PROPOSAL_ADOPSI_NOMOR_JUDUL, int[] PROPOSAL_REF_SNI_ID, string[] PROPOSAL_REF_NON_SNI, string[] BIBLIOGRAFI, string[] PROPOSAL_LPK_ID, string[] PROPOSAL_RETEK_ID)
+        public ActionResult Create(TRX_PROPOSAL INPUT, int[] PROPOSAL_REV_MERIVISI_ID = null, int PROPOSAL_JENIS_ADOPSI_TERJEMAHAN = 0, int PROPOSAL_METODE_ADOPSI_TERJEMAHAN = 0, string[] PROPOSAL_ADOPSI_NOMOR_JUDUL = null, int[] PROPOSAL_REF_SNI_ID = null, string[] PROPOSAL_REF_NON_SNI = null, string[] BIBLIOGRAFI = null, string[] PROPOSAL_LPK_ID = null, string[] PROPOSAL_RETEK_ID = null)
         {
             var USER_ID = Convert.ToInt32(Session["USER_ID"]);
             var LOGCODE = MixHelper.GetLogCode();
             int LASTID = MixHelper.GetSequence("TRX_PROPOSAL");
             var DATENOW = MixHelper.ConvertDateNow();
+            if(INPUT.PROPOSAL_JENIS_PERUMUSAN == 5)
+            {
+                INPUT.PROPOSAL_JENIS_ADOPSI = PROPOSAL_JENIS_ADOPSI_TERJEMAHAN;
+                INPUT.PROPOSAL_METODE_ADOPSI = PROPOSAL_METODE_ADOPSI_TERJEMAHAN;
+            }
             var PROPOSAL_CODE = db.Database.SqlQuery<String>("SELECT TO_CHAR (SYSDATE, 'YYYYMMDD-') || ( CASE WHEN LENGTH (COUNT(PROPOSAL_ID) + 1) = 1 THEN '000' || CAST ( COUNT (PROPOSAL_ID) + 1 AS VARCHAR2 (255) ) WHEN LENGTH (COUNT(PROPOSAL_ID) + 1) = 2 THEN '00' || CAST ( COUNT (PROPOSAL_ID) + 1 AS VARCHAR2 (255)) WHEN LENGTH (COUNT(PROPOSAL_ID) + 1) = 3 THEN '0' || CAST ( COUNT (PROPOSAL_ID) + 1 AS VARCHAR2 (255) ) ELSE CAST ( COUNT (PROPOSAL_ID) + 1 AS VARCHAR2 (255) ) END ) PROPOSAL_CODE FROM TRX_PROPOSAL WHERE TO_CHAR (SYSDATE, 'MM-DD-YYYY') = TO_CHAR (PROPOSAL_CREATE_DATE,'MM-DD-YYYY')").SingleOrDefault();
             var PROPOSAL_LPK_ID_CONVERT = "";
             var PROPOSAL_RETEK_ID_CONVERT = "";
@@ -680,13 +685,18 @@ namespace SISPK.Controllers.Pengajuan
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public ActionResult Update(TRX_PROPOSAL INPUT, int[] PROPOSAL_REV_MERIVISI_ID, string[] PROPOSAL_ADOPSI_NOMOR_JUDUL, int[] PROPOSAL_REF_SNI_ID, string[] PROPOSAL_REF_NON_SNI, string[] BIBLIOGRAFI, string[] PROPOSAL_LPK_ID, string[] PROPOSAL_RETEK_ID)
+        public ActionResult Update(TRX_PROPOSAL INPUT, int[] PROPOSAL_REV_MERIVISI_ID = null, int PROPOSAL_JENIS_ADOPSI_TERJEMAHAN = 0, int PROPOSAL_METODE_ADOPSI_TERJEMAHAN = 0, string[] PROPOSAL_ADOPSI_NOMOR_JUDUL = null, int[] PROPOSAL_REF_SNI_ID = null, string[] PROPOSAL_REF_NON_SNI = null, string[] BIBLIOGRAFI = null, string[] PROPOSAL_LPK_ID = null, string[] PROPOSAL_RETEK_ID = null)
         {
             var ID = Convert.ToInt32(INPUT.PROPOSAL_ID);
             var USER_ID = Convert.ToInt32(Session["USER_ID"]);
             var LOGCODE = MixHelper.GetLogCode();
             int LASTID = MixHelper.GetSequence("TRX_PROPOSAL");
             var DATENOW = MixHelper.ConvertDateNow();
+            if (INPUT.PROPOSAL_JENIS_PERUMUSAN == 5)
+            {
+                INPUT.PROPOSAL_JENIS_ADOPSI = PROPOSAL_JENIS_ADOPSI_TERJEMAHAN;
+                INPUT.PROPOSAL_METODE_ADOPSI = PROPOSAL_METODE_ADOPSI_TERJEMAHAN;
+            }
             var DataProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + INPUT.PROPOSAL_ID).SingleOrDefault();
             var PROPOSAL_LPK_ID_CONVERT = "";
             var PROPOSAL_RETEK_ID_CONVERT = "";
@@ -1959,7 +1969,7 @@ namespace SISPK.Controllers.Pengajuan
 
             var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_ACUAN_NON_SNI_SELECT WHERE LOWER(VIEW_ACUAN_NON_SNI_SELECT.TEXT) LIKE '%" + q.ToLower() + "%' ORDER BY VIEW_ACUAN_NON_SNI_SELECT.ID ASC").SingleOrDefault();
             string inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER FROM (SELECT * FROM VIEW_ACUAN_NON_SNI_SELECT WHERE LOWER(VIEW_ACUAN_NON_SNI_SELECT.TEXT) LIKE '%" + q.ToLower() + "%' ORDER BY VIEW_ACUAN_NON_SNI_SELECT.ID ASC) T1 WHERE ROWNUM <= " + Convert.ToString(start) + ") WHERE ROWNUMBER > " + Convert.ToString(end);
-            var datasni = db.Database.SqlQuery<VIEW_SNI_SELECT>(inject_clause_select);
+            var datasni = db.Database.SqlQuery<VIEW_ACUAN_NON_SNI_SELECT>(inject_clause_select);
             var sni = from cust in datasni select new { id = cust.TEXT, text = cust.TEXT };
 
             return Json(new { sni, total_count = CountData, inject_clause_select }, JsonRequestBehavior.AllowGet);
@@ -2019,10 +2029,11 @@ namespace SISPK.Controllers.Pengajuan
 
             var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_BIBLIOGRAFI_SELECT WHERE LOWER(VIEW_BIBLIOGRAFI_SELECT.TEXT) LIKE '%" + q.ToLower() + "%' ORDER BY VIEW_BIBLIOGRAFI_SELECT.TEXT ASC").SingleOrDefault();
             string inject_clause_select = "SELECT * FROM (SELECT T1.*, ROWNUM ROWNUMBER FROM (SELECT * FROM VIEW_BIBLIOGRAFI_SELECT WHERE LOWER(VIEW_BIBLIOGRAFI_SELECT.TEXT) LIKE '%" + q.ToLower() + "%' ORDER BY VIEW_BIBLIOGRAFI_SELECT.TEXT ASC) T1 WHERE ROWNUM <= " + Convert.ToString(start) + ") WHERE ROWNUMBER > " + Convert.ToString(end);
-            var datasni = db.Database.SqlQuery<VIEW_SNI_SELECT>(inject_clause_select);
+            var datasni = db.Database.SqlQuery<VIEW_BIBLIOGRAFI_SELECT>(inject_clause_select);
             var sni = from cust in datasni select new { id = cust.TEXT, text = cust.TEXT };
 
             return Json(new { sni, total_count = CountData, inject_clause_select }, JsonRequestBehavior.AllowGet);
+            //return Json(new { sni = "", total_count = CountData, text = inject_clause_select }, JsonRequestBehavior.AllowGet);
 
         }
         public string ConvertTanggal(DateTime tanggal, string tipe = "")

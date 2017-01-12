@@ -23,13 +23,15 @@ namespace SISPK.Controllers.Penetapan
         }
 
         [Auth(RoleTipe = 2)]
-        public ActionResult Create() {
-            ViewData["listSNI"] = (from t in db.VIEW_PROPOSAL where t.PROPOSAL_STATUS == 10 && t.PROPOSAL_STATUS_PROSES == 3 orderby t.PROPOSAL_CREATE_DATE ascending select t).ToList();
+        public ActionResult Create(int id = 0) {
+            var DataProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + id).SingleOrDefault();
+            ViewData["DataProposal"] = DataProposal;
+            //ViewData["listSNI"] = (from t in db.VIEW_PROPOSAL where t.PROPOSAL_STATUS == 10 && t.PROPOSAL_STATUS_PROSES == 3 orderby t.PROPOSAL_CREATE_DATE ascending select t).ToList();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(TRX_SNI_SK tsk, FormCollection formCollection, int[] PROPOSAL_ID, string SNI_SK_DATE ="")
+        public ActionResult Create(TRX_SNI_SK tsk, FormCollection formCollection, int PROPOSAL_ID, string SNI_SK_DATE ="")
         {
             var USER_ID = Session["USER_ID"];
             var DATENOW = MixHelper.ConvertDateNow();
@@ -107,79 +109,79 @@ namespace SISPK.Controllers.Penetapan
 
             var NoSK = tsk.SNI_SK_NOMOR.ToUpper().Replace(" ", "_").Replace(".", "_").Replace("/", "_");     
             // Awal Tambahan Script 
-            int jml_sni = PROPOSAL_ID.Count();
+            //int jml_sni = PROPOSAL_ID.Count();
+            int jml_sni = 1;
             int lastid_sk = MixHelper.GetSequence("TRX_SNI_SK");
             var query2 = "INSERT INTO TRX_SNI_SK (SNI_SK_ID,SNI_SK_DOC_ID,SNI_SK_NOMOR,SNI_SK_DATE,SNI_SK_CREATE_DATE,SNI_SK_CREATE_BY,JML_SNI,IS_PUBLISH,SNI_SK_STATUS,SNI_SK_KET) VALUES (" + lastid_sk + "," + LASTID_SK_SNI + ",'" + tsk.SNI_SK_NOMOR + "'," + SNI_SK_DATE_CONVERT + "," + datenow + "," + USER_ID + "," + jml_sni + ",0,1,'" + tsk.SNI_SK_KET + "')";
 
             db.Database.ExecuteSqlCommand(query2);
             // Akhir Tambahan Script
             var query = "";
-            if (PROPOSAL_ID.Count() > 0)
+            if (PROPOSAL_ID != 0)
             {
-                foreach (var PID in PROPOSAL_ID)
-                {
-                    int lastid_SNI = MixHelper.GetSequence("TRX_SNI");
-                    int LASTID_DATA_RSNI = MixHelper.GetSequence("TRX_DOCUMENTS");
-                    var getProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + PID).SingleOrDefault();
-                    query = "INSERT INTO TRX_SNI (SNI_ID, SNI_SK_ID, SNI_PROPOSAL_ID, SNI_DOC_ID, SNI_CREATE_DATE, SNI_CREATE_BY, SNI_STATUS, SNI_NOMOR, SNI_JUDUL,SNI_IS_PUBLISH) VALUES (" + lastid_SNI + "," + lastid_sk + "," + PID + ",'" + LASTID_DATA_RSNI + "'," + datenow + "," + USER_ID + ",'1','" + getProposal.PROPOSAL_NO_SNI_PROPOSAL + "','" + getProposal.PROPOSAL_JUDUL_SNI_PROPOSAL + "',0)";
-                    db.Database.ExecuteSqlCommand(query);
+                var PID = PROPOSAL_ID;
+                
+                int lastid_SNI = MixHelper.GetSequence("TRX_SNI");
+                int LASTID_DATA_RSNI = MixHelper.GetSequence("TRX_DOCUMENTS");
+                var getProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + PID).SingleOrDefault();
+                query = "INSERT INTO TRX_SNI (SNI_ID, SNI_SK_ID, SNI_PROPOSAL_ID, SNI_DOC_ID, SNI_CREATE_DATE, SNI_CREATE_BY, SNI_STATUS, SNI_NOMOR, SNI_JUDUL,SNI_IS_PUBLISH) VALUES (" + lastid_SNI + "," + lastid_sk + "," + PID + ",'" + LASTID_DATA_RSNI + "'," + datenow + "," + USER_ID + ",'1','" + getProposal.PROPOSAL_NO_SNI_PROPOSAL + "','" + getProposal.PROPOSAL_JUDUL_SNI_PROPOSAL + "',0)";
+                db.Database.ExecuteSqlCommand(query);
 
-                    db.Database.ExecuteSqlCommand("UPDATE TRX_PROPOSAL SET PROPOSAL_STATUS = 11,PROPOSAL_STATUS_PROSES = 1,PROPOSAL_UPDATE_DATE = " + datenow + ", PROPOSAL_UPDATE_BY = " + USER_ID + " WHERE PROPOSAL_ID = " + PID);
-                    String objek3 = "PROPOSAL_STATUS = 11,PROPOSAL_STATUS_PROSES = 1, PROPOSAL_UPDATE_DATE = " + datenow + ", PROPOSAL_UPDATE_BY = " + USER_ID;
-                    MixHelper.InsertLog(logcode, objek3.Replace("'", "-"), 2);
+                db.Database.ExecuteSqlCommand("UPDATE TRX_PROPOSAL SET PROPOSAL_STATUS = 11,PROPOSAL_STATUS_PROSES = 1,PROPOSAL_UPDATE_DATE = " + datenow + ", PROPOSAL_UPDATE_BY = " + USER_ID + " WHERE PROPOSAL_ID = " + PID);
+                String objek3 = "PROPOSAL_STATUS = 11,PROPOSAL_STATUS_PROSES = 1, PROPOSAL_UPDATE_DATE = " + datenow + ", PROPOSAL_UPDATE_BY = " + USER_ID;
+                MixHelper.InsertLog(logcode, objek3.Replace("'", "-"), 2);
 
-                    int APPROVAL_ID = MixHelper.GetSequence("TRX_PROPOSAL_APPROVAL");
-                    db.Database.ExecuteSqlCommand("UPDATE TRX_PROPOSAL_APPROVAL SET APPROVAL_STATUS = 0 WHERE APPROVAL_PROPOSAL_ID = " + PID);
-                    var APPROVAL_STATUS_SESSION = db.Database.SqlQuery<decimal>("SELECT CAST(NVL(MAX(T1.APPROVAL_STATUS_SESSION),0) AS NUMBER) AS APPROVAL_STATUS_SESSION FROM TRX_PROPOSAL_APPROVAL T1 WHERE T1.APPROVAL_PROPOSAL_ID = " + PID + " AND T1.APPROVAL_STATUS_PROPOSAL = 10").SingleOrDefault();
-                    db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_APPROVAL (APPROVAL_ID,APPROVAL_PROPOSAL_ID,APPROVAL_TYPE,APPROVAL_REASON,APPROVAL_DATE,APPROVAL_BY,APPROVAL_STATUS,APPROVAL_STATUS_PROPOSAL,APPROVAL_STATUS_SESSION) VALUES (" + APPROVAL_ID + "," + PID + ",1,''," + datenow + "," + USER_ID + ",1,10," + APPROVAL_STATUS_SESSION + ")");
+                int APPROVAL_ID = MixHelper.GetSequence("TRX_PROPOSAL_APPROVAL");
+                db.Database.ExecuteSqlCommand("UPDATE TRX_PROPOSAL_APPROVAL SET APPROVAL_STATUS = 0 WHERE APPROVAL_PROPOSAL_ID = " + PID);
+                var APPROVAL_STATUS_SESSION = db.Database.SqlQuery<decimal>("SELECT CAST(NVL(MAX(T1.APPROVAL_STATUS_SESSION),0) AS NUMBER) AS APPROVAL_STATUS_SESSION FROM TRX_PROPOSAL_APPROVAL T1 WHERE T1.APPROVAL_PROPOSAL_ID = " + PID + " AND T1.APPROVAL_STATUS_PROPOSAL = 10").SingleOrDefault();
+                db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_APPROVAL (APPROVAL_ID,APPROVAL_PROPOSAL_ID,APPROVAL_TYPE,APPROVAL_REASON,APPROVAL_DATE,APPROVAL_BY,APPROVAL_STATUS,APPROVAL_STATUS_PROPOSAL,APPROVAL_STATUS_SESSION) VALUES (" + APPROVAL_ID + "," + PID + ",1,''," + datenow + "," + USER_ID + ",1,10," + APPROVAL_STATUS_SESSION + ")");
 
-                    var SNI = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT AA.* FROM TRX_DOCUMENTS AA WHERE AA.DOC_RELATED_ID = " + PID + " AND AA.DOC_RELATED_TYPE = 18 AND AA.DOC_FOLDER_ID = 18 AND AA.DOC_STATUS = 1 AND AA.DOC_ID = (SELECT MAX(DOC_ID) FROM TRX_DOCUMENTS BB WHERE BB.DOC_RELATED_ID = AA.DOC_RELATED_ID AND BB.DOC_RELATED_TYPE = AA.DOC_RELATED_TYPE AND BB.DOC_FOLDER_ID = AA.DOC_FOLDER_ID AND BB.DOC_STATUS = AA.DOC_STATUS)").SingleOrDefault();
+                var SNI = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT AA.* FROM TRX_DOCUMENTS AA WHERE AA.DOC_RELATED_ID = " + PID + " AND AA.DOC_RELATED_TYPE = 18 AND AA.DOC_FOLDER_ID = 18 AND AA.DOC_STATUS = 1 AND AA.DOC_ID = (SELECT MAX(DOC_ID) FROM TRX_DOCUMENTS BB WHERE BB.DOC_RELATED_ID = AA.DOC_RELATED_ID AND BB.DOC_RELATED_TYPE = AA.DOC_RELATED_TYPE AND BB.DOC_FOLDER_ID = AA.DOC_FOLDER_ID AND BB.DOC_STATUS = AA.DOC_STATUS)").SingleOrDefault();
 
-                    var PROPOSAL_PNPS_CODE_FIXER = getProposal.PROPOSAL_PNPS_CODE;
+                var PROPOSAL_PNPS_CODE_FIXER = getProposal.PROPOSAL_PNPS_CODE;
 
-                    Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/SNI"));
-                    string path = Server.MapPath("~/Upload/Dokumen/SNI/");
+                Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/SNI"));
+                string path = Server.MapPath("~/Upload/Dokumen/SNI/");
                   
-                    string dataDir = Server.MapPath("~" + SNI.DOC_FILE_PATH + "" + SNI.DOC_FILE_NAME + "." + SNI.DOC_FILETYPE);
+                string dataDir = Server.MapPath("~" + SNI.DOC_FILE_PATH + "" + SNI.DOC_FILE_NAME + "." + SNI.DOC_FILETYPE);
                     
 
-                    Stream stream = System.IO.File.OpenRead(dataDir);
+                Stream stream = System.IO.File.OpenRead(dataDir);
 
-                    Aspose.Words.Document docs = new Aspose.Words.Document(stream);
-                    stream.Close();
-                    var SNI_NOMOR_CONVERT = getProposal.PROPOSAL_NO_SNI_PROPOSAL.Replace(" ", "_").Replace(".", "_").Replace("/", "_").Replace(":", "_").Replace(";", "_").Replace("@", "_");
-                    string filePathdoc = path + "SNI_" + SNI_NOMOR_CONVERT + ".docx";
-                    string filePathpdf = path + "SNI_" + SNI_NOMOR_CONVERT + ".pdf";
-                    string filePathxml = path + "SNI_" + SNI_NOMOR_CONVERT + ".xml";
-                    //return Json(new
-                    //{
-                    //    sEcho = @"" + filePathdoc
-                    //}, JsonRequestBehavior.AllowGet);
-                    docs.Save(@"" + filePathdoc, Aspose.Words.SaveFormat.Docx);
-                    docs.Save(@"" + filePathpdf, Aspose.Words.SaveFormat.Pdf);
-                    docs.Save(@"" + filePathxml);
-                    int Total_Hal = docs.PageCount;
-                    var LOGCODE_DATA_RSNI = MixHelper.GetLogCode();
-                    var FNAME_DATA_RSNI = "DOC_ID,DOC_FOLDER_ID,DOC_RELATED_TYPE,DOC_RELATED_ID,DOC_NAME,DOC_DESCRIPTION,DOC_FILE_PATH,DOC_FILE_NAME,DOC_FILETYPE,DOC_EDITABLE,DOC_CREATE_BY,DOC_CREATE_DATE,DOC_STATUS,DOC_INFO,DOC_LOG_CODE";
-                    var FVALUE_DATA_RSNI = "'" + LASTID_DATA_RSNI + "', " +
-                                "'8', " +
-                                "'100', " +
-                                "'" + PID + "', " +
-                                "'" + "(" + PROPOSAL_PNPS_CODE_FIXER + ") " + getProposal.PROPOSAL_NO_SNI_PROPOSAL + "', " +
-                                "'Data SNI dengan Nomor " + getProposal.PROPOSAL_NO_SNI_PROPOSAL + " Dengan Kode Proposal : " + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + "/Upload/Dokumen/SNI/" + "', " +
-                                "'SNI_" + SNI_NOMOR_CONVERT + "" + "', " +
-                                "'pdf', " +
-                                "'0', " +
-                                "'" + USER_ID + "', " +
-                                datenow + "," +
-                                "'1', " +
-                                "'" + Total_Hal + "', " +
-                                "'" + LOGCODE_DATA_RSNI + "'";
-                    db.Database.ExecuteSqlCommand("INSERT INTO TRX_DOCUMENTS (" + FNAME_DATA_RSNI + ") VALUES (" + FVALUE_DATA_RSNI.Replace("''", "NULL") + ")");
-                    String objekTanggapan = FVALUE_DATA_RSNI.Replace("'", "-");
-                    MixHelper.InsertLog(LOGCODE_DATA_RSNI, objekTanggapan, 1);
-                }
+                Aspose.Words.Document docs = new Aspose.Words.Document(stream);
+                stream.Close();
+                var SNI_NOMOR_CONVERT = getProposal.PROPOSAL_NO_SNI_PROPOSAL.Replace(" ", "_").Replace(".", "_").Replace("/", "_").Replace(":", "_").Replace(";", "_").Replace("@", "_");
+                string filePathdoc = path + "SNI_" + SNI_NOMOR_CONVERT + ".docx";
+                string filePathpdf = path + "SNI_" + SNI_NOMOR_CONVERT + ".pdf";
+                string filePathxml = path + "SNI_" + SNI_NOMOR_CONVERT + ".xml";
+                //return Json(new
+                //{
+                //    sEcho = @"" + filePathdoc
+                //}, JsonRequestBehavior.AllowGet);
+                docs.Save(@"" + filePathdoc, Aspose.Words.SaveFormat.Docx);
+                docs.Save(@"" + filePathpdf, Aspose.Words.SaveFormat.Pdf);
+                docs.Save(@"" + filePathxml);
+                int Total_Hal = docs.PageCount;
+                var LOGCODE_DATA_RSNI = MixHelper.GetLogCode();
+                var FNAME_DATA_RSNI = "DOC_ID,DOC_FOLDER_ID,DOC_RELATED_TYPE,DOC_RELATED_ID,DOC_NAME,DOC_DESCRIPTION,DOC_FILE_PATH,DOC_FILE_NAME,DOC_FILETYPE,DOC_EDITABLE,DOC_CREATE_BY,DOC_CREATE_DATE,DOC_STATUS,DOC_INFO,DOC_LOG_CODE";
+                var FVALUE_DATA_RSNI = "'" + LASTID_DATA_RSNI + "', " +
+                            "'8', " +
+                            "'100', " +
+                            "'" + PID + "', " +
+                            "'" + "(" + PROPOSAL_PNPS_CODE_FIXER + ") " + getProposal.PROPOSAL_NO_SNI_PROPOSAL + "', " +
+                            "'Data SNI dengan Nomor " + getProposal.PROPOSAL_NO_SNI_PROPOSAL + " Dengan Kode Proposal : " + PROPOSAL_PNPS_CODE_FIXER + "', " +
+                            "'" + "/Upload/Dokumen/SNI/" + "', " +
+                            "'SNI_" + SNI_NOMOR_CONVERT + "" + "', " +
+                            "'pdf', " +
+                            "'0', " +
+                            "'" + USER_ID + "', " +
+                            datenow + "," +
+                            "'1', " +
+                            "'" + Total_Hal + "', " +
+                            "'" + LOGCODE_DATA_RSNI + "'";
+                db.Database.ExecuteSqlCommand("INSERT INTO TRX_DOCUMENTS (" + FNAME_DATA_RSNI + ") VALUES (" + FVALUE_DATA_RSNI.Replace("''", "NULL") + ")");
+                String objekTanggapan = FVALUE_DATA_RSNI.Replace("'", "-");
+                MixHelper.InsertLog(LOGCODE_DATA_RSNI, objekTanggapan, 1);
             }
 
             String objek = query.Replace("'", "-");
@@ -335,6 +337,84 @@ namespace SISPK.Controllers.Penetapan
                 iTotalDisplayRecords = CountData,
                 aaData = result.ToArray()
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DetailRSNI(int id = 0)
+        {
+            var USER_ID = Convert.ToInt32(Session["USER_ID"]);
+            var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == id select proposal).SingleOrDefault();
+            var AcuanNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 1 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
+            var AcuanNonNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 2 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
+            var Bibliografi = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 3 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
+            var ICS = (from an in db.VIEW_PROPOSAL_ICS where an.PROPOSAL_ICS_REF_PROPOSAL_ID == id orderby an.ICS_CODE ascending select an).ToList();
+            var AdopsiList = (from an in db.TRX_PROPOSAL_ADOPSI where an.PROPOSAL_ADOPSI_PROPOSAL_ID == id orderby an.PROPOSAL_ADOPSI_NOMOR_JUDUL ascending select an).ToList();
+            var RevisiList = db.Database.SqlQuery<VIEW_SNI_SELECT>("SELECT BB.* FROM TRX_PROPOSAL_REV AA INNER JOIN VIEW_SNI_SELECT BB ON AA.PROPOSAL_REV_MERIVISI_ID = BB.ID WHERE AA.PROPOSAL_REV_PROPOSAL_ID = '" + id + "' ORDER BY AA.PROPOSAL_REV_ID ASC").ToList();
+            var Lampiran = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + id + " AND DOC_RELATED_TYPE = 30").FirstOrDefault();
+            var Bukti = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + id + " AND DOC_RELATED_TYPE = 29").FirstOrDefault();
+            var Surat = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 14 AND DOC_RELATED_ID = " + id + " AND DOC_RELATED_TYPE = 36").FirstOrDefault();
+            var Outline = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 10 AND DOC_RELATED_ID = " + id + " AND DOC_RELATED_TYPE = 36").FirstOrDefault();
+
+            var DataKomtek = (from komtek in db.MASTER_KOMITE_TEKNIS where komtek.KOMTEK_STATUS == 1 && komtek.KOMTEK_ID == DataProposal.KOMTEK_ID select komtek).SingleOrDefault();
+            var IsKetua = db.Database.SqlQuery<string>("SELECT JABATAN FROM VIEW_ANGGOTA WHERE KOMTEK_ANGGOTA_KOMTEK_ID = " + DataProposal.KOMTEK_ID + " AND USER_ID = " + USER_ID).SingleOrDefault();
+
+            var SURAT_UNDANGAN_RAPAT = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT AA.* FROM TRX_DOCUMENTS AA WHERE AA.DOC_RELATED_ID = " + id + " AND AA.DOC_RELATED_TYPE = 43 AND AA.DOC_FOLDER_ID = 15 AND AA.DOC_STATUS = 1 AND AA.DOC_ID = (SELECT MAX(DOC_ID) FROM TRX_DOCUMENTS BB WHERE BB.DOC_RELATED_ID = AA.DOC_RELATED_ID AND BB.DOC_RELATED_TYPE = AA.DOC_RELATED_TYPE AND BB.DOC_FOLDER_ID = AA.DOC_FOLDER_ID AND BB.DOC_STATUS = AA.DOC_STATUS)").SingleOrDefault();
+            var BERITA_ACARA_RAPAT = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT AA.* FROM TRX_DOCUMENTS AA WHERE AA.DOC_RELATED_ID = " + id + " AND AA.DOC_RELATED_TYPE = 42 AND AA.DOC_FOLDER_ID = 15 AND AA.DOC_STATUS = 1 AND AA.DOC_ID = (SELECT MAX(DOC_ID) FROM TRX_DOCUMENTS BB WHERE BB.DOC_RELATED_ID = AA.DOC_RELATED_ID AND BB.DOC_RELATED_TYPE = AA.DOC_RELATED_TYPE AND BB.DOC_FOLDER_ID = AA.DOC_FOLDER_ID AND BB.DOC_STATUS = AA.DOC_STATUS)").SingleOrDefault();
+            var DAFTAR_HADIR_RAPAT = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT AA.* FROM TRX_DOCUMENTS AA WHERE AA.DOC_RELATED_ID = " + id + " AND AA.DOC_RELATED_TYPE = 16 AND AA.DOC_FOLDER_ID = 15 AND AA.DOC_STATUS = 1 AND AA.DOC_ID = (SELECT MAX(DOC_ID) FROM TRX_DOCUMENTS BB WHERE BB.DOC_RELATED_ID = AA.DOC_RELATED_ID AND BB.DOC_RELATED_TYPE = AA.DOC_RELATED_TYPE AND BB.DOC_FOLDER_ID = AA.DOC_FOLDER_ID AND BB.DOC_STATUS = AA.DOC_STATUS)").SingleOrDefault();
+            var NOTULEN_RAPAT = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT AA.* FROM TRX_DOCUMENTS AA WHERE AA.DOC_RELATED_ID = " + id + " AND AA.DOC_RELATED_TYPE = 44 AND AA.DOC_FOLDER_ID = 15 AND AA.DOC_STATUS = 1 AND AA.DOC_ID = (SELECT MAX(DOC_ID) FROM TRX_DOCUMENTS BB WHERE BB.DOC_RELATED_ID = AA.DOC_RELATED_ID AND BB.DOC_RELATED_TYPE = AA.DOC_RELATED_TYPE AND BB.DOC_FOLDER_ID = AA.DOC_FOLDER_ID AND BB.DOC_STATUS = AA.DOC_STATUS)").SingleOrDefault();
+
+            ViewData["SURAT_UNDANGAN_RAPAT"] = SURAT_UNDANGAN_RAPAT;
+            ViewData["BERITA_ACARA_RAPAT"] = BERITA_ACARA_RAPAT;
+            ViewData["DAFTAR_HADIR_RAPAT"] = DAFTAR_HADIR_RAPAT;
+            ViewData["NOTULEN_RAPAT"] = NOTULEN_RAPAT;
+
+            ViewData["ListTas"] = (from t in db.VIEW_MASTER_TAS orderby t.TAS_NAME select t).ToList();
+            ViewData["Komtek"] = DataKomtek;
+            ViewData["DataProposal"] = DataProposal;
+            ViewData["AcuanNormatif"] = AcuanNormatif;
+            ViewData["AcuanNonNormatif"] = AcuanNonNormatif;
+            ViewData["Bibliografi"] = Bibliografi;
+            ViewData["ICS"] = ICS;
+            ViewData["AdopsiList"] = AdopsiList;
+            ViewData["RevisiList"] = RevisiList;
+            ViewData["Lampiran"] = Lampiran;
+            ViewData["Bukti"] = Bukti;
+            ViewData["Surat"] = Surat;
+            ViewData["Outline"] = Outline;
+            ViewData["IsKetua"] = ((IsKetua == "Ketua" || IsKetua == "Sekretariat") ? 1 : 0);
+
+            var Dokumen = db.Database.SqlQuery<VIEW_DOCUMENTS>("SELECT * FROM VIEW_DOCUMENTS WHERE DOC_STATUS = 1 AND DOC_RELATED_ID = " + id).ToList();
+            var DefaultDokumen = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT * FROM TRX_DOCUMENTS WHERE DOC_RELATED_ID = " + id + " AND DOC_RELATED_TYPE = 17 AND DOC_FOLDER_ID = 15 AND DOC_STATUS = 1 AND ROWNUM = 1 ORDER BY DOC_ID DESC").SingleOrDefault();
+            if (DefaultDokumen == null)
+            {
+                var DefaultDokumenRSNI2 = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT * FROM TRX_DOCUMENTS WHERE DOC_RELATED_ID = " + id + " AND DOC_RELATED_TYPE = 38 AND DOC_FOLDER_ID = 25 AND DOC_STATUS = 1 AND ROWNUM = 1 ORDER BY DOC_ID DESC").SingleOrDefault();
+                ViewData["DefaultDokumen"] = DefaultDokumenRSNI2;
+            }
+            else
+            {
+                ViewData["DefaultDokumen"] = DefaultDokumen;
+            }
+            ViewData["Dokumen"] = Dokumen;
+
+            string SearchName = DataProposal.PROPOSAL_JUDUL_PNPS;
+            string[] Name = SearchName.Split(' ');
+            string QueryRefLain = "SELECT * FROM VIEW_DOCUMENTS WHERE DOC_STATUS = 1 AND (DOC_RELATED_ID <> " + id + " OR DOC_RELATED_ID IS NULL) AND ( ";
+            string lastItem = Name.Last();
+
+            foreach (string Res in Name)
+            {
+                if (!object.ReferenceEquals(Res, lastItem))
+                {
+                    QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' OR ";
+                }
+                else
+                {
+                    QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' )";
+                }
+            }
+            var RefLain = db.Database.SqlQuery<VIEW_DOCUMENTS>(QueryRefLain).ToList();
+            ViewData["RefLain"] = RefLain;
+            return View();
+
         }
 
         public ActionResult Detail(int id = 0) {
@@ -860,13 +940,14 @@ namespace SISPK.Controllers.Penetapan
             {
                 Convert.ToString("<center>"+list.PROPOSAL_CREATE_DATE_NAME+"</center>"),
                 Convert.ToString(list.PROPOSAL_PNPS_CODE),
-                Convert.ToString(list.KOMTEK_CODE),
+                Convert.ToString(list.PROPOSAL_NO_SNI_PROPOSAL),
+                Convert.ToString(list.MONITORING_NO_MEMO_DEPUTI),
                 Convert.ToString(list.PROPOSAL_JENIS_PERUMUSAN_NAME),
                 Convert.ToString("<span class='judul_"+list.PROPOSAL_ID+"'>"+list.PROPOSAL_JUDUL_PNPS+"</span>"),
                 Convert.ToString("<center>"+list.PROPOSAL_IS_URGENT_NAME+"</center>"),
                 //Convert.ToString("<center>"+list.PROPOSAL_TAHAPAN+"</center>"),
                 Convert.ToString("<center>"+list.PROPOSAL_STATUS_NAME+"</center>"),
-                Convert.ToString("<center><a href='/Perumusan/RASNI/Detail/"+list.PROPOSAL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a>"+((list.PROPOSAL_STATUS == 10 && list.PROPOSAL_STATUS_PROSES == 1)?"<a href='/Perumusan/RASNI/Pengesahan/"+list.PROPOSAL_ID+"' class='btn purple btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Pengesahan RASNI'><i class='action fa fa-check'></i></a>":"")+"<a href='javascript:void(0)' onclick='cetak_usulan("+list.PROPOSAL_ID+")' class='btn green btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Cetak'><i class='action fa fa-print'></i></a></center>"),
+                Convert.ToString("<center><a href='/Penetapan/PenetapanSNI/DetailRSNI/"+list.PROPOSAL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a><a href='/Penetapan/PenetapanSNI/create/"+list.PROPOSAL_ID+"' class='btn purple btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Pengesahan RASNI'><i class='action fa fa-check'></i></a><a href='javascript:void(0)' onclick='cetak_usulan("+list.PROPOSAL_ID+")' class='btn green btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Cetak'><i class='action fa fa-print'></i></a></center>"),
 
             };
             return Json(new

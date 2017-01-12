@@ -1340,7 +1340,7 @@ namespace SISPK.Controllers.Perumusan
 
         }
         [HttpPost]
-        public ActionResult Pengesahan(TRX_PROPOSAL input, string PROPOSAL_TAS_DATE, int[] PROPOSAL_REV_MERIVISI_ID, string[] PROPOSAL_ADOPSI_NOMOR_JUDUL, int[] PROPOSAL_REF_SNI_ID, string[] PROPOSAL_REF_NON_SNI, string[] BIBLIOGRAFI)
+        public ActionResult Pengesahan(TRX_PROPOSAL input, string PROPOSAL_TAS_DATE, int[] PROPOSAL_REV_MERIVISI_ID, string[] PROPOSAL_ADOPSI_NOMOR_JUDUL, int[] PROPOSAL_REF_SNI_ID, string[] PROPOSAL_REF_NON_SNI, string[] BIBLIOGRAFI, int PROPOSAL_JENIS_ADOPSI_TERJEMAHAN = 0, int PROPOSAL_METODE_ADOPSI_TERJEMAHAN = 0)
         {
             //declare
             int PROPOSAL_ID = 0;
@@ -1353,7 +1353,11 @@ namespace SISPK.Controllers.Perumusan
             //PROPOSAL_TAS_DATE = Convert.ToString(PROPOSAL_TAS_DATE);
             PROPOSAL_KOMTEK_ID = Convert.ToInt32(input.PROPOSAL_KOMTEK_ID);
             PROPOSAL_PNPS_CODE = input.PROPOSAL_PNPS_CODE;
-
+            if (input.PROPOSAL_JENIS_PERUMUSAN == 5)
+            {
+                input.PROPOSAL_JENIS_ADOPSI = PROPOSAL_JENIS_ADOPSI_TERJEMAHAN;
+                input.PROPOSAL_METODE_ADOPSI = PROPOSAL_METODE_ADOPSI_TERJEMAHAN;
+            }
             int PROPOSAL_CLASIFICATION_ID = 0;
             int APPROVAL_TYPE = 0;
             int APPROVAL_STATUS = 1;
