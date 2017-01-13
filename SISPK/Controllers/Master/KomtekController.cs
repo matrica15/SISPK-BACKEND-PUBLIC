@@ -491,7 +491,7 @@ namespace SISPK.Controllers.Master
                             "USER_UPDATE_BY = '" + UserId + "'," +
                             "USER_UPDATE_DATE = " + datenow + "";
 
-            var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_KODE;
+            var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_KODE + " AND USER_ACCESS_ID = " + 2;
             //return Json(new { query = "UPDATE SYS_USER SET " + updateu.Replace("''", "NULL") + " " + clauseu }, JsonRequestBehavior.AllowGet);
             db.Database.ExecuteSqlCommand("UPDATE SYS_USER SET " + updateu.Replace("''", "NULL") + " " + clauseu);
             //db.Database.ExecuteSqlCommand("UPDATE MASTER_KOMTEK_ANGGOTA SET KOMTEK_ANGGOTA_STATUS = 0 WHERE KOMTEK_ANGGOTA_ID = " + id);
