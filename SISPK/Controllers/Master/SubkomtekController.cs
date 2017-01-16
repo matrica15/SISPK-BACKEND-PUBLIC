@@ -727,8 +727,9 @@ namespace SISPK.Controllers.Master
 
                 var clause = "where KOMTEK_ANGGOTA_ID = " + mka.KOMTEK_ANGGOTA_ID;
                 db.Database.ExecuteSqlCommand("UPDATE MASTER_KOMTEK_ANGGOTA SET " + update.Replace("''", "NULL") + " " + clause);
+                var komtek_name = (from t in db.MASTER_KOMITE_TEKNIS where t.KOMTEK_ID == mka.KOMTEK_ANGGOTA_KOMTEK_ID select t).SingleOrDefault();
 
-                var updateu = "USER_NAME = '" + mka.KOMTEK_ANGGOTA_EMAIL + "'," +
+                var updateu = "USER_NAME = '" + komtek_name.KOMTEK_CODE + "_" + mka.KOMTEK_ANGGOTA_EMAIL + "', " +
                           "USER_UPDATE_BY = '" + UserId + "'," +
                           "USER_UPDATE_DATE = " + datenow + "," +
                           "USER_LOG_CODE = '" + mka.KOMTEK_ANGGOTA_LOG_CODE + "'";
