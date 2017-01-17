@@ -79,5 +79,7 @@ namespace SISPK.Models
         public string KLASIFIKASI_JNS_SNI { get; set; }
         public string PROPOSAL_HAK_PATEN_LOCATION { get; set; }
         public string PROPOSAL_HAK_PATEN_NAME { get; set; }
+        public string MONITORING_NO_MEMO_KAPUS { get; set; }
+        public string MONITORING_NO_MEMO_DEPUTI { get; set; }
     }
 }
