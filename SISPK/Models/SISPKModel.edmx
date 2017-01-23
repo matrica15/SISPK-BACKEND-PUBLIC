@@ -10646,7 +10646,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
           <Property Name="KLASIFIKASI_JNS_SNI" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="POLLING_START_DATE_A" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
           <Property Name="POLLING_END_DATE_A" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
-          <Property Name="MONITORING_NO_MEMO_DEPUTI" Type="String" MaxLength="255" FixedLength="false" Unicode="false"/>
+          <Property Name="MONITORING_NO_MEMO_DEPUTI" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="VIEW_PROPOSAL_ICS">
           <Key>

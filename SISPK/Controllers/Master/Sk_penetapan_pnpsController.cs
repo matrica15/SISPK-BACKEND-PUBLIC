@@ -59,8 +59,8 @@ namespace SISPK.Controllers.Master
                 }
             }
 
-            var fname = "PENETAPAN_ID,PENETAPAN_NO_SK,TANGGAL_SK,JUDUL_SK,SK_LOCATION,FILES,CREATE_DATE,CREATE_BY"; 
-            var fvalueS = ""+ lastid + ","+
+            var fname = "PENETAPAN_ID,PENETAPAN_NO_SK,TANGGAL_SK,JUDUL_SK,SK_LOCATION,FILES,CREATE_DATE,CREATE_BY";
+            var fvalueS = "" + lastid + "," +
                           "'" + INPUT.PENETAPAN_NO_SK + "'," +
                           "TO_DATE ('" + TANGGAL_SK + "','yyyy-mm-dd hh24:mi:ss')," +
                           "'" + INPUT.JUDUL_SK + "'," +
@@ -148,8 +148,8 @@ namespace SISPK.Controllers.Master
             Convert.ToString(list.JUDUL_SK),
             //Convert.ToString("<center>"+list.TANGGAL_SK+"</center>"),
             "<center>"+(Convert.ToString(list.TANGGAL_SK)).Substring(0,10)+"</center>",
-            Convert.ToString("<center><a href='" + list.SK_LOCATION + "" + list.FILES + "' target='_blank'>Show SK</a></center"),
-            Convert.ToString("<center><a href='Sk_penetapan_pnps/Edit/" + list.PENETAPAN_ID + "' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Ubah'><i class='action fa fa-file-text-o'></i></a><a href='Sk_penetapan_pnps/Hapus/" + list.PENETAPAN_ID + "' class='btn red btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Hapus'><i class='action fa fa-trash-o'></i></a>"),
+            //Convert.ToString("<center><a href='" + list.SK_LOCATION + "" + list.FILES + "' target='_blank'>Show SK</a></center"),
+            Convert.ToString("<center><a href='Sk_penetapan_pnps/Edit/" + list.PENETAPAN_ID + "' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Ubah'><i class='action fa fa-file-text-o'></i></a><a href='Sk_penetapan_pnps/Hapus/" + list.PENETAPAN_ID + "' class='btn red btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Hapus'><i class='action fa fa-trash-o'></i></a><a href='" + list.SK_LOCATION + "" + list.FILES + "' class='btn green btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Show SK'><i class='action fa fa-download'></i></a>"),
              //Convert.ToString("<center><a href='PenetapanSNI/Detail/"+list.SNI_SK_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a></center>"),
          };
 
@@ -222,7 +222,7 @@ namespace SISPK.Controllers.Master
         public ActionResult Hapus(int id)
         {
             var idsk = id;
-            db.Database.ExecuteSqlCommand("DELETE FROM TRX_SK_PENETAPAN WHERE PENETAPAN_ID = "+idsk);
+            db.Database.ExecuteSqlCommand("DELETE FROM TRX_SK_PENETAPAN WHERE PENETAPAN_ID = " + idsk);
             TempData["Notifikasi"] = 1;
             TempData["NotifikasiText"] = "Data Berhasil Dihapus";
 

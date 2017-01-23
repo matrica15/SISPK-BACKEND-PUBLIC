@@ -26,6 +26,7 @@ namespace SISPK.Controllers.Pengajuan
 		[Auth(RoleTipe = 5)]
 		public ActionResult Approval(int id = 0)
 		{
+			//var DataProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + id).SingleOrDefault();
 			var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == id select proposal).SingleOrDefault();
 			var AcuanNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 1 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
 			var AcuanNonNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 2 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
@@ -56,10 +57,21 @@ namespace SISPK.Controllers.Pengajuan
 			string SearchName = DataProposal.PROPOSAL_JUDUL_PNPS;
 			string[] Name = SearchName.Split(' ');
 			string QueryRefLain = "SELECT * FROM VIEW_DOCUMENTS WHERE DOC_STATUS = 1 AND (DOC_RELATED_ID <> " + id + " OR DOC_RELATED_ID IS NULL) AND ( ";
-			string lastItem = Name.Last();
+			//string lastItem = Name.Last();
+			int lastNameIndex = Name.Length;
+			int count = 1;
 			foreach (string Res in Name)
 			{
-				if (!object.ReferenceEquals(Res, lastItem))
+				
+				//if (!object.ReferenceEquals(Res, lastItem))
+				//{
+				//	QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' OR ";
+				//}
+				//else
+				//{
+				//	QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' )";
+				//}
+				if (count != lastNameIndex)
 				{
 					QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' OR ";
 				}
@@ -67,6 +79,7 @@ namespace SISPK.Controllers.Pengajuan
 				{
 					QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' )";
 				}
+				count++;
 			}
 			var RefLain = db.Database.SqlQuery<VIEW_DOCUMENTS>(QueryRefLain).ToList();
 			ViewData["RefLain"] = RefLain;
@@ -76,7 +89,8 @@ namespace SISPK.Controllers.Pengajuan
 
 		public ActionResult Detail(int id = 0)
 		{
-			var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == id select proposal).SingleOrDefault();
+			//var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == id select proposal).SingleOrDefault();
+			var DataProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + id).SingleOrDefault();
 			var AcuanNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 1 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
 			var AcuanNonNormatif = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 2 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
 			var Bibliografi = (from an in db.VIEW_PROPOSAL_REF where an.PROPOSAL_REF_TYPE == 3 && an.PROPOSAL_REF_PROPOSAL_ID == id orderby an.PROPOSAL_REF_ID ascending select an).ToList();
@@ -111,12 +125,18 @@ namespace SISPK.Controllers.Pengajuan
 			var USER_ID = Convert.ToInt32(Session["USER_ID"]);
 			var TGL_SEKARANG = DateTime.Now.ToString("yyyyMMddHHmmss");
 			
-			var PROPOSAL_PNPS_CODE = gn.GenerateKodePNPS(PROPOSAL_KOMTEK_ID);
-			//var PROPOSAL_PNPS_CODE = db.Database.SqlQuery<string>("SELECT CAST(TO_CHAR (SYSDATE, 'YYYY') || '.' || KOMTEK_CODE || '.' || ( SELECT CAST ( ( CASE WHEN LENGTH (COUNT(PROPOSAL_ID) + 1) = 1 THEN '0' || CAST ( COUNT (PROPOSAL_ID) + 1 AS VARCHAR2 (255) ) ELSE CAST ( COUNT (PROPOSAL_ID) + 1 AS VARCHAR2 (255) ) END ) AS VARCHAR2 (255) ) PNPSCODE FROM TRX_PROPOSAL WHERE PROPOSAL_KOMTEK_ID = KOMTEK_ID ) AS VARCHAR2(255)) AS PNPSCODE FROM MASTER_KOMITE_TEKNIS WHERE KOMTEK_ID = " + PROPOSAL_KOMTEK_ID).SingleOrDefault();
-			db.Database.ExecuteSqlCommand("UPDATE TRX_PROPOSAL SET PROPOSAL_KOMTEK_ID=" + PROPOSAL_KOMTEK_ID + ",PROPOSAL_PNPS_CODE = '" + PROPOSAL_PNPS_CODE + "', PROPOSAL_UPDATE_DATE = " + DATENOW + ", PROPOSAL_UPDATE_BY = " + USER_ID + " WHERE PROPOSAL_ID = " + PROPOSAL_ID);
 			if (APPROVAL_TYPE == 1)
 			{                
 				var Data = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();
+				var DataKomtekCek = db.Database.SqlQuery<VIEW_ANGGOTA>("SELECT * FROM VIEW_ANGGOTA WHERE KOMTEK_ANGGOTA_KOMTEK_ID = " + Data.KOMTEK_ID + " AND JABATAN = 'Ketua' AND KOMTEK_ANGGOTA_STATUS = 1").SingleOrDefault();
+
+				if (DataKomtekCek == null)
+				{
+					TempData["Notifikasi"] = 2;
+					TempData["NotifikasiText"] = "Data Ketua Komtek Tidak Ditemukan";
+
+					return RedirectToAction("Approval/" + PROPOSAL_ID);
+				}
 				Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/PNPS/" + Data.PROPOSAL_PNPS_CODE));
 				string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/PNPS/" + Data.PROPOSAL_PNPS_CODE + "/");
 
@@ -209,8 +229,13 @@ namespace SISPK.Controllers.Pengajuan
 				db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_APPROVAL (APPROVAL_ID,APPROVAL_PROPOSAL_ID,APPROVAL_REASON,APPROVAL_TYPE,APPROVAL_DATE,APPROVAL_BY,APPROVAL_STATUS,APPROVAL_STATUS_PROPOSAL,APPROVAL_STATUS_SESSION) VALUES (" + APPROVAL_ID + "," + PROPOSAL_ID + ",'" + APPROVAL_REASON + "',0," + DATENOW + "," + USER_ID + ",1,3,1)");
 				db.Database.ExecuteSqlCommand("UPDATE TRX_MONITORING SET MONITORING_TGL_APP_PNPS = " + DATENOW + ", MONITORING_HASIL_APP_PNPS = 0, MONITORING_NO_SRT_APP_PUB_PNPS = '" + PROPOSAL_ST_KOM_NO + "', MONITORING_TGL_APP_PUB_PNPS = " + ST_DATE + " WHERE MONITORING_PROPOSAL_ID = " + PROPOSAL_ID);
 			}
-			
-			var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == PROPOSAL_ID select proposal).SingleOrDefault();
+
+			var PROPOSAL_PNPS_CODE = gn.GenerateKodePNPS(PROPOSAL_KOMTEK_ID);
+			//var PROPOSAL_PNPS_CODE = db.Database.SqlQuery<string>("SELECT CAST(TO_CHAR (SYSDATE, 'YYYY') || '.' || KOMTEK_CODE || '.' || ( SELECT CAST ( ( CASE WHEN LENGTH (COUNT(PROPOSAL_ID) + 1) = 1 THEN '0' || CAST ( COUNT (PROPOSAL_ID) + 1 AS VARCHAR2 (255) ) ELSE CAST ( COUNT (PROPOSAL_ID) + 1 AS VARCHAR2 (255) ) END ) AS VARCHAR2 (255) ) PNPSCODE FROM TRX_PROPOSAL WHERE PROPOSAL_KOMTEK_ID = KOMTEK_ID ) AS VARCHAR2(255)) AS PNPSCODE FROM MASTER_KOMITE_TEKNIS WHERE KOMTEK_ID = " + PROPOSAL_KOMTEK_ID).SingleOrDefault();
+			db.Database.ExecuteSqlCommand("UPDATE TRX_PROPOSAL SET PROPOSAL_KOMTEK_ID=" + PROPOSAL_KOMTEK_ID + ",PROPOSAL_PNPS_CODE = '" + PROPOSAL_PNPS_CODE + "', PROPOSAL_UPDATE_DATE = " + DATENOW + ", PROPOSAL_UPDATE_BY = " + USER_ID + " WHERE PROPOSAL_ID = " + PROPOSAL_ID);
+
+			var DataProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();
+			//var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == PROPOSAL_ID select proposal).SingleOrDefault();
 			var PROPOSAL_PNPS_CODE_FIXER = DataProposal.PROPOSAL_PNPS_CODE;
 			HttpPostedFileBase file2 = Request.Files["RISALAH_RAPAT"];
 

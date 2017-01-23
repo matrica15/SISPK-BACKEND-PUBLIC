@@ -224,7 +224,7 @@
 <script type="text/javascript">
     jQuery(document).ready(function () {
         $("#doreset").click(function () {
-            var id = $("#KOMTEK_ANGGOTA_KODE").val();
+            var id = $("#KOMTEK_ANGGOTA_ID").val();
             $.ajax({
                 url: '@Url.Action("ResetPassword")',
                 type: "POST",

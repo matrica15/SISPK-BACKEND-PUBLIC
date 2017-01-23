@@ -556,12 +556,13 @@ namespace SISPK.Controllers.Master
             var result = new string(Enumerable.Repeat(chars, 6).Select(s => s[random.Next(s.Length)]).ToArray());
             int iduser = MixHelper.GetSequence("SYS_USER");
             var komtek_name = (from t in db.MASTER_KOMITE_TEKNIS where t.KOMTEK_ID == mka.KOMTEK_ANGGOTA_KOMTEK_ID select t).SingleOrDefault();
-            var password = "kom" + kode + result.ToString();
+            //var password = "kom" + kode + result.ToString();
+            var password = "sispk";
             var fnameu = "USER_ID,USER_NAME,USER_PASSWORD,USER_ACCESS_ID,USER_TYPE_ID,USER_REF_ID,USER_CREATE_BY,USER_CREATE_DATE,USER_LOG_CODE,USER_STATUS";
             var fvalueu = "'" + iduser + "', " +
                         "'" + komtek_name.KOMTEK_CODE + "_" + mka.KOMTEK_ANGGOTA_EMAIL + "', " +
                         "'" + GenPassword(password) + "', " +
-                        "3," +
+                        "2," +
                         "2," +
                         "'" + kode + "', " +
                         "'" + UserId + "', " +
@@ -697,7 +698,7 @@ namespace SISPK.Controllers.Master
                           "USER_UPDATE_DATE = " + datenow + "," +
                           "USER_LOG_CODE = '" + mka.KOMTEK_ANGGOTA_LOG_CODE + "'";
 
-                var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_KODE;
+                var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_ID + " AND USER_ACCESS_ID = 2 ";
                 db.Database.ExecuteSqlCommand("UPDATE SYS_USER SET " + updateu.Replace("''", "NULL") + " " + clauseu);
 
 
@@ -734,7 +735,7 @@ namespace SISPK.Controllers.Master
                           "USER_UPDATE_DATE = " + datenow + "," +
                           "USER_LOG_CODE = '" + mka.KOMTEK_ANGGOTA_LOG_CODE + "'";
 
-                var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_KODE;
+                var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_ID + " AND USER_ACCESS_ID = 2 ";
                 db.Database.ExecuteSqlCommand("UPDATE SYS_USER SET " + updateu.Replace("''", "NULL") + " " + clauseu);
 
 
@@ -759,7 +760,7 @@ namespace SISPK.Controllers.Master
                             "KOMTEK_ANGGOTA_UPDATE_BY = '" + UserId + "'," +
                             "KOMTEK_ANGGOTA_UPDATE_DATE = " + datenow;
 
-            var clause = "where KOMTEK_ANGGOTA_ID = " + mka.KOMTEK_ANGGOTA_ID;
+            var clause = "where KOMTEK_ANGGOTA_ID = " + mka.KOMTEK_ANGGOTA_ID + " AND USER_ACCESS_ID = 2 ";
             //return Json(new { query = "UPDATE SYS_USER SET " + update.Replace("''", "NULL") + " " + clauseu }, JsonRequestBehavior.AllowGet);
             db.Database.ExecuteSqlCommand("UPDATE MASTER_KOMTEK_ANGGOTA SET " + update.Replace("''", "NULL") + " " + clause);
 
@@ -791,7 +792,7 @@ namespace SISPK.Controllers.Master
                             "KOMTEK_ANGGOTA_UPDATE_BY = '" + UserId + "'," +
                             "KOMTEK_ANGGOTA_UPDATE_DATE = " + datenow;
 
-            var clause = "where KOMTEK_ANGGOTA_ID = " + mka.KOMTEK_ANGGOTA_ID;
+            var clause = "where KOMTEK_ANGGOTA_ID = " + mka.KOMTEK_ANGGOTA_ID + " AND USER_ACCESS_ID = 2 ";
             //return Json(new { query = "UPDATE SYS_USER SET " + update.Replace("''", "NULL") + " " + clauseu }, JsonRequestBehavior.AllowGet);
             db.Database.ExecuteSqlCommand("UPDATE MASTER_KOMTEK_ANGGOTA SET " + update.Replace("''", "NULL") + " " + clause);
 
@@ -819,9 +820,10 @@ namespace SISPK.Controllers.Master
             var random = new Random();
             var result = new string(Enumerable.Repeat(chars, 6).Select(s => s[random.Next(s.Length)]).ToArray());
 
-            var newpass = "SISPK" + result.ToString();
+            //var newpass = "SISPK" + result.ToString();
+            var newpass = "sispk";
 
-            string query_update_group = "UPDATE SYS_USER SET USER_PASSWORD = '" + GenPassword(newpass) + "' WHERE USER_REF_ID = '" + id + "'";
+            string query_update_group = "UPDATE SYS_USER SET USER_PASSWORD = '" + GenPassword(newpass) + "' WHERE USER_REF_ID = '" + id + "' AND USER_ACCESS_ID = 2";
             db.Database.ExecuteSqlCommand(query_update_group);
 
             var user = (from a in db.SYS_USER where a.USER_ID == id select a).SingleOrDefault();

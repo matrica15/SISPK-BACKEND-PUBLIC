@@ -85,11 +85,21 @@ namespace SISPK.Controllers.Perumusan
             string SearchName = DataProposal.PROPOSAL_JUDUL_PNPS;
             string[] Name = SearchName.Split(' ');
             string QueryRefLain = "SELECT * FROM VIEW_DOCUMENTS WHERE DOC_STATUS = 1 AND (DOC_RELATED_ID <> " + id + " OR DOC_RELATED_ID IS NULL) AND ( ";
-            string lastItem = Name.Last();
+            //string lastItem = Name.Last();
+            int lastNameIndex = Name.Length;
+            int count = 1;
 
             foreach (string Res in Name)
             {
-                if (!object.ReferenceEquals(Res, lastItem))
+                //if (!object.ReferenceEquals(Res, lastItem))
+                //{
+                //    QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' OR ";
+                //}
+                //else
+                //{
+                //    QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' )";
+                //}
+                if (count != lastNameIndex)
                 {
                     QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' OR ";
                 }
@@ -97,6 +107,7 @@ namespace SISPK.Controllers.Perumusan
                 {
                     QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' )";
                 }
+                count++;
             }
             var RefLain = db.Database.SqlQuery<VIEW_DOCUMENTS>(QueryRefLain).ToList();
             ViewData["RefLain"] = RefLain;
@@ -1131,11 +1142,21 @@ namespace SISPK.Controllers.Perumusan
             string SearchName = DataProposal.PROPOSAL_JUDUL_PNPS;
             string[] Name = SearchName.Split(' ');
             string QueryRefLain = "SELECT * FROM VIEW_DOCUMENTS WHERE DOC_STATUS = 1 AND (DOC_RELATED_ID <> " + id + " OR DOC_RELATED_ID IS NULL) AND ( ";
-            string lastItem = Name.Last();
+            //string lastItem = Name.Last();
+            int lastNameIndex = Name.Length;
+            int count = 1;
 
             foreach (string Res in Name)
             {
-                if (!object.ReferenceEquals(Res, lastItem))
+                //if (!object.ReferenceEquals(Res, lastItem))
+                //{
+                //    QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' OR ";
+                //}
+                //else
+                //{
+                //    QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' )";
+                //}
+                if (count != lastNameIndex)
                 {
                     QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' OR ";
                 }
@@ -1143,6 +1164,7 @@ namespace SISPK.Controllers.Perumusan
                 {
                     QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' )";
                 }
+                count++;
             }
             var RefLain = db.Database.SqlQuery<VIEW_DOCUMENTS>(QueryRefLain).ToList();
             ViewData["RefLain"] = RefLain;
@@ -1209,11 +1231,21 @@ namespace SISPK.Controllers.Perumusan
             string SearchName = DataProposal.PROPOSAL_JUDUL_PNPS;
             string[] Name = SearchName.Split(' ');
             string QueryRefLain = "SELECT * FROM VIEW_DOCUMENTS WHERE DOC_STATUS = 1 AND (DOC_RELATED_ID <> " + id + " OR DOC_RELATED_ID IS NULL) AND ( ";
-            string lastItem = Name.Last();
+            //string lastItem = Name.Last();
+            int lastNameIndex = Name.Length;
+            int count = 1;
 
             foreach (string Res in Name)
             {
-                if (!object.ReferenceEquals(Res, lastItem))
+                //if (!object.ReferenceEquals(Res, lastItem))
+                //{
+                //    QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' OR ";
+                //}
+                //else
+                //{
+                //    QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' )";
+                //}
+                if (count != lastNameIndex)
                 {
                     QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' OR ";
                 }
@@ -1221,6 +1253,7 @@ namespace SISPK.Controllers.Perumusan
                 {
                     QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' )";
                 }
+                count++;
             }
             var RefLain = db.Database.SqlQuery<VIEW_DOCUMENTS>(QueryRefLain).ToList();
             ViewData["RefLain"] = RefLain;
@@ -1335,11 +1368,21 @@ namespace SISPK.Controllers.Perumusan
             string SearchName = DataProposal.PROPOSAL_JUDUL_PNPS;
             string[] Name = SearchName.Split(' ');
             string QueryRefLain = "SELECT * FROM VIEW_DOCUMENTS WHERE DOC_STATUS = 1 AND (DOC_RELATED_ID <> " + id + " OR DOC_RELATED_ID IS NULL) AND ( ";
-            string lastItem = Name.Last();
+            //string lastItem = Name.Last();
+            int lastNameIndex = Name.Length;
+            int count = 1;
 
             foreach (string Res in Name)
             {
-                if (!object.ReferenceEquals(Res, lastItem))
+                //if (!object.ReferenceEquals(Res, lastItem))
+                //{
+                //    QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' OR ";
+                //}
+                //else
+                //{
+                //    QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' )";
+                //}
+                if (count != lastNameIndex)
                 {
                     QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' OR ";
                 }
@@ -1347,6 +1390,7 @@ namespace SISPK.Controllers.Perumusan
                 {
                     QueryRefLain += " DOC_NAME_LOWER LIKE '%" + Res.ToLower() + "%' )";
                 }
+                count++;
             }
             var RefLain = db.Database.SqlQuery<VIEW_DOCUMENTS>(QueryRefLain).ToList();
             var SNI_DOC_VERSION = db.Database.SqlQuery<decimal>("SELECT CAST(NVL(MAX(T1.SNI_DOC_VERSION),0) AS NUMBER) AS SNI_DOC_VERSION FROM TRX_SNI_DOC T1 WHERE T1.SNI_DOC_PROPOSAL_ID = " + id + " AND T1.SNI_DOC_TYPE = 2").SingleOrDefault();

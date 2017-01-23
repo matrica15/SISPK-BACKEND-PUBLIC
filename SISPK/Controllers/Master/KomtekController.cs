@@ -274,7 +274,8 @@ namespace SISPK.Controllers.Master
 
 
             //var KodeActivasi = GenPassword(iduser);
-            var password = "kom" + kode + result.ToString();
+            //var password = "kom" + kode + result.ToString();
+            var password = "sispk";
             var fnameu = "USER_ID,USER_NAME,USER_PASSWORD,USER_ACCESS_ID,USER_TYPE_ID,USER_REF_ID,USER_CREATE_BY,USER_CREATE_DATE,USER_LOG_CODE,USER_STATUS";
             var fvalueu = "'" + iduser + "', " +
                         "'" + komtek_name.KOMTEK_CODE +"_"+ mka.KOMTEK_ANGGOTA_EMAIL + "', " +
@@ -377,6 +378,7 @@ namespace SISPK.Controllers.Master
             var file_name_cv = "";
             var filePath_cv = "";
             var fileExtension_cv = "";
+            var komtek_name = (from t in db.MASTER_KOMITE_TEKNIS where t.KOMTEK_ID == mka.KOMTEK_ANGGOTA_KOMTEK_ID select t).SingleOrDefault();
             if (upload.ContentLength > 0)
             {
                 //Check whether Directory (Folder) exists.
@@ -414,12 +416,12 @@ namespace SISPK.Controllers.Master
                 var clause = "where KOMTEK_ANGGOTA_ID = " + mka.KOMTEK_ANGGOTA_ID;
                 db.Database.ExecuteSqlCommand("UPDATE MASTER_KOMTEK_ANGGOTA SET " + update.Replace("''", "NULL") + " " + clause);
 
-                var updateu = "USER_NAME = '" + mka.KOMTEK_ANGGOTA_EMAIL + "'," +
+                var updateu = "USER_NAME = '" + komtek_name.KOMTEK_CODE + "_" + mka.KOMTEK_ANGGOTA_EMAIL + "'," +
                           "USER_UPDATE_BY = '" + UserId + "'," +
                           "USER_UPDATE_DATE = " + datenow + "," +
                           "USER_LOG_CODE = '" + mka.KOMTEK_ANGGOTA_LOG_CODE + "'";
 
-                var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_KODE;
+                var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_ID + " AND USER_ACCESS_ID = 2 ";
                 db.Database.ExecuteSqlCommand("UPDATE SYS_USER SET " + updateu.Replace("''", "NULL") + " " + clauseu);
 
 
@@ -449,14 +451,14 @@ namespace SISPK.Controllers.Master
 
                 var clause = "where KOMTEK_ANGGOTA_ID = " + mka.KOMTEK_ANGGOTA_ID;
                 db.Database.ExecuteSqlCommand("UPDATE MASTER_KOMTEK_ANGGOTA SET " + update.Replace("''", "NULL") + " " + clause);
-                var komtek_name = (from t in db.MASTER_KOMITE_TEKNIS where t.KOMTEK_ID == mka.KOMTEK_ANGGOTA_KOMTEK_ID select t).SingleOrDefault();
+                
 
                 var updateu = "USER_NAME = '" + komtek_name.KOMTEK_CODE +"_"+ mka.KOMTEK_ANGGOTA_EMAIL + "', " +
                           "USER_UPDATE_BY = '" + UserId + "'," +
                           "USER_UPDATE_DATE = " + datenow + "," +
                           "USER_LOG_CODE = '" + mka.KOMTEK_ANGGOTA_LOG_CODE + "'";
 
-                var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_KODE;
+                var clauseu = "where USER_REF_ID = " + mka.KOMTEK_ANGGOTA_ID + " AND USER_ACCESS_ID = 2 ";
                 db.Database.ExecuteSqlCommand("UPDATE SYS_USER SET " + updateu.Replace("''", "NULL") + " " + clauseu);
 
 
@@ -849,9 +851,9 @@ namespace SISPK.Controllers.Master
             var random = new Random();
             var result = new string(Enumerable.Repeat(chars, 6).Select(s => s[random.Next(s.Length)]).ToArray());
 
-            var newpass = "SISPK" + result.ToString();
-
-            string query_update_group = "UPDATE SYS_USER SET USER_PASSWORD = '" + GenPassword(newpass) + "' WHERE USER_REF_ID = '" + id + "'";
+            //var newpass = "SISPK" + result.ToString();
+            var newpass = "sispk";
+            string query_update_group = "UPDATE SYS_USER SET USER_PASSWORD = '" + GenPassword(newpass) + "' WHERE USER_REF_ID = '" + id + "' AND USER_ACCESS_ID = 2";
             db.Database.ExecuteSqlCommand(query_update_group);
 
             var user = (from a in db.SYS_USER where a.USER_ID == id select a).SingleOrDefault();
