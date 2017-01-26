@@ -339,6 +339,9 @@
     <Compile Include="Models\MASTER_KOMTEK_ICS.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MASTER_LOGBOOK.cs">
+      <DependentUpon>SISPKModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MASTER_REFERENCES.cs">
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
