@@ -165,7 +165,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Surat Undangan Rapat Koordinasi RSNI 4 Ver " + VERSION_RAKOR + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI4/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "SURAT_UNDANGAN_RAPAT_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_SURAT_UNDANGAN_RAPAT.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -229,7 +229,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Berita Acara RSNI 4 Ver " + VERSION_RAKOR + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI4/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "BERITA_ACARA_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_BERITA_ACARA.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -293,7 +293,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Daftar Hadir Rapat Koordinasi RSNI 4 Ver " + VERSION_RAKOR + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI4/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "DAFTAR_HADIR_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_DAFTAR_HADIR.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -357,7 +357,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Notulen Rapat Koordinasi RSNI 4 Ver " + VERSION_RAKOR + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI4/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "NOTULEN_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_NOTULEN.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -420,7 +420,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Surat Jajak Pendapat Ulang " + VERSION_RAKOR + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI4/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "SURAT_JP_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_SURAT_JP.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -485,7 +485,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'RSNI 4 " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/JAJAK_PENDAPAT/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "RSNI4_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_DATA_RSNI.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +

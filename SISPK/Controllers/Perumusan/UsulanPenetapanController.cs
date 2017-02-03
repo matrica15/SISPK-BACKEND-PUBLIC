@@ -236,7 +236,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Memo Kapus RASNI " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RASNI/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "MEMO_KAPUS_RASNI_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_MEMO_KAPUS.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -300,7 +300,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Memo Deputi RASNI " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RASNI/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "MEMO_DEPUTI_RASNI_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_MEMO_DEPUTI.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -364,7 +364,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Lembar Kendali RASNI " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RASNI/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "LEMBAR_KENDALI_RASNI_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_LEMBAR_KENDALI.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -428,7 +428,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Lampiran SK RASNI " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RASNI/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "LAMPIRAN_SK_RASNI_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_LAMPIRAN_SK.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +

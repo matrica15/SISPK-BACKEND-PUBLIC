@@ -535,7 +535,7 @@ namespace SISPK.Controllers.Perumusan
 								"'RSNI 3 DOK JAJAK PENDAPAT " + PROPOSAL_PNPS_CODE_FIXER + "', " +
 								"'" + "/Upload/Dokumen/RANCANGAN_SNI/JAJAK_PENDAPAT/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
 								"'" + "RSNI3_DOK_JAJAK_PENDAPAT_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-								"'" + EXT_DATA_RSNI.ToLower().Replace(".", "") + "', " +
+								"'docx', " +
 								"'0', " +
 								"'" + USER_ID + "', " +
 								DATENOW + "," +

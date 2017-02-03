@@ -45,17 +45,20 @@ namespace SISPK.Controllers
 				{
 					Nomor = Convert.ToString(DataProposal.PROPOSAL_ID);
 				}
+				return Nomor + ":" + YearsNow;
 			}
 			else if (DataProposal.PROPOSAL_JENIS_PERUMUSAN == 5)
 			{
 				Nomor = Convert.ToString(DataProposal.PROPOSAL_TERJEMAHAN_NOMOR);
+				return Nomor;
 			}
 			else
 			{
 				Nomor = Convert.ToString(DataProposal.PROPOSAL_ID);
+				return Nomor + ":" + YearsNow;
 			}
 
-			return Nomor + ":" + YearsNow;
+			
 		}
 
 		public string GenerateKodePNPS(int PROPOSAL_KOMTEK_ID = 0)

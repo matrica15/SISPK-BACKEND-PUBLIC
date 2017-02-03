@@ -225,7 +225,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Data RASNI " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RASNI/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "DATA_RASNI_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_DATA_RSNI.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +

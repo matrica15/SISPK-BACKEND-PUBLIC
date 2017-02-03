@@ -271,7 +271,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Surat Undangan Rapat Koordinasi RSNI 5 Ver " + VERSION_RAKOR + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI5/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "SURAT_UNDANGAN_RAPAT_RSNI5_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_SURAT_UNDANGAN_RAPAT.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -335,7 +335,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Berita Acara RSNI 5 Ver " + VERSION_RAKOR + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI5/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "BERITA_ACARA_RSNI5_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_BERITA_ACARA.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -399,7 +399,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Daftar Hadir Rapat Koordinasi RSNI 5 Ver " + VERSION_RAKOR + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI5/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "DAFTAR_HADIR_RSNI5_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_DAFTAR_HADIR.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -463,7 +463,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Notulen Rapat Koordinasi RSNI 5 Ver " + VERSION_RAKOR + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI5/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "NOTULEN_RSNI5_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_NOTULEN.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -529,7 +529,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'RSNI 5 " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI5/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "RSNI5_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_DATA_RSNI.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +

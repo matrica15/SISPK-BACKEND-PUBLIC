@@ -308,7 +308,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Surat Rapat Teknis RSNI 2 Ver " + VERSION_RATEK + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI2/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "SURAT_RAPAT_TEKNIS_RSNI2_Ver_" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_SURAT_RAPAT_TEKNIS.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -372,7 +372,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Surat Undangan Rapat RSNI 2 Ver " + VERSION_RATEK + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI2/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "SURAT_UNDANGAN_RAPAT_RSNI2_Ver_" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_SURAT_UNDANGAN_RAPAT.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -435,7 +435,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Berita Acara Rapat Teknis RSNI 2 Ver " + VERSION_RATEK + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI2/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "BERITA_ACARA_RATEK_RSNI2_Ver_" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_BERITA_ACARA_RATEK.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -498,7 +498,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Daftar Hadir Rapat Teknis RSNI 2 Ver " + VERSION_RATEK + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI2/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "DAFTAR_HADIR_RSNI2_Ver_" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_DAFTAR_HADIR.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -562,7 +562,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Notulen Rapat Teknis RSNI 2 Ver " + VERSION_RATEK + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI2/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "NOTULEN_RSNI2_Ver_" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_NOTULEN.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -629,7 +629,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'RSNI 2 Ver " + VERSION_RATEK + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI2/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + DRAFT_NAME + "RSNI2_Ver_" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_DATA_RSNI.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
