@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">No SNI / Judul SNI<span class="required">*</span></label>
                             <div class="col-md-9">
-                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih No SNI / Judul SNI" id="MAINTENANCE_DETAIL_SNI_ID" name="MAINTENANCE_DETAIL_SNI_ID" @*onchange="sni()"*@>
+                                <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih No SNI / Judul SNI" id="MAINTENANCE_DETAIL_SNI_ID" name="MAINTENANCE_DETAIL_SNI_ID" onchange="sni()">
                                     <option></option>
                                     @foreach (var sni in ViewBag.V_sni)
                                     {
@@ -30,15 +30,15 @@
                             </div>
                         </div>
 
-                        @*<div class="form-group">
+                        <div class="form-group" id="komtek1" style="display:none">
                             <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis</label>
                             <div class="col-md-3 control-label detailtext">
                                 <h5 id="MAINTENANCE_KOMTEK1"></h5>
-                                <input type="hidden" class="form-control" name="MAINTENANCE_KOMTEK" id="MAINTENANCE_KOMTEK">
+                                <input type="hidden" class="form-control" name="MAINTENANCE_KOMTEK2" id="MAINTENANCE_KOMTEK2">
                             </div>
-                        </div>*@
+                        </div>
 
-                        <div class="form-group">
+                        <div class="form-group" id="komtek2" style="display:none">
                             <label class="control-label col-md-3">Komite Teknis / Subkomite Teknis <span class="required">*</span></label>
                             <div class="col-md-9">
                                 <select class="form-control select2me wajib col-md-12" data-placeholder="Pilih Komite Teknis / Subkomite Teknis" id="MAINTENANCE_KOMTEK" name="MAINTENANCE_KOMTEK">
@@ -72,7 +72,7 @@
                                     <option value="1">Perubahan</option>
                                     <option value="2">Abolisi</option>
                                 </select>
-                            </div> 
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -111,7 +111,7 @@
                                 <div class="col-md-6 control-label detailtext" style="border-left: none;">
                                     <a href="/Laporan/Export/Formulir_Kaji_Ulang_SNI" target="_blank" style="color: blue; text-decoration: none;">Download Template Kaji Ulang SNI</a>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -123,66 +123,66 @@
                         </div>
 
                         @*<div class="form-group" style="margin: 10px;">
-                            <table class="table table-bordered" id="list_sni">
-                                <thead>
-                                    <tr>
-                                        <th width="15%">Nomor SNI</th>
-                                        <th width="20%">Tanggal Kaji Ulang</th>
-                                        <th width="15%">Hasil Kaji Ulang</th>
-                                        <th width="20%">Tanggal Laporan ke BSN</th>
-                                        <th width="20%">Tanggal Usulan</th>
-                                        <th width="10%" style="text-align:center">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <select class="form-control wajib SNI_ID" id="SNI_ID_0" name="SNI_ID_[0]" placeholder="Pilih SNI">
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <div class=" input-group date date-picker" data-date-format="yyyy-mm-dd">
-                                                <input type="text" class="form-control wajib MAINTENANCE_DETAIL_REV_DATE" id="MAINTENANCE_DETAIL_REV_DATE_0" name="MAINTENANCE_DETAIL_REV_DATE[0]">
-                                                <span class="input-group-btn">
-                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                </span>
-                                            </div>
-                                            <input type="text" class="form-control" id="MAINTENANCE_DETAIL_REV_DATE" name="MAINTENANCE_DETAIL_REV_DATE" />
-                                        </td>
-                                        <td>
-                                            <select class="form-control MAINTENANCE_DETAIL_RESULT" id="MAINTENANCE_DETAIL_RESULT_0" name="MAINTENANCE_DETAIL_RESULT_[0]">
-                                                <option value="0">Tetap</option>
-                                                <option value="1">Perubahan</option>
-                                                <option value="2">Abolisi</option>
-                                            </select>
-                                            <input type="text" class="form-control" id="MAINTENANCE_DETAIL_RESULT" name="MAINTENANCE_DETAIL_RESULT" />
-                                        </td>
-                                        <td>
-                                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-                                                <input type="text" class="form-control wajib MAINTENANCE_DETAIL_REPORT_DATE" id="MAINTENANCE_DETAIL_REPORT_DATE_0" name="MAINTENANCE_DETAIL_REPORT_DATE[0]">
-                                                <span class="input-group-btn">
-                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                </span>
-                                            </div>
-                                            <input type="text" class="form-control" id="MAINTENANCE_DETAIL_REPORT_DATE" name="MAINTENANCE_DETAIL_REPORT_DATE" />
-                                        </td>
-                                        <td>
-                                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-                                                <input type="text" class="form-control wajib MAINTENANCE_DETAIL_USUL_DATE" id="MAINTENANCE_DETAIL_USUL_DATE_0" name="MAINTENANCE_DETAIL_USUL_DATE[0]">
-                                                <span class="input-group-btn">
-                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                </span>
-                                            </div>
-                                            <input type="text" class="form-control" id="MAINTENANCE_DETAIL_USUL_DATE" name="MAINTENANCE_DETAIL_USUL_DATE" />
-                                        </td>
-                                        <td>
-                                            <center><button type="button" class="btn btn-primary btn-xs" id="btn-plus-row"><i class="fa fa-plus"></i></button></center>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <table class="table table-bordered" id="list_sni">
+                                    <thead>
+                                        <tr>
+                                            <th width="15%">Nomor SNI</th>
+                                            <th width="20%">Tanggal Kaji Ulang</th>
+                                            <th width="15%">Hasil Kaji Ulang</th>
+                                            <th width="20%">Tanggal Laporan ke BSN</th>
+                                            <th width="20%">Tanggal Usulan</th>
+                                            <th width="10%" style="text-align:center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select class="form-control wajib SNI_ID" id="SNI_ID_0" name="SNI_ID_[0]" placeholder="Pilih SNI">
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class=" input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                                    <input type="text" class="form-control wajib MAINTENANCE_DETAIL_REV_DATE" id="MAINTENANCE_DETAIL_REV_DATE_0" name="MAINTENANCE_DETAIL_REV_DATE[0]">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control" id="MAINTENANCE_DETAIL_REV_DATE" name="MAINTENANCE_DETAIL_REV_DATE" />
+                                            </td>
+                                            <td>
+                                                <select class="form-control MAINTENANCE_DETAIL_RESULT" id="MAINTENANCE_DETAIL_RESULT_0" name="MAINTENANCE_DETAIL_RESULT_[0]">
+                                                    <option value="0">Tetap</option>
+                                                    <option value="1">Perubahan</option>
+                                                    <option value="2">Abolisi</option>
+                                                </select>
+                                                <input type="text" class="form-control" id="MAINTENANCE_DETAIL_RESULT" name="MAINTENANCE_DETAIL_RESULT" />
+                                            </td>
+                                            <td>
+                                                <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                                    <input type="text" class="form-control wajib MAINTENANCE_DETAIL_REPORT_DATE" id="MAINTENANCE_DETAIL_REPORT_DATE_0" name="MAINTENANCE_DETAIL_REPORT_DATE[0]">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control" id="MAINTENANCE_DETAIL_REPORT_DATE" name="MAINTENANCE_DETAIL_REPORT_DATE" />
+                                            </td>
+                                            <td>
+                                                <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+                                                    <input type="text" class="form-control wajib MAINTENANCE_DETAIL_USUL_DATE" id="MAINTENANCE_DETAIL_USUL_DATE_0" name="MAINTENANCE_DETAIL_USUL_DATE[0]">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control" id="MAINTENANCE_DETAIL_USUL_DATE" name="MAINTENANCE_DETAIL_USUL_DATE" />
+                                            </td>
+                                            <td>
+                                                <center><button type="button" class="btn btn-primary btn-xs" id="btn-plus-row"><i class="fa fa-plus"></i></button></center>
+                                            </td>
+                                        </tr>
+                                    </tbody>
 
-                            </table>
-                        </div>*@
+                                </table>
+                            </div>*@
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
@@ -212,20 +212,24 @@
             data: { 'SNI_ID': SNI_ID },
             dataType: 'json',
             success: function (d) {
-               
+
                 //alert('sukses');
                 //alert(d.idL);
                 //alert(d.komtek_kd+"."+d.komtek_nm);
                 if(d.komtek_kd != null){
                     $('#MAINTENANCE_KOMTEK1').html(d.komtek_kd + "." + d.komtek_nm);
-                    $('#MAINTENANCE_KOMTEK').val(d.komtek_kd);
+                    $('#MAINTENANCE_KOMTEK2').val(d.komtek_kd);
+                    $('#komtek1').show();
+                    $('#komtek2').hide();
                 }else{
                     $('#MAINTENANCE_KOMTEK1').html("-");
-                    $('#MAINTENANCE_KOMTEK').val("-");
+                    $('#MAINTENANCE_KOMTEK2').val("-");
+                    $('#komtek1').hide();
+                    $('#komtek2').show();
                 }
-                
+
                 return false;
-               
+
             },
             error: function () {
                 //alert('gagal');
@@ -314,17 +318,17 @@
         $('select.SNI_ID').each(function () {
             $(this).attr('name', 'SNI_ID_[' + idx + ']');
             idx++;
-        });        
+        });
     }
 
     function reset_index_MAINTENANCE_DETAIL_REV_DATE() {
         var idx = 0;
-       
+
         $('input.MAINTENANCE_DETAIL_REV_DATE').each(function () {
             $(this).attr('name', 'MAINTENANCE_DETAIL_REV_DATE_[' + idx + ']');
             idx++;
         });
-       
+
     }
 
     function reset_index_MAINTENANCE_DETAIL_RESULT() {
@@ -334,13 +338,13 @@
                 $(this).attr('name', 'MAINTENANCE_DETAIL_RESULT_[' + idx + ']');
                 idx++;
             });
-    
+
 
     }
 
     function reset_index_MAINTENANCE_DETAIL_REPORT_DATE() {
         var idx = 0;
-        
+
             $('input.MAINTENANCE_DETAIL_REPORT_DATE').each(function () {
                 $(this).attr('name', 'MAINTENANCE_DETAIL_REPORT_DATE_[' + idx + ']');
                 idx++;
@@ -357,8 +361,8 @@
             });
 
     }
-    
-    var no = 0;   
+
+    var no = 0;
 
     function add_row() {
         no++;
@@ -388,7 +392,7 @@
                                                 +'<span class="input-group-btn">'
                                                     +'<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>'
                                                 +'</span>'
-                                            +'</div>'                                           
+                                            +'</div>'
                                         +'</td>'
                                         +'<td>'
                                             + '<div class="input-group date date-picker" id="date_tiga_' + no + '">'
@@ -396,7 +400,7 @@
                                                 +'<span class="input-group-btn">'
                                                     +'<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>'
                                                 +'</span>'
-                                            +'</div>'                                           
+                                            +'</div>'
                                         +'</td>'
                                         +'<td>'
                                             + '<center><button onclick="hapus_list(' + no + ');"  type="button" class="btn btn-danger btn-xs" id="btn-min"><i class="fa fa-minus"></i></button></center>'
@@ -433,7 +437,7 @@
                 cache: true
             },
             //minimumInputLength: 2,
-        });       
+        });
 
     }
 

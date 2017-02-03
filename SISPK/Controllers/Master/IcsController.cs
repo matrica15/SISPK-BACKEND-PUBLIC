@@ -106,6 +106,7 @@ namespace SISPK.Controllers.Master
         [HttpPost]
         public ActionResult Create(MASTER_ICS ics)
         {
+            //return Content(ics.ICS_PARENT_CODE);
             var UserId = Session["USER_ID"];
             var logcode = MixHelper.GetLogCode();
             int lastid = MixHelper.GetSequence("MASTER_ICS");
@@ -115,7 +116,7 @@ namespace SISPK.Controllers.Master
                         "ICS_CODE," +
                         "ICS_NAME," +
                         "ICS_NAME_IND," +
-                        "ICS_YEAR," +
+                        //"ICS_YEAR," +
                         "ICS_CREATE_BY," +
                         "ICS_CREATE_DATE," +
                         "ICS_STATUS," +
@@ -125,19 +126,19 @@ namespace SISPK.Controllers.Master
                         "'" + ics.ICS_PARENT_CODE + "." + ics.ICS_CODE + "'," +
                         "'" + ics.ICS_NAME + "'," +
                         "'" + ics.ICS_NAME_IND + "'," +
-                        "'" + ics.ICS_YEAR + "'," +
+                        //"'" + ics.ICS_YEAR + "'," +
                         "'" + UserId + "', " +
                         datenow + "," +
                         "1," +
                         "'" + logcode + "'";
 
             db.Database.ExecuteSqlCommand("INSERT INTO MASTER_ICS (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")");
-            
+
             String objek = fvalue.Replace("'", "-");
             MixHelper.InsertLog(logcode, objek, 1);
             TempData["Notifikasi"] = 1;
             TempData["NotifikasiText"] = "Data Berhasil Disimpan";
-            return RedirectToAction("Index");           
+            return RedirectToAction("Index");
 
         }
 
@@ -174,7 +175,7 @@ namespace SISPK.Controllers.Master
                         "ICS_CODE = '" + ics.ICS_CODE + "'," +
                         "ICS_NAME = '" + ics.ICS_NAME + "'," +
                         "ICS_NAME_IND = '" + ics.ICS_NAME_IND + "'," +
-                        "ICS_YEAR = '" + ics.ICS_YEAR + "'," +
+                        //"ICS_YEAR = '" + ics.ICS_YEAR + "'," +
                         "ICS_UPDATE_BY = '" + UserId + "'," +
                         "ICS_UPDATE_DATE = " + datenow;
 

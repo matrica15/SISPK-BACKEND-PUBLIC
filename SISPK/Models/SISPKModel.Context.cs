@@ -164,5 +164,6 @@ namespace SISPK.Models
         public DbSet<VIEW_USERS_PUBLIC> VIEW_USERS_PUBLIC { get; set; }
         public DbSet<VIEW_WILAYAH_KABUPATEN> VIEW_WILAYAH_KABUPATEN { get; set; }
         public DbSet<VIEW_WILAYAH_PROVINSI> VIEW_WILAYAH_PROVINSI { get; set; }
+        public DbSet<MASTER_LOGBOOK> MASTER_LOGBOOK { get; set; }
     }
 }

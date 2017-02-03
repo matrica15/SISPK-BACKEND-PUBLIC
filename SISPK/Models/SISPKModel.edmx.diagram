@@ -146,6 +146,7 @@
         <EntityTypeShape EntityType="SISPKModel.VIEW_USERS_PUBLIC" Width="1.5" PointX="24.75" PointY="40.75" />
         <EntityTypeShape EntityType="SISPKModel.VIEW_WILAYAH_KABUPATEN" Width="1.5" PointX="42.75" PointY="0.75" />
         <EntityTypeShape EntityType="SISPKModel.VIEW_WILAYAH_PROVINSI" Width="1.5" PointX="42.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SISPKModel.MASTER_LOGBOOK" Width="1.5" PointX="43.375" PointY="21.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

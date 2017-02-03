@@ -37,7 +37,7 @@ namespace SISPK.Controllers.Pemeliharaan
         }
 
         [HttpPost]
-        public ActionResult Create(TRX_MAINTENANCES mtn, TRX_MAINTENANCE_DETAILS mtd)
+        public ActionResult Create(TRX_MAINTENANCES mtn, TRX_MAINTENANCE_DETAILS mtd, string MAINTENANCE_KOMTEK2 = "")
         {
             var UserId = Session["USER_ID"];
             var logcode = MixHelper.GetLogCode();
@@ -45,7 +45,19 @@ namespace SISPK.Controllers.Pemeliharaan
             var datenow = MixHelper.ConvertDateNow();
             var id_sni = Convert.ToString(mtd.MAINTENANCE_DETAIL_SNI_ID);
 
-            //return Content(id_sni);
+            var komtek_id = "";
+            if (MAINTENANCE_KOMTEK2 != "-")
+            {
+                komtek_id = MAINTENANCE_KOMTEK2;
+            }
+            else if (MAINTENANCE_KOMTEK2 == "-")
+            {
+                komtek_id = mtn.MAINTENANCE_KOMTEK;
+            }
+
+
+
+            //return Content(komtek_id);
 
             string pathnya = Server.MapPath("~/Upload/Dokumen/FORM_KAJI_ULANG/");
             HttpPostedFileBase file_paten = Request.Files["MAINTENANCE_DETAIL_KJ_ULG_NAME"];
@@ -82,7 +94,7 @@ namespace SISPK.Controllers.Pemeliharaan
             var fname = "MAINTENANCE_ID,MAINTENANCE_DOC_NUMBER,MAINTENANCE_KOMTEK,MAINTENANCE_CREATE_BY,MAINTENANCE_CREATE_DATE,MAINTENANCE_STATUS";
             var fvalue = "'" + lastid + "', " +
                         "'" + mtn.MAINTENANCE_DOC_NUMBER + "'," +
-                        "'" + mtn.MAINTENANCE_KOMTEK + "', " +
+                        "'" + komtek_id + "', " +
                         "'" + UserId + "'," +
                             datenow + "," +
                         "1";

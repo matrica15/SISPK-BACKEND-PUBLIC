@@ -88,6 +88,5 @@ namespace SISPK.Models
         public string MONITORING_NO_SRT_APP_PUB_PNPS { get; set; }
         public Nullable<System.DateTime> MONITORING_TGL_MEMO_KAPUS { get; set; }
         public Nullable<System.DateTime> MONITORING_TGL_MEMO_DEPUTI { get; set; }
-        
     }
 }
