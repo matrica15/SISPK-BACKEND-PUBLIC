@@ -6,13 +6,150 @@ namespace SISPK.Controllers
 {
 	public class GenarateNomor
 	{
+		
+		public struct ParNomor
+		{
+			public string nomor;
+			public string nomorThn;
+		}
+
 		private SISPKEntities db = new SISPKEntities();
 
-		public string GenerateNomor(VIEW_PROPOSAL DataProposal = null)
+		//public string GenerateNomor(VIEW_PROPOSAL DataProposal = null)
+		//{
+		//	string query = "";
+		//	string NomorQuery = "";
+		//	string Nomor = "";
+		//	string YearsNow = DateTime.Now.Year.ToString();
+		//	var DataLogbook = (from lb in db.MASTER_LOGBOOK select lb).SingleOrDefault();
+		//	string forbiddenNomor = DataLogbook.LOGBOOK_FORBIDDEN_NOMOR;
+		//	string[] fNomor = forbiddenNomor.Split(',');
+		//	string lastLogNomor = Convert.ToString(Convert.ToInt32(DataLogbook.LOGBOOK_NOMOR) + 1);
+
+
+		//	if (DataProposal.PROPOSAL_JENIS_PERUMUSAN == 1 || DataProposal.PROPOSAL_JENIS_PERUMUSAN == 2)
+		//	{
+		//		if (DataProposal.PROPOSAL_JALUR == 2 && DataProposal.PROPOSAL_JENIS_ADOPSI == 1)
+		//		{
+		//			query = @"SELECT
+		//						*
+		//					FROM
+		//						(
+		//							SELECT
+		//								REGEXP_SUBSTR (
+		//									TP.PROPOSAL_ADOPSI_NOMOR_JUDUL,
+		//									'[^:]+',
+		//									1,
+		//									1
+		//								) AS nomor
+		//							FROM
+		//								TRX_PROPOSAL_ADOPSI TP
+		//							WHERE
+		//								TP.PROPOSAL_ADOPSI_PROPOSAL_ID = " + DataProposal.PROPOSAL_ID + @"
+		//							AND TP.PROPOSAL_ADOPSI_NOMOR_JUDUL LIKE '%:%'
+		//							ORDER BY
+		//								TP.PROPOSAL_ADOPSI_ID ASC
+		//						)
+		//					WHERE
+		//						ROWNUM = 1";
+		//			NomorQuery = db.Database.SqlQuery<string>("" + query + "").SingleOrDefault();
+		//			if (NomorQuery != null)
+		//			{
+		//				Nomor = NomorQuery;
+
+		//			}
+		//			else
+		//			{
+		//				foreach (string Res in fNomor)
+		//				{
+		//					if (Convert.ToInt32(Res) >= Convert.ToInt32(lastLogNomor))
+		//					{
+		//						if (Convert.ToInt32(Res) != Convert.ToInt32(lastLogNomor))
+		//						{
+		//							Nomor = lastLogNomor;
+		//							break;
+		//						}
+		//						else
+		//						{
+		//							lastLogNomor = Convert.ToString(Convert.ToInt32(lastLogNomor) + 1);
+		//						}
+		//					}
+
+
+		//				}
+		//			}
+
+		//		}
+		//		else
+		//		{
+		//			foreach (string Res in fNomor)
+		//			{
+		//				if (Convert.ToInt32(Res) >= Convert.ToInt32(lastLogNomor))
+		//				{
+		//					if (Convert.ToInt32(Res) != Convert.ToInt32(lastLogNomor))
+		//					{
+		//						Nomor = lastLogNomor;
+		//						break;
+		//					}
+		//					else
+		//					{
+		//						lastLogNomor = Convert.ToString(Convert.ToInt32(lastLogNomor) + 1);
+		//					}
+		//				}
+
+
+		//			}
+		//			//Nomor = Convert.ToString(DataProposal.PROPOSAL_ID);
+		//		}
+		//		return Nomor + ":" + YearsNow;
+		//	}
+		//	else if (DataProposal.PROPOSAL_JENIS_PERUMUSAN == 5)
+		//	{
+		//		Nomor = Convert.ToString(DataProposal.PROPOSAL_TERJEMAHAN_NOMOR);
+		//		return Nomor;
+		//	}
+		//	else
+		//	{
+		//		foreach (string Res in fNomor)
+		//		{
+		//			if (Convert.ToInt32(Res) >= Convert.ToInt32(lastLogNomor))
+		//			{
+		//				if (Convert.ToInt32(Res) != Convert.ToInt32(lastLogNomor))
+		//				{
+		//					Nomor = lastLogNomor;
+		//					break;
+		//				}
+		//				else
+		//				{
+		//					lastLogNomor = Convert.ToString(Convert.ToInt32(lastLogNomor) + 1);
+		//				}
+		//			}
+
+
+		//		}
+		//		return Nomor + ":" + YearsNow;
+		//	}
+
+
+		//}
+
+		public void UpdateNomorLog(string nomor, int id)
+		{
+			db.Database.ExecuteSqlCommand("UPDATE MASTER_LOGBOOK SET LOGBOOK_NOMOR = '"+ nomor + "', LOGBOOK_PROPOSAL_ID = "+ id +" WHERE LOGBOOK_ID = 1");
+		}
+
+		public ParNomor GenerateNomor(VIEW_PROPOSAL DataProposal = null)
 		{
 			string query = "";
+			string NomorQuery = "";
 			string Nomor = "";
+			string NomorThn = "";
 			string YearsNow = DateTime.Now.Year.ToString();
+			var DataLogbook = (from lb in db.MASTER_LOGBOOK select lb).SingleOrDefault();
+			string forbiddenNomor = DataLogbook.LOGBOOK_FORBIDDEN_NOMOR;
+			string[] fNomor = forbiddenNomor.Split(',');
+			string lastLogNomor = Convert.ToString(Convert.ToInt32(DataLogbook.LOGBOOK_NOMOR) + 1);
+
 
 			if (DataProposal.PROPOSAL_JENIS_PERUMUSAN == 1 || DataProposal.PROPOSAL_JENIS_PERUMUSAN == 2)
 			{
@@ -39,26 +176,110 @@ namespace SISPK.Controllers
 								)
 							WHERE
 								ROWNUM = 1";
-					Nomor = db.Database.SqlQuery<string>("" + query + "").SingleOrDefault();
+					NomorQuery = db.Database.SqlQuery<string>("" + query + "").SingleOrDefault();
+					if (NomorQuery != null)
+					{
+						NomorThn = NomorQuery;
+						Nomor = Convert.ToString(Convert.ToInt32(lastLogNomor) - 1);
+
+
+					}
+					else
+					{
+						foreach (string Res in fNomor)
+						{
+							if (Convert.ToInt32(Res) >= Convert.ToInt32(lastLogNomor))
+							{
+								if (Convert.ToInt32(Res) != Convert.ToInt32(lastLogNomor))
+								{
+									break;
+								}
+								else
+								{
+									lastLogNomor = Convert.ToString(Convert.ToInt32(lastLogNomor) + 1);
+								}
+							}
+
+
+						}
+						Nomor = lastLogNomor;
+						NomorThn = lastLogNomor;
+					}
+
 				}
 				else
 				{
-					Nomor = Convert.ToString(DataProposal.PROPOSAL_ID);
+					foreach (string Res in fNomor)
+					{
+						if (Convert.ToInt32(Res) >= Convert.ToInt32(lastLogNomor))
+						{
+							if (Convert.ToInt32(Res) != Convert.ToInt32(lastLogNomor))
+							{
+								break;
+							}
+							else
+							{
+								lastLogNomor = Convert.ToString(Convert.ToInt32(lastLogNomor) + 1);
+							}
+						}
+
+
+					}
+					Nomor = lastLogNomor;
+					NomorThn = lastLogNomor;
+					//Nomor = Convert.ToString(DataProposal.PROPOSAL_ID);
 				}
-				return Nomor + ":" + YearsNow;
+				var result = new ParNomor
+				{
+					nomor = Nomor,
+					nomorThn = NomorThn + ":" + YearsNow
+				};
+				return result;
+				//return Nomor + ":" + YearsNow;
 			}
 			else if (DataProposal.PROPOSAL_JENIS_PERUMUSAN == 5)
 			{
-				Nomor = Convert.ToString(DataProposal.PROPOSAL_TERJEMAHAN_NOMOR);
-				return Nomor;
+				NomorThn = Convert.ToString(DataProposal.PROPOSAL_TERJEMAHAN_NOMOR);
+				Nomor = Convert.ToString(Convert.ToInt32(lastLogNomor) - 1);
+				var result = new ParNomor
+				{
+					nomor = Nomor,
+					nomorThn = NomorThn
+				};
+				return result;
+				//return Nomor;
 			}
 			else
 			{
-				Nomor = Convert.ToString(DataProposal.PROPOSAL_ID);
-				return Nomor + ":" + YearsNow;
+				foreach (string Res in fNomor)
+				{
+					if (Convert.ToInt32(Res) >= Convert.ToInt32(lastLogNomor))
+					{
+						if (Convert.ToInt32(Res) != Convert.ToInt32(lastLogNomor))
+						{
+							
+							break;
+						}
+						else
+						{
+							lastLogNomor = Convert.ToString(Convert.ToInt32(lastLogNomor) + 1);
+						}
+					}
+
+
+				}
+				Nomor = lastLogNomor;
+				NomorThn = lastLogNomor;
+				var result = new ParNomor
+				{
+					nomor = Nomor,
+					nomorThn = NomorThn + ":" + YearsNow
+				};
+				return result;
+				//return Nomor + ":" + YearsNow;
 			}
 
-			
+
 		}
 
 		public string GenerateKodePNPS(int PROPOSAL_KOMTEK_ID = 0)

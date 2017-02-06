@@ -501,8 +501,8 @@ namespace SISPK.Controllers.Perumusan
             {
                 var LOGCODE_POLLING = MixHelper.GetLogCode();
                 int LASTID_POLLING = MixHelper.GetSequence("TRX_POLLING");
-                String POLLING_START_DATE_CONVERT = "TO_DATE('" + POLLING_START_DATE + "', 'yyyy-mm-dd hh24:mi:ss')";
-                String POLLING_END_DATE_CONVERT = "TO_DATE('" + POLLING_END_DATE + "', 'yyyy-mm-dd hh24:mi:ss')";
+                String POLLING_START_DATE_CONVERT = "TO_DATE('" + POLLING_START_DATE + "', 'dd-mm-yyyy hh24:mi:ss')";
+                String POLLING_END_DATE_CONVERT = "TO_DATE('" + POLLING_END_DATE + "', 'dd-mm-yyyy hh24:mi:ss')";
 
                 var LAST_POLLING_VERSION = db.Database.SqlQuery<int>("SELECT NVL(CAST(MAX(POLLING_VERSION) AS INT),0) FROM TRX_POLLING WHERE POLLING_TYPE = 12 AND POLLING_PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();
                 var POLLING_IS_EXIST = db.Database.SqlQuery<TRX_POLLING>("SELECT * FROM TRX_POLLING WHERE POLLING_VERSION = " + (LAST_POLLING_VERSION + 1) + " AND POLLING_TYPE = 12 AND POLLING_PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();

@@ -156,10 +156,10 @@
                                 <input class="form-control wajib" id="PROPOSAL_JUDUL_SNI_PROPOSAL" name="PROPOSAL_JUDUL_SNI_PROPOSAL" value="@Detail.PROPOSAL_JUDUL_PNPS" />
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display:none">
                             <label class="control-label col-md-3">Abstrak</label>
                             <div class="col-md-9 control-label detailtext">
-                                <textarea rows="5" id="PROPOSAL_ABSTRAK" name="PROPOSAL_ABSTRAK" class="form-control wajib">@Detail.PROPOSAL_ABSTRAK</textarea>
+                                <textarea rows="5" id="PROPOSAL_ABSTRAK" name="PROPOSAL_ABSTRAK" class="form-control">@Detail.PROPOSAL_ABSTRAK</textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -215,7 +215,7 @@
                                 <label class="control-label col-md-3">Tanggal Jajak Pendapat Ulang</label>
                                 <div class="col-md-9 control-label detailtext">
                                     <div class="col-md-9">
-                                        <div class="input-group input-medium date-picker input-daterange" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
+                                        <div class="input-group input-large date-picker input-daterange" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
                                             <input type="text" class="form-control kirim" name="POLLING_START_DATE" id="POLLING_START_DATE">
                                             <span class="input-group-addon">-</span>
                                             <input type="text" class="form-control kirim" name="POLLING_END_DATE" id="POLLING_END_DATE">
@@ -889,6 +889,12 @@
         $('.date-picker').datepicker({
             orientation: "center",
             autoclose: true
+        });
+
+        $('#POLLING_START_DATE').change(function () {
+            var date2 = $('#POLLING_START_DATE').datepicker('getDate', '+1d');
+            date2.setDate(date2.getDate() + 60);
+            $('#POLLING_END_DATE').datepicker('setDate', date2);
         });
     });
 

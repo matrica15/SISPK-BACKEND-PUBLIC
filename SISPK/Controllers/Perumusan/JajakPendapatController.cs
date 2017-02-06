@@ -307,6 +307,8 @@ namespace SISPK.Controllers.Perumusan
 				var APPROVAL_STATUS_SESSION = db.Database.SqlQuery<decimal>("SELECT CAST(NVL(MAX(T1.APPROVAL_STATUS_SESSION),0) AS NUMBER) AS APPROVAL_STATUS_SESSION FROM TRX_PROPOSAL_APPROVAL T1 WHERE T1.APPROVAL_PROPOSAL_ID = " + PROPOSAL_ID + " AND T1.APPROVAL_STATUS_PROPOSAL = 7").SingleOrDefault();
 				db.Database.ExecuteSqlCommand("INSERT INTO TRX_PROPOSAL_APPROVAL (APPROVAL_ID,APPROVAL_PROPOSAL_ID,APPROVAL_TYPE,APPROVAL_REASON,APPROVAL_DATE,APPROVAL_BY,APPROVAL_STATUS,APPROVAL_STATUS_PROPOSAL,APPROVAL_STATUS_SESSION) VALUES (" + APPROVAL_ID + "," + PROPOSAL_ID + ",1,'" + APPROVAL_REASON + "'," + DATENOW + "," + USER_ID + ",1,7," + APPROVAL_STATUS_SESSION + ")");
 			}
+
+			db.Database.ExecuteSqlCommand("UPDATE TRX_POLLING SET POLLING_STATUS = 0 WHERE POLLING_ID = " + Data.POLLING_ID);
 			//if (APPROVAL_TYPE == 1)
 			//{
 			//    db.Database.ExecuteSqlCommand("UPDATE TRX_PROPOSAL SET PROPOSAL_STATUS = 8, PROPOSAL_STATUS_PROSES = 1, PROPOSAL_IS_POLLING = NULL, PROPOSAL_POLLING_ID = NULL, PROPOSAL_UPDATE_DATE = " + DATENOW + ", PROPOSAL_UPDATE_BY = " + USER_ID + " WHERE PROPOSAL_ID = " + PROPOSAL_ID);
@@ -466,14 +468,31 @@ namespace SISPK.Controllers.Perumusan
 			return View();
 		}
 		[HttpPost]
-		public ActionResult Setting(string PROPOSAL_ABSTRAK = "", int PROPOSAL_ID = 0, int PROPOSAL_KOMTEK_ID = 0, string PROPOSAL_NO_SNI_PROPOSAL = "", string PROPOSAL_JUDUL_SNI_PROPOSAL = "", string POLLING_START_DATE = "", string POLLING_END_DATE = "")
+		public ActionResult Setting(string PROPOSAL_ABSTRAK = "",int FLAG_EDIT = 0,string NOMOR_COUNT = "", int PROPOSAL_ID = 0, int PROPOSAL_KOMTEK_ID = 0, string PROPOSAL_NO_SNI_PROPOSAL = "", string PROPOSAL_JUDUL_SNI_PROPOSAL = "", string POLLING_START_DATE = "", string POLLING_END_DATE = "")
 		{
 			var USER_ID = Convert.ToInt32(Session["USER_ID"]);
 			var DATENOW = MixHelper.ConvertDateNow();
 			var LOGCODE_POLLING = MixHelper.GetLogCode();
 			int LASTID_POLLING = MixHelper.GetSequence("TRX_POLLING");
-			String POLLING_START_DATE_CONVERT = "TO_DATE('" + POLLING_START_DATE + "', 'yyyy-mm-dd hh24:mi:ss')";
-			String POLLING_END_DATE_CONVERT = "TO_DATE('" + POLLING_END_DATE + "', 'yyyy-mm-dd hh24:mi:ss')";
+			String POLLING_START_DATE_CONVERT = "TO_DATE('" + POLLING_START_DATE + "', 'dd-mm-yyyy hh24:mi:ss')";
+			String POLLING_END_DATE_CONVERT = "TO_DATE('" + POLLING_END_DATE + "', 'dd-mm-yyyy hh24:mi:ss')";
+			var Data = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == PROPOSAL_ID select proposal).SingleOrDefault();
+
+			//cek nomor sni
+			if (FLAG_EDIT == 0)
+			{
+				var LastNumber = GN.GenerateNomor(Data);
+				if (NOMOR_COUNT == LastNumber.nomor)
+				{
+					GN.UpdateNomorLog(LastNumber.nomor,Convert.ToInt32(Data.PROPOSAL_ID));
+				}
+				else
+				{
+					TempData["Notifikasi"] = 1;
+					TempData["NotifikasiText"] = "Nomor LogBook Sudah Digunakan";
+					return RedirectToAction("Setting/"+ Data.PROPOSAL_ID);
+				}
+			}
 
 			var LAST_POLLING_VERSION = db.Database.SqlQuery<int>("SELECT NVL(CAST(MAX(POLLING_VERSION) AS INT),0) FROM TRX_POLLING WHERE POLLING_TYPE = 7 AND POLLING_PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();
 			var POLLING_IS_EXIST = db.Database.SqlQuery<TRX_POLLING>("SELECT * FROM TRX_POLLING WHERE POLLING_VERSION = " + (LAST_POLLING_VERSION + 1) + " AND POLLING_TYPE = 7 AND POLLING_PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();
@@ -502,7 +521,6 @@ namespace SISPK.Controllers.Perumusan
 			String objek1 = "UPDATE TRX_PROPOSAL SET PROPOSAL_STATUS_PROSES = 1, PROPOSAL_IS_POLLING = 1, PROPOSAL_NO_SNI_PROPOSAL = '" + PROPOSAL_NO_SNI_PROPOSAL + "', PROPOSAL_JUDUL_SNI_PROPOSAL = '" + PROPOSAL_JUDUL_SNI_PROPOSAL + "', PROPOSAL_POLLING_ID = " + NEW_LASTID_POLLING + ", PROPOSAL_UPDATE_DATE = " + DATENOW + ", PROPOSAL_UPDATE_BY = " + USER_ID + " WHERE PROPOSAL_ID = " + PROPOSAL_ID;
 			MixHelper.InsertLog(PROPOSAL_LOG_CODE, objek1.Replace("'", "-"), 2);
 
-			var Data = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == PROPOSAL_ID select proposal).SingleOrDefault();
 			var PROPOSAL_PNPS_CODE_FIXER = Data.PROPOSAL_PNPS_CODE;
 
 			HttpPostedFileBase FILE_DATA_RSNI = Request.Files["DATA_RSNI"];
