@@ -178,8 +178,21 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">No RSNI</label>
-                                <div class="col-md-9 control-label detailtext">
-                                    <input class="form-control wajib" id="PROPOSAL_NO_SNI_PROPOSAL" name="PROPOSAL_NO_SNI_PROPOSAL" value="SNI @ViewBag.LastNumber"/>
+                                <div class="col-md-4 control-label detailtext">
+                                    <input type="hidden" name="NOMOR_COUNT" id="NOMOR_COUNT" value="@ViewBag.LastNumber.nomor" />
+                                    <input type="hidden" name="PROPOSAL_NO_SNI_PROPOSAL_TEMP" id="PROPOSAL_NO_SNI_PROPOSAL_TEMP" value="@ViewBag.LastNumber.nomorThn" />
+                                    <input class="form-control wajib" id="PROPOSAL_NO_SNI_PROPOSAL" name="PROPOSAL_NO_SNI_PROPOSAL" value="@ViewBag.LastNumber.nomorThn" />
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-icon right">
+                                        <div class="checkbox-list">
+                                            <label>
+                                                <input type="hidden" name="FLAG_EDIT" id="FLAG_EDIT" value="0" />
+                                                <input type="checkbox" class="form-control wajib" name="CHECK_NOMOR" id="CHECK_NOMOR" value="" onclick="cek_nomor(this)">
+                                                <span id="text_check" class="text-danger">Checked</span>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -188,17 +201,17 @@
                                     <input class="form-control wajib" id="PROPOSAL_JUDUL_SNI_PROPOSAL" name="PROPOSAL_JUDUL_SNI_PROPOSAL" value="@Detail.PROPOSAL_JUDUL_PNPS" />
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Abstrak</label>
+                            <div class="form-group" style="display:none">
+                                <label class="control-label col-md-3">Ruang Lingkup</label>
                                 <div class="col-md-9 control-label detailtext">
-                                    <textarea rows="5" id="PROPOSAL_ABSTRAK" name="PROPOSAL_ABSTRAK" class="form-control wajib"></textarea>
+                                    <textarea rows="5" id="PROPOSAL_ABSTRAK" name="PROPOSAL_ABSTRAK" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Tanggal Jajak Pendapat</label>
                                 <div class="col-md-9 control-label detailtext">
                                     <div class="col-md-9">
-                                        <div class="input-group input-medium date-picker input-daterange" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
+                                        <div class="input-group input-large date-picker input-daterange" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
                                             <input type="text" class="form-control kirim wajib" name="POLLING_START_DATE" id="POLLING_START_DATE">
                                             <span class="input-group-addon">-</span>
                                             <input type="text" class="form-control kirim" name="POLLING_END_DATE" id="POLLING_END_DATE">
@@ -747,6 +760,20 @@
         $('#SUBMIT_TIPE').val(res);
     }
 
+    function cek_nomor(res) {
+        var atLeastOneIsChecked = $('input[name="CHECK_NOMOR"]:checked').length > 0;
+        if (atLeastOneIsChecked) {
+            //alert("check");
+            $("#PROPOSAL_NO_SNI_PROPOSAL").attr("readonly", true);
+            $("#text_check").removeClass("text-danger").addClass("text-success");
+        } else {
+            $("#PROPOSAL_NO_SNI_PROPOSAL").attr("readonly", false);
+            $("#text_check").removeClass("text-success").addClass("text-danger");
+            //alert("uncheck");
+        }
+        
+    }
+
     function cari_dokumen(ini) {
         var tipe = parseInt($(ini).attr('data-tipe'));
         var pencarian = $(ini).val();
@@ -876,6 +903,20 @@
         $('.date-picker').datepicker({
             orientation: "center",
             autoclose: true
+        });
+
+        $("#PROPOSAL_NO_SNI_PROPOSAL").keyup(function () {
+            if ($("#PROPOSAL_NO_SNI_PROPOSAL").val() == $("#PROPOSAL_NO_SNI_PROPOSAL_TEMP").val()) {
+                $("#FLAG_EDIT").val(0);
+            } else {
+                $("#FLAG_EDIT").val(1);
+            }
+        });
+
+        $('#POLLING_START_DATE').change(function () {
+            var date2 = $('#POLLING_START_DATE').datepicker('getDate', '+1d');
+            date2.setDate(date2.getDate() + 60);
+            $('#POLLING_END_DATE').datepicker('setDate', date2);
         });
     });
 

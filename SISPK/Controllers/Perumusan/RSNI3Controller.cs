@@ -306,7 +306,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Surat Undangan Rapat RSNI 3 Ver " + VERSION_RAKON + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "SURAT_UNDANGAN_RAPAT_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_SURAT_UNDANGAN_RAPAT.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -370,7 +370,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Surat Penyerahan RSNI 3 Ver " + VERSION_RAKON + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "SURAT_PENYERAHAN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_SURAT_PENYERAHAN.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -434,7 +434,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Berita Acara Rapat Konsensus RSNI 3 Ver " + VERSION_RAKON + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "BERITA_ACARA_RAKON_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_BERITA_ACARA_RAKON.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -498,7 +498,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Daftar Hadir Rapat Konsensus RSNI 3 Ver " + VERSION_RAKON + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "DAFTAR_HADIR_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_DAFTAR_HADIR.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -562,7 +562,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Notulen Rapat Konsensus RSNI 3 Ver " + VERSION_RAKON + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "NOTULEN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_NOTULEN.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -631,7 +631,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'RSNI 3 Ver " + VERSION_RAKON + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + DRAFT_NAME + "RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_DATA_RSNI.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -1472,7 +1472,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Laporan TAS RSNI 3 Ver " + VERSION_RAKON + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "LAPORAN_TAS_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_LAPORAN_TAS.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +
@@ -1535,7 +1535,7 @@ namespace SISPK.Controllers.Perumusan
                                 "'Referensi Lain RSNI 3 Ver " + VERSION_RAKON + " " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                 "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                 "'" + "REF_LAIN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + "', " +
-                                "'" + EXT_REF_LAIN.ToLower().Replace(".", "") + "', " +
+                                "'docx', " +
                                 "'0', " +
                                 "'" + USER_ID + "', " +
                                 DATENOW + "," +

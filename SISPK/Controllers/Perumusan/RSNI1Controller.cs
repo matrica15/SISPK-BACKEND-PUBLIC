@@ -600,7 +600,7 @@ namespace SISPK.Controllers.Perumusan
                                     "'Hasil Rancangan SNI 1 dengan Judul PNPS : " + DataProposal.PROPOSAL_JUDUL_PNPS + "', " +
                                     "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI1/" + PROPOSAL_PNPS_CODE_FIXER + "/" + "', " +
                                     "'" + "RSNI1_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + "" + "', " +
-                                    "'" + Extension.ToLower().Replace(".", "") + "', " +
+                                    "'docx', " +
                                     "'0', " +
                                     "'" + USER_ID + "', " +
                                     DATENOW + "," +
@@ -678,7 +678,7 @@ namespace SISPK.Controllers.Perumusan
                                         "'Draft Rancangan SNI 1 " + PROPOSAL_PNPS_CODE_FIXER + "', " +
                                         "'" + "/Upload/Dokumen/RANCANGAN_SNI/RSNI1/" + PROPOSAL_PNPS_CODE_FIXER + "/DRAFT/" + "', " +
                                         "'" + "DRAFT_RSNI1_" + PROPOSAL_PNPS_CODE_FIXER + "" + "', " +
-                                        "'" + Extension.ToLower().Replace(".", "") + "', " +
+                                        "'docx', " +
                                         "'0', " +
                                         "'" + USER_ID + "', " +
                                         DATENOW + "," +
