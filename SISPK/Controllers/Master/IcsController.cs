@@ -82,7 +82,7 @@ namespace SISPK.Controllers.Master
             { 
                 Convert.ToString(list.ICS_CODE), 
                 Convert.ToString(list.ICS_NAME_IND), 
-                Convert.ToString("<center>" + list.ICS_YEAR + "</center>"), 
+                //Convert.ToString("<center>" + list.ICS_YEAR + "</center>"), 
                 //Convert.ToString((list.ICS_STATUS == 0)?"<center class='red'>Tidak Aktif</center>":"<center class='red'>Aktif</center>"),
                 Convert.ToString("<center><a data-original-title='Lihat' data-placement='top' data-container='body' class='btn blue btn-sm action tooltips' href='Ics/Read/"+list.ICS_ID+"'><i class='action fa fa-file-text-o'></i></a>"+
                 Convert.ToString((list.ICS_STATUS == 1) ? "<a data-original-title='Ubah' data-placement='top' data-container='body' class='btn purple btn-sm action tooltips' href='Ics/Edit/"+list.ICS_ID+"'><i class='action fa fa-edit'></i></a>":"")+
