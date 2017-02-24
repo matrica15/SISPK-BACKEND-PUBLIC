@@ -383,6 +383,7 @@ namespace SISPK.Controllers.Master
 
             List<string> order_field = new List<string>();
             order_field.Add("KOMTEK_CODE");
+            order_field.Add("SUB_KOMTEK_CODE");
             order_field.Add("KOMTEK");
             order_field.Add("SUB_KOMTEK");
             order_field.Add("KOMTEK_SEKRETARIAT");
@@ -415,7 +416,8 @@ namespace SISPK.Controllers.Master
                 {
                     if (fields != "")
                     {
-                        search_clause += fields + "  LIKE '%" + search + "%'";
+                        //search_clause += fields + "  LIKE '%" + search + "%'";
+                        search_clause += "LOWER(" + fields + ")  LIKE LOWER('%" + search + "%')";
                         if (i < order_field.Count())
                         {
                             search_clause += " OR ";
