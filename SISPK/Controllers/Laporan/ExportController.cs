@@ -1048,6 +1048,12 @@ WHERE ROWNUM = 1";
 			{
 				QueryGetSNI = "SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 18 AND DOC_RELATED_TYPE = 18 AND DOC_STATUS = 1";
 			}
+			else if (RSNI_TYPE == 8)
+			{
+				QueryGetSNI = "SELECT * FROM VIEW_DOCUMENTS WHERE DOC_FOLDER_ID = 25 AND DOC_RELATED_TYPE = 38 AND DOC_STATUS = 1";
+			}
+			QueryGetSNI += "AND DOC_RELATED_ID ="+ PROPOSAL_ID;
+			
 			var DefaultDokumen = db.Database.SqlQuery<VIEW_DOCUMENTS>(QueryGetSNI).FirstOrDefault();
 			if (DefaultDokumen != null)
 			{

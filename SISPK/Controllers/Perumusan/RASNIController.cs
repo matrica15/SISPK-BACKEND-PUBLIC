@@ -182,7 +182,7 @@ namespace SISPK.Controllers.Perumusan
             return View();
         }
         [HttpPost]
-        public ActionResult Pengesahan(TRX_PROPOSAL tp, int PROPOSAL_ID = 0, int PROPOSAL_KOMTEK_ID = 0, string PROPOSAL_PNPS_CODE = "", int APPROVAL_TYPE = 0, int APPROVAL_STATUS = 1, int[] PROPOSAL_ICS_REF_ICS_ID = null)
+        public ActionResult Pengesahan(TRX_PROPOSAL tp, int PROPOSAL_ID = 0, int FLAG_EDIT = 0, string NOMOR_COUNT = "", int PROPOSAL_KOMTEK_ID = 0, string PROPOSAL_PNPS_CODE = "", int APPROVAL_TYPE = 0, int APPROVAL_STATUS = 1, int[] PROPOSAL_ICS_REF_ICS_ID = null)
         {
             var USER_ID = Convert.ToInt32(Session["USER_ID"]);
             var DATENOW = MixHelper.ConvertDateNow();
@@ -194,6 +194,22 @@ namespace SISPK.Controllers.Perumusan
             int LASTID_PROPOSAL_RAPAT = MixHelper.GetSequence("TRX_DOCUMENTS");
             var LOGCODE_PROPOSAL_RAPAT = MixHelper.GetLogCode();
 
+
+            //cek nomor sni
+            if (FLAG_EDIT == 0)
+            {
+                var LastNumber = GN.GenerateNomor(DataProposal);
+                if (NOMOR_COUNT == LastNumber.nomor)
+                {
+                    GN.UpdateNomorLog(LastNumber.nomor, Convert.ToInt32(DataProposal.PROPOSAL_ID));
+                }
+                else
+                {
+                    TempData["Notifikasi"] = 1;
+                    TempData["NotifikasiText"] = "Nomor LogBook Sudah Digunakan";
+                    return RedirectToAction("Pengesahan/" + DataProposal.PROPOSAL_ID);
+                }
+            }
             //------------------------------------
 
             HttpPostedFileBase FILE_DATA_RSNI = Request.Files["DATA_RSNI"];
