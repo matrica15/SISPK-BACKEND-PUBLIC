@@ -200,6 +200,7 @@ namespace SISPK.Controllers.Perumusan
 			string dataFormat = Server.MapPath("~/Format/Laporan/");
 			Stream stream = System.IO.File.OpenRead(dataFormat + "FORMAT_TANGGAPAN_JAJAK_PENDAPAT.docx");
 			Aspose.Words.Document Tanggapan = new Aspose.Words.Document(stream);
+			Tanggapan.RemoveMacros();
 			ReplaceHelper helper = new ReplaceHelper(Tanggapan);
 			helper.Replace("JudulPNPS", Data.PROPOSAL_JUDUL_PNPS);
 			DateTime dt = Convert.ToDateTime(Data.POLLING_START_DATE);
@@ -535,6 +536,7 @@ namespace SISPK.Controllers.Perumusan
 				if (EXT_DATA_RSNI.ToLower() == ".docx" || EXT_DATA_RSNI.ToLower() == ".doc")
 				{
 					Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_DATA_RSNI);
+					doc.RemoveMacros();
 					string filePathdoc = path + "RSNI3_DOK_JAJAK_PENDAPAT_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
 					string filePathpdf = path + "RSNI3_DOK_JAJAK_PENDAPAT_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
 					string filePathxml = path + "RSNI3_DOK_JAJAK_PENDAPAT_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";

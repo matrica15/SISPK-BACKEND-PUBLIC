@@ -148,6 +148,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_SURAT_UNDANGAN_RAPAT.ToLower() == ".docx" || EXT_SURAT_UNDANGAN_RAPAT.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_SURAT_UNDANGAN_RAPAT);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "SURAT_UNDANGAN_RAPAT_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "SURAT_UNDANGAN_RAPAT_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "SURAT_UNDANGAN_RAPAT_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -212,6 +213,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_BERITA_ACARA.ToLower() == ".docx" || EXT_BERITA_ACARA.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_BERITA_ACARA);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "BERITA_ACARA_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "BERITA_ACARA_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "BERITA_ACARA_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -276,6 +278,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_DAFTAR_HADIR.ToLower() == ".docx" || EXT_DAFTAR_HADIR.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_DAFTAR_HADIR);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "DAFTAR_HADIR_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "DAFTAR_HADIR_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "DAFTAR_HADIR_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -340,6 +343,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_NOTULEN.ToLower() == ".docx" || EXT_NOTULEN.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_NOTULEN);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "NOTULEN_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "NOTULEN_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "NOTULEN_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -403,6 +407,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_SURAT_JP.ToLower() == ".docx" || EXT_SURAT_JP.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_SURAT_JP);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "SURAT_JP_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "SURAT_JP_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "SURAT_JP_RSNI4_Ver_" + VERSION_RAKOR + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -467,6 +472,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_DATA_RSNI.ToLower() == ".docx" || EXT_DATA_RSNI.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_DATA_RSNI);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "RSNI4_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "RSNI4_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "RSNI4_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
