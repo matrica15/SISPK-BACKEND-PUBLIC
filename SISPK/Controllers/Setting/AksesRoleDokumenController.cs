@@ -124,13 +124,39 @@ namespace SISPK.Controllers.Setting
                 int no = 0;
                 foreach (var a in SNI_STYLE_ID)
                 {
-                    var updateted = "UPDATE SYS_DOC_ACCESS_DETAIL SET DOC_ACCESS_DETAIL_STYLE_STATUS = " + status[no] + " WHERE DOC_ACCESS_DETAIL_STYLE_ID = " + SNI_STYLE_ID[no] + " AND DOC_ACCESS_DETAIL_ACCESS_ID = " + id;
-                    db.Database.ExecuteSqlCommand(updateted);
-                   
+                    //var updateted = "UPDATE SYS_DOC_ACCESS_DETAIL SET DOC_ACCESS_DETAIL_STYLE_STATUS = " + status[no] + " WHERE DOC_ACCESS_DETAIL_STYLE_ID = " + SNI_STYLE_ID[no] + " AND DOC_ACCESS_DETAIL_ACCESS_ID = " + id;
+                    //db.Database.ExecuteSqlCommand(updateted);
+
+                    var dataDocRole = db.SYS_DOC_ACCESS_DETAIL.SqlQuery("SELECT * FROM SYS_DOC_ACCESS_DETAIL WHERE DOC_ACCESS_DETAIL_ACCESS_ID = " + id + " AND DOC_ACCESS_DETAIL_STYLE_ID = " + SNI_STYLE_ID[no]).FirstOrDefault();
+                    if (dataDocRole != null)
+                    {
+                        var updateted = "UPDATE SYS_DOC_ACCESS_DETAIL SET DOC_ACCESS_DETAIL_STYLE_STATUS = " + status[no] + " WHERE DOC_ACCESS_DETAIL_STYLE_ID = " + SNI_STYLE_ID[no] + " AND DOC_ACCESS_DETAIL_ACCESS_ID = " + id;
+                        db.Database.ExecuteSqlCommand(updateted);
+                        //string query_update = "UPDATE SYS_ACCESS_DETAIL SET ACCESS_DETAIL_STATUS = 1, ACCESS_DETAIL_UPDATE_DATE = SYSDATE, ACCESS_DETAIL_UPDATE_BY = " + UserId + " where ACCESS_DETAIL_ACCESS_ID = '" + AksesId + "' AND ACCESS_DETAIL_MENU_ID = '" + y + "' AND ACCESS_DETAIL_TYPE = '" + z + "'";
+                        //db.Database.ExecuteSqlCommand(query_update);
+                    }
+                    else
+                    {
+                        //int lastid = MixHelper.GetSequence("SYS_DOC_ACCESS_DETAIL");
+                        //string query_insert = "INSERT INTO SYS_DOC_ACCESS_DETAIL (ACCESS_DETAIL_ID,ACCESS_DETAIL_ACCESS_ID,ACCESS_DETAIL_MENU_ID,ACCESS_DETAIL_TYPE,ACCESS_DETAIL_CREATE_DATE,ACCESS_CREATE_BY,ACCESS_DETAIL_STATUS) values (" + lastid + "," + AksesId + ", " + y + ", " + z + ", SYSDATE, " + UserId + ", 1)";
+
+                        //db.Database.ExecuteSqlCommand(query_insert);
+                        int DocAksesDetailId = MixHelper.GetSequence("SYS_DOC_ACCESS_DETAIL");
+                        var fname = "DOC_ACCESS_DETAIL_ID,DOC_ACCESS_DETAIL_ACCESS_ID,DOC_ACCESS_DETAIL_STYLE_ID,DOC_ACCESS_DETAIL_CREATE_BY,DOC_ACCESS_DETAIL_CREATE_DATE,DOC_ACCESS_DETAIL_STYLE_STATUS";
+                        var fvalue = "'" + DocAksesDetailId + "', " +
+                                   "'" + id + "', " +
+                                   "" + SNI_STYLE_ID[no] + ", " +
+                                   "'" + UserId + "', " +
+                                   datenow + "," +
+                                   "" + status[no] + "";
+
+                        db.Database.ExecuteSqlCommand("INSERT INTO SYS_DOC_ACCESS_DETAIL (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")");
+                    }
+
                     no++;
-                    
                 }
 
+                
 
                 TempData["Notifikasi"] = 1;
                 TempData["NotifikasiText"] = "Data Berhasil Disimpan";
