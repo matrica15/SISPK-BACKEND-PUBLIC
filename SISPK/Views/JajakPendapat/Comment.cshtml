@@ -127,6 +127,10 @@
                                 <label class="control-label col-md-3">Data Pendukung</label>
                                 <div class="col-md-7 control-label detailtext">
                                     <ol style="padding-left: 15px;">
+                                        @if (ViewBag.DokJP != null)
+                                        {
+                                            <li><a href="@ViewBag.DokJP.DOC_FILE_PATH@ViewBag.DokJP.DOC_FILE_NAME.@ViewBag.DokJP.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">RSNI 3 Jajak Pendapat</a></li>
+                                        }
                                         @if (ViewBag.SuratRT != null)
                                         { 
                                             <li><a href="@ViewBag.SuratRT.DOC_FILE_PATH@ViewBag.SuratRT.DOC_FILE_NAME.@ViewBag.SuratRT.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">Surat Rapat Teknis</a></li>
