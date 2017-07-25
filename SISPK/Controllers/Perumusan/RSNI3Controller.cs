@@ -136,6 +136,7 @@ namespace SISPK.Controllers.Perumusan
                     {
 
                         Aspose.Words.Document doc = new Aspose.Words.Document(stremdokumen);
+                        doc.RemoveMacros();
                         string filePathdoc = path + "RSNI3_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                         string filePathpdf = path + "RSNI3_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                         string filePathxml = path + "RSNI3_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -198,6 +199,7 @@ namespace SISPK.Controllers.Perumusan
                     {
 
                         Aspose.Words.Document doc = new Aspose.Words.Document(stremdokumen);
+                        doc.RemoveMacros();
                         var SNI_DOC_VERSION = db.Database.SqlQuery<decimal>("SELECT CAST(NVL(MAX(T1.SNI_DOC_VERSION),0)+1 AS NUMBER) AS SNI_DOC_VERSION FROM TRX_SNI_DOC T1 WHERE T1.SNI_DOC_PROPOSAL_ID = " + PROPOSAL_ID + " AND T1.SNI_DOC_TYPE = 2").SingleOrDefault();
                         string filePathdoc = path + "DRAFT_RSNI3_" + PROPOSAL_PNPS_CODE_FIXER + "_Ver" + SNI_DOC_VERSION + ".DOCX";
                         string filePathpdf = path + "DRAFT_RSNI3_" + PROPOSAL_PNPS_CODE_FIXER + "_Ver" + SNI_DOC_VERSION + ".PDF";
@@ -289,6 +291,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_SURAT_UNDANGAN_RAPAT.ToLower() == ".docx" || EXT_SURAT_UNDANGAN_RAPAT.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_SURAT_UNDANGAN_RAPAT);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "SURAT_UNDANGAN_RAPAT_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "SURAT_UNDANGAN_RAPAT_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "SURAT_UNDANGAN_RAPAT_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -353,6 +356,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_SURAT_PENYERAHAN.ToLower() == ".docx" || EXT_SURAT_PENYERAHAN.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_SURAT_PENYERAHAN);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "SURAT_PENYERAHAN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "SURAT_PENYERAHAN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "SURAT_PENYERAHAN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -417,6 +421,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_BERITA_ACARA_RAKON.ToLower() == ".docx" || EXT_BERITA_ACARA_RAKON.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_BERITA_ACARA_RAKON);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "BERITA_ACARA_RAKON_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "BERITA_ACARA_RAKON_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "BERITA_ACARA_RAKON_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -481,6 +486,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_DAFTAR_HADIR.ToLower() == ".docx" || EXT_DAFTAR_HADIR.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_DAFTAR_HADIR);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "DAFTAR_HADIR_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "DAFTAR_HADIR_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "DAFTAR_HADIR_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -545,6 +551,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_NOTULEN.ToLower() == ".docx" || EXT_NOTULEN.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_NOTULEN);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "NOTULEN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "NOTULEN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "NOTULEN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -612,6 +619,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_DATA_RSNI.ToLower() == ".docx" || EXT_DATA_RSNI.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_DATA_RSNI);
+                    doc.RemoveMacros();
                     var DRAFT_NAME = ((APPROVAL_TYPE == 1) ? "" : "DRAFT_");
                     string filePathdoc = path + DRAFT_NAME + "RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + DRAFT_NAME + "RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
@@ -768,6 +776,7 @@ namespace SISPK.Controllers.Perumusan
                 Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER));
                 string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/");
                 Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_SURAT_PENYERAHAN);
+                doc.RemoveMacros();
                 string filePathdoc = path + "SURAT_PENYERAHAN_" + VERSION_RATEK + "_RSNI3_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                 string filePathpdf = path + "SURAT_PENYERAHAN_" + VERSION_RATEK + "_RSNI3_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                 string filePathxml = path + "SURAT_PENYERAHAN_" + VERSION_RATEK + "_RSNI3_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -829,6 +838,7 @@ namespace SISPK.Controllers.Perumusan
                 Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RSNI2/" + PROPOSAL_PNPS_CODE_FIXER));
                 string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RSNI2/" + PROPOSAL_PNPS_CODE_FIXER + "/");
                 Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_SURAT_RAPAT_TEKNIS);
+                doc.RemoveMacros();
                 string filePathdoc = path + "SURAT_RAPAT_TEKNIS_" + VERSION_RATEK + "_RSNI3_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                 string filePathpdf = path + "SURAT_RAPAT_TEKNIS_" + VERSION_RATEK + "_RSNI3_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                 string filePathxml = path + "SURAT_RAPAT_TEKNIS_" + VERSION_RATEK + "_RSNI3_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -890,6 +900,7 @@ namespace SISPK.Controllers.Perumusan
                 Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER));
                 string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/");
                 Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_BA_RATEK);
+                doc.RemoveMacros();
                 string filePathdoc = path + "BERITA_ACARA_Ver" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                 string filePathpdf = path + "BERITA_ACARA_Ver" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                 string filePathxml = path + "BERITA_ACARA_Ver" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -951,6 +962,7 @@ namespace SISPK.Controllers.Perumusan
                 Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER));
                 string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/");
                 Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DAFTAR_HADIR);
+                doc.RemoveMacros();
                 string filePathdoc = path + "DAFTAR_HADIR_Ver" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                 string filePathpdf = path + "DAFTAR_HADIR_Ver" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                 string filePathxml = path + "DAFTAR_HADIR_Ver" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -1012,6 +1024,7 @@ namespace SISPK.Controllers.Perumusan
                 Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER));
                 string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/");
                 Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_NOTULEN);
+                doc.RemoveMacros();
                 string filePathdoc = path + "NOTULEN_Ver" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                 string filePathpdf = path + "NOTULEN_Ver" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                 string filePathxml = path + "NOTULEN_Ver" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -1075,6 +1088,7 @@ namespace SISPK.Controllers.Perumusan
                 string path = Server.MapPath("~/Upload/Dokumen/RANCANGAN_SNI/RSNI3/" + PROPOSAL_PNPS_CODE_FIXER + "/");
 
                 Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DATA_RSNI);
+                doc.RemoveMacros();
                 string filePathdoc = path + "RSNI3_Ver" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                 string filePathpdf = path + "RSNI3_Ver" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                 string filePathxml = path + "RSNI3_Ver" + VERSION_RATEK + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -1455,6 +1469,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_LAPORAN_TAS.ToLower() == ".docx" || EXT_LAPORAN_TAS.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_LAPORAN_TAS);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "LAPORAN_TAS_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "LAPORAN_TAS_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "LAPORAN_TAS_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
@@ -1518,6 +1533,7 @@ namespace SISPK.Controllers.Perumusan
                 if (EXT_REF_LAIN.ToLower() == ".docx" || EXT_REF_LAIN.ToLower() == ".doc")
                 {
                     Aspose.Words.Document doc = new Aspose.Words.Document(STREAM_DOC_REF_LAIN);
+                    doc.RemoveMacros();
                     string filePathdoc = path + "REF_LAIN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".docx";
                     string filePathpdf = path + "REF_LAIN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                     string filePathxml = path + "REF_LAIN_RSNI3_Ver_" + VERSION_RAKON + "_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";

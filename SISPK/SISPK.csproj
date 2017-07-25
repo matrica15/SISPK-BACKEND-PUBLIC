@@ -283,6 +283,7 @@
     <Compile Include="Controllers\Setting\PenggunapublicController.cs" />
     <Compile Include="Controllers\SNI\PemeliharaanController.cs" />
     <Compile Include="Controllers\SNI\SNIListController.cs" />
+    <Compile Include="Controllers\WebServices\HOHController.cs" />
     <Compile Include="Controllers\WebServices\TNDEController.cs" />
     <Compile Include="Filters\Auth.cs" />
     <Compile Include="Global.asax.cs">
@@ -733,6 +734,7 @@
       <DependentUpon>SISPKModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WSTNDEKomtekList.cs" />
+    <Compile Include="Models\SNISK.cs" />
     <Compile Include="Models\WSTNDEProposalList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

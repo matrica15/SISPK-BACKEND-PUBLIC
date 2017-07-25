@@ -247,18 +247,84 @@ namespace SISPK.Controllers.Download
         {
             var PROPOSAL_ID = fid;
             var USER_ID = uid;
-
+            
             var DataUserDownload = db.Database.SqlQuery<VIEW_USERS_PUBLIC>("SELECT * FROM VIEW_USERS_PUBLIC WHERE USER_ID = " + USER_ID + " AND USER_PUBLIC_ACTIVATION_KEY = '" + token_key + "'").FirstOrDefault();
             if (DataUserDownload != null)
             {
                 var Data = db.Database.SqlQuery<VIEW_SNI>("SELECT * FROM VIEW_SNI WHERE SNI_PROPOSAL_ID = " + PROPOSAL_ID).SingleOrDefault();
-                if (Data.DSNI_DOC_FILETYPE.ToLower() == "docx" && Data.DSNI_DOC_FILETYPE.ToLower() == "doc")
+                if (Data.DSNI_DOC_FILETYPE.ToLower() == "docx" || Data.DSNI_DOC_FILETYPE.ToLower() == "doc")
                 {
                     string dataDir = Server.MapPath("~" + Data.DSNI_DOC_FILE_PATH);
                     Stream stream = System.IO.File.OpenRead(dataDir + "" + Data.DSNI_DOC_FILE_NAME + ".DOCX");
                     var IS_LIMIT_DOWNLOAD = Data.IS_LIMIT_DOWNLOAD;
                     Aspose.Words.Document doc = new Aspose.Words.Document(stream);
                     CustomDocumentProperties props = doc.CustomDocumentProperties;
+                    var USER_FULL_NAME = ((Convert.ToString(DataUserDownload.USER_PUBLIC_NAMA_LENGKAP) == "") ? "-" : Convert.ToString(DataUserDownload.USER_PUBLIC_NAMA_LENGKAP));
+                    var ACCESS_NAME = ((Convert.ToString(DataUserDownload.ACCESS_NAME) == "") ? "-" : Convert.ToString(DataUserDownload.ACCESS_NAME));
+
+                    //query tag doc untuk masyarakat
+                    var STYLE_LIST = db.Database.SqlQuery<string>("SELECT * FROM VIEW_SNI_STYLE_GROUP").SingleOrDefault();
+                    var AksesSelect = db.Database.SqlQuery<SYS_DOC_ACCESS_DETAIL_SELECT>("SELECT * FROM SYS_DOC_ACCESS_DETAIL_SELECT WHERE DOC_ACCESS_DETAIL_STYLE_STATUS = 0 AND DOC_ACCESS_DETAIL_ACCESS_ID = 3 ORDER BY SNI_STYLE_SORT ASC").ToList();
+
+
+                    var kacang = ((STYLE_LIST != null) ? STYLE_LIST : "");
+                    if (AksesSelect.Count() > 0)
+                    {
+                        foreach (var i in AksesSelect)
+                        {
+                            // Get a collection of all paragraph nodes in the document
+                            Node[] paragraphs = doc.GetChildNodes(NodeType.Paragraph, true).ToArray();
+                            ArrayList nodesToBeDeleted = new ArrayList();
+                            bool isParagraphFound = false;
+                            var SNI_STYLE_VALUE = Convert.ToString(i.SNI_STYLE_VALUE);
+                            var SNI_STYLE_NAME = Convert.ToString(i.SNI_STYLE_NAME);
+                            foreach (Paragraph paragraph in paragraphs)
+                            {
+                                if (paragraph.ParagraphFormat.Style.Name == SNI_STYLE_VALUE)
+                                {
+                                    // Filter Heading 1 paras and find one that contains the search string
+                                    //if (paragraph.Range.Text.ToLower().StartsWith(SNI_STYLE_NAME.ToLower()))
+                                    if (RemoveSpecialCharacters(paragraph.Range.Text.ToLower()).StartsWith(RemoveSpecialCharacters(SNI_STYLE_NAME).ToLower()))
+                                    {
+                                        isParagraphFound = true;
+                                        // We need to delete all nodes present in between the startPara node
+                                        // and the next Paragraph with Heading 1
+                                        Paragraph startPara = paragraph;
+
+                                        nodesToBeDeleted.Add(startPara);
+                                        startPara = startPara.NextSibling as Paragraph;
+                                        var styleName = startPara.ParagraphFormat.Style.Name;
+
+                                        try
+                                        {
+                                            while (!kacang.Contains(startPara.ParagraphFormat.Style.Name) && startPara.ParagraphFormat.Style.Name != "" && startPara.ParagraphFormat.Style.Name != null)
+                                            {
+                                                nodesToBeDeleted.Add(startPara);
+                                                startPara = startPara.NextSibling as Paragraph;
+                                            }
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            Console.WriteLine("An error occurred: '{0}'", e);
+                                            break;
+                                        }
+
+                                        if (isParagraphFound)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            // Remove all nodes
+                            foreach (Node node in nodesToBeDeleted)
+                            {
+                                node.Remove();
+
+                            }
+                        }
+                    }
+                    //END query tag doc untuk masyarakat
 
                     var DataJmlDownload = db.Database.SqlQuery<SYS_CONFIG>("SELECT * FROM SYS_CONFIG WHERE CONFIG_ID = 10").FirstOrDefault();
                     var DataWatermark = db.Database.SqlQuery<SYS_CONFIG>("SELECT * FROM SYS_CONFIG WHERE CONFIG_ID = 9").FirstOrDefault();
@@ -269,9 +335,9 @@ namespace SISPK.Controllers.Download
                     }
 
                     var watermarkText = DataWatermark.CONFIG_VALUE;
-
+                    string watermark2Text = "SNI ini di download Oleh " + USER_FULL_NAME + " Sebagai " + ACCESS_NAME;
                     Shape watermark = new Shape(doc, ShapeType.TextPlainText);
-                    watermark.TextPath.Text = watermarkText;
+                    watermark.TextPath.Text = watermarkText + "\r\n" + watermark2Text;
 
                     watermark.TextPath.FontFamily = "Arial";
                     double fontSize = 11;

@@ -576,6 +576,7 @@ namespace SISPK.Controllers.Perumusan
                     {
 
                         Aspose.Words.Document doc = new Aspose.Words.Document(stremdokumen);
+                        doc.RemoveMacros();
                         string filePathdoc = path + "RSNI1_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + ".docx";
                         string filePathpdf = path + "RSNI1_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + ".pdf";
                         string filePathxml = path + "RSNI1_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + ".xml";
@@ -638,6 +639,7 @@ namespace SISPK.Controllers.Perumusan
                     {
 
                         Aspose.Words.Document doc = new Aspose.Words.Document(stremdokumen);
+                        doc.RemoveMacros();
                         var SNI_DOC_VERSION = db.Database.SqlQuery<decimal>("SELECT CAST(NVL(MAX(T1.SNI_DOC_VERSION),0)+1 AS NUMBER) AS SNI_DOC_VERSION FROM TRX_SNI_DOC T1 WHERE T1.SNI_DOC_PROPOSAL_ID = " + PROPOSAL_ID + " AND T1.SNI_DOC_TYPE = 1").SingleOrDefault();
                         string filePathdoc = path + "DRAFT_RSNI1_" + PROPOSAL_PNPS_CODE_FIXER + "_Ver" + SNI_DOC_VERSION + ".docx";
                         string filePathpdf = path + "DRAFT_RSNI1_" + PROPOSAL_PNPS_CODE_FIXER + "_Ver" + SNI_DOC_VERSION + ".pdf";

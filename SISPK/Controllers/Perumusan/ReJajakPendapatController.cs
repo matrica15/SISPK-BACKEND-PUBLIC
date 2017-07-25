@@ -139,6 +139,7 @@ namespace SISPK.Controllers.Perumusan
             string dataFormat = Server.MapPath("~/Format/Laporan/");
             Stream stream = System.IO.File.OpenRead(dataFormat + "FORMAT_TANGGAPAN_JAJAK_PENDAPAT.docx");
             Aspose.Words.Document Tanggapan = new Aspose.Words.Document(stream);
+            Tanggapan.RemoveMacros();
             ReplaceHelper helper = new ReplaceHelper(Tanggapan);
             helper.Replace("JudulPNPS", Data.PROPOSAL_JUDUL_PNPS);
             DateTime dt = Convert.ToDateTime(Data.POLLING_START_DATE);
