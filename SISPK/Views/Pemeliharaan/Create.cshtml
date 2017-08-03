@@ -99,14 +99,14 @@
                                             <span class="input-group-addon btn default btn-file">
                                                 <span class="fileinput-new">Pilih File </span>
                                                 <span class="fileinput-exists">Ganti </span>
-                                                <input type="file" name="MAINTENANCE_DETAIL_KJ_ULG_NAME" id="MAINTENANCE_DETAIL_KJ_ULG_NAME" accept=".docx" onchange="ValidasiInput1(this)">
+                                                <input type="file" name="MAINTENANCE_DETAIL_KJ_ULG_NAME" id="MAINTENANCE_DETAIL_KJ_ULG_NAME" accept=".docx, .pdf" onchange="ValidasiInput1(this)">
                                             </span>
                                             <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">Hapus </a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="help-block">
-                                    format upload dalam bentuk file M. office word (.docx)<br />
+                                    format upload dalam bentuk file M. office word (.docx / .pdf)<br />
                                 </div>
                                 <div class="col-md-6 control-label detailtext" style="border-left: none;">
                                     <a href="/Laporan/Export/Formulir_Kaji_Ulang_SNI" target="_blank" style="color: blue; text-decoration: none;">Download Template Kaji Ulang SNI</a>
@@ -237,7 +237,7 @@
 
         });
     }
-    var _validFileExtensions1 = [".docx"];
+    var _validFileExtensions1 = [".docx", ".pdf"];
     function ValidasiInput1(ini) {
         var arrInputs = $(ini);
         for (var i = 0; i < arrInputs.length; i++) {
