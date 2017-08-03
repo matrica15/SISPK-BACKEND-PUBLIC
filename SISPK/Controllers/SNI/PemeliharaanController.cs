@@ -308,7 +308,7 @@ namespace SISPK.Controllers.Pemeliharaan
             var CountData = db.Database.SqlQuery<decimal>("SELECT CAST(COUNT(*) AS NUMBER) AS Jml FROM  VIEW_SNI " + inject_clause_count);
             var SelectedData = db.Database.SqlQuery<VIEW_SNI>(inject_clause_select);
 
-            //return Content(inject_clause_select);
+            
 
             var result = from list in SelectedData
                          select new string[]
@@ -330,6 +330,8 @@ namespace SISPK.Controllers.Pemeliharaan
                 iTotalDisplayRecords = CountData,
                 aaData = result.ToArray()
             }, JsonRequestBehavior.AllowGet);
+
+
         }
 
         public ActionResult listPemeliharaan(DataTables param)
@@ -405,6 +407,7 @@ namespace SISPK.Controllers.Pemeliharaan
                 Convert.ToString("<center><a href='Pemeliharaan/Detail/"+list.MAINTENANCE_DETAIL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a></center>"),
                 //Convert.ToString("<center><a href='PenetapanSNI/Detail/"+list.SNI_SK_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a></center>"),
             };
+
             return Json(new
             {
                 SelectedData,
@@ -413,6 +416,7 @@ namespace SISPK.Controllers.Pemeliharaan
                 iTotalDisplayRecords = CountData,
                 aaData = result.ToArray()
             }, JsonRequestBehavior.AllowGet);
+
         }
         public ActionResult listPemeliharaan5th(DataTables param)
         {
