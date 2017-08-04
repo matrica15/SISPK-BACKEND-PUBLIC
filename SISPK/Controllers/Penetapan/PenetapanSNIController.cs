@@ -943,7 +943,7 @@ namespace SISPK.Controllers.Penetapan
                 Convert.ToString(list.PROPOSAL_NO_SNI_PROPOSAL),
                 Convert.ToString(list.MONITORING_NO_MEMO_DEPUTI),
                 Convert.ToString(list.PROPOSAL_JENIS_PERUMUSAN_NAME),
-                Convert.ToString("<span class='judul_"+list.PROPOSAL_ID+"'>"+list.PROPOSAL_JUDUL_PNPS+"</span>"),
+                Convert.ToString("<span class='judul_"+list.PROPOSAL_ID+"'>"+list.PROPOSAL_JUDUL_SNI_PROPOSAL+"</span>"),
                 Convert.ToString("<center>"+list.PROPOSAL_IS_URGENT_NAME+"</center>"),
                 //Convert.ToString("<center>"+list.PROPOSAL_TAHAPAN+"</center>"),
                 Convert.ToString("<center>"+list.PROPOSAL_STATUS_NAME+"</center>"),
