@@ -29,6 +29,7 @@ namespace SISPK.Models
         public Nullable<decimal> JML_SNI { get; set; }
         public Nullable<decimal> IS_PUBLISH { get; set; }
         public string SNI_SK_KET { get; set; }
+        public string SNI_SK_KET_NEW { get; set; }
         public decimal DOC_ID { get; set; }
         public string DOC_CODE { get; set; }
         public Nullable<decimal> DOC_FOLDER_ID { get; set; }

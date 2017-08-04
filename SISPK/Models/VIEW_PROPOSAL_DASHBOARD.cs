@@ -12,7 +12,7 @@ namespace SISPK.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class VIEW_PROPOSAL
+    public partial class VIEW_PROPOSAL_DASHBOARD
     {
         public decimal PROPOSAL_ID { get; set; }
         public Nullable<decimal> PROPOSAL_TYPE { get; set; }
@@ -140,17 +140,18 @@ namespace SISPK.Models
         public Nullable<decimal> POLLING_PROPOSAL_ID { get; set; }
         public string POLLING_TYPE { get; set; }
         public Nullable<System.DateTime> POLLING_START_DATE { get; set; }
-        public string POLLING_START_DATE_A { get; set; }
         public Nullable<System.DateTime> POLLING_END_DATE { get; set; }
-        public string POLLING_END_DATE_A { get; set; }
         public Nullable<decimal> POLLING_VERSION { get; set; }
         public string POLLING_REASON { get; set; }
         public Nullable<decimal> POLLING_IS_KUORUM { get; set; }
         public Nullable<decimal> POLLING_JML_PARTISIPAN { get; set; }
         public string PROPOSAL_HAK_PATEN_LOCATION { get; set; }
         public string PROPOSAL_HAK_PATEN_NAME { get; set; }
-        public string PROPOSAL_KET_BATAL { get; set; }
         public string KLASIFIKASI_JNS_SNI { get; set; }
+        public string PROPOSAL_KET_BATAL { get; set; }
+        public Nullable<decimal> SNI_IS_PUBLISH { get; set; }
+        public string POLLING_START_DATE_A { get; set; }
+        public string POLLING_END_DATE_A { get; set; }
         public string MONITORING_NO_MEMO_DEPUTI { get; set; }
     }
 }

@@ -112,7 +112,7 @@ namespace SISPK.Controllers.Penetapan
             //int jml_sni = PROPOSAL_ID.Count();
             int jml_sni = 1;
             int lastid_sk = MixHelper.GetSequence("TRX_SNI_SK");
-            var query2 = "INSERT INTO TRX_SNI_SK (SNI_SK_ID,SNI_SK_DOC_ID,SNI_SK_NOMOR,SNI_SK_DATE,SNI_SK_CREATE_DATE,SNI_SK_CREATE_BY,JML_SNI,IS_PUBLISH,SNI_SK_STATUS,SNI_SK_KET) VALUES (" + lastid_sk + "," + LASTID_SK_SNI + ",'" + tsk.SNI_SK_NOMOR + "'," + SNI_SK_DATE_CONVERT + "," + datenow + "," + USER_ID + "," + jml_sni + ",0,1,'" + tsk.SNI_SK_KET + "')";
+            var query2 = "INSERT INTO TRX_SNI_SK (SNI_SK_ID,SNI_SK_DOC_ID,SNI_SK_NOMOR,SNI_SK_DATE,SNI_SK_CREATE_DATE,SNI_SK_CREATE_BY,JML_SNI,IS_PUBLISH,SNI_SK_STATUS,SNI_SK_KET,SNI_SK_KET_NEW) VALUES (" + lastid_sk + "," + LASTID_SK_SNI + ",'" + tsk.SNI_SK_NOMOR + "'," + SNI_SK_DATE_CONVERT + "," + datenow + "," + USER_ID + "," + jml_sni + ",0,1,'" + tsk.SNI_SK_KET + "','" + tsk.SNI_SK_KET_NEW + "')";
 
             db.Database.ExecuteSqlCommand(query2);
             // Akhir Tambahan Script
@@ -120,7 +120,7 @@ namespace SISPK.Controllers.Penetapan
             if (PROPOSAL_ID != 0)
             {
                 var PID = PROPOSAL_ID;
-                
+
                 int lastid_SNI = MixHelper.GetSequence("TRX_SNI");
                 int LASTID_DATA_RSNI = MixHelper.GetSequence("TRX_DOCUMENTS");
                 var getProposal = db.Database.SqlQuery<VIEW_PROPOSAL>("SELECT * FROM VIEW_PROPOSAL WHERE PROPOSAL_ID = " + PID).SingleOrDefault();
@@ -142,9 +142,9 @@ namespace SISPK.Controllers.Penetapan
 
                 Directory.CreateDirectory(Server.MapPath("~/Upload/Dokumen/SNI"));
                 string path = Server.MapPath("~/Upload/Dokumen/SNI/");
-                  
+
                 string dataDir = Server.MapPath("~" + SNI.DOC_FILE_PATH + "" + SNI.DOC_FILE_NAME + "." + SNI.DOC_FILETYPE);
-                    
+
 
                 Stream stream = System.IO.File.OpenRead(dataDir);
 
@@ -418,7 +418,7 @@ namespace SISPK.Controllers.Penetapan
         }
 
         public ActionResult Detail(int id = 0) {
-            var sni = db.Database.SqlQuery<VIEW_SNI_SK>("SELECT AA.SNI_SK_ID,AA.SNI_SK_SNI_ID,AA.SNI_SK_DOC_ID,AA.SNI_SK_NOMOR,AA.SNI_SK_DATE,AA.SNI_SK_DATE_NAME,AA.SNI_SK_CREATE_DATE,AA.SNI_SK_CREATE_BY,AA.SNI_SK_DATE_START,AA.SNI_SK_DATE_START_NAME,AA.SNI_SK_DATE_END,AA.SNI_SK_DATE_END_NAME,AA.JML_SNI,AA.IS_PUBLISH,AA.SNI_SK_KET,AA.DOC_ID,AA.DOC_CODE,AA.DOC_FOLDER_ID,AA.DOC_NUMBER,AA.DOC_NAME,AA.DOC_FILE_PATH,AA.DOC_FILE_NAME,AA.DOC_FILETYPE,AA.DOC_LINK FROM (SELECT AA.*, ROWNUM NOMOR FROM (SELECT * FROM VIEW_SNI_SK WHERE SNI_SK_ID = " + id + " ) AA WHERE ROWNUM <= 1 ) AA WHERE NOMOR > 0").SingleOrDefault();
+            var sni = db.Database.SqlQuery<VIEW_SNI_SK>("SELECT AA.SNI_SK_ID,AA.SNI_SK_SNI_ID,AA.SNI_SK_DOC_ID,AA.SNI_SK_NOMOR,AA.SNI_SK_DATE,AA.SNI_SK_DATE_NAME,AA.SNI_SK_CREATE_DATE,AA.SNI_SK_CREATE_BY,AA.SNI_SK_DATE_START,AA.SNI_SK_DATE_START_NAME,AA.SNI_SK_DATE_END,AA.SNI_SK_DATE_END_NAME,AA.JML_SNI,AA.IS_PUBLISH,AA.SNI_SK_KET,AA.DOC_ID,AA.DOC_CODE,AA.DOC_FOLDER_ID,AA.DOC_NUMBER,AA.DOC_NAME,AA.DOC_FILE_PATH,AA.DOC_FILE_NAME,AA.DOC_FILETYPE,AA.DOC_LINK,AA.SNI_SK_KET_NEW FROM (SELECT AA.*, ROWNUM NOMOR FROM (SELECT * FROM VIEW_SNI_SK WHERE SNI_SK_ID = " + id + " ) AA WHERE ROWNUM <= 1 ) AA WHERE NOMOR > 0").SingleOrDefault();
             ViewData["sni"] = sni;
             var listsni = (from a in db.TRX_SNI where a.SNI_SK_ID == id select a).ToList();
             ViewData["listsni"] = listsni;
@@ -427,7 +427,7 @@ namespace SISPK.Controllers.Penetapan
 
         [Auth(RoleTipe = 3)]
         public ActionResult Edit(int id = 0) {
-            var sni = db.Database.SqlQuery<VIEW_SNI_SK>("SELECT AA.SNI_SK_ID,AA.SNI_SK_SNI_ID,AA.SNI_SK_DOC_ID,AA.SNI_SK_NOMOR,AA.SNI_SK_DATE,AA.SNI_SK_DATE_NAME,AA.SNI_SK_CREATE_DATE,AA.SNI_SK_CREATE_BY,AA.SNI_SK_DATE_START,AA.SNI_SK_DATE_START_NAME,AA.SNI_SK_DATE_END,AA.SNI_SK_DATE_END_NAME,AA.JML_SNI,AA.IS_PUBLISH,AA.SNI_SK_KET,AA.DOC_ID,AA.DOC_CODE,AA.DOC_FOLDER_ID,AA.DOC_NUMBER,AA.DOC_NAME,AA.DOC_FILE_PATH,AA.DOC_FILE_NAME,AA.DOC_FILETYPE,AA.DOC_LINK FROM (SELECT AA.*, ROWNUM NOMOR FROM (SELECT * FROM VIEW_SNI_SK WHERE SNI_SK_ID = " + id + " ) AA WHERE ROWNUM <= 1 ) AA WHERE NOMOR > 0").SingleOrDefault();
+            var sni = db.Database.SqlQuery<VIEW_SNI_SK>("SELECT AA.SNI_SK_ID,AA.SNI_SK_SNI_ID,AA.SNI_SK_DOC_ID,AA.SNI_SK_NOMOR,AA.SNI_SK_DATE,AA.SNI_SK_DATE_NAME,AA.SNI_SK_CREATE_DATE,AA.SNI_SK_CREATE_BY,AA.SNI_SK_DATE_START,AA.SNI_SK_DATE_START_NAME,AA.SNI_SK_DATE_END,AA.SNI_SK_DATE_END_NAME,AA.JML_SNI,AA.IS_PUBLISH,AA.SNI_SK_KET,AA.DOC_ID,AA.DOC_CODE,AA.DOC_FOLDER_ID,AA.DOC_NUMBER,AA.DOC_NAME,AA.DOC_FILE_PATH,AA.DOC_FILE_NAME,AA.DOC_FILETYPE,AA.DOC_LINK,AA.SNI_SK_KET_NEW FROM (SELECT AA.*, ROWNUM NOMOR FROM (SELECT * FROM VIEW_SNI_SK WHERE SNI_SK_ID = " + id + " ) AA WHERE ROWNUM <= 1 ) AA WHERE NOMOR > 0").SingleOrDefault();
             ViewData["sni"] = sni;
             var listsni = (from a in db.TRX_SNI where a.SNI_SK_ID == id select a).ToList();
             ViewData["listsni"] = listsni;

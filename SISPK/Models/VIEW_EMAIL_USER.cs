@@ -12,11 +12,10 @@ namespace SISPK.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class VIEW_WILAYAH_KABUPATEN
+    public partial class VIEW_EMAIL_USER
     {
-        public decimal WILAYAH_ID { get; set; }
-        public string WILAYAH_KODE { get; set; }
-        public Nullable<decimal> WILAYAH_PARENT_ID { get; set; }
-        public string WILAYAH_NAMA { get; set; }
+        public decimal KOMTEK_ANGGOTA_ID { get; set; }
+        public string KOMTEK_CODE { get; set; }
+        public string NOMOR { get; set; }
     }
 }

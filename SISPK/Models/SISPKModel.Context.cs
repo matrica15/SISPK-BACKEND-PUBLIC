@@ -26,12 +26,6 @@ namespace SISPK.Models
         }
     
         public DbSet<BACKUP_TP_DETAILS> BACKUP_TP_DETAILS { get; set; }
-        public DbSet<MASTER_KA_BACKUP> MASTER_KA_BACKUP { get; set; }
-        public DbSet<SYS_ACCESS_DETAIL_BK> SYS_ACCESS_DETAIL_BK { get; set; }
-        public DbSet<SYS_MENU_copy> SYS_MENU_copy { get; set; }
-        public DbSet<TRX_POLLING_DETAILS_copy> TRX_POLLING_DETAILS_copy { get; set; }
-        public DbSet<TRX_SNI_copy> TRX_SNI_copy { get; set; }
-        public DbSet<DN_VW_UPDATE_SNI> DN_VW_UPDATE_SNI { get; set; }
         public DbSet<MASTER_ACUAN_NON_SNI> MASTER_ACUAN_NON_SNI { get; set; }
         public DbSet<MASTER_BIBLIOGRAFI> MASTER_BIBLIOGRAFI { get; set; }
         public DbSet<MASTER_BIDANG> MASTER_BIDANG { get; set; }
@@ -40,9 +34,11 @@ namespace SISPK.Models
         public DbSet<MASTER_FOLDERS> MASTER_FOLDERS { get; set; }
         public DbSet<MASTER_ICS> MASTER_ICS { get; set; }
         public DbSet<MASTER_INSTANSI> MASTER_INSTANSI { get; set; }
+        public DbSet<MASTER_KA_BACKUP> MASTER_KA_BACKUP { get; set; }
         public DbSet<MASTER_KOMITE_TEKNIS> MASTER_KOMITE_TEKNIS { get; set; }
         public DbSet<MASTER_KOMTEK_ANGGOTA> MASTER_KOMTEK_ANGGOTA { get; set; }
         public DbSet<MASTER_KOMTEK_ICS> MASTER_KOMTEK_ICS { get; set; }
+        public DbSet<MASTER_LOGBOOK> MASTER_LOGBOOK { get; set; }
         public DbSet<MASTER_REFERENCES> MASTER_REFERENCES { get; set; }
         public DbSet<MASTER_SCOPE> MASTER_SCOPE { get; set; }
         public DbSet<MASTER_SNI_STYLE> MASTER_SNI_STYLE { get; set; }
@@ -56,6 +52,7 @@ namespace SISPK.Models
         public DbSet<PORTAL_SLIDER> PORTAL_SLIDER { get; set; }
         public DbSet<SYS_ACCESS> SYS_ACCESS { get; set; }
         public DbSet<SYS_ACCESS_DETAIL> SYS_ACCESS_DETAIL { get; set; }
+        public DbSet<SYS_ACCESS_DETAIL_BK> SYS_ACCESS_DETAIL_BK { get; set; }
         public DbSet<SYS_CONFIG> SYS_CONFIG { get; set; }
         public DbSet<SYS_DOC_ACCESS> SYS_DOC_ACCESS { get; set; }
         public DbSet<SYS_DOC_ACCESS_DETAIL> SYS_DOC_ACCESS_DETAIL { get; set; }
@@ -64,12 +61,16 @@ namespace SISPK.Models
         public DbSet<SYS_LINK> SYS_LINK { get; set; }
         public DbSet<SYS_LOGS> SYS_LOGS { get; set; }
         public DbSet<SYS_MENU> SYS_MENU { get; set; }
+        public DbSet<SYS_MENU_copy> SYS_MENU_copy { get; set; }
         public DbSet<SYS_NOTIF> SYS_NOTIF { get; set; }
         public DbSet<SYS_USER> SYS_USER { get; set; }
+        public DbSet<SYS_USER_BACKUP> SYS_USER_BACKUP { get; set; }
         public DbSet<SYS_USER_INTERN> SYS_USER_INTERN { get; set; }
         public DbSet<SYS_USER_PUBLIC> SYS_USER_PUBLIC { get; set; }
+        public DbSet<SYS_USER1> SYS_USER1 { get; set; }
         public DbSet<T_MASTER_KOMITE_TEKNIS> T_MASTER_KOMITE_TEKNIS { get; set; }
         public DbSet<T_MASTER_KOMTEK_ICS> T_MASTER_KOMTEK_ICS { get; set; }
+        public DbSet<TBL_SNI_SK_SISNI> TBL_SNI_SK_SISNI { get; set; }
         public DbSet<TRX_AKTIF_SNI_REV> TRX_AKTIF_SNI_REV { get; set; }
         public DbSet<TRX_DOC_RELATEDS> TRX_DOC_RELATEDS { get; set; }
         public DbSet<TRX_DOCUMENTS> TRX_DOCUMENTS { get; set; }
@@ -81,8 +82,10 @@ namespace SISPK.Models
         public DbSet<TRX_MAINTENANCE_DETAILS> TRX_MAINTENANCE_DETAILS { get; set; }
         public DbSet<TRX_MAINTENANCES> TRX_MAINTENANCES { get; set; }
         public DbSet<TRX_MONITORING> TRX_MONITORING { get; set; }
+        public DbSet<TRX_MONITORING_BACKUP> TRX_MONITORING_BACKUP { get; set; }
         public DbSet<TRX_POLLING> TRX_POLLING { get; set; }
         public DbSet<TRX_POLLING_DETAILS> TRX_POLLING_DETAILS { get; set; }
+        public DbSet<TRX_POLLING_DETAILS_copy> TRX_POLLING_DETAILS_copy { get; set; }
         public DbSet<TRX_PROPOSAL> TRX_PROPOSAL { get; set; }
         public DbSet<TRX_PROPOSAL_ADOPSI> TRX_PROPOSAL_ADOPSI { get; set; }
         public DbSet<TRX_PROPOSAL_APPROVAL> TRX_PROPOSAL_APPROVAL { get; set; }
@@ -90,15 +93,22 @@ namespace SISPK.Models
         public DbSet<TRX_PROPOSAL_RAPAT> TRX_PROPOSAL_RAPAT { get; set; }
         public DbSet<TRX_PROPOSAL_REFERENCE> TRX_PROPOSAL_REFERENCE { get; set; }
         public DbSet<TRX_PROPOSAL_REV> TRX_PROPOSAL_REV { get; set; }
+        public DbSet<TRX_PROPOSAL_ZZZZ> TRX_PROPOSAL_ZZZZ { get; set; }
         public DbSet<TRX_REGULASI_TEKNIS> TRX_REGULASI_TEKNIS { get; set; }
         public DbSet<TRX_REGULASI_TEKNIS_DETAIL> TRX_REGULASI_TEKNIS_DETAIL { get; set; }
         public DbSet<TRX_SK_PENETAPAN> TRX_SK_PENETAPAN { get; set; }
         public DbSet<TRX_SNI> TRX_SNI { get; set; }
+        public DbSet<TRX_SNI_2> TRX_SNI_2 { get; set; }
+        public DbSet<TRX_SNI_copy> TRX_SNI_copy { get; set; }
+        public DbSet<TRX_SNI_copy1> TRX_SNI_copy1 { get; set; }
         public DbSet<TRX_SNI_DOC> TRX_SNI_DOC { get; set; }
         public DbSet<TRX_SNI_SK> TRX_SNI_SK { get; set; }
+        public DbSet<TRX_SNI_SK_copy> TRX_SNI_SK_copy { get; set; }
         public DbSet<TRX_SNI_VALUATIONS> TRX_SNI_VALUATIONS { get; set; }
         public DbSet<TRX_SURAT_TUGAS> TRX_SURAT_TUGAS { get; set; }
         public DbSet<TRX_UPDATE_SNI_REV_HIST> TRX_UPDATE_SNI_REV_HIST { get; set; }
+        public DbSet<DN_EMAIL_REMINDER> DN_EMAIL_REMINDER { get; set; }
+        public DbSet<DN_VW_UPDATE_SNI> DN_VW_UPDATE_SNI { get; set; }
         public DbSet<SYS_DOC_ACCESS_DETAIL_SELECT> SYS_DOC_ACCESS_DETAIL_SELECT { get; set; }
         public DbSet<VIEW_ACCESS> VIEW_ACCESS { get; set; }
         public DbSet<VIEW_ACUAN_NON_SNI_SELECT> VIEW_ACUAN_NON_SNI_SELECT { get; set; }
@@ -109,6 +119,7 @@ namespace SISPK.Models
         public DbSet<VIEW_BIDANG> VIEW_BIDANG { get; set; }
         public DbSet<VIEW_DOC_ACCESS> VIEW_DOC_ACCESS { get; set; }
         public DbSet<VIEW_DOCUMENTS> VIEW_DOCUMENTS { get; set; }
+        public DbSet<VIEW_EMAIL_USER> VIEW_EMAIL_USER { get; set; }
         public DbSet<VIEW_ICS> VIEW_ICS { get; set; }
         public DbSet<VIEW_ICS_SELECT> VIEW_ICS_SELECT { get; set; }
         public DbSet<VIEW_ICS_SNI> VIEW_ICS_SNI { get; set; }
@@ -128,12 +139,14 @@ namespace SISPK.Models
         public DbSet<VIEW_MENUS> VIEW_MENUS { get; set; }
         public DbSet<VIEW_MONITORING_RSNI> VIEW_MONITORING_RSNI { get; set; }
         public DbSet<VIEW_NEWS> VIEW_NEWS { get; set; }
+        public DbSet<VIEW_NO_SNI_MIGRAT> VIEW_NO_SNI_MIGRAT { get; set; }
         public DbSet<VIEW_NOTIF> VIEW_NOTIF { get; set; }
         public DbSet<VIEW_PEMELIHARAAN> VIEW_PEMELIHARAAN { get; set; }
         public DbSet<VIEW_POLLING> VIEW_POLLING { get; set; }
         public DbSet<VIEW_POLLING_DETAIL> VIEW_POLLING_DETAIL { get; set; }
         public DbSet<VIEW_POLLING_SINGLE> VIEW_POLLING_SINGLE { get; set; }
         public DbSet<VIEW_PROPOSAL> VIEW_PROPOSAL { get; set; }
+        public DbSet<VIEW_PROPOSAL_DASHBOARD> VIEW_PROPOSAL_DASHBOARD { get; set; }
         public DbSet<VIEW_PROPOSAL_ICS> VIEW_PROPOSAL_ICS { get; set; }
         public DbSet<VIEW_PROPOSAL_RAPAT> VIEW_PROPOSAL_RAPAT { get; set; }
         public DbSet<VIEW_PROPOSAL_RASNI> VIEW_PROPOSAL_RASNI { get; set; }
@@ -164,6 +177,5 @@ namespace SISPK.Models
         public DbSet<VIEW_USERS_PUBLIC> VIEW_USERS_PUBLIC { get; set; }
         public DbSet<VIEW_WILAYAH_KABUPATEN> VIEW_WILAYAH_KABUPATEN { get; set; }
         public DbSet<VIEW_WILAYAH_PROVINSI> VIEW_WILAYAH_PROVINSI { get; set; }
-        public DbSet<MASTER_LOGBOOK> MASTER_LOGBOOK { get; set; }
     }
 }
