@@ -12,7 +12,7 @@ namespace SISPK.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TRX_SNI_SK
+    public partial class TRX_SNI_SK_copy
     {
         public decimal SNI_SK_ID { get; set; }
         public Nullable<decimal> SNI_SK_SNI_ID { get; set; }
@@ -29,6 +29,5 @@ namespace SISPK.Models
         public Nullable<decimal> JML_SNI { get; set; }
         public Nullable<decimal> IS_PUBLISH { get; set; }
         public string SNI_SK_KET { get; set; }
-        public string SNI_SK_KET_NEW { get; set; }
     }
 }
