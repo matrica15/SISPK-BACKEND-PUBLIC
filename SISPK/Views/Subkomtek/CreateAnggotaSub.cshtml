@@ -118,17 +118,17 @@
                                             }
 
 
-                                            if (jbt.REF_CODE != "WK" && jbt.REF_CODE != "S")
+                                            //if (jbt.REF_CODE != "WK" && jbt.REF_CODE != "S")
+                                            //{
+                                            if (ViewBag.user_akses_id == 5 && jbt.REF_CODE == "SKT")
                                             {
-                                                if (ViewBag.user_akses_id == 5 && jbt.REF_CODE == "SKT")
-                                                {
 
-                                                }
-                                                else
-                                                {
+                                            }
+                                            else
+                                            {
                                                     <option value="@jbt.REF_ID" @disabled>@jbt.REF_NAME</option>
-                                                }
-                                            }                                
+                                            }
+                                            //}                                
                                         }
                                     </select>
                                 </div>
