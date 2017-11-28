@@ -242,7 +242,32 @@ namespace SISPK.Controllers.Master
             }
 
             var fname = "KOMTEK_ANGGOTA_ID,KOMTEK_ANGGOTA_KOMTEK_ID,KOMTEK_ANGGOTA_KODE,KOMTEK_ANGGOTA_NAMA,KOMTEK_ANGGOTA_JABATAN,KOMTEK_ANGGOTA_INSTANSI,KOMTEK_ANGGOTA_ADDRESS,KOMTEK_ANGGOTA_TELP,KOMTEK_ANGGOTA_FAX,KOMTEK_ANGGOTA_EMAIL,KOMTEK_ANGGOTA_STAKEHOLDER,KOMTEK_ANGGOTA_EDUCATION,KOMTEK_ANGGOTA_EXPERTISE,KOMTEK_ANGGOTA_CREATE_BY,KOMTEK_ANGGOTA_DATE,KOMTEK_ANGGOTA_LOG_CODE,KOMTEK_ANGGOTA_STATUS,KOMTEK_ANGGOTA_CV";
-            var fvalue = "'" + lastid + "'," +
+            //jika sekretariat (akun set)
+            var fvalue = "";
+            if (mka.KOMTEK_ANGGOTA_JABATAN == 32)
+            {
+                fvalue = "'" + lastid + "'," +
+                        "'" + mka.KOMTEK_ANGGOTA_KOMTEK_ID + "'," +
+                        "" + kode + "," +
+                        "'" + mka.KOMTEK_ANGGOTA_NAMA + "'," +
+                        "'" + mka.KOMTEK_ANGGOTA_JABATAN + "'," +
+                        "''," +
+                        "''," +
+                        "''," +
+                        "''," +
+                        "''," +
+                        "''," +
+                        "''," +
+                        "''," +
+                        "'" + UserId + "'," +
+                        datenow + "," +
+                        "'" + logcode + "'," +
+                        "1," +
+                        "''";
+            }
+            else
+            {
+                fvalue = "'" + lastid + "'," +
                         "'" + mka.KOMTEK_ANGGOTA_KOMTEK_ID + "'," +
                         "" + kode + "," +
                         "'" + mka.KOMTEK_ANGGOTA_NAMA + "'," +
@@ -258,8 +283,10 @@ namespace SISPK.Controllers.Master
                         "'" + UserId + "'," +
                         datenow + "," +
                         "'" + logcode + "'," +
-                        "1,"+
+                        "1," +
                         "'/Upload/Dokumen/KOMTEK_CV/" + file_name_cv.Replace(" ", "_") + "'";
+            }
+            
 
             //return Json(new { query = "INSERT INTO MASTER_KOMTEK_ANGGOTA (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")" }, JsonRequestBehavior.AllowGet);
             db.Database.ExecuteSqlCommand("INSERT INTO MASTER_KOMTEK_ANGGOTA (" + fname + ") VALUES (" + fvalue.Replace("''", "NULL") + ")");
@@ -276,9 +303,18 @@ namespace SISPK.Controllers.Master
             //var KodeActivasi = GenPassword(iduser);
             //var password = "kom" + kode + result.ToString();
             var password = "sispk";
+            var username = "";
             var fnameu = "USER_ID,USER_NAME,USER_PASSWORD,USER_ACCESS_ID,USER_TYPE_ID,USER_REF_ID,USER_CREATE_BY,USER_CREATE_DATE,USER_LOG_CODE,USER_STATUS";
+            //jika sekretariat (akun set)
+            if (mka.KOMTEK_ANGGOTA_JABATAN == 32)
+            {
+                username = "set_"+ komtek_name.KOMTEK_CODE;
+            } else
+            {
+                username = komtek_name.KOMTEK_CODE + "_" + mka.KOMTEK_ANGGOTA_EMAIL;
+            }
             var fvalueu = "'" + iduser + "', " +
-                        "'" + komtek_name.KOMTEK_CODE +"_"+ mka.KOMTEK_ANGGOTA_EMAIL + "', " +
+                        "'" + username + "', " +
                         "'" + GenPassword(password) + "', " +
                         "2," +
                         "2," +
@@ -304,7 +340,7 @@ namespace SISPK.Controllers.Master
             mailer.ToEmail = mka.KOMTEK_ANGGOTA_EMAIL;
             mailer.Subject = "Authentifikasi Anggota Komtek - SISPK";
             var isiEmail = "Selamat anda sekarang terdaftar sebagai anggota komtek " + komtek_name.KOMTEK_NAME + ". Berikut Data Detail anda : <br />";
-            isiEmail += "Username : " + komtek_name.KOMTEK_CODE + "_" + mka.KOMTEK_ANGGOTA_EMAIL + "<br />";
+            isiEmail += "Username : " + username + "<br />";
             isiEmail += "Password : " + password + "<br />";
             isiEmail += "Status   : Aktif <br />";
             isiEmail += "Silahkan klik tautan <a href=" + @Request.Url.GetLeftPart(UriPartial.Authority) + "/Auth target='_blank'>berikut</a><br />";
