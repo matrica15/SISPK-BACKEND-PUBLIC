@@ -683,10 +683,13 @@
     var _validFileExtensions = [".doc", ".docx"];
     function ValidasiInput(ini) {
         var arrInputs = $(ini);
+        var f = ini[0]
         for (var i = 0; i < arrInputs.length; i++) {
             var oInput = arrInputs[i];
             if (oInput.type == "file") {
+                
                 var sFileName = oInput.value;
+                //alert(ini.files[0].size / 1024);
                 if (sFileName.length > 0) {
                     var blnValid = false;
                     for (var j = 0; j < _validFileExtensions.length; j++) {

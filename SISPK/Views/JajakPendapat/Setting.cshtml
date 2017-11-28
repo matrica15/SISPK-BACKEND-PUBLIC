@@ -915,7 +915,7 @@
 
         $('#POLLING_START_DATE').change(function () {
             var date2 = $('#POLLING_START_DATE').datepicker('getDate', '+1d');
-            date2.setDate(date2.getDate() + 30);
+            date2.setDate(date2.getDate() + 60);
             $('#POLLING_END_DATE').datepicker('setDate', date2);
         });
     });

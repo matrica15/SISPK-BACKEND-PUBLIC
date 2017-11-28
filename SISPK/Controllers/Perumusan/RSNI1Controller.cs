@@ -338,7 +338,7 @@ namespace SISPK.Controllers.Perumusan
                 string filePathpdf = path + "BERITA_ACARA_RAPAT_TEKNIS_RSNI1_" + PROPOSAL_PNPS_CODE_FIXER + ".pdf";
                 string filePathxml = path + "BERITA_ACARA_RAPAT_TEKNIS_RSNI1_" + PROPOSAL_PNPS_CODE_FIXER + ".xml";
                 doc.Save(@"" + filePathdoc, Aspose.Words.SaveFormat.Docx);
-                doc.Save(@"" + filePathpdf, Aspose.Words.SaveFormat.Pdf);
+                
                 doc.Save(@"" + filePathxml);
 
                 var CEKDOKUMEN = db.Database.SqlQuery<TRX_DOCUMENTS>("SELECT * FROM TRX_DOCUMENTS WHERE DOC_RELATED_TYPE = 4 AND DOC_RELATED_ID = " + PROPOSAL_ID + " AND DOC_FOLDER_ID = 12 AND DOC_STATUS = 1").SingleOrDefault();
