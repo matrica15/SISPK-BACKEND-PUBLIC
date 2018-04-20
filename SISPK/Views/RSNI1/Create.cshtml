@@ -46,7 +46,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>Form Penyusunan RSNI 1 
+                    <i class="fa fa-gift"></i>Form Penyusunan RSNI 1
                 </div>
             </div>
             <div class="portlet-body form">
@@ -56,9 +56,9 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Kode PNPS</label>
                             <div class="col-md-9 control-label detailtext">
-                                <input type="hidden" name="PROPOSAL_ID" id="PROPOSAL_ID" value="@Detail.PROPOSAL_ID"/>
-                                <input type="hidden" name="PROPOSAL_KOMTEK_ID" id="PROPOSAL_KOMTEK_ID" value="@Detail.KOMTEK_ID"/>
-                                <input type="hidden" name="PROPOSAL_PNPS_CODE" id="PROPOSAL_PNPS_CODE" value="@Detail.PROPOSAL_PNPS_CODE"/>
+                                <input type="hidden" name="PROPOSAL_ID" id="PROPOSAL_ID" value="@Detail.PROPOSAL_ID" />
+                                <input type="hidden" name="PROPOSAL_KOMTEK_ID" id="PROPOSAL_KOMTEK_ID" value="@Detail.KOMTEK_ID" />
+                                <input type="hidden" name="PROPOSAL_PNPS_CODE" id="PROPOSAL_PNPS_CODE" value="@Detail.PROPOSAL_PNPS_CODE" />
 
                                 <a href="javascript:void(0)" style="color: blue; text-decoration: none;" onclick="$('#detail').modal('show')">@Detail.PROPOSAL_PNPS_CODE</a>
                             </div>
@@ -119,50 +119,50 @@
                             {
                                 if (ViewBag.IsKetua == 1)
                                 {
-                                <div class="col-md-3 control-label detailtext">
-                                    <input type="file" name="DATA_RSNI" id="DATA_RSNI" onchange="ValidasiInput(this)" class="form-control col-md-3" style="padding: 0px; font-size: 12px; border-radius: 0px;" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-                                </div>
-                                <div class="col-md-6 control-label detailtext" style="border-left: none;">
-                                    <a href="@ViewBag.DefaultDokumen.DOC_FILE_PATH@ViewBag.DefaultDokumen.DOC_FILE_NAME.@ViewBag.DefaultDokumen.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">@((Detail.PROPOSAL_STATUS_PROSES == 0) ? "Download Draft RSNI 1" : "Download RSNI 1")</a>
-                                </div>
+                                    <div class="col-md-3 control-label detailtext">
+                                        <input type="file" name="DATA_RSNI" id="DATA_RSNI" onchange="ValidasiInput(this)" class="form-control col-md-3" style="padding: 0px; font-size: 12px; border-radius: 0px;" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                    </div>
+                                    <div class="col-md-6 control-label detailtext" style="border-left: none;">
+                                        <a href="@ViewBag.DefaultDokumen.DOC_FILE_PATH@ViewBag.DefaultDokumen.DOC_FILE_NAME.@ViewBag.DefaultDokumen.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">@((Detail.PROPOSAL_STATUS_PROSES == 0) ? "Download Draft RSNI 1" : "Download RSNI 1")</a>
+                                    </div>
                                 }
                                 else
                                 {
-                                <div class="col-md-6 control-label detailtext" style="border-left: none;">
-                                    <a href="@ViewBag.DefaultDokumen.DOC_FILE_PATH@ViewBag.DefaultDokumen.DOC_FILE_NAME.@ViewBag.DefaultDokumen.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">@((Detail.PROPOSAL_STATUS_PROSES == 0) ? "Download Draft RSNI 1" : "Download RSNI 1")</a>
-                                </div>
+                                    <div class="col-md-6 control-label detailtext" style="border-left: none;">
+                                        <a href="@ViewBag.DefaultDokumen.DOC_FILE_PATH@ViewBag.DefaultDokumen.DOC_FILE_NAME.@ViewBag.DefaultDokumen.DOC_FILETYPE" target="_blank" style="color: blue; text-decoration: none;">@((Detail.PROPOSAL_STATUS_PROSES == 0) ? "Download Draft RSNI 1" : "Download RSNI 1")</a>
+                                    </div>
                                 }
                             }
                             else
                             {
                                 if (ViewBag.IsKetua == 1)
                                 {
-                                <div class="col-md-3 control-label detailtext">
-                                    <input type="file" name="DATA_RSNI" id="DATA_RSNI" onchange="ValidasiInput(this)" class="form-control col-md-3 wajib" style="padding: 0px; font-size: 12px; border-radius: 0px;" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-                                </div>
+                                    <div class="col-md-3 control-label detailtext">
+                                        <input type="file" name="DATA_RSNI" id="DATA_RSNI" onchange="ValidasiInput(this)" class="form-control col-md-3 wajib" style="padding: 0px; font-size: 12px; border-radius: 0px;" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                    </div>
                                 }
                                 <div class="col-md-6 control-label detailtext" style="border-left: none;">
                                     <a href="/Laporan/Export/TEMPLATE_RSNI?PROPOSAL_ID=@Detail.PROPOSAL_ID&RSNI_TYPE=1" target="_blank" style="color: blue; text-decoration: none;">Download Template RSNI</a>
                                 </div>
-                                
+
                             }
                         </div>
                     </div>
                     @*<div class="form-group last susunrsnilayout">
-                        <div class="col-md-12 deflayout">
-                            @if (ViewBag.DefaultDokumen != null)
-                            { 
-                                <textarea class="rsni_editor" name="rsni1contents" id="rsni1content" data-error-container="#rsni1content_error">@ViewBag.DefaultDokumen</textarea>
-                            }
-                            else
-                            {
-                                <textarea class="rsni_editor" name="rsni1contents" id="rsni1content" data-error-container="#rsni1content_error"></textarea>
-                            }
+                            <div class="col-md-12 deflayout">
+                                @if (ViewBag.DefaultDokumen != null)
+                                {
+                                    <textarea class="rsni_editor" name="rsni1contents" id="rsni1content" data-error-container="#rsni1content_error">@ViewBag.DefaultDokumen</textarea>
+                                }
+                                else
+                                {
+                                    <textarea class="rsni_editor" name="rsni1contents" id="rsni1content" data-error-container="#rsni1content_error"></textarea>
+                                }
 
-                            <div id="rsni1content_error">
+                                <div id="rsni1content_error">
+                                </div>
                             </div>
-                        </div>
-                    </div>*@
+                        </div>*@
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-9">
@@ -171,7 +171,7 @@
                                 {
                                     @*<button class="btn blue" name="ButtonSimpan" id="ButtonSimpan1" onclick="send_submit_tipe(0)" type="submit" value="0">Save As Draft</button>*@
                                     <button class="btn green" name="ButtonSimpan" id="ButtonSimpan2" onclick="send_submit_tipe(1)" type="submit" value="1">Selesai</button>
-                                    
+
                                 }
                                 else
                                 {
@@ -372,7 +372,7 @@
                                                 </div>
                                             }
                                             @if (Detail.PROPOSAL_JENIS_PERUMUSAN == 2)
-                                            { 
+                                            {
                                                 <div class="form-group revisi_list">
                                                     <label class="control-label col-md-3">Nomor Judul SNI yang akan di Revisi</label>
                                                     <div class="col-md-9" style="padding-top: 20px">
@@ -422,7 +422,7 @@
                                                 </div>
                                             }
                                             @if (Detail.PROPOSAL_JALUR > 1)
-                                            { 
+                                            {
                                                 <div class="form-group pasal_list">
                                                     <label class="control-label col-md-3">Pasal SNI yang di <span class="pasal_list_name"></span></label>
                                                     <div class="col-md-9 control-label detailtext">
@@ -482,16 +482,16 @@
                                                         string[] PROPOSAL_PIHAK_BERKEPENTINGAN = Detail.PROPOSAL_PIHAK_BERKEPENTINGAN.Split('|');
                                                         if (PROPOSAL_PIHAK_BERKEPENTINGAN.Count() > 0)
                                                         {
-                                                        <ol style="padding-left: 15px;">
-                                                            @foreach (string PPB in PROPOSAL_PIHAK_BERKEPENTINGAN)
-                                                            {
-                                                                <li>@PPB</li> 
-                                                            }
-                                                        </ol>
+                                                            <ol style="padding-left: 15px;">
+                                                                @foreach (string PPB in PROPOSAL_PIHAK_BERKEPENTINGAN)
+                                                                {
+                                                                    <li>@PPB</li>
+                                                                }
+                                                            </ol>
                                                         }
                                                         else
                                                         {
-                                                        <span>-</span>
+                                                            <span>-</span>
                                                         }
                                                     }
                                                     else
@@ -513,7 +513,7 @@
                                                 </div>
                                             </div>
                                             @if (Detail.PROPOSAL_IS_ORG_MENDUKUNG == 1)
-                                            { 
+                                            {
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Lampirkan bukti dukungan terhadap usulan perumusan standar ini (misalnya surat).</label>
                                                     <div class="col-md-9 control-label detailtext">
@@ -624,17 +624,17 @@
     {
         foreach (var i in ViewBag.Dokumen)
         {
-        <li class="media dok_pen" data-id="@i.DOC_ID">
-            <a class="aReference" target="_blank" href="@i.DOC_FILE_PATH@i.DOC_FILE_NAME.@i.DOC_FILETYPE">
-                <div class="media-body">
-                    <h4 class="media-heading">@i.DOC_NAME</h4>
-                    <div class="media-heading-sub">
-                        @i.DOC_CREATE_NAME
+            <li class="media dok_pen" data-id="@i.DOC_ID">
+                <a class="aReference" target="_blank" href="@i.DOC_FILE_PATH@i.DOC_FILE_NAME.@i.DOC_FILETYPE">
+                    <div class="media-body">
+                        <h4 class="media-heading">@i.DOC_NAME</h4>
+                        <div class="media-heading-sub">
+                            @i.DOC_CREATE_NAME
+                        </div>
+                        <div class="isi_dokument_@i.DOC_ID" style="display:none;"></div>
                     </div>
-                    <div class="isi_dokument_@i.DOC_ID" style="display:none;"></div>
-                </div>
-            </a>
-        </li>
+                </a>
+            </li>
         }
     }
     else
@@ -653,17 +653,17 @@
     {
         foreach (var i2 in ViewBag.RefLain)
         {
-        <li class="media dok_pen" data-id="@i2.DOC_ID" >
-            <a class="aReference" target="_blank" href="@i2.DOC_FILE_PATH@i2.DOC_FILE_NAME.@i2.DOC_FILETYPE">
-                <div class="media-body">
-                    <h4 class="media-heading">@i2.DOC_NAME</h4>
-                    <div class="media-heading-sub">
-                        @i2.DOC_CREATE_NAME
+            <li class="media dok_pen" data-id="@i2.DOC_ID">
+                <a class="aReference" target="_blank" href="@i2.DOC_FILE_PATH@i2.DOC_FILE_NAME.@i2.DOC_FILETYPE">
+                    <div class="media-body">
+                        <h4 class="media-heading">@i2.DOC_NAME</h4>
+                        <div class="media-heading-sub">
+                            @i2.DOC_CREATE_NAME
+                        </div>
+                        <div class="isi_dokument_@i2.DOC_ID" style="display:none;"></div>
                     </div>
-                    <div class="isi_dokument_@i2.DOC_ID" style="display:none;"></div>
-                </div>
-            </a>
-        </li>
+                </a>
+            </li>
         }
     }
     else
@@ -683,13 +683,10 @@
     var _validFileExtensions = [".doc", ".docx"];
     function ValidasiInput(ini) {
         var arrInputs = $(ini);
-        var f = ini[0]
         for (var i = 0; i < arrInputs.length; i++) {
             var oInput = arrInputs[i];
             if (oInput.type == "file") {
-                
                 var sFileName = oInput.value;
-                //alert(ini.files[0].size / 1024);
                 if (sFileName.length > 0) {
                     var blnValid = false;
                     for (var j = 0; j < _validFileExtensions.length; j++) {

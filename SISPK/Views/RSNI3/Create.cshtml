@@ -46,7 +46,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-gift"></i>Form Perumusan RSNI 3 
+                    <i class="fa fa-gift"></i>Form Perumusan RSNI 3
                 </div>
             </div>
             <div class="portlet-body form">
@@ -56,9 +56,9 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Kode PNPS</label>
                             <div class="col-md-9 control-label detailtext">
-                                <input type="hidden" name="PROPOSAL_ID" id="PROPOSAL_ID" value="@Detail.PROPOSAL_ID"/>
-                                <input type="hidden" name="PROPOSAL_KOMTEK_ID" id="PROPOSAL_KOMTEK_ID" value="@Detail.KOMTEK_ID"/>
-                                <input type="hidden" name="PROPOSAL_PNPS_CODE" id="PROPOSAL_PNPS_CODE" value="@Detail.PROPOSAL_PNPS_CODE"/>
+                                <input type="hidden" name="PROPOSAL_ID" id="PROPOSAL_ID" value="@Detail.PROPOSAL_ID" />
+                                <input type="hidden" name="PROPOSAL_KOMTEK_ID" id="PROPOSAL_KOMTEK_ID" value="@Detail.KOMTEK_ID" />
+                                <input type="hidden" name="PROPOSAL_PNPS_CODE" id="PROPOSAL_PNPS_CODE" value="@Detail.PROPOSAL_PNPS_CODE" />
 
                                 <a href="javascript:void(0)" style="color: blue; text-decoration: none;" onclick="$('#detail').modal('show')">@Detail.PROPOSAL_PNPS_CODE</a>
                             </div>
@@ -105,7 +105,7 @@
                         </div>
                         @if (ViewBag.DetailHistoryRatek.Count > 0)
                         {
-                            
+
                             <div class="form-group">
                                 <label class="control-label col-md-3">Histori Pembahasan RSNI</label>
                                 <div class="col-md-7 control-label detailtext">
@@ -117,12 +117,12 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                         }
                         <div class="form-group">
                             <label class="control-label col-md-3">Judul Inggris RSNI</label>
                             <div class="col-md-3 control-label detailtext">
-                                <input type="text" class="form-control wajib" id="PROPOSAL_JUDUL_PNPS_ENG" name="PROPOSAL_JUDUL_PNPS_ENG" value="@Detail.PROPOSAL_JUDUL_PNPS_ENG"/>
+                                <input type="text" class="form-control wajib" id="PROPOSAL_JUDUL_PNPS_ENG" name="PROPOSAL_JUDUL_PNPS_ENG" value="@Detail.PROPOSAL_JUDUL_PNPS_ENG" />
                             </div>
                         </div>
                         @if (ViewBag.IsKetua == 1)
@@ -146,7 +146,7 @@
                                     <input type="file" name="SURAT_PENYERAHAN" id="SURAT_PENYERAHAN" onchange="ValidasiInput(this)" class="form-control col-md-3 wajib" data-ext=".pdf" accept=".pdf,application/pdf" style="padding: 0px; font-size: 12px; border-radius: 0px;">
                                 </div>
                             </div>
-                            
+
                         }
                         <div class="form-group">
                             <label class="control-label col-md-3">Data RSNI 3</label>
@@ -191,7 +191,7 @@
                                     <input type="file" name="NOTULEN" id="NOTULEN" onchange="ValidasiInput(this)" data-ext=".pdf" accept=".pdf,application/pdf" class="form-control col-md-3 wajib" style="padding: 0px; font-size: 12px; border-radius: 0px;">
                                 </div>
                             </div>
-                           
+
                             <div class="form-group">
                                 <label class="control-label col-md-3">Status Rapat Konsensus</label>
                                 <div class="col-md-9">
@@ -199,7 +199,8 @@
                                         <div class="radio-list">
                                             <label>
                                                 <input type="radio" class="form-control wajib" name="APPROVAL_TYPE" id="APPROVAL_TYPE_1" value="1" checked onclick="cek_konsensus(this)">
-                                                <span class="text-success">Konsensus</span></label>
+                                                <span class="text-success">Konsensus</span>
+                                            </label>
                                             <label>
                                                 <input type="radio" class="form-control wajib" name="APPROVAL_TYPE" id="APPROVAL_TYPE_2" value="0" onclick="cek_konsensus(this)">
                                                 <span class="text-danger">Tidak Konsensus</span>
@@ -423,7 +424,7 @@
                                                 </div>
                                             }
                                             @if (Detail.PROPOSAL_JENIS_PERUMUSAN == 2)
-                                            { 
+                                            {
                                                 <div class="form-group revisi_list">
                                                     <label class="control-label col-md-3">Nomor Judul SNI yang akan di Revisi</label>
                                                     <div class="col-md-9" style="padding-top: 20px">
@@ -473,7 +474,7 @@
                                                 </div>
                                             }
                                             @if (Detail.PROPOSAL_JALUR > 1)
-                                            { 
+                                            {
                                                 <div class="form-group pasal_list">
                                                     <label class="control-label col-md-3">Pasal SNI yang di <span class="pasal_list_name"></span></label>
                                                     <div class="col-md-9 control-label detailtext">
@@ -533,16 +534,16 @@
                                                         string[] PROPOSAL_PIHAK_BERKEPENTINGAN = Detail.PROPOSAL_PIHAK_BERKEPENTINGAN.Split('|');
                                                         if (PROPOSAL_PIHAK_BERKEPENTINGAN.Count() > 0)
                                                         {
-                                                        <ol style="padding-left: 15px;">
-                                                            @foreach (string PPB in PROPOSAL_PIHAK_BERKEPENTINGAN)
-                                                            {
-                                                                <li>@PPB</li> 
-                                                            }
-                                                        </ol>
+                                                            <ol style="padding-left: 15px;">
+                                                                @foreach (string PPB in PROPOSAL_PIHAK_BERKEPENTINGAN)
+                                                                {
+                                                                    <li>@PPB</li>
+                                                                }
+                                                            </ol>
                                                         }
                                                         else
                                                         {
-                                                        <span>-</span>
+                                                            <span>-</span>
                                                         }
                                                     }
                                                     else
@@ -564,7 +565,7 @@
                                                 </div>
                                             </div>
                                             @if (Detail.PROPOSAL_IS_ORG_MENDUKUNG == 1)
-                                            { 
+                                            {
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Lampirkan bukti dukungan terhadap usulan perumusan standar ini (misalnya surat).</label>
                                                     <div class="col-md-9 control-label detailtext">
@@ -674,17 +675,17 @@
     {
         foreach (var i in ViewBag.Dokumen)
         {
-        <li class="media dok_pen" data-id="@i.DOC_ID">
-            <a class="aReference" target="_blank" href="@i.DOC_FILE_PATH@i.DOC_FILE_NAME.@i.DOC_FILETYPE">
-                <div class="media-body">
-                    <h4 class="media-heading">@i.DOC_NAME</h4>
-                    <div class="media-heading-sub">
-                        @i.DOC_CREATE_NAME
+            <li class="media dok_pen" data-id="@i.DOC_ID">
+                <a class="aReference" target="_blank" href="@i.DOC_FILE_PATH@i.DOC_FILE_NAME.@i.DOC_FILETYPE">
+                    <div class="media-body">
+                        <h4 class="media-heading">@i.DOC_NAME</h4>
+                        <div class="media-heading-sub">
+                            @i.DOC_CREATE_NAME
+                        </div>
+                        <div class="isi_dokument_@i.DOC_ID" style="display:none;"></div>
                     </div>
-                    <div class="isi_dokument_@i.DOC_ID" style="display:none;"></div>
-                </div>
-            </a>
-        </li>
+                </a>
+            </li>
         }
     }
     else
@@ -703,17 +704,17 @@
     {
         foreach (var i2 in ViewBag.RefLain)
         {
-        <li class="media dok_pen" data-id="@i2.DOC_ID" >
-            <a class="aReference" target="_blank" href="@i2.DOC_FILE_PATH@i2.DOC_FILE_NAME.@i2.DOC_FILETYPE">
-                <div class="media-body">
-                    <h4 class="media-heading">@i2.DOC_NAME</h4>
-                    <div class="media-heading-sub">
-                        @i2.DOC_CREATE_NAME
+            <li class="media dok_pen" data-id="@i2.DOC_ID">
+                <a class="aReference" target="_blank" href="@i2.DOC_FILE_PATH@i2.DOC_FILE_NAME.@i2.DOC_FILETYPE">
+                    <div class="media-body">
+                        <h4 class="media-heading">@i2.DOC_NAME</h4>
+                        <div class="media-heading-sub">
+                            @i2.DOC_CREATE_NAME
+                        </div>
+                        <div class="isi_dokument_@i2.DOC_ID" style="display:none;"></div>
                     </div>
-                    <div class="isi_dokument_@i2.DOC_ID" style="display:none;"></div>
-                </div>
-            </a>
-        </li>
+                </a>
+            </li>
         }
     }
     else
@@ -874,7 +875,7 @@
         });
         //tutupmenu();
         tutuploading();
-       
+
     });
     function cek_konsensus(ini) {
         var cek = $('#APPROVAL_TYPE_1').is(":checked");
