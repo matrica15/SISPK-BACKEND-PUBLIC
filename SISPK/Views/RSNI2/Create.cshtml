@@ -56,9 +56,9 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Kode PNPS</label>
                             <div class="col-md-9 control-label detailtext">
-                                <input type="hidden" name="PROPOSAL_ID" id="PROPOSAL_ID" value="@Detail.PROPOSAL_ID"/>
-                                <input type="hidden" name="PROPOSAL_KOMTEK_ID" id="PROPOSAL_KOMTEK_ID" value="@Detail.KOMTEK_ID"/>
-                                <input type="hidden" name="PROPOSAL_PNPS_CODE" id="PROPOSAL_PNPS_CODE" value="@Detail.PROPOSAL_PNPS_CODE"/>
+                                <input type="hidden" name="PROPOSAL_ID" id="PROPOSAL_ID" value="@Detail.PROPOSAL_ID" />
+                                <input type="hidden" name="PROPOSAL_KOMTEK_ID" id="PROPOSAL_KOMTEK_ID" value="@Detail.KOMTEK_ID" />
+                                <input type="hidden" name="PROPOSAL_PNPS_CODE" id="PROPOSAL_PNPS_CODE" value="@Detail.PROPOSAL_PNPS_CODE" />
 
                                 <a href="javascript:void(0)" style="color: blue; text-decoration: none;" onclick="$('#detail').modal('show')">@Detail.PROPOSAL_PNPS_CODE</a>
                             </div>
@@ -103,8 +103,8 @@
                                 <a href="javascript:void(0)" id="bukaref" data-isopen="0" style="color: blue; text-decoration: none;">Buka Referensi</a>
                             </div>
                         </div>
-                         @if (ViewBag.DetailHistoryRatek.Count > 0)
-                        { 
+                        @if (ViewBag.DetailHistoryRatek.Count > 0)
+                        {
                             <div class="form-group">
                                 <label class="control-label col-md-3">Histori Rapat Teknis</label>
                                 <div class="col-md-7 control-label detailtext">
@@ -144,7 +144,7 @@
                                     <input type="file" name="SURAT_RAPAT_TEKNIS" id="SURAT_RAPAT_TEKNIS" onchange="ValidasiInput(this)" class="form-control col-md-3 wajib" data-ext=".pdf" accept=".pdf,application/pdf" style="padding: 0px; font-size: 12px; border-radius: 0px;">
                                 </div>
                             </div>
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label class="control-label col-md-3">Lampiran Surat Undangan Rapat</label>
                                 <div class="col-md-3 control-label detailtext">
                                     <input type="file" name="SURAT_UNDANGAN_RAPAT" id="SURAT_UNDANGAN_RAPAT" onchange="ValidasiInput(this)" class="form-control col-md-3 wajib" data-ext=".pdf" accept=".pdf,application/pdf" style="padding: 0px; font-size: 12px; border-radius: 0px;">
@@ -200,7 +200,8 @@
                                         <div class="radio-list">
                                             <label>
                                                 <input type="radio" class="form-control wajib" name="APPROVAL_TYPE" id="APPROVAL_TYPE_1" value="1">
-                                                <span class="text-success">Lanjut Rapat Konsensus</span></label>
+                                                <span class="text-success">Lanjut Rapat Konsensus</span>
+                                            </label>
                                             <label>
                                                 <input type="radio" class="form-control wajib" name="APPROVAL_TYPE" id="APPROVAL_TYPE_2" value="0">
                                                 <span class="text-danger">Lanjut Rapat Teknis</span>
@@ -217,9 +218,9 @@
                                 <input type="hidden" value="0" name="SUBMIT_TIPE" id="SUBMIT_TIPE" />
                                 @if (ViewBag.IsKetua == 1)
                                 {
-@*<button class="btn blue" name="ButtonSimpan" id="ButtonSimpan3" onclick="send_submit_tipe(0)" type="submit" value="0">Save As Draft</button>*@
+                                    @*<button class="btn blue" name="ButtonSimpan" id="ButtonSimpan3" onclick="send_submit_tipe(0)" type="submit" value="0">Save As Draft</button>*@
                                     <button class="btn green" name="ButtonSimpan" id="ButtonSimpan2" onclick="send_submit_tipe(1)" type="submit" value="1">Simpan Hasil Rapat Teknis</button>
-                                    
+
                                 }
                                 else
                                 {
@@ -230,6 +231,7 @@
                         </div>
                     </div>
                 </form>
+
                 <!-- END FORM-->
             </div>
         </div>

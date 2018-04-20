@@ -580,6 +580,12 @@ namespace SISPK.Controllers.Document
 
                     string path = Server.MapPath("~" + docs.DOC_FILE_PATH);
                     string fileName = docs.DOC_FILE_NAME;
+                    var TGL_SEKARANG = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+                    if (fileName == null)
+                    {
+                        fileName = title + "_" + TGL_SEKARANG;
+                    }
 
                     var UserId = Session["USER_ID"];
                     var datenow = MixHelper.ConvertDateNow();
@@ -606,6 +612,10 @@ namespace SISPK.Controllers.Document
                             FileTypeToDB = fileExtension.Replace(".", "");
 
                             file_name_att = fileName;
+
+                            file_name_att = file_name_att.Replace(" ", "-");
+                            file_name_att = file_name_att.Replace(":", "-");
+
                             string filePath = path + file_name_att + fileExtension;
                             file_att.SaveAs(filePath);
                         }
@@ -615,6 +625,7 @@ namespace SISPK.Controllers.Document
                     var logcode = docs.DOC_LOG_CODE;
 
                     var fupdate = "DOC_FOLDER_ID = " + docs.DOC_FOLDER_ID + "," +
+                                "DOC_FILE_NAME = '" + file_name_att + "'," +
                                 "DOC_RELATED_TYPE = '" + ((getStatus == 0) ? "" : getStatus.ToString()) + "'," +
                                 "DOC_RELATED_ID = '" + relatedId + "'," +
                                 "DOC_NAME = '" + title + "'," +

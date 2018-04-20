@@ -1,52 +1,52 @@
 ﻿<div class="row">
-    <div class="col-md-12">
-        <!-- BEGIN PORTLET-->
-        <div class="portlet box green">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-gift"></i>Form Tambah (Upload) Dokumen
-                </div>
-            </div>
-            <div class="portlet-body form">
-                <!-- BEGIN FORM-->
-                <form class="form-horizontal form-bordered" id="sispk_form" action="" method="post" enctype="multipart/form-data">
-                    <div class="form-body">
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Folder</label>
-                            <div class="col-md-9">
-                                <div class="input-icon right">
-                                     @Html.Raw(ViewBag.folder)
-                                    <input type="hidden" value="@ViewBag.folderId" name="folderId">
-                                    <input type="hidden" value="@ViewBag.docId" name="docId">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Judul <span class="required">*</span></label>
-                            <div class="col-md-4">
-                                <div class="input-icon right">
-                                    <input type="text" value="@ViewBag.title" name="title" class="form-control wajib">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Keterangan <span class="required">*</span></label>
-                            <div class="col-md-6">
-                                <div class="input-icon right">
-                                    <textarea name="description" class="form-control wajib">@ViewBag.description</textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Usulan Terkait</label>
-                            <div class="col-md-6">
-                                <div class="input-icon right">
-                                    <textarea id="sni_terkait_display" class="form-control">@ViewBag.relatedName</textarea>
-                                    <input type="hidden" id="sni_terkait_value" value="@ViewBag.relatedId" name="relatedId">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
+	<div class="col-md-12">
+		<!-- BEGIN PORTLET-->
+		<div class="portlet box green">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-gift"></i>Form Tambah (Upload) Dokumen
+				</div>
+			</div>
+			<div class="portlet-body form">
+				<!-- BEGIN FORM-->
+				<form class="form-horizontal form-bordered" id="sispk_form" action="" method="post" enctype="multipart/form-data">
+					<div class="form-body">
+						<div class="form-group">
+							<label class="control-label col-md-3">Folder</label>
+							<div class="col-md-9">
+								<div class="input-icon right">
+									 @Html.Raw(ViewBag.folder)
+									<input type="hidden" value="@ViewBag.folderId" name="folderId">
+									<input type="hidden" value="@ViewBag.docId" name="docId">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Judul <span class="required">*</span></label>
+							<div class="col-md-4">
+								<div class="input-icon right">
+									<input type="text" value="@ViewBag.title" name="title" class="form-control wajib">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Keterangan <span class="required">*</span></label>
+							<div class="col-md-6">
+								<div class="input-icon right">
+									<textarea name="description" class="form-control wajib">@ViewBag.description</textarea>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Usulan Terkait</label>
+							<div class="col-md-6">
+								<div class="input-icon right">
+									<textarea id="sni_terkait_display" class="form-control">@ViewBag.relatedName</textarea>
+									<input type="hidden" id="sni_terkait_value" value="@ViewBag.relatedId" name="relatedId">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="control-label col-md-3">Dokumen</label>
 							<div class="col-md-4">
 								<div class="fileinput fileinput-new" data-provides="fileinput">
@@ -56,77 +56,77 @@
 											</span>
 										</div>
 										<span class="input-group-addon btn default btn-file">
-										    <span class="fileinput-new">Pilih File </span>
-										    <span class="fileinput-exists">Ganti </span>
-										    <input type="hidden"><input type="file" name="docfile">
+											<span class="fileinput-new">Pilih File </span>
+											<span class="fileinput-exists">Ganti </span>
+											<input type="hidden"><input type="file" name="docfile">
 										</span>
 										<a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">Hapus</a>
 									</div>
 								</div>
 							</div>
 						</div>
-                    <div class="form-actions">
-                        <div class="row">
-                            <div class="col-md-offset-3 col-md-9">
-                                <button class="btn green" type="submit">Simpan</button>
-                                <a class="btn red" type="button" href="@Url.Action("index")">Batal</a>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <!-- END FORM-->
-            </div>
-        </div>
-        <!-- END PORTLET-->
-    </div>
+					<div class="form-actions">
+						<div class="row">
+							<div class="col-md-offset-3 col-md-9">
+								<button class="btn green" type="submit">Simpan</button>
+								<a class="btn red" type="button" href="@Url.Action("index")">Batal</a>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- END FORM-->
+			</div>
+		</div>
+		<!-- END PORTLET-->
+	</div>
 </div>
 
 <script>
-    $(function () {
-        var custom = new Bloodhound({
-            datumTokenizer: function (d) { return d.tokens; },
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: 'getRSNI?q=%QUERY'
-        });
+	$(function () {
+		var custom = new Bloodhound({
+			datumTokenizer: function (d) { return d.tokens; },
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			remote: 'getRSNI?q=%QUERY'
+		});
 
-        custom.initialize();
+		custom.initialize();
 
-        if (Metronic.isRTL()) {
-            $('#sni_terkait_display').attr("dir", "rtl");
-        }
-        $('#sni_terkait_display').typeahead(null, {
-            name: 'sni_terkait_display',
-            displayKey: 'titleProposal',
-            source: custom.ttAdapter(),
-            templates: {
-                suggestion: Handlebars.compile([
-                  '<div class="media">',
-                        '<div class="media-body">',
-                            '<p>{{titleProposal}}</p>',
-                        '</div>',
-                  '</div>',
-                ].join(''))
-            }
-        }).on('typeahead:selected', function (ev, selected) {
-            $('#sni_terkait_value').val(selected.idProposal);
-        });
+		if (Metronic.isRTL()) {
+			$('#sni_terkait_display').attr("dir", "rtl");
+		}
+		$('#sni_terkait_display').typeahead(null, {
+			name: 'sni_terkait_display',
+			displayKey: 'titleProposal',
+			source: custom.ttAdapter(),
+			templates: {
+				suggestion: Handlebars.compile([
+				  '<div class="media">',
+						'<div class="media-body">',
+							'<p>{{titleProposal}}</p>',
+						'</div>',
+				  '</div>',
+				].join(''))
+			}
+		}).on('typeahead:selected', function (ev, selected) {
+			$('#sni_terkait_value').val(selected.idProposal);
+		});
 
-        $('#sni_terkait_display').focus(function () {
-            $(this).select();
-        });
+		$('#sni_terkait_display').focus(function () {
+			$(this).select();
+		});
 
-        $('#sni_terkait_display').blur(function () {
+		$('#sni_terkait_display').blur(function () {
 
-            if ($('#sni_terkait_value').val() == '') {
-                $(this).val('');
-            }
-        });
+			if ($('#sni_terkait_value').val() == '') {
+				$(this).val('');
+			}
+		});
 
-        $('#sni_terkait_display').keydown(function () {
-            $('#sni_terkait_value').val("");
-        });
+		$('#sni_terkait_display').keydown(function () {
+			$('#sni_terkait_value').val("");
+		});
 
 
 
-    });
+	});
 </script>
