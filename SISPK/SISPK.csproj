@@ -284,6 +284,7 @@
     <Compile Include="Controllers\SNI\PemeliharaanController.cs" />
     <Compile Include="Controllers\SNI\SNIListController.cs" />
     <Compile Include="Controllers\WebServices\HOHController.cs" />
+    <Compile Include="Controllers\WebServices\SNIAPIController.cs" />
     <Compile Include="Controllers\WebServices\TNDEController.cs" />
     <Compile Include="Filters\Auth.cs" />
     <Compile Include="Global.asax.cs">
