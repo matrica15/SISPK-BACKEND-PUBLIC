@@ -40,7 +40,7 @@ namespace SISPK.Controllers.Home
             if (checkemail > 0)
             {
                 TempData["Notifikasi"] = 2;
-                TempData["NotifikasiText"] = "Terjadi duplikasi data dengan Uername : " + USER_NAME;
+                TempData["NotifikasiText"] = "Terjadi duplikasi data dengan Username : " + USER_NAME;
                 return RedirectToAction("Index", new { id = "1" });
             }
             else
