@@ -145,6 +145,7 @@ namespace SISPK.Models
         public string DSNI_DOC_FILETYPE { get; set; }
         public string DSNI_DOC_LINK { get; set; }
         public Nullable<decimal> DSNI_DOC_EDITABLE { get; set; }
+        public string DSNI_DOC_INFO { get; set; }
         public Nullable<decimal> SNI_SK_ID { get; set; }
         public Nullable<decimal> SNI_SK_SNI_ID { get; set; }
         public Nullable<decimal> SNI_SK_DOC_ID { get; set; }
