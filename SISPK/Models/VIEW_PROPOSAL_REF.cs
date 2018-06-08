@@ -16,6 +16,7 @@ namespace SISPK.Models
     {
         public decimal PROPOSAL_REF_ID { get; set; }
         public Nullable<decimal> PROPOSAL_REF_PROPOSAL_ID { get; set; }
+        public string SNI_NOMOR { get; set; }
         public Nullable<decimal> PROPOSAL_REF_TYPE { get; set; }
         public Nullable<decimal> PROPOSAL_REF_SNI_ID { get; set; }
         public string PROPOSAL_REF_JOIN { get; set; }

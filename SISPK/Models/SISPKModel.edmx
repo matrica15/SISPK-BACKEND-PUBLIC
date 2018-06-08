@@ -3615,6 +3615,7 @@ warning 6002: The table/view 'C##BSN_SISPK.VIEW_PROPOSAL_REF' does not have a pr
           </Key>
           <Property Name="PROPOSAL_REF_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="PROPOSAL_REF_PROPOSAL_ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="SNI_NOMOR" Type="varchar2" MaxLength="2000" />
           <Property Name="PROPOSAL_REF_TYPE" Type="number" Precision="38" Scale="0" />
           <Property Name="PROPOSAL_REF_SNI_ID" Type="number" Precision="38" Scale="0" />
           <Property Name="PROPOSAL_REF_JOIN" Type="varchar2" MaxLength="4000" />
@@ -7824,6 +7825,7 @@ FROM "C##BSN_SISPK"."VIEW_PROPOSAL_RASNI" "VIEW_PROPOSAL_RASNI"</DefiningQuery>
             <DefiningQuery>SELECT 
 "VIEW_PROPOSAL_REF"."PROPOSAL_REF_ID" AS "PROPOSAL_REF_ID", 
 "VIEW_PROPOSAL_REF"."PROPOSAL_REF_PROPOSAL_ID" AS "PROPOSAL_REF_PROPOSAL_ID", 
+"VIEW_PROPOSAL_REF"."SNI_NOMOR" AS "SNI_NOMOR", 
 "VIEW_PROPOSAL_REF"."PROPOSAL_REF_TYPE" AS "PROPOSAL_REF_TYPE", 
 "VIEW_PROPOSAL_REF"."PROPOSAL_REF_SNI_ID" AS "PROPOSAL_REF_SNI_ID", 
 "VIEW_PROPOSAL_REF"."PROPOSAL_REF_JOIN" AS "PROPOSAL_REF_JOIN", 
@@ -12215,6 +12217,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
           </Key>
           <Property Name="PROPOSAL_REF_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="PROPOSAL_REF_PROPOSAL_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SNI_NOMOR" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="PROPOSAL_REF_TYPE" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="PROPOSAL_REF_SNI_ID" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="PROPOSAL_REF_JOIN" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
@@ -16624,6 +16627,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
               <MappingFragment StoreEntitySet="VIEW_PROPOSAL_REF">
                 <ScalarProperty Name="DSNI_DOC_FILE_PATH" ColumnName="DSNI_DOC_FILE_PATH" />
                 <ScalarProperty Name="PROPOSAL_REF_EXT_JUDUL" ColumnName="PROPOSAL_REF_EXT_JUDUL" />
+                <ScalarProperty Name="SNI_NOMOR" ColumnName="SNI_NOMOR" />
                 <ScalarProperty Name="PROPOSAL_REF_EXT_NOMOR" ColumnName="PROPOSAL_REF_EXT_NOMOR" />
                 <ScalarProperty Name="PROPOSAL_REF_JOIN" ColumnName="PROPOSAL_REF_JOIN" />
                 <ScalarProperty Name="PROPOSAL_REF_SNI_ID" ColumnName="PROPOSAL_REF_SNI_ID" />
