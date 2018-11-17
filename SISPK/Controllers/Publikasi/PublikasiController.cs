@@ -109,7 +109,7 @@ namespace SISPK.Controllers.Publikasi
             return View();
         }
         [HttpPost]
-        public ActionResult Detil(TRX_SNI ts, TRX_PROPOSAL tp, int PROPOSAL_ID = 0)
+        public ActionResult Detil(TRX_SNI ts, TRX_PROPOSAL tp, int PROPOSAL_ID = 0, string DOC_INFO = "")
         {
             var UserId = Session["USER_ID"];
             var logcode = MixHelper.GetLogCode();
@@ -156,7 +156,15 @@ namespace SISPK.Controllers.Publikasi
                     docx.Save(@"" + filePathdoc, Aspose.Words.SaveFormat.Docx);
                     docx.Save(@"" + filePathpdf, Aspose.Words.SaveFormat.Pdf);
                     docx.Save(@"" + filePathxml);
-                    int Total_Hal = docx.PageCount;
+                    string Total_Hal = "";
+                    if (DOC_INFO == "" || DOC_INFO == " ")
+                    {
+                        Total_Hal = (docx.PageCount).ToString();
+                    } else
+                    {
+                        Total_Hal = DOC_INFO;
+                    }
+                    
                     ////string filePathpdf = path + "SNI_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + "(publish).pdf";
                     //string filePathxml = path + "SNI_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + "(publish).xml";
                     //pdf.Save(@"" + filePathpdf, Aspose.Pdf.SaveFormat.Pdf);
@@ -164,7 +172,8 @@ namespace SISPK.Controllers.Publikasi
                     var LOGCODE_TANGGAPAN_MTPS = MixHelper.GetLogCode();
                     var fupdate = "UPDATE TRX_DOCUMENTS SET DOC_FILE_NAME = 'SNI_" + PROPOSAL_PNPS_CODE_FIXER + "_" + TGL_SEKARANG + "(publish)'," +
                             "DOC_UPDATE_BY = " + UserId + "," +
-                            "DOC_INFO = " + Total_Hal + "," +
+                            "DOC_INFO = '" + Total_Hal + "'," +
+                            "DOC_FILETYPE = 'DOCX'," +
                             "DOC_UPDATE_DATE = " + datenow + "" +
                             "WHERE DOC_RELATED_ID = " + ts.SNI_PROPOSAL_ID + " AND DOC_FOLDER_ID = 8 AND DOC_RELATED_TYPE = 100";
 
@@ -217,7 +226,7 @@ namespace SISPK.Controllers.Publikasi
             var doc = (from b in db.TRX_DOCUMENTS where b.DOC_ID == sninya.SNI_DOC_ID && b.DOC_FOLDER_ID == 8 && b.DOC_RELATED_TYPE == 100 select b).SingleOrDefault();
             ViewData["doc"] = doc;
 
-            var sni = db.Database.SqlQuery<VIEW_SNI_SK>("SELECT AA.SNI_SK_ID,AA.SNI_SK_SNI_ID,AA.SNI_SK_DOC_ID,AA.SNI_SK_NOMOR,AA.SNI_SK_DATE,AA.SNI_SK_DATE_NAME,AA.SNI_SK_CREATE_DATE,AA.SNI_SK_CREATE_BY,AA.SNI_SK_DATE_START,AA.SNI_SK_DATE_START_NAME,AA.SNI_SK_DATE_END,AA.SNI_SK_DATE_END_NAME,AA.JML_SNI,AA.IS_PUBLISH,AA.SNI_SK_KET,AA.DOC_ID,AA.DOC_CODE,AA.DOC_FOLDER_ID,AA.DOC_NUMBER,AA.DOC_NAME,AA.DOC_FILE_PATH,AA.DOC_FILE_NAME,AA.DOC_FILETYPE,AA.DOC_LINK FROM (SELECT AA.*, ROWNUM NOMOR FROM (SELECT * FROM VIEW_SNI_SK WHERE SNI_SK_ID = " + id + " ) AA WHERE ROWNUM <= 1 ) AA WHERE NOMOR > 0").SingleOrDefault();
+            var sni = db.Database.SqlQuery<VIEW_SNI_SK>("SELECT AA.SNI_SK_ID,AA.SNI_SK_SNI_ID,AA.SNI_SK_DOC_ID,AA.SNI_SK_NOMOR,AA.SNI_SK_DATE,AA.SNI_SK_DATE_NAME,AA.SNI_SK_CREATE_DATE,AA.SNI_SK_CREATE_BY,AA.SNI_SK_DATE_START,AA.SNI_SK_DATE_START_NAME,AA.SNI_SK_DATE_END,AA.SNI_SK_DATE_END_NAME,AA.JML_SNI,AA.IS_PUBLISH,AA.SNI_SK_KET,AA.DOC_ID,AA.DOC_CODE,AA.DOC_FOLDER_ID,AA.DOC_NUMBER,AA.DOC_NAME,AA.DOC_FILE_PATH,AA.DOC_FILE_NAME,AA.DOC_FILETYPE,AA.DOC_LINK,AA.SNI_SK_KET_NEW FROM (SELECT AA.*, ROWNUM NOMOR FROM (SELECT * FROM VIEW_SNI_SK WHERE SNI_SK_ID = " + id + " ) AA WHERE ROWNUM <= 1 ) AA WHERE NOMOR > 0").SingleOrDefault();
             ViewData["sni"] = sni;
             var listsni = (from a in db.TRX_SNI where a.SNI_SK_ID == id select a).ToList();
             ViewData["listsni"] = listsni;

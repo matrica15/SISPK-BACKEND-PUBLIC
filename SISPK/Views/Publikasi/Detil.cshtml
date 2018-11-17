@@ -49,7 +49,8 @@
                             <label class="control-label col-md-3">Jumlah Halaman SNI File</label>
                             <div class="col-md-4">
                                 <div style="text-align: left">
-                                    <label class="isi">@((ViewBag.doc.DOC_INFO == null)? "-" : ViewBag.doc.DOC_INFO ) Halaman</label>
+                                    <input type="text" class="form-control wajib" id="DOC_INFO" name="DOC_INFO" value="@((ViewBag.doc.DOC_INFO == null)? "-" : ViewBag.doc.DOC_INFO )">
+                                    <label class="isi"> Halaman</label>
                                 </div>
                             </div>
                         </div>
