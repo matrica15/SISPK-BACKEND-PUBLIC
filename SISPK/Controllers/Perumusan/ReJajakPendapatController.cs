@@ -12,6 +12,8 @@ using Aspose.Words.Lists;
 using Aspose.Words.Tables;
 using System.Drawing;
 using Oracle.DataAccess.Client;
+using System.Globalization;
+
 namespace SISPK.Controllers.Perumusan
 {
     [Auth(RoleTipe = 1)]
@@ -348,6 +350,42 @@ namespace SISPK.Controllers.Perumusan
             ViewData["RefLain"] = RefLain;
             return View();
         }
+
+
+        [Auth(RoleTipe = 2)]
+        public ActionResult Update(int id = 0)
+        {
+            var USER_ID = Convert.ToInt32(Session["USER_ID"]);
+            var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == id select proposal).SingleOrDefault();
+            var date_start = DataProposal.POLLING_START_DATE;
+            var date_end = DataProposal.POLLING_END_DATE;
+            DateTime dt_start = DateTime.ParseExact(date_start.ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            DateTime dt_end = DateTime.ParseExact(date_end.ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            Console.WriteLine(dt_start.ToString("dd-MM-yyyy"));
+            Console.WriteLine(dt_end.ToString("dd-MM-yyyy"));
+
+            ViewData["DataProposal"] = DataProposal;
+            ViewData["date_start"] = dt_start.ToString("dd-MM-yyyy");
+            ViewData["date_end"] = dt_end.ToString("dd-MM-yyyy");
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Update(int POLLING_ID = 0, string POLLING_START_DATE = "", string POLLING_END_DATE = "")
+        {
+
+            String POLLING_START_DATE_CONVERT = "TO_DATE('" + POLLING_START_DATE + "', 'dd-mm-yyyy hh24:mi:ss')";
+            String POLLING_END_DATE_CONVERT = "TO_DATE('" + POLLING_END_DATE + "', 'dd-mm-yyyy hh24:mi:ss')";
+
+            db.Database.ExecuteSqlCommand("UPDATE TRX_POLLING SET POLLING_START_DATE = " + POLLING_START_DATE_CONVERT + ", POLLING_END_DATE = " + POLLING_END_DATE_CONVERT + " WHERE POLLING_ID = " + POLLING_ID);
+
+            TempData["Notifikasi"] = 1;
+            TempData["NotifikasiText"] = "Data Berhasil Diupdate";
+            return RedirectToAction("Index");
+        }
+
+
         public ActionResult Comment(int id = 0)
         {
             var USER_ID = Convert.ToInt32(Session["USER_ID"]);
@@ -590,7 +628,7 @@ namespace SISPK.Controllers.Perumusan
                 Convert.ToString("<center>"+list.POLLING_JML_PARTISIPAN+"</center>"),
                 Convert.ToString("<center>"+list.PROPOSAL_TAHAPAN+"</center>"),
                 Convert.ToString("<center>"+list.PROPOSAL_STATUS_NAME+"</center>"),
-                Convert.ToString("<center>"+((list.PROPOSAL_IS_POLLING == 0 || list.PROPOSAL_IS_POLLING == null && list.PROPOSAL_STATUS_PROSES != 2)?"<a href='/Perumusan/ReJajakPendapat/Setting/"+list.PROPOSAL_ID+"' class='btn yellow btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Setting Jajak Pendapat'><i class='action fa fa-bar-chart-o'></i></a>":"<a href='/Perumusan/ReJajakPendapat/Detail/"+list.PROPOSAL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a>")+((list.PROPOSAL_IS_POLLING == 1)?"<a href='/Perumusan/ReJajakPendapat/Approval/"+list.PROPOSAL_ID+"' class='btn purple btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Persetujuan Jajak Pendapat'><i class='action fa fa-check'></i></a>":"")+"<a href='javascript:void(0)' onclick='cetak_usulan("+list.PROPOSAL_ID+")' class='btn green btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Cetak'><i class='action fa fa-print'></i></a></center>"),
+                Convert.ToString("<center>"+((list.PROPOSAL_IS_POLLING == 0 || list.PROPOSAL_IS_POLLING == null && list.PROPOSAL_STATUS_PROSES != 2)?"<a href='/Perumusan/ReJajakPendapat/Setting/"+list.PROPOSAL_ID+"' class='btn yellow btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Setting Jajak Pendapat'><i class='action fa fa-bar-chart-o'></i></a>":"<a href='/Perumusan/ReJajakPendapat/Detail/"+list.PROPOSAL_ID+"' class='btn blue btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Lihat'><i class='action fa fa-file-text-o'></i></a>")+"<a href='/Perumusan/ReJajakPendapat/update/"+list.PROPOSAL_ID+"' class='btn btn-warning btn-sm action tooltips btn_update' data-container='body' data-placement='top' data-original-title='Ubah'><i class='action fa fa-edit'></i></a>"+((list.PROPOSAL_IS_POLLING == 1)?"<a href='/Perumusan/ReJajakPendapat/Approval/"+list.PROPOSAL_ID+"' class='btn purple btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Persetujuan Jajak Pendapat'><i class='action fa fa-check'></i></a>":"")+"<a href='javascript:void(0)' onclick='cetak_usulan("+list.PROPOSAL_ID+")' class='btn green btn-sm action tooltips' data-container='body' data-placement='top' data-original-title='Cetak'><i class='action fa fa-print'></i></a></center>"),
                 
             };
             return Json(new

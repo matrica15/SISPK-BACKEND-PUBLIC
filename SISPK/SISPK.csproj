@@ -8426,6 +8426,8 @@
     <Content Include="Upload\Usulan\INFORMASI_PEENELITIAN_25.pdf" />
     <Content Include="Upload\Usulan\INFORMASI_PEENELITIAN_26.pdf" />
     <Content Include="Views\PenetapanSNI\DetailRSNI.cshtml" />
+    <Content Include="Views\JajakPendapat\Update.cshtml" />
+    <Content Include="Views\ReJajakPendapat\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

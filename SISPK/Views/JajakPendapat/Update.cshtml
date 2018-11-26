@@ -1,0 +1,289 @@
+﻿@{
+    var Detail = ViewBag.DataProposal;
+}
+<style>
+    .select2-selection--single {
+        height: 100% !important;
+    }
+
+    .select2-selection__rendered {
+        word-wrap: break-word !important;
+        text-overflow: inherit !important;
+        white-space: normal !important;
+    }
+
+    .aReference {
+        font-size: 14px;
+        margin: 5px 0 0;
+        font-family: "Open Sans",sans-serif;
+        font-weight: 300;
+        line-height: 1.1;
+        color: inherit;
+    }
+
+    a:hover.aReference {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    a:visited.aReference {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    a:active.aReference {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Form Edit Tanggal JP
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal form-bordered" id="sispk_form" action="" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kode PNPS</label>
+                            <div class="col-md-9 control-label detailtext">
+                                <input type="hidden" name="POLLING_ID" id="POLLING_ID" value="@Detail.POLLING_ID" />
+
+                                <a href="javascript:void(0)" style="color: blue; text-decoration: none;" onclick="$('#detail').modal('show')">@Detail.PROPOSAL_PNPS_CODE</a>
+                            </div>
+                        </div>
+                        <div class="aksi_publikasi">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Tanggal Jajak Pendapat</label>
+                                <div class="col-md-9 control-label detailtext">
+                                    <div class="col-md-9">
+                                        <div class="input-group input-large date-picker input-daterange" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                            <input type="text" class="form-control kirim wajib" name="POLLING_START_DATE" id="POLLING_START_DATE" value="@ViewBag.date_start">
+                                            <span class="input-group-addon">-</span>
+                                            <input type="text" class="form-control kirim" name="POLLING_END_DATE" id="POLLING_END_DATE" value="@ViewBag.date_end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <button class="btn blue btn_approval" name="ButtonSimpan" id="ButtonSimpan1" type="submit" value="0">Simpan</button>
+                                <a class="btn red" href="@Url.Action("Index")">Kembali</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    //var _validFileExtensions = [".doc", ".docx", ".jpg", ".jpeg", ".png"];
+
+    function ValidasiInput(ini) {
+        var _validFileExtensions = $(ini).attr('data-ext').split(",");
+        var arrInputs = $(ini);
+        for (var i = 0; i < arrInputs.length; i++) {
+            var oInput = arrInputs[i];
+            if (oInput.type == "file") {
+                var sFileName = oInput.value;
+                if (sFileName.length > 0) {
+                    var blnValid = false;
+                    for (var j = 0; j < _validFileExtensions.length; j++) {
+                        var sCurExtension = _validFileExtensions[j];
+                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                            blnValid = true;
+                            break;
+                        }
+                    }
+
+                    if (!blnValid) {
+                        alert("Maaf, " + sFileName + " tidak dapat di Upload, Extensi yang dapat di Upload adalah : " + _validFileExtensions.join(", "));
+                        $(ini).val('');
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+    function send_submit_tipe(res) {
+        $('#SUBMIT_TIPE').val(res);
+    }
+
+    function cek_nomor(res) {
+        var atLeastOneIsChecked = $('input[name="CHECK_NOMOR"]:checked').length > 0;
+        if (atLeastOneIsChecked) {
+            //alert("check");
+            $("#PROPOSAL_NO_SNI_PROPOSAL").attr("readonly", true);
+            $("#text_check").removeClass("text-danger").addClass("text-success");
+        } else {
+            $("#PROPOSAL_NO_SNI_PROPOSAL").attr("readonly", false);
+            $("#text_check").removeClass("text-success").addClass("text-danger");
+            //alert("uncheck");
+        }
+        
+    }
+
+    function cari_dokumen(ini) {
+        var tipe = parseInt($(ini).attr('data-tipe'));
+        var pencarian = $(ini).val();
+        var id = parseInt($('#PROPOSAL_ID').val());
+
+        var formData = { PROPOSAL_ID: id, SEARCH_NAME: pencarian, SEARCH_TIPE: tipe };
+        $.ajax({
+            type: 'POST',
+            url: "/Perumusan/RSNI1/GetContentSearch",
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify(formData)
+        }).done(function (res) {
+            var Dokumen = res.Dokumen;
+            var i = Dokumen.length;
+            var hasil = "";
+            if (i > 0) {
+                for (var d = 0; d < i; d++) {
+                    hasil += '<li class="media dok_pen" data-id="' + Dokumen[d].DOC_ID + '" onclick="openreferensi(' + Dokumen[d].DOC_ID + ');">';
+                    hasil += '<div class="media-body">';
+                    hasil += '<h4 class="media-heading">' + Dokumen[d].DOC_NAME + '</h4>';
+                    hasil += '<div class="media-heading-sub">';
+                    hasil += Dokumen[d].DOC_CREATE_NAME;
+                    hasil += '</div>';
+                    hasil += ' <div class="isi_dokument_' + Dokumen[d].DOC_ID + '" style="display:none;"></div>';
+                    hasil += '</div>';
+                    hasil += '</li>';
+                }
+            } else {
+                hasil += '<li class="media" style="background: #4d6178;">';
+                hasil += '<div class="media-body">';
+                hasil += '<div class="media-heading-sub" style="text-align:center;">';
+                hasil += 'Data Tidak Ditemukan';
+                hasil += '</div>';
+                hasil += '</div>';
+                hasil += '</li>';
+            }
+            if (tipe == 1) {
+                $('ul.data_dok_pendukung').html(hasil);
+            } else {
+                $('ul.data_dok_referensi').html(hasil);
+            }
+        });
+    }
+    function openreferensi(id) {
+        $('.firstactive').click();
+        $('.dropdown-toggle').click();
+        $('.susunrsnilayout').find('.deflayout').removeClass('col-md-12').addClass('col-md-6');
+        var formData = { DOC_ID: id };
+        var IsiContent = "";
+        $.ajax({
+            type: 'POST',
+            url: "/Perumusan/RSNI1/GetContent",
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify(formData)
+        }).done(function (res) {
+            IsiContent = res.data;
+            $('.susunrsnilayout').append('<div class="col-md-6 newlayout" style="border-left:none;"><div id="infodetail" contenteditable="false">' + IsiContent + '</div></div>');
+            CKEDITOR.inline('infodetail');
+        });
+
+
+    }
+
+    jQuery(document).ready(function () {
+
+        bukaloading();
+        //CKEDITOR.disableAutoInline = true;
+        //var ckEditor = CKEDITOR.replace('rsni1content', { height: '300px' });
+
+        var dataref = jQuery('#res_data_referensi').html();
+        var dataref2 = jQuery('#res_data_referensi_lain').html();
+        var datarefjumlah = jQuery('#res_data_referensi').attr("data-jumlah");
+        var dataref2jumlah = jQuery('#res_data_referensi_lain').attr("data-jumlah");
+        $('ul.data_dok_pendukung').html(dataref);
+        $('ul.data_dok_referensi').html(dataref2);
+        $('.dok_pendukung_jml').html(datarefjumlah);
+        $('.dok_referensi_jml').html(dataref2jumlah);
+
+        //ckEditor.on("instanceReady", function (ev) {
+        //    tutupmenu();
+        //    tutuploading();
+        //});
+
+        $('.searchinput').keypress(function (e) {
+            if (e.which == 13) {
+                cari_dokumen(this);
+            }
+        });
+        $('#bukaref').click(function () {
+            var isOpen = parseInt($(this).attr('data-isOpen'));
+            if (isOpen == 1) {
+                $(this).attr('data-isOpen', 0);
+                $(this).html('Buka Referensi');
+            } else {
+                $(this).attr('data-isOpen', 1);
+                $(this).html('Tutup Referensi');
+            }
+            $('body').toggleClass('page-quick-sidebar-open');
+        });
+        //tutupmenu();
+        tutuploading();
+        $('[name="APPROVAL_TYPE"]').click(function () {
+            var res = $(this).val();
+            if (res == 1) {
+                $('.aksi_tidak_disetujui').slideUp("fast", function () {
+                    $('[name="APPROVAL_TYPE"]').removeClass('wajib');
+                    $('#APPROVAL_REASON').removeClass('wajib');
+                    $('.aksi_publikasi').slideDown("fast", function () {
+                        $('#POLLING_START_DATE').addClass('wajib');
+                        $('#POLLING_END_DATE').addClass('wajib');
+                    });
+                });
+
+            } else {
+                $('.aksi_tidak_disetujui').slideDown("fast", function () {
+                    $('[name="APPROVAL_TYPE"]').addClass('wajib');
+                    $('#APPROVAL_REASON').addClass('wajib');
+                    $('.aksi_publikasi').slideUp("fast", function () {
+                        $('#POLLING_START_DATE').removeClass('wajib');
+                        $('#POLLING_END_DATE').removeClass('wajib');
+                    });
+                });
+            }
+        });
+        $('.date-picker').datepicker({
+            orientation: "center",
+            autoclose: true
+        });
+
+        $("#PROPOSAL_NO_SNI_PROPOSAL").keyup(function () {
+            if ($("#PROPOSAL_NO_SNI_PROPOSAL").val() == $("#PROPOSAL_NO_SNI_PROPOSAL_TEMP").val()) {
+                $("#FLAG_EDIT").val(0);
+            } else {
+                $("#FLAG_EDIT").val(1);
+            }
+        });
+
+        $('#POLLING_START_DATE').change(function () {
+            var date2 = $('#POLLING_START_DATE').datepicker('getDate', '+1d');
+            date2.setDate(date2.getDate() + 60);
+            $('#POLLING_END_DATE').datepicker('setDate', date2);
+        });
+    });
+
+</script>
