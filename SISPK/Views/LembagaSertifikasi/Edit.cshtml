@@ -34,6 +34,70 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="control-label col-md-3">Jenis LPK<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <select class="form-control input-large select2me wajib" id="LPK_JENIS" name="LPK_JENIS" data-placeholder="Pilih Jenis LPK">
+                                    <option></option>
+                                    <option value="6" @((Model.LPK_JENIS == 6) ? "selected" : "")>
+                                        LS PRODUK
+                                    </option>
+                                    <option value="7" @((Model.LPK_JENIS == 7) ? "selected" : "")>
+                                        LS SISTEM MANAJEMEN LINGKUNGAN
+                                    </option>
+                                    <option value="8" @((Model.LPK_JENIS == 8) ? "selected" : "")>
+                                        LS HACCP
+                                    </option>
+                                    <option value="9" @((Model.LPK_JENIS == 9) ? "selected" : "")>
+                                        LS EKOLABEL
+                                    </option>
+                                    <option value="10" @((Model.LPK_JENIS == 10) ? "selected" : "")>
+                                        LS SISTEM MANAJEMEN MUTU
+                                    </option>
+                                    <option value="11" @((Model.LPK_JENIS == 11) ? "selected" : "")>
+                                        LS SISTEM MANAJEMEN KEAMANAN PANGAN
+                                    </option>
+                                    <option value="12" @((Model.LPK_JENIS == 12) ? "selected" : "")>
+                                        LEMBAGA VERIFIKASI LEGALITAS KAYU
+                                    </option>
+                                    <option value="13" @((Model.LPK_JENIS == 13) ? "selected" : "")>
+                                        LS PERSONEL
+                                    </option>
+                                    <option value="14" @((Model.LPK_JENIS == 14) ? "selected" : "")>
+                                        LS ORGANIK
+                                    </option>
+                                    <option value="15" @((Model.LPK_JENIS == 15) ? "selected" : "")>
+                                        LEMBAGA PENILAI PENGELOLAAN HUTAN PRODUKSI LESTARI
+                                    </option>
+                                    <option value="16" @((Model.LPK_JENIS == 16) ? "selected" : "")>
+                                        LS SISTEM MANAJEMEN KEAMANAN PADA RANTAI PASOKAN
+                                    </option>
+                                    <option value="17" @((Model.LPK_JENIS == 17) ? "selected" : "")>
+                                        LS SISTEM MANAJEMEN KEAMANAN INFORMASI
+                                    </option>
+                                    <option value="18" @((Model.LPK_JENIS == 18) ? "selected" : "")>
+                                        LS SISTEM MANAJEMEN MUTU ALAT KESEHATAN
+                                    </option>
+                                    <option value="19" @((Model.LPK_JENIS == 19) ? "selected" : "")>
+                                        LEMBAGA VALIDASI/VERIFIKASI GAS RUMAH KACA
+                                    </option>
+                                    <option value="20" @((Model.LPK_JENIS == 20) ? "selected" : "")>
+                                        LS SISTEM MANAJEMEN ENERGI
+                                    </option>
+                                    <option value="21" @((Model.LPK_JENIS == 21) ? "selected" : "")>
+                                        LS USAHA PARIWISATA
+                                    </option>
+                                    <option value="22" @((Model.LPK_JENIS == 22) ? "selected" : "")>
+                                        LEMBAGA SERTIFIKASI
+                                    </option>
+                                    <option value="23" @((Model.LPK_JENIS == 23) ? "selected" : "")>
+                                        LS SISTEM MANAJEMEN ANTI PENYUAPAN
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
                             <label class="control-label col-md-3">Alamat Lengkap<span class="required">*</span></label>
                             <div class="col-md-4">
                                 <div class="input-icon right">
@@ -115,7 +179,7 @@
                             <label class="control-label col-md-3">Website<span class="required">*</span></label>
                             <div class="col-md-9">
                                 <div class="input-icon right">
-                                    <input type="url" name="LPK_WEBSITE" id="LPK_WEBSITE" class="form-control wajib" value="@Model.LPK_WEBSITE">
+                                    <input type="url" name="LPK_WEBSITE" id="LPK_WEBSITE" class="form-control wajib" placeholder="http://www.url.com" value="@Model.LPK_WEBSITE">
                                 </div>
                             </div>
                         </div>

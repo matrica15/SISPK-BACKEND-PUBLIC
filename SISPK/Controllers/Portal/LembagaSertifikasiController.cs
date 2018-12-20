@@ -143,7 +143,7 @@ namespace SISPK.Controllers.Portal
             DateTime date2 = Convert.ToDateTime(tl.LPK_PERIODE_AKHIR);
             var dateakhir = "TO_DATE('" + date2.ToString("yyyy-MM-dd HH:mm:ss") + "', 'yyyy-mm-dd hh24:mi:ss')";
 
-            var fname = "LPK_ID,LPK_NAMA,LPK_NOMOR,LPK_ALAMAT,LPK_TELEPON,LPK_FAX,LPK_KODE_POS,LPK_EMAIL,LPK_WEBSITE,LPK_CONTACT_PERSON,LPK_PERIODE_AWAL,LPK_PERIODE_AKHIR,LPK_KETERANGAN,LPK_KATEGORI,LPK_CREATE_BY,LPK_CREATE_DATE,LPK_PROVINSI,LPK_KABUPATENKOTA,LPK_LOGCODE,LPK_STATUS";
+            var fname = "LPK_ID,LPK_NAMA,LPK_NOMOR,LPK_ALAMAT,LPK_TELEPON,LPK_FAX,LPK_KODE_POS,LPK_EMAIL,LPK_WEBSITE,LPK_CONTACT_PERSON,LPK_PERIODE_AWAL,LPK_PERIODE_AKHIR,LPK_KETERANGAN,LPK_KATEGORI,LPK_JENIS,LPK_CREATE_BY,LPK_CREATE_DATE,LPK_PROVINSI,LPK_KABUPATENKOTA,LPK_LOGCODE,LPK_STATUS";
             var fvalue =
                         "'" + lastid + "'," +
                         "'" + tl.LPK_NAMA + "'," +
@@ -159,6 +159,7 @@ namespace SISPK.Controllers.Portal
                         dateakhir + "," +
                         "'" + tl.LPK_KETERANGAN + "'," +
                         "1," +
+                        "" + tl.LPK_JENIS + "," +
                         "'" + UserId + "'," +
                         datenow + "," +
                         "'" + tl.LPK_PROVINSI + "'," +
@@ -259,10 +260,11 @@ namespace SISPK.Controllers.Portal
 
             DateTime date2 = Convert.ToDateTime(tl.LPK_PERIODE_AKHIR);
             var dateakhir = "TO_DATE('" + date2.ToString("yyyy-MM-dd HH:mm:ss") + "', 'yyyy-mm-dd hh24:mi:ss')";
-
             var update =
                         "LPK_NAMA = '" + tl.LPK_NAMA + "'," +
                         "LPK_NOMOR = '" + tl.LPK_NOMOR + "'," +
+                        "LPK_KATEGORI = 1," +
+                        "LPK_JENIS = " + tl.LPK_JENIS + "," +
                         "LPK_ALAMAT = '" + tl.LPK_ALAMAT + "'," +
                         "LPK_TELEPON = '" + tl.LPK_TELEPON + "'," +
                         "LPK_FAX= '" + tl.LPK_FAX + "'," +

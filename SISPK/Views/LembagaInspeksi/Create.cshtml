@@ -11,26 +11,20 @@
                 <!-- BEGIN FORM-->
                 <form class="form-horizontal form-bordered" id="sispk_form" method="post" enctype="multipart/form-data">                  
 
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Lab/Lembaga<span class="required">*</span></label>
-                            <div class="col-md-9">
-                                <div class="radio-list">
-                                <label class="radio-inline">
-                                    <span class="">
-                                        <input type="radio" name="LPK_JENIS" id="optionsRadios4" value="1" checked=""></span>
-                                    Labolatorium Pengujian
-                                </label>
-                                <label class="radio-inline">                                    
-                                        <input type="radio" name="LPK_JENIS" id="optionsRadios5" value="2"></span>
-                                    Lembaga Inspeksi
-                                </label>
-                                <label class="radio-inline">                                    
-                                        <input type="radio" name="LPK_JENIS" id="optionsRadios6" value="3"></span>
-                                    Labolatorium Kalibrasi
-                                </label>                               
-                            </div>
-                            </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Jenis LPK<span class="required">*</span></label>
+                        <div class="col-md-4">
+                            <select class="form-control input-large select2me wajib" id="LPK_JENIS" name="LPK_JENIS" data-placeholder="Pilih Jenis LPK">
+                                <option></option>
+                                <option value="1">Laboratorium Kalibrasi  &nbsp;&nbsp;</option>
+                                <option value="2">Laboratorium Uji  &nbsp;&nbsp;</option>
+                                <option value="3">Lembaga Inspeksi  &nbsp;&nbsp;</option>
+                                <option value="4">Laboratorium Medik  &nbsp;&nbsp;</option>
+                                <option value="5">Penyelenggara Uji Propisiensi  &nbsp;&nbsp;</option>
+                            </select>
                         </div>
+                    </div>
 
                         <div class="form-group">
                             <label class="control-label col-md-3">No LPK<span class="required">*</span></label>

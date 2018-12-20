@@ -14,24 +14,18 @@
                 <!-- BEGIN FORM-->
                 <form class="form-horizontal form-bordered" id="sispk_form" method="post" enctype="multipart/form-data">
                     <div class="form-body">
-                         <div class="form-group">
-                            <label class="control-label col-md-3">Lab/Lembaga<span class="required">*</span></label>
-                            <div class="col-md-9">
-                                <div class="radio-list">
-                                <label class="radio-inline">
-                                    <span class="">
-                                        <input type="radio" name="LPK_JENIS" id="optionsRadios4" value="1" @((Model.LPK_JENIS == 1)?"checked":"")></span>
-                                    Labolatorium Pengujian
-                                </label>
-                                <label class="radio-inline">                                    
-                                        <input type="radio" name="LPK_JENIS" id="optionsRadios5" value="2" @((Model.LPK_JENIS == 2)?"checked":"")></span>
-                                    Lembaga Inspeksi
-                                </label>
-                                <label class="radio-inline">                                    
-                                        <input type="radio" name="LPK_JENIS" id="optionsRadios6" value="3" @((Model.LPK_JENIS == 3)?"checked":"")></span>
-                                    Labolatorium Kalibrasi
-                                </label>                               
-                            </div>
+                         
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Jenis LPK<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <select class="form-control input-large select2me wajib" id="LPK_JENIS" name="LPK_JENIS" data-placeholder="Pilih Jenis LPK">
+                                    <option></option>
+                                    <option value="1" @((Model.LPK_JENIS == 1) ? "selected" : "")>Labolatorium Kalibrasi  &nbsp;&nbsp;</option>
+                                    <option value="2" @((Model.LPK_JENIS == 2) ? "selected" : "")>Labolatorium Uji  &nbsp;&nbsp;</option>
+                                    <option value="3" @((Model.LPK_JENIS == 3) ? "selected" : "")>Lembaga Inspeksi  &nbsp;&nbsp;</option>
+                                    <option value="4" @((Model.LPK_JENIS == 4) ? "selected" : "")>Labolatorium Medik  &nbsp;&nbsp;</option>
+                                    <option value="5" @((Model.LPK_JENIS == 5) ? "selected" : "")>Penyelenggara Uji Propisiensi  &nbsp;&nbsp;</option>
+                                </select>
                             </div>
                         </div>
 

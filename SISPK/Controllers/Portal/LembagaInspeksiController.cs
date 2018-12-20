@@ -170,7 +170,7 @@ namespace SISPK.Controllers.Portal
             var fname = "LPK_ID,LPK_JENIS,LPK_NAMA,LPK_NOMOR,LPK_ALAMAT,LPK_LAMPIRAN,LPK_TELEPON,LPK_FAX,LPK_KODE_POS,LPK_EMAIL,LPK_WEBSITE,LPK_CONTACT_PERSON,LPK_PERIODE_AKHIR,LPK_KETERANGAN,LPK_KATEGORI,LPK_CREATE_BY,LPK_CREATE_DATE,LPK_PROVINSI,LPK_KABUPATENKOTA,LPK_LOGCODE,LPK_STATUS";
             var fvalue =
                         "'" + lastid + "'," +
-                        "'" + tl.LPK_JENIS + "'," +
+                        "" + tl.LPK_JENIS + "," +
                         "'" + tl.LPK_NAMA + "'," +
                         "'" + tl.LPK_NOMOR + "'," +
                         "'" + tl.LPK_ALAMAT + "'," +
@@ -297,6 +297,7 @@ namespace SISPK.Controllers.Portal
 
                     update =
                         "LPK_NAMA = '" + tl.LPK_NAMA + "'," +
+                        "LPK_JENIS = " + tl.LPK_JENIS + "," +
                         "LPK_NOMOR = '" + tl.LPK_NOMOR + "'," +
                         "LPK_ALAMAT = '" + tl.LPK_ALAMAT + "'," +
                         "LPK_LAMPIRAN = '" + pathss + "" + file_name_att + "'," +
@@ -312,6 +313,7 @@ namespace SISPK.Controllers.Portal
                 else {
                     update =
                         "LPK_NAMA = '" + tl.LPK_NAMA + "'," +
+                        "LPK_JENIS = " + tl.LPK_JENIS + "," +
                         "LPK_NOMOR = '" + tl.LPK_NOMOR + "'," +
                         "LPK_ALAMAT = '" + tl.LPK_ALAMAT + "'," +
                         "LPK_TELEPON = '" + tl.LPK_TELEPON + "'," +

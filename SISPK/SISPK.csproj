@@ -60,8 +60,8 @@
       <HintPath>..\packages\Aspose.Words.15.9.0\lib\net40\Aspose.Words.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EPPlus">
       <HintPath>..\packages\EPPlus.4.0.4\lib\net20\EPPlus.dll</HintPath>
@@ -71,7 +71,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Oracle.DataAccess, Version=4.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
+    <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\app\ACER\product\11.2.0\client_1\odp.net\bin\4\Oracle.DataAccess.dll</HintPath>
     </Reference>
@@ -273,6 +273,7 @@
     <Compile Include="Controllers\Portal\NewsController.cs" />
     <Compile Include="Controllers\Portal\ProfileController.cs" />
     <Compile Include="Controllers\Portal\RegulasiTeknisController.cs" />
+    <Compile Include="Controllers\Portal\ScopeController.cs" />
     <Compile Include="Controllers\Portal\SliderController.cs" />
     <Compile Include="Controllers\Publikasi\PublikasiController.cs" />
     <Compile Include="Controllers\Setting\AksesRoleController.cs" />
@@ -8428,6 +8429,10 @@
     <Content Include="Views\PenetapanSNI\DetailRSNI.cshtml" />
     <Content Include="Views\JajakPendapat\Update.cshtml" />
     <Content Include="Views\ReJajakPendapat\Update.cshtml" />
+    <Content Include="Views\Scope\Create.cshtml" />
+    <Content Include="Views\Scope\Edit.cshtml" />
+    <Content Include="Views\Scope\Index.cshtml" />
+    <Content Include="Views\Scope\Read.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
