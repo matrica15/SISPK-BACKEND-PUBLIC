@@ -607,7 +607,7 @@ warning 6002: The table/view 'C##BSN_SISPK.SYS_HIT_COUNTERS' does not have a pri
             <PropertyRef Name="HC_ID" />
           </Key>
           <Property Name="HC_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="HC_IP" Type="varchar2" MaxLength="16" />
+          <Property Name="HC_IP" Type="varchar2" MaxLength="28" />
           <Property Name="HC_LINK" Type="varchar2" MaxLength="4000" />
           <Property Name="HC_USER_AGENT" Type="varchar2" MaxLength="4000" />
           <Property Name="HC_DATE" Type="date" />
@@ -9572,7 +9572,7 @@ FROM "C##BSN_SISPK"."VIEW_WILAYAH_PROVINSI" "VIEW_WILAYAH_PROVINSI"</DefiningQue
             <PropertyRef Name="HC_ID" />
           </Key>
           <Property Name="HC_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="HC_IP" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="HC_IP" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
           <Property Name="HC_LINK" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="HC_USER_AGENT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="HC_DATE" Type="DateTime" />
