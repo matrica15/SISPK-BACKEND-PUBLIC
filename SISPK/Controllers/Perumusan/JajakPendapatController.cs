@@ -578,6 +578,8 @@ namespace SISPK.Controllers.Perumusan
         {
             var USER_ID = Convert.ToInt32(Session["USER_ID"]);
             var DataProposal = (from proposal in db.VIEW_PROPOSAL where proposal.PROPOSAL_ID == id select proposal).SingleOrDefault();
+            
+
             var date_start = DataProposal.POLLING_START_DATE;
             var date_end = DataProposal.POLLING_END_DATE;
             DateTime dt_start = DateTime.ParseExact(date_start.ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
